@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendendo Rotações em Árvores Binárias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .node, .line {
+            transition: all 0.7s ease-in-out;
+        }
+        .feedback-card, #quiz-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilos para desabilitar inputs */
+        .controls-disabled fieldset {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .mode-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        /* Estilos das abas */
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
+        }
+        /* Estilos para o conteúdo da teoria */
+        #theory-content h2, #quiz-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+         #theory-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #theory-content p, #theory-content ul {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        #theory-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        #theory-content code {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        #theory-content strong {
+            font-weight: 600;
+        }
+        .theory-example-container {
+            margin: 1.5rem auto;
+            max-width: 450px;
+        }
+        .theory-svg-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+        .theory-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+        .theory-btn {
+            background-color: #4338ca;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .theory-btn:hover {
+            background-color: #3730a3;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: left;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center min-h-screen p-4">
+
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-[60px]">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Treinador de Rotação de Árvore AVL</h1>
+            <p class="text-slate-600 mt-2">Alterne entre 'Prática', 'Teoria' e 'Quiz' para aprofundar seus conhecimentos.</p>
+        </header>
+
+        <!-- Abas de Navegação -->
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                <button id="tab-practice" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Prática</button>
+                <button id="tab-theory" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Teoria</button>
+                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo da Aba de Prática -->
+        <div id="practice-content">
+            <p class="text-slate-600 text-center mb-6 -mt-2">Escolha um modo: resolva um 'Desafio Rápido' ou construa sua própria árvore no 'Modo Sandbox'.</p>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Coluna de Controles -->
+                <div id="controls-section" class="lg:w-1/4">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Controles</h2>
+                    <div class="flex border border-slate-300 rounded-lg p-1 bg-slate-100 mb-4">
+                        <button id="mode-challenge-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors">Desafio Rápido</button>
+                        <button id="mode-sandbox-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors active">Modo Sandbox</button>
+                    </div>
+                    <fieldset id="controls-fieldset">
+                        <div id="sandbox-controls" class="space-y-4">
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label for="node-count" class="block text-sm font-medium text-slate-700">Nós Aleatórios</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="number" id="node-count" value="5" min="3" max="15" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <button id="generate-tree-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
+                                </div>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir / Remover Nó</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="number" id="node-value" placeholder="Valor" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <button id="insert-node-btn" class="w-1/2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Inserir</button>
+                                    <button id="remove-node-btn" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover</button>
+                                </div>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label for="sequence-input" class="block text-sm font-medium text-slate-700">Construir a partir de Sequência</label>
+                                <div class="flex flex-wrap items-center gap-2 mt-1">
+                                    <input type="text" id="sequence-input" placeholder="Ex: 50, 25, -50, 75" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <button id="build-tree-btn" class="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Construir</button>
+                                    <button id="pause-resume-sequence-btn" class="hidden flex-grow bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Pausar</button>
+                                    <button id="replay-sequence-btn" class="hidden flex-grow bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Replay</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="challenge-controls" class="hidden">
+                             <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label class="block text-sm font-medium text-slate-700">Gerar Problema</label>
+                                <button id="next-challenge-btn" class="w-full mt-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Próximo Desafio</button>
+                                <button id="replay-challenge-btn" class="hidden w-full mt-2 bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Rever Animação</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Coluna da Árvore e Quiz -->
+                <div class="lg:w-3/4 flex flex-col">
+                    <div id="visualization-container" class="w-full flex-grow bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden relative">
+                        <svg id="tree-svg" width="100%" height="100%"></svg>
+                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-500 text-center w-full px-4">Use os controles para começar.</p>
+                    </div>
+                    <div id="challenge-question-section" class="hidden mt-4">
+                        <h2 id="question" class="text-lg font-semibold mb-3">Qual rotação é necessária para rebalancear a árvore?</h2>
+                        <div id="options-container" class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+                            <button data-answer="right" class="option-btn bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Direita</button>
+                            <button data-answer="left" class="option-btn bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Esquerda</button>
+                            <button data-answer="left-right" class="option-btn bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Esq-Dir</button>
+                            <button data-answer="right-left" class="option-btn bg-sky-500 hover:bg-sky-600 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Dir-Esq</button>
+                            <button data-answer="none" class="option-btn bg-slate-500 hover:bg-slate-600 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105 col-span-2 lg:col-span-1">Nenhuma</button>
+                        </div>
+                    </div>
+                    <div id="feedback-section" class="hidden mt-4">
+                         <div id="feedback-card" class="feedback-card p-5 rounded-lg">
+                            <h3 id="feedback-title" class="text-xl font-bold mb-2"></h3>
+                            <p id="feedback-explanation" class="text-sm md:text-base"></p>
+                        </div>
+                        <button id="feedback-continue-btn" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Continuar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Teoria -->
+        <div id="theory-content" class="hidden text-left">
+            <!-- Conteúdo da teoria permanece o mesmo -->
+             <h2>O que é uma Árvore AVL?</h2>
+            <p>Uma Árvore AVL é um tipo especial de <strong>Árvore Binária de Busca (ABB)</strong> que é <strong>auto-balanceável</strong>. Ela mantém sua altura a menor possível, garantindo que operações como busca, inserção e remoção sejam extremamente eficientes, com complexidade de tempo de <strong>O(log n)</strong> no pior caso.</p>
+             <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-balanced"></svg></div>
+             </div>
+            <p>Enquanto uma ABB normal pode se degenerar em uma estrutura semelhante a uma lista ligada (levando a um desempenho O(n)), a AVL evita isso realizando pequenas reorganizações chamadas <strong>rotações</strong> sempre que um desbalanceamento é detectado.</p>
+             <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-unbalanced"></svg></div>
+             </div>
+            <h2>Fator de Balanceamento</h2>
+            <p>A "mágica" da AVL reside em monitorar o <strong>Fator de Balanceamento (FB)</strong> de cada nó. O FB de um nó é calculado da seguinte forma:</p>
+            <p class="text-center bg-slate-100 p-3 rounded-md"><code>FB = Altura(Subárvore Esquerda) - Altura(Subárvore Direita)</code></p>
+            <p>Em uma árvore AVL válida, o Fator de Balanceamento de <strong>todos</strong> os nós deve ser <strong>-1, 0 ou 1</strong>. Se, após uma inserção ou remoção, o FB de algum nó se torna -2 ou 2, a árvore está desbalanceada e uma rotação é necessária para corrigir o problema.</p>
+            <h2>As Rotações: Corrigindo o Desbalanceamento</h2>
+            <p>Existem quatro tipos de desbalanceamento que podem ocorrer, cada um corrigido por um tipo específico de rotação.</p>
+            <h3>1. Rotação Simples à Direita (Caso Esquerda-Esquerda)</h3>
+            <p>Ocorre quando um nó (Z) fica desbalanceado (FB = 2) porque seu filho esquerdo (Y) também está "pesado" para a esquerda (FB = 1). A solução é uma única rotação à direita em Z.</p>
+            <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-rr"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-rr" class="theory-btn">Play</button>
+                    <button id="replay-rr" class="theory-btn">Replay</button>
+                </div>
+            </div>
+            <h3>2. Rotação Simples à Esquerda (Caso Direita-Direita)</h3>
+            <p>É o espelho do caso anterior. Ocorre quando um nó (Z) fica desbalanceado (FB = -2) porque seu filho direito (Y) também está "pesado" para a direita (FB = -1). A solução é uma única rotação à esquerda em Z.</p>
+            <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-lr"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-lr" class="theory-btn">Play</button>
+                    <button id="replay-lr" class="theory-btn">Replay</button>
+                </div>
+            </div>
+            <h3>3. Rotação Dupla: Esquerda-Direita (Caso Esquerda-Direita)</h3>
+            <p>Este é um caso "em zigue-zague". O nó (Z) fica desbalanceado para a esquerda (FB = 2), mas seu filho esquerdo (Y) está pesado para a direita (FB = -1). Para corrigir, são necessários dois passos:</p>
+            <ul>
+                <li><strong>Passo 1:</strong> Uma rotação à <strong>esquerda</strong> no filho (Y).</li>
+                <li><strong>Passo 2:</strong> Uma rotação à <strong>direita</strong> no nó original (Z).</li>
+            </ul>
+            <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-lrr"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-lrr" class="theory-btn">Play</button>
+                    <button id="replay-lrr" class="theory-btn">Replay</button>
+                </div>
+            </div>
+            <h3>4. Rotação Dupla: Direita-Esquerda (Caso Direita-Esquerda)</h3>
+            <p>O espelho do caso Esquerda-Direita. O nó (Z) fica desbalanceado para a direita (FB = -2), mas seu filho direito (Y) está pesado para a esquerda (FB = 1). A correção também é em dois passos:</p>
+            <ul>
+                <li><strong>Passo 1:</strong> Uma rotação à <strong>direita</strong> no filho (Y).</li>
+                <li><strong>Passo 2:</strong> Uma rotação à <strong>esquerda</strong> no nó original (Z).</li>
+            </ul>
+             <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-rlr"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-rlr" class="theory-btn">Play</button>
+                    <button id="replay-rlr" class="theory-btn">Replay</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Quiz -->
+        <div id="quiz-content" class="hidden text-center">
+             <div id="quiz-selection-screen">
+                <h2>Quiz sobre Árvores AVL</h2>
+                <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
+                <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
+                    <!-- Buttons will be generated here -->
+                </div>
+            </div>
+            <div id="quiz-container" class="hidden">
+                 <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
+                 <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                 <div id="quiz-practice-area" class="hidden my-4">
+                     <div class="w-full h-64 bg-slate-100 rounded-lg mx-auto max-w-md">
+                         <svg id="quiz-tree-svg" width="100%" height="100%"></svg>
+                     </div>
+                 </div>
+                 <div id="quiz-options" class="space-y-3"></div>
+                 <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
+                 <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+            </div>
+             <div id="quiz-results-screen" class="hidden">
+                 <h2>Quiz Finalizado!</h2>
+                 <p class="my-4 text-lg">Sua pontuação foi:</p>
+                 <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
+                 <div class="flex justify-center gap-4 mt-8">
+                    <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
+                    <button id="back-to-quizzes-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Classes e Variáveis Globais ---
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.left = null;
+                this.right = null;
+                this.height = 1;
+            }
+        }
+
+        // DOM Elements
+        const svg = document.getElementById('tree-svg');
+        const emptyMessage = document.getElementById('empty-message');
+        const controlsSection = document.getElementById('controls-section');
+        const controlsFieldset = document.getElementById('controls-fieldset');
+        const sandboxControls = document.getElementById('sandbox-controls');
+        const challengeControls = document.getElementById('challenge-controls');
+        const generateBtn = document.getElementById('generate-tree-btn');
+        const countInput = document.getElementById('node-count');
+        const insertBtn = document.getElementById('insert-node-btn');
+        const removeBtn = document.getElementById('remove-node-btn');
+        const valueInput = document.getElementById('node-value');
+        const sequenceInput = document.getElementById('sequence-input');
+        const buildTreeBtn = document.getElementById('build-tree-btn');
+        const replaySequenceBtn = document.getElementById('replay-sequence-btn');
+        const pauseResumeSequenceBtn = document.getElementById('pause-resume-sequence-btn');
+        const modeChallengeBtn = document.getElementById('mode-challenge-btn');
+        const modeSandboxBtn = document.getElementById('mode-sandbox-btn');
+        const nextChallengeBtn = document.getElementById('next-challenge-btn');
+        const replayChallengeBtn = document.getElementById('replay-challenge-btn');
+        const challengeQuestionSection = document.getElementById('challenge-question-section');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackCard = document.getElementById('feedback-card');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackExplanation = document.getElementById('feedback-explanation');
+        const feedbackContinueBtn = document.getElementById('feedback-continue-btn');
+        const tabPractice = document.getElementById('tab-practice');
+        const tabTheory = document.getElementById('tab-theory');
+        const tabQuiz = document.getElementById('tab-quiz');
+        const practiceContent = document.getElementById('practice-content');
+        const theoryContent = document.getElementById('theory-content');
+        const quizContent = document.getElementById('quiz-content');
+
+        // State
+        let root = null;
+        let correctAnswer = null;
+        let unbalancedNode = null;
+        let currentMode = 'sandbox'; // 'challenge' or 'sandbox'
+        let lastChallengeState = null;
+        let lastSequence = null;
+        let isSequencePaused = false;
+
+        const explanations = {
+            'right': "Uma <strong>Rotação à Direita</strong> é necessária. Este caso, conhecido como 'Esquerda-Esquerda', ocorre quando o nó desbalanceado (com Fator de Balanceamento +2) tem um filho esquerdo também 'pesado' para a esquerda (FB +1). A rotação simples à direita resolve o problema.",
+            'left': "Uma <strong>Rotação à Esquerda</strong> é necessária. Este caso, conhecido como 'Direita-Direita', ocorre quando o nó desbalanceado (com Fator de Balanceamento -2) tem um filho direito também 'pesado' para a direita (FB -1). A rotação simples à esquerda resolve o problema.",
+            'left-right': "Uma <strong>Rotação Esquerda-Direita</strong> é necessária. Este caso, conhecido como 'zigue-zague', ocorre quando o nó desbalanceado (FB +2) tem um filho esquerdo 'pesado' para a direita (FB -1). Primeiro, uma rotação à esquerda é feita no filho para alinhar a subárvore, e depois uma rotação à direita é feita no nó original.",
+            'right-left': "Uma <strong>Rotação Direita-Esquerda</strong> é necessária. Este é o caso 'zigue-zague' oposto, onde o nó desbalanceado (FB -2) tem um filho direito 'pesado' para a esquerda (FB +1). Primeiro, uma rotação à direita é feita no filho, seguida por uma rotação à esquerda no nó original.",
+            'none': "Nenhuma rotação é necessária. Apesar da inserção/remoção, o Fator de Balanceamento de todos os nós permaneceu no intervalo válido de [-1, 0, 1]. A árvore já está balanceada."
+        };
+
+        const rotationNamesPT = {
+            'right': 'Direita',
+            'left': 'Esquerda',
+            'left-right': 'Esquerda-Direita',
+            'right-left': 'Direita-Esquerda',
+            'none': 'Nenhuma'
+        };
+
+        // --- Lógica da Árvore AVL ---
+        const getHeight = (node) => node ? node.height : 0;
+        const getBalanceFactor = (node) => node ? getHeight(node.left) - getHeight(node.right) : 0;
+        const updateHeight = (node) => 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        const rightRotate = (y) => {
+            if (!y || !y.left) {
+                console.error("Invalid rightRotate call on node:", y);
+                return y;
+            }
+            let x = y.left;
+            let T2 = x.right;
+            x.right = y;
+            y.left = T2;
+            y.height = updateHeight(y);
+            x.height = updateHeight(x);
+            return x;
+        };
+        const leftRotate = (x) => {
+            if (!x || !x.right) {
+                console.error("Invalid leftRotate call on node:", x);
+                return x;
+            }
+            let y = x.right;
+            let T2 = y.left;
+            y.left = x;
+            x.right = T2;
+            x.height = updateHeight(x);
+            y.height = updateHeight(y);
+            return y;
+        };
+        function insert(node, value) {
+            if (!node) return new Node(value);
+            if (value < node.value) node.left = insert(node.left, value);
+            else if (value > node.value) node.right = insert(node.right, value);
+            else return node;
+            node.height = updateHeight(node);
+            return node;
+        }
+        function removeNode(node, value) {
+            if (!node) return node;
+            if (value < node.value) node.left = removeNode(node.left, value);
+            else if (value > node.value) node.right = removeNode(node.right, value);
+            else {
+                if (!node.left || !node.right) node = node.left || node.right;
+                else { let temp = node.right; while (temp.left) temp = temp.left; node.value = temp.value; node.right = removeNode(node.right, temp.value); }
+            }
+            if (node) node.height = updateHeight(node);
+            return node;
+        }
+        function findNodeByValue(node, value) {
+            if (!node) return null;
+            if (node.value === value) return node;
+            return value < node.value ? findNodeByValue(node.left, value) : findNodeByValue(node.right, value);
+        }
+        function findUnbalancedNode(node) {
+            if (!node) return null;
+            let leftUnbalanced = findUnbalancedNode(node.left); if (leftUnbalanced) return leftUnbalanced;
+            let rightUnbalanced = findUnbalancedNode(node.right); if (rightUnbalanced) return rightUnbalanced;
+            return Math.abs(getBalanceFactor(node)) > 1 ? node : null;
+        }
+        function determineRotationType(node) {
+            if (!node) return 'none';
+            const balance = getBalanceFactor(node);
+            if (balance > 1) return getBalanceFactor(node.left) >= 0 ? 'right' : 'left-right';
+            if (balance < -1) return getBalanceFactor(node.right) <= 0 ? 'left' : 'right-left';
+            return 'none';
+        }
+        function balanceTree(node) {
+            if (!node) return node;
+            node.height = updateHeight(node); const balance = getBalanceFactor(node);
+            if (balance > 1) {
+                if (getBalanceFactor(node.left) < 0) node.left = leftRotate(node.left);
+                return rightRotate(node);
+            }
+            if (balance < -1) {
+                if (getBalanceFactor(node.right) > 0) node.right = rightRotate(node.right);
+                return leftRotate(node);
+            }
+            return node;
+        }
+        function balanceRecursive(node) {
+             if (!node) return node;
+             node.left = balanceRecursive(node.left); node.right = balanceRecursive(node.right);
+             return balanceTree(node);
+        }
+
+        // --- Lógica de Visualização e Animação ---
+        function getPositions(node, x, y, xOffset, map) { if (!node) return; map.set(node.value, { x, y }); if (node.left) getPositions(node.left, x - xOffset, y + 70, xOffset / 2, map); if (node.right) getPositions(node.right, x + xOffset, y + 70, xOffset / 2, map); }
+
+        function drawTree(node, svgEl = svg, localUnbalancedNode = unbalancedNode) {
+            svgEl.innerHTML = '';
+
+            if (!node) {
+                if (svgEl === svg) emptyMessage.classList.remove('hidden');
+                return;
+            }
+            if (svgEl === svg) emptyMessage.classList.add('hidden');
+
+            const positions = new Map();
+            const virtualWidth = 800;
+            getPositions(node, virtualWidth / 2, 40, virtualWidth / 4, positions);
+
+            if (positions.size > 0) {
+                let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+                const padding = 25;
+
+                for (const pos of positions.values()) {
+                    minX = Math.min(minX, pos.x);
+                    maxX = Math.max(maxX, pos.x);
+                    minY = Math.min(minY, pos.y);
+                    maxY = Math.max(maxY, pos.y);
+                }
+
+                let treeContentWidth = maxX - minX;
+                let treeContentHeight = maxY - minY;
+
+                if (svgEl === svg) { // Área de prática principal
+                    const minViewBoxWidth = 500;
+                    const minViewBoxHeight = 220;
+                    const finalTreeWidth = Math.max(treeContentWidth, minViewBoxWidth);
+                    const finalTreeHeight = Math.max(treeContentHeight, minViewBoxHeight);
+                    const finalMinX = minX - (finalTreeWidth - treeContentWidth) / 2;
+                    const finalMinY = minY - (finalTreeHeight - treeContentHeight) / 2;
+                    const practicePadding = 80;
+                    svgEl.setAttribute('viewBox', `${finalMinX - practicePadding} ${finalMinY - practicePadding} ${finalTreeWidth + practicePadding * 2} ${finalTreeHeight + practicePadding * 2}`);
+
+                } else if (svgEl === quizTreeSvg) { // Área do Quiz
+                    const container = svgEl.parentElement;
+                    const containerWidth = container.clientWidth > 0 ? container.clientWidth : 448;
+                    const containerHeight = container.clientHeight > 0 ? container.clientHeight : 256;
+                    const containerAspectRatio = containerWidth / containerHeight;
+
+                    const contentWidthWithPadding = treeContentWidth + (padding * 2);
+                    const contentHeightWithPadding = treeContentHeight + (padding * 2);
+                    const contentAspectRatio = contentWidthWithPadding / contentHeightWithPadding;
+
+                    let viewBoxWidth = contentWidthWithPadding;
+                    let viewBoxHeight = contentHeightWithPadding;
+
+                    if (contentAspectRatio > containerAspectRatio) {
+                        viewBoxHeight = contentWidthWithPadding / containerAspectRatio;
+                    } else {
+                        viewBoxWidth = contentHeightWithPadding * containerAspectRatio;
+                    }
+
+                    const viewBoxX = minX - ((viewBoxWidth - contentWidthWithPadding) / 2) - padding;
+                    const viewBoxY = minY - ((viewBoxHeight - contentHeightWithPadding) / 2) - padding;
+
+                    svgEl.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
+                } else { // Área da Teoria
+                     svgEl.setAttribute('viewBox', `${minX - padding} ${minY - padding} ${treeContentWidth + padding * 2} ${treeContentHeight + padding * 2}`);
+                }
+            }
+
+            function drawRecursive(curr) {
+                if (!curr) return; const pos = positions.get(curr.value);
+                if (curr.left) { const childPos = positions.get(curr.left.value); drawLine(svgEl, pos.x, pos.y, childPos.x, childPos.y, `line-to-${curr.left.value}`); drawRecursive(curr.left); }
+                if (curr.right) { const childPos = positions.get(curr.right.value); drawLine(svgEl, pos.x, pos.y, childPos.x, childPos.y, `line-to-${curr.right.value}`); drawRecursive(curr.right); }
+                drawNode(svgEl, pos.x, pos.y, curr.value, getBalanceFactor(curr), `node-${curr.value}`, localUnbalancedNode && localUnbalancedNode.value === curr.value);
+            }
+            drawRecursive(node);
+        }
+
+        function drawNode(svgEl, cx, cy, value, bf, id, isUnbalanced) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('class', 'node'); g.id = id; g.setAttribute('transform', `translate(${cx}, ${cy})`);
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('r', 13);
+            circle.setAttribute('class', isUnbalanced ? 'fill-red-400 stroke-red-600' : 'fill-sky-200 stroke-sky-500');
+            circle.setAttribute('stroke-width', '2');
+            const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            valueText.setAttribute('y', 4);
+            valueText.setAttribute('text-anchor', 'middle');
+            valueText.setAttribute('class', 'fill-slate-900 font-bold text-sm');
+            valueText.textContent = value;
+            const bfText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            bfText.setAttribute('x', 15);
+            bfText.setAttribute('y', -10);
+            bfText.setAttribute('text-anchor', 'middle');
+            bfText.setAttribute('class', 'fill-indigo-600 font-semibold text-xs');
+            bfText.textContent = bf;
+            g.appendChild(circle); g.appendChild(valueText); g.appendChild(bfText);
+            svgEl.appendChild(g);
+        }
+        function drawLine(svgEl, x1, y1, x2, y2, id) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1); line.setAttribute('y1', y1); line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+            line.id = id; line.setAttribute('class', 'line stroke-slate-400'); line.setAttribute('stroke-width', '2');
+            svgEl.prepend(line);
+        }
+        function clearSVG() { svg.innerHTML = ''; }
+
+        async function animateState(targetTree) {
+            const afterPositions = new Map();
+            const virtualWidth = 800;
+            getPositions(targetTree, virtualWidth / 2, 40, virtualWidth / 4, afterPositions);
+
+            const afterLinesMap = new Map();
+            function buildAfterLinesMap(node) {
+                if (!node) return;
+                if (node.left) afterLinesMap.set(node.left.value, node.value);
+                if (node.right) afterLinesMap.set(node.right.value, node.value);
+                buildAfterLinesMap(node.left);
+                buildAfterLinesMap(node.right);
+            }
+            buildAfterLinesMap(targetTree);
+
+            svg.querySelectorAll('.node').forEach(nodeEl => {
+                const value = parseInt(nodeEl.id.replace('node-', ''));
+                if (afterPositions.has(value)) {
+                    const { x, y } = afterPositions.get(value);
+                    nodeEl.setAttribute('transform', `translate(${x}, ${y})`);
+                }
+            });
+
+            const lineElements = new Map();
+            svg.querySelectorAll('.line').forEach(line => {
+                const childValue = parseInt(line.id.replace('line-to-', ''));
+                lineElements.set(childValue, line);
+            });
+
+            lineElements.forEach((lineEl, childValue) => {
+                if (afterLinesMap.has(childValue)) {
+                    const parentValue = afterLinesMap.get(childValue);
+                    const { x: x1, y: y1 } = afterPositions.get(parentValue);
+                    const { x: x2, y: y2 } = afterPositions.get(childValue);
+                    lineEl.setAttribute('x1', x1);
+                    lineEl.setAttribute('y1', y1);
+                    lineEl.setAttribute('x2', x2);
+                    lineEl.setAttribute('y2', y2);
+                } else {
+                    lineEl.style.opacity = '0';
+                }
+            });
+
+            afterLinesMap.forEach((parentValue, childValue) => {
+                if (!lineElements.has(childValue)) {
+                    const { x: x1, y: y1 } = afterPositions.get(parentValue);
+                    const { x: x2, y: y2 } = afterPositions.get(childValue);
+                    const newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    newLine.id = `line-to-${childValue}`;
+                    newLine.setAttribute('class', 'line stroke-slate-400');
+                    newLine.setAttribute('stroke-width', '2');
+                    newLine.setAttribute('x1', x1);
+                    newLine.setAttribute('y1', y1);
+                    newLine.setAttribute('x2', x2);
+                    newLine.setAttribute('y2', y2);
+                    newLine.style.opacity = '0';
+                    svg.prepend(newLine);
+                    setTimeout(() => { newLine.style.opacity = '1'; }, 50);
+                }
+            });
+
+            await new Promise(resolve => setTimeout(resolve, 800));
+        }
+
+        async function animateAndBalance() {
+            const rotationType = determineRotationType(unbalancedNode);
+            let tempRoot = JSON.parse(JSON.stringify(root));
+
+            // Step 1: Animate first rotation of a double rotation, if applicable
+            if (rotationType === 'left-right') {
+                let tempUnbalanced = findNodeByValue(tempRoot, unbalancedNode.value);
+                if (tempUnbalanced && tempUnbalanced.left && tempUnbalanced.left.right) {
+                    tempUnbalanced.left = leftRotate(tempUnbalanced.left);
+                    await animateState(tempRoot);
+                    root.left = leftRotate(root.left);
+                }
+            } else if (rotationType === 'right-left') {
+                 let tempUnbalanced = findNodeByValue(tempRoot, unbalancedNode.value);
+                 if (tempUnbalanced && tempUnbalanced.right && tempUnbalanced.right.left) {
+                    tempUnbalanced.right = rightRotate(tempUnbalanced.right);
+                    await animateState(tempRoot);
+                    root.right = rightRotate(root.right);
+                 }
+            }
+
+            // Step 2: Animate to the final balanced state.
+            let finalRoot = balanceRecursive(JSON.parse(JSON.stringify(root)));
+            await animateState(finalRoot);
+
+            // Step 3: Update the real tree state.
+            unbalancedNode = null;
+            root = balanceRecursive(root);
+            drawTree(root);
+        }
+
+        // --- Lógica de Controle e Desafio Rápido ---
+        function setMode(newMode) {
+            currentMode = newMode;
+            root = null; unbalancedNode = null;
+            endChallenge(true);
+            drawTree(root);
+            if (newMode === 'challenge') {
+                modeChallengeBtn.classList.add('active'); modeSandboxBtn.classList.remove('active');
+                sandboxControls.classList.add('hidden'); challengeControls.classList.remove('hidden');
+                emptyMessage.textContent = "Clique em 'Próximo Desafio' para começar.";
+            } else { // sandbox
+                modeSandboxBtn.classList.add('active'); modeChallengeBtn.classList.remove('active');
+                challengeControls.classList.add('hidden'); sandboxControls.classList.remove('hidden');
+                emptyMessage.textContent = "Use os controles para começar.";
+            }
+        }
+        function generateChallengeProblem() {
+            feedbackSection.classList.add('hidden'); // Hide feedback from previous question
+            lastChallengeState = null;
+            replayChallengeBtn.classList.add('hidden');
+            root = null;
+            let values = [];
+            const problemTypes = ['left', 'right', 'left-right', 'right-left'];
+            const randomType = problemTypes[Math.floor(Math.random() * problemTypes.length)];
+            const startVal = Math.floor(Math.random() * 50) + 25;
+            switch(randomType) {
+                case 'right': values = [startVal, startVal - 10, startVal - 20]; break;
+                case 'left': values = [startVal, startVal + 10, startVal + 20]; break;
+                case 'left-right': values = [startVal, startVal - 20, startVal - 10]; break;
+                case 'right-left': values = [startVal, startVal + 20, startVal + 10]; break;
+            }
+            const extraNodeCount = Math.floor(Math.random() * 5);
+            const valueSet = new Set(values);
+            while(valueSet.size < 3 + extraNodeCount) {
+                valueSet.add(Math.floor(Math.random() * 100));
+            }
+            const unbalancedValue = values[2];
+            valueSet.delete(unbalancedValue);
+            valueSet.forEach(val => { root = insert(root, val); root = balanceRecursive(root); });
+            root = insert(root, unbalancedValue);
+            unbalancedNode = findUnbalancedNode(root);
+            if (!unbalancedNode) {
+                generateChallengeProblem(); return;
+            }
+            correctAnswer = determineRotationType(unbalancedNode);
+            drawTree(root);
+            startChallenge();
+        }
+
+        function processChange() { // Sandbox mode
+            unbalancedNode = findUnbalancedNode(root);
+            drawTree(root);
+            if (unbalancedNode) { correctAnswer = determineRotationType(unbalancedNode); startChallenge(); }
+            else { correctAnswer = null; }
+        }
+        function startChallenge() {
+            challengeQuestionSection.classList.remove('hidden');
+        }
+        function endChallenge(fullReset = false) {
+            challengeQuestionSection.classList.add('hidden');
+            if (fullReset) {
+                feedbackSection.classList.add('hidden');
+            }
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = false);
+        }
+        function checkChallengeAnswer(userAnswer) {
+            optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+            challengeQuestionSection.classList.add('hidden');
+            feedbackSection.classList.remove('hidden');
+            feedbackContinueBtn.classList.remove('hidden'); // Ensure the button is visible for new feedback.
+
+            if (userAnswer === correctAnswer) {
+                feedbackTitle.textContent = "Correto! ✅";
+                feedbackCard.className = 'feedback-card p-5 rounded-lg bg-green-100 text-green-800';
+                feedbackExplanation.innerHTML = explanations[correctAnswer];
+                feedbackContinueBtn.textContent = 'Ver Animação';
+            } else {
+                feedbackTitle.textContent = "Incorreto! ❌";
+                feedbackCard.className = 'feedback-card p-5 rounded-lg bg-red-100 text-red-800';
+
+                const correctPortugueseName = rotationNamesPT[correctAnswer];
+                let detailedExplanation = `A resposta correta era <strong>${correctPortugueseName.toUpperCase()}</strong>. `;
+
+                if (correctAnswer !== 'none') {
+                    const unbalancedValue = unbalancedNode.value;
+                    const balanceFactor = getBalanceFactor(unbalancedNode);
+                    const side = balanceFactor > 1 ? 'esquerdo' : 'direito';
+                    let caseName = '';
+
+                    if (correctAnswer === 'right') {
+                        caseName = "'Esquerda-Esquerda'";
+                    } else if (correctAnswer === 'left') {
+                        caseName = "'Direita-Direita'";
+                    } else if (correctAnswer === 'left-right') {
+                        caseName = "'Esquerda-Direita' (zigue-zague)";
+                    } else if (correctAnswer === 'right-left') {
+                        caseName = "'Direita-Esquerda' (zigue-zague)";
+                    }
+
+                    detailedExplanation += `O nó <strong>${unbalancedValue}</strong> estava com Fator de Balanceamento <strong>${balanceFactor}</strong>, pesado para o lado <strong>${side}</strong>. Isso configura um caso ${caseName}, que exige uma rotação <strong>${correctPortugueseName}</strong>.`;
+                } else {
+                    detailedExplanation = `A resposta correta era <strong>NENHUMA</strong>. A árvore já estava balanceada, pois o Fator de Balanceamento de todos os nós se encontrava no intervalo válido de [-1, 0, 1].`;
+                }
+
+                feedbackExplanation.innerHTML = detailedExplanation;
+                feedbackContinueBtn.textContent = 'Continuar';
+            }
+        }
+
+        function switchTab(tabId) {
+            [practiceContent, theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
+            [tabPractice, tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
+
+            if (tabId === 'practice-content') {
+                drawTree(root);
+            }
+             if (tabId === 'quiz-content') {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('quiz-results-screen').classList.add('hidden');
+                document.getElementById('quiz-selection-screen').classList.remove('hidden');
+            }
+        }
+
+        // --- Lógica da Teoria Interativa ---
+        function drawTheoryNode(svgEl, cx, cy, value, bf, id, isUnbalanced) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('class', 'node'); g.id = id; g.setAttribute('transform', `translate(${cx}, ${cy})`);
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('r', 16); // Raio aumentado
+            circle.setAttribute('class', isUnbalanced ? 'fill-red-400 stroke-red-600' : 'fill-sky-200 stroke-sky-500');
+            circle.setAttribute('stroke-width', '2');
+            const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            valueText.setAttribute('y', 5);
+            valueText.setAttribute('text-anchor', 'middle');
+            valueText.setAttribute('class', 'fill-slate-900 font-bold text-base');
+            valueText.textContent = value;
+            const bfText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            bfText.setAttribute('x', 18); // Posição X ajustada
+            bfText.setAttribute('y', -14); // Posição Y ajustada
+            bfText.setAttribute('text-anchor', 'middle');
+            bfText.setAttribute('class', 'fill-indigo-600 font-semibold text-xs');
+            bfText.textContent = bf;
+            g.appendChild(circle); g.appendChild(valueText); g.appendChild(bfText);
+            svgEl.appendChild(g);
+        }
+
+        function drawTheoryState(svg, nodes, lines, unbalancedValue) {
+            svg.innerHTML = '';
+            lines.forEach(line => drawLine(svg, line.x1, line.y1, line.x2, line.y2, `theory-line-to-${line.to}`));
+            nodes.forEach(node => drawTheoryNode(svg, node.x, node.y, node.value, node.bf, `theory-node-${node.value}`, node.value === unbalancedValue));
+        }
+        function setupAnimatedExample(svgId, playId, replayId, data) {
+             const svg = document.getElementById(svgId);
+            const playBtn = document.getElementById(playId);
+            const replayBtn = document.getElementById(replayId);
+            const drawInitialState = () => {
+                drawTheoryState(svg, data.before.nodes, data.before.lines, data.unbalanced);
+                svg.querySelectorAll('.line').forEach(l => l.style.opacity = '1');
+            };
+
+            async function playAnimation() {
+                 if (data.intermediate) {
+                    await animateTheoryStep(svg, data.intermediate);
+                    await new Promise(res => setTimeout(res, 800));
+                }
+                await animateTheoryStep(svg, data.after);
+            }
+
+            playBtn.addEventListener('click', playAnimation);
+            replayBtn.addEventListener('click', drawInitialState);
+            drawInitialState();
+        }
+
+        async function animateTheoryStep(svg, stepData) {
+            stepData.nodes.forEach(nodeData => {
+                const nodeEl = svg.querySelector(`#theory-node-${nodeData.value}`);
+                if (nodeEl) nodeEl.setAttribute('transform', `translate(${nodeData.x}, ${nodeData.y})`);
+            });
+            const lineElements = new Map();
+            svg.querySelectorAll('.line').forEach(line => {
+                const childValue = parseInt(line.id.replace('theory-line-to-', ''));
+                lineElements.set(childValue, line);
+            });
+            const finalLineChildren = new Set(stepData.lines.map(l => l.to));
+            lineElements.forEach((lineEl, childValue) => {
+                if (!finalLineChildren.has(childValue)) lineEl.style.opacity = '0';
+            });
+            stepData.lines.forEach(lineData => {
+                const lineEl = lineElements.get(lineData.to);
+                if (lineEl) {
+                    lineEl.setAttribute('x1', lineData.x1);
+                    lineEl.setAttribute('y1', lineData.y1);
+                    lineEl.setAttribute('x2', lineData.x2);
+                    lineEl.setAttribute('y2', lineData.y2);
+                    lineEl.style.opacity = '1';
+                } else {
+                    const newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    newLine.id = `theory-line-to-${lineData.to}`;
+                    newLine.setAttribute('class', 'line stroke-slate-400');
+                    newLine.setAttribute('stroke-width', '2');
+                    newLine.setAttribute('x1', lineData.x1);
+                    newLine.setAttribute('y1', lineData.y1);
+                    newLine.setAttribute('x2', lineData.x2);
+                    newLine.setAttribute('y2', lineData.y2);
+                    newLine.style.opacity = '0';
+                    svg.prepend(newLine);
+                    setTimeout(() => { newLine.style.opacity = '1'; }, 50);
+                }
+            });
+        }
+
+        function initializeTheoryExamples() {
+             document.querySelectorAll('.theory-svg-wrapper svg').forEach(svgEl => svgEl.setAttribute('viewBox', '0 0 450 220'));
+             const centerX = 225, topY = 40, levelY = 70, level1X = 70, level2X = 50;
+             drawTheoryState(document.getElementById('theory-svg-balanced'),
+                [{x:centerX, y:topY, value:20, bf:0}, {x:centerX-level1X, y:topY+levelY, value:10, bf:0}, {x:centerX+level1X, y:topY+levelY, value:30, bf:0}],
+                [{from:20, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}], null);
+            drawTheoryState(document.getElementById('theory-svg-unbalanced'),
+                [{x:centerX, y:topY, value:30, bf:2}, {x:centerX-level1X, y:topY+levelY, value:20, bf:1}, {x:centerX-level1X-level2X, y:topY+levelY*2, value:10, bf:0}],
+                [{from:30, to:20, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:10, x1:centerX-level1X, y1:topY+levelY, x2:centerX-level1X-level2X, y2:topY+levelY*2}], 30);
+
+            const rr_data = { unbalanced: 30, before: { nodes: [{x:centerX, y:topY, value:30, bf:2}, {x:centerX-level1X, y:topY+levelY, value:20, bf:1}, {x:centerX-level1X-level2X, y:topY+levelY*2, value:10, bf:0}], lines: [{from:30, to:20, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:10, x1:centerX-level1X, y1:topY+levelY, x2:centerX-level1X-level2X, y2:topY+levelY*2}]}, after: { nodes: [{x:centerX, y:topY, value:20, bf:0}, {x:centerX-level1X, y:topY+levelY, value:10, bf:0}, {x:centerX+level1X, y:topY+levelY, value:30, bf:0}], lines: [{from:20, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}]}};
+            const lr_data = { unbalanced: 10, before: { nodes: [{x:centerX, y:topY, value:10, bf:-2}, {x:centerX+level1X, y:topY+levelY, value:20, bf:-1}, {x:centerX+level1X+level2X, y:topY+levelY*2, value:30, bf:0}], lines: [{from:10, to:20, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX+level1X, y1:topY+levelY, x2:centerX+level1X+level2X, y2:topY+levelY*2}]}, after: { nodes: [{x:centerX, y:topY, value:20, bf:0}, {x:centerX-level1X, y:topY+levelY, value:10, bf:0}, {x:centerX+level1X, y:topY+levelY, value:30, bf:0}], lines: [{from:20, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}]}};
+            const lrr_data = { unbalanced: 30,
+                before: { nodes: [{x:centerX, y:topY, value:30, bf:2}, {x:centerX-level1X, y:topY+levelY, value:10, bf:-1}, {x:centerX-level1X+level2X, y:topY+levelY*2, value:20, bf:0}], lines: [{from:30, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:10, to:20, x1:centerX-level1X, y1:topY+levelY, x2:centerX-level1X+level2X, y2:topY+levelY*2}]},
+                intermediate: { nodes: [{x:centerX, y:topY, value:30, bf:2}, {x:centerX-level1X-level2X, y:topY+levelY, value:20, bf:1}, {x:centerX-level1X, y:topY+levelY*2, value:10, bf:0}], lines: [{from:30, to:20, x1:centerX, y1:topY, x2:centerX-level1X-level2X, y2:topY+levelY}, {from:20, to:10, x1:centerX-level1X-level2X, y1:topY+levelY, x2:centerX-level1X, y2:topY+levelY*2}]},
+                after: { nodes: [{x:centerX, y:topY, value:20, bf:0}, {x:centerX-level1X, y:topY+levelY, value:10, bf:0}, {x:centerX+level1X, y:topY+levelY, value:30, bf:0}], lines: [{from:20, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}]}
+            };
+            const rlr_data = { unbalanced: 10,
+                before: { nodes: [{x:centerX, y:topY, value:10, bf:-2}, {x:centerX+level1X, y:topY+levelY, value:30, bf:1}, {x:centerX+level1X-level2X, y:topY+levelY*2, value:20, bf:0}], lines: [{from:10, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}, {from:30, to:20, x1:centerX+level1X, y1:topY+levelY, x2:centerX+level1X-level2X, y2:topY+levelY*2}]},
+                intermediate: { nodes: [{x:centerX, y:topY, value:10, bf:-2}, {x:centerX+level1X+level2X, y:topY+levelY, value:20, bf:-1}, {x:centerX+level1X, y:topY+levelY*2, value:30, bf:0}], lines: [{from:10, to:20, x1:centerX, y1:topY, x2:centerX+level1X+level2X, y2:topY+levelY}, {from:20, to:30, x1:centerX+level1X+level2X, y1:topY+levelY, x2:centerX+level1X, y2:topY+levelY*2}]},
+                after: { nodes: [{x:centerX, y:topY, value:20, bf:0}, {x:centerX-level1X, y:topY+levelY, value:10, bf:0}, {x:centerX+level1X, y:topY+levelY, value:30, bf:0}], lines: [{from:20, to:10, x1:centerX, y1:topY, x2:centerX-level1X, y2:topY+levelY}, {from:20, to:30, x1:centerX, y1:topY, x2:centerX+level1X, y2:topY+levelY}]}
+            };
+
+            setupAnimatedExample('theory-svg-rr', 'play-rr', 'replay-rr', rr_data);
+            setupAnimatedExample('theory-svg-lr', 'play-lr', 'replay-lr', lr_data);
+            setupAnimatedExample('theory-svg-lrr', 'play-lrr', 'replay-lrr', lrr_data);
+            setupAnimatedExample('theory-svg-rlr', 'play-rlr', 'replay-rlr', rlr_data);
+        }
+
+        // --- Lógica do QUIZ ---
+        const quizQuestions = [
+            // Teoria Básica
+            { type: 'theory', question: 'Qual é o objetivo principal de uma Árvore AVL?', options: ['Armazenar dados em ordem', 'Garantir que a árvore seja completa', 'Manter a altura da árvore o mais baixa possível', 'Simplificar a remoção de nós', 'Permitir valores duplicados'], correctAnswer: 'Manter a altura da árvore o mais baixa possível', explanation: 'O auto-balanceamento da AVL garante que a altura seja logarítmica, otimizando as operações.' },
+            { type: 'theory', question: 'Qual é o intervalo válido para o Fator de Balanceamento (FB) em uma Árvore AVL?', options: ['-1, 0, 1', '-2, -1, 0, 1, 2', '0, 1', 'Apenas 0', 'Qualquer número inteiro'], correctAnswer: '-1, 0, 1', explanation: 'Para ser balanceada, a diferença de altura entre as subárvores de qualquer nó deve ser no máximo 1.' },
+            { type: 'theory', question: 'O que o Fator de Balanceamento representa?', options: ['O número de nós na subárvore esquerda menos na direita', 'A altura da subárvore esquerda menos a altura da direita', 'A soma das alturas das subárvores', 'O valor do nó pai menos o do nó filho', 'A profundidade do nó na árvore'], correctAnswer: 'A altura da subárvore esquerda menos a altura da direita', explanation: 'FB = Altura(Esquerda) - Altura(Direita). É a métrica chave para detectar desbalanceamentos.' },
+            { type: 'theory', question: 'Uma árvore AVL é um tipo especializado de qual outra estrutura de dados?', options: ['Lista Ligada', 'Heap Binário', 'Árvore Binária de Busca (ABB)', 'Grafo', 'Tabela Hash'], correctAnswer: 'Árvore Binária de Busca (ABB)', explanation: 'Uma AVL possui todas as propriedades de uma ABB (valores à esquerda são menores, à direita são maiores) com a adição da regra de balanceamento.' },
+            { type: 'theory', question: 'Qual a complexidade de tempo do pior caso para busca, inserção e remoção em uma AVL?', options: ['O(n)', 'O(log n)', 'O(n^2)', 'O(1)', 'O(n log n)'], correctAnswer: 'O(log n)', explanation: 'O balanceamento garante que a altura da árvore não se degenere, mantendo as operações eficientes.' },
+            // Rotações
+            { type: 'theory', question: 'Uma rotação simples à direita é usada para corrigir qual tipo de desbalanceamento?', options: ['Esquerda-Esquerda', 'Esquerda-Direita', 'Direita-Direita', 'Direita-Esquerda', 'Qualquer um'], correctAnswer: 'Esquerda-Esquerda', explanation: 'O desbalanceamento Esquerda-Esquerda (FB do pai = +2, FB do filho esquerdo = +1) é corrigido com uma rotação à direita.' },
+            { type: 'theory', question: 'Uma rotação simples à esquerda é usada para corrigir qual tipo de desbalanceamento?', options: ['Direita-Direita', 'Direita-Esquerda', 'Esquerda-Esquerda', 'Esquerda-Direita', 'Qualquer um'], correctAnswer: 'Direita-Direita', explanation: 'O desbalanceamento Direita-Direita (FB do pai = -2, FB do filho direito = -1) é corrigido com uma rotação à esquerda.' },
+            { type: 'theory', question: 'Quando uma rotação dupla Esquerda-Direita é necessária?', options: ['FB do pai é +2 e FB do filho esquerdo é +1', 'FB do pai é +2 e FB do filho esquerdo é -1', 'FB do pai é -2 e FB do filho direito é -1', 'FB do pai é -2 e FB do filho direito é +1', 'Quando a árvore está completa'], correctAnswer: 'FB do pai é +2 e FB do filho esquerdo é -1', explanation: 'Este é o caso "zigue-zague", que exige uma rotação à esquerda no filho seguida por uma à direita no pai.' },
+            { type: 'theory', question: 'Quando uma rotação dupla Direita-Esquerda é necessária?', options: ['FB do pai é -2 e FB do filho direito é +1', 'FB do pai é -2 e FB do filho direito é -1', 'FB do pai é +2 e FB do filho esquerdo é +1', 'FB do pai é +2 e FB do filho esquerdo é -1', 'Quando a árvore está perfeitamente balanceada'], correctAnswer: 'FB do pai é -2 e FB do filho direito é +1', explanation: 'Este é o outro caso "zigue-zague", exigindo uma rotação à direita no filho seguida por uma à esquerda no pai.' },
+            { type: 'theory', question: 'Qual é o primeiro passo de uma rotação Direita-Esquerda?', options: ['Uma rotação à direita no nó desbalanceado', 'Uma rotação à esquerda no nó desbalanceado', 'Uma rotação à direita no filho direito do nó desbalanceado', 'Uma rotação à esquerda no filho direito do nó desbalanceado', 'Verificar o FB da raiz'], correctAnswer: 'Uma rotação à direita no filho direito do nó desbalanceado', explanation: 'A primeira rotação em um caso duplo ocorre sempre no filho, para "alinhar" a subárvore antes da rotação final no pai.' },
+            // Prática
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [20, 10, 30, 40, 50], correctAnswer: 'left' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [50, 60, 30, 20, 10], correctAnswer: 'right' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [50, 20, 60, 30], correctAnswer: 'left-right' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [20, 50, 10, 40], correctAnswer: 'right-left' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [10, 20, 5], correctAnswer: 'none' },
+            { type: 'predict_root', question: 'Na árvore [20, 30], qual será a nova raiz após a inserção do nó 40?', values: [20, 30], options: [20, 30, 40, 10, 50], correctAnswer: 30, explanation: "A inserção de 40 cria um desbalanceamento 'Direita-Direita' no nó 20 (FB=-2). Uma rotação simples à esquerda é realizada, fazendo com que o nó 30 se torne a nova raiz." },
+            { type: 'predict_root', question: 'Na árvore [30, 10], qual será a nova raiz após a inserção do nó 20?', values: [30, 10], options: [30, 10, 20, 25, 15], correctAnswer: 20, explanation: "A inserção de 20 cria um desbalanceamento 'Esquerda-Direita' no nó 30 (FB=+2). Uma rotação dupla é necessária, fazendo o nó 20 se tornar a nova raiz." },
+            { type: 'predict_root', question: 'Na árvore [20, 10, 30, 5], qual será a nova raiz após a remoção do nó 30?', values: [20, 10, 30, 5], options: [20, 10, 30, 5, 15], correctAnswer: 10, explanation: "A remoção de 30 causa um desbalanceamento 'Esquerda-Esquerda' no nó 20 (FB=+2). Uma rotação simples à direita é realizada, e o nó 10 se torna a nova raiz." },
+            { type: 'predict_root', question: 'Na árvore [20, 10, 30, 25], qual será a nova raiz após a remoção do nó 10?', values: [20, 10, 30, 25], options: [20, 10, 30, 25, 28], correctAnswer: 25, explanation: "A remoção de 10 causa um desbalanceamento 'Direita-Esquerda' no nó 20 (FB=-2). Uma rotação dupla é necessária, fazendo o nó 25 se tornar a nova raiz." },
+            { type: 'predict_root', question: 'Na árvore [20, 10, 30, 5, 15], qual será a raiz após a inserção do nó 40?', values: [20, 10, 30, 5, 15], options: [20, 10, 30, 40, 15], correctAnswer: 20, explanation: "A inserção de 40 não viola a propriedade de balanceamento da árvore, portanto, a raiz continua sendo o nó 20." },
+             // Mais Teoria
+            { type: 'theory', question: 'Verdadeiro ou Falso: Toda Árvore AVL é uma Árvore Binária de Busca.', options: ['Verdadeiro', 'Falso', 'Depende da altura', 'Apenas se tiver rotação', 'Apenas se for completa'], correctAnswer: 'Verdadeiro', explanation: 'A propriedade de ser uma ABB é um pré-requisito para uma árvore AVL.' },
+            { type: 'theory', question: 'Verdadeiro ou Falso: Toda Árvore Binária de Busca é uma Árvore AVL.', options: ['Falso', 'Verdadeiro', 'Depende do número de nós', 'Apenas se não tiver folhas', 'Apenas se a raiz for par'], correctAnswer: 'Falso', explanation: 'Uma ABB pode estar desbalanceada (ex: uma lista encadeada), o que viola a regra do Fator de Balanceamento da AVL.' },
+            { type: 'theory', question: 'Após uma rotação, a propriedade de Árvore Binária de Busca é...', options: ['Sempre mantida', 'Sempre perdida', 'Às vezes mantida', 'Convertida para uma heap', 'Ignorada'], correctAnswer: 'Sempre mantida', explanation: 'As rotações são projetadas especificamente para preservar a ordem da ABB enquanto corrigem o balanceamento.' },
+            { type: 'theory', question: 'Qual é a altura máxima de uma árvore AVL com 7 nós?', options: ['2', '3', '4', '5', '6'], correctAnswer: '3', explanation: 'A altura de uma AVL cresce de forma logarítmica. Uma árvore com 7 nós pode ser perfeitamente balanceada com altura 3 (raiz, 2 filhos, 4 netos).' },
+            { type: 'theory', question: 'O que acontece se o Fator de Balanceamento de um nó é 0?', options: ['As subárvores têm a mesma altura', 'A subárvore esquerda é maior', 'A subárvore direita é maior', 'O nó é uma folha', 'A árvore está desbalanceada'], correctAnswer: 'As subárvores têm a mesma altura', explanation: 'Um FB de 0 indica um estado de balanceamento perfeito para aquele nó.' },
+            // Mais Prática
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [40, 20, 60, 70, 80, 50], correctAnswer: 'left' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [30, 20, 10], correctAnswer: 'right' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [40, 20, 60, 10, 30, 25], correctAnswer: 'left-right' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [15, 10, 20, 25], correctAnswer: 'none' },
+            { type: 'practice', question: 'Qual rotação é necessária para a árvore abaixo?', values: [10, 5, 20, 15, 30, 12], correctAnswer: 'right-left' },
+        ];
+        const quizStartScreen = document.getElementById('quiz-selection-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const backToQuizzesBtn = document.getElementById('back-to-quizzes-btn');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const quizPracticeArea = document.getElementById('quiz-practice-area');
+        const quizTreeSvg = document.getElementById('quiz-tree-svg');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizExplanationEl = document.getElementById('quiz-explanation');
+
+        let shuffledQuestions, currentQuestionIndex, score, currentQuizNumber;
+
+        function startQuiz(quizNum) {
+            currentQuizNumber = quizNum;
+            quizStartScreen.classList.add('hidden');
+            quizResultsScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+            const startIndex = (quizNum - 1) * 6;
+            const endIndex = startIndex + 6;
+            const questionSubset = quizQuestions.slice(startIndex, endIndex);
+
+            shuffledQuestions = questionSubset.sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            resetQuizState();
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            quizQuestionEl.textContent = questionData.question;
+
+            if (questionData.type === 'theory') {
+                quizPracticeArea.classList.add('hidden');
+                questionData.options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.textContent = optionText;
+                    button.className = 'quiz-option';
+                    button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+                    quizOptionsEl.appendChild(button);
+                });
+            } else if (questionData.type === 'practice') {
+                quizPracticeArea.classList.remove('hidden');
+                let practiceRoot = null;
+                const valuesToInsert = [...questionData.values];
+                const finalNode = valuesToInsert.pop();
+
+                valuesToInsert.forEach(val => {
+                    practiceRoot = insert(practiceRoot, val);
+                    practiceRoot = balanceRecursive(practiceRoot);
+                });
+                practiceRoot = insert(practiceRoot, finalNode);
+                const practiceUnbalancedNode = findUnbalancedNode(practiceRoot);
+
+                requestAnimationFrame(() => {
+                    drawTree(practiceRoot, quizTreeSvg, practiceUnbalancedNode);
+                });
+
+                Object.keys(rotationNamesPT).forEach(key => {
+                     const button = document.createElement('button');
+                     button.textContent = rotationNamesPT[key];
+                     button.className = 'quiz-option';
+                     button.onclick = () => selectAnswer(button, key, questionData.correctAnswer);
+                     quizOptionsEl.appendChild(button);
+                });
+            } else if (questionData.type === 'predict_root') {
+                 quizPracticeArea.classList.remove('hidden');
+                let practiceRoot = null;
+                if (questionData.values) {
+                     questionData.values.forEach(val => {
+                        practiceRoot = insert(practiceRoot, val);
+                        practiceRoot = balanceRecursive(practiceRoot);
+                    });
+                }
+
+                requestAnimationFrame(() => {
+                    drawTree(practiceRoot, quizTreeSvg, null); // Draw initial state without highlighting
+                });
+
+                questionData.options.forEach(optionValue => {
+                     const button = document.createElement('button');
+                     button.textContent = optionValue;
+                     button.className = 'quiz-option';
+                     button.onclick = () => selectAnswer(button, optionValue.toString(), questionData.correctAnswer.toString());
+                     quizOptionsEl.appendChild(button);
+                });
+            }
+        }
+
+        function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
+            const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            allOptions.forEach(btn => {
+                btn.disabled = true;
+                let btnAnswer;
+                 if (currentQuestion.type === 'practice') {
+                    btnAnswer = Object.keys(rotationNamesPT).find(key => rotationNamesPT[key] === btn.textContent);
+                } else {
+                    btnAnswer = btn.textContent;
+                }
+
+                if (btnAnswer === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            } else {
+                buttonEl.classList.add('incorrect');
+            }
+
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            let explanationText = '';
+            if (questionData.explanation) {
+                 explanationText = questionData.explanation;
+            } else if (questionData.type === 'practice') {
+                explanationText = explanations[correctAnswer] || '';
+            }
+
+
+            if (explanationText) {
+                quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${explanationText}`;
+                quizExplanationEl.classList.remove('hidden');
+            }
+
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function resetQuizState() {
+            quizOptionsEl.innerHTML = '';
+            quizExplanationEl.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+        }
+
+        function showQuizResults() {
+            quizContainer.classList.add('hidden');
+            quizResultsScreen.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
+        }
+
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayNextQuestion();
+        });
+
+        restartQuizBtn.addEventListener('click', () => startQuiz(currentQuizNumber));
+        backToQuizzesBtn.addEventListener('click', () => {
+             quizResultsScreen.classList.add('hidden');
+             document.getElementById('quiz-selection-screen').classList.remove('hidden');
+        });
+
+        // --- Event Listeners ---
+        function resetReplayStates() {
+            lastSequence = null;
+            lastChallengeState = null;
+            replaySequenceBtn.classList.add('hidden');
+            replayChallengeBtn.classList.add('hidden');
+        }
+
+        tabPractice.addEventListener('click', () => switchTab('practice-content'));
+        tabTheory.addEventListener('click', () => switchTab('theory-content'));
+        tabQuiz.addEventListener('click', () => switchTab('quiz-content'));
+        modeChallengeBtn.addEventListener('click', () => { setMode('challenge'); resetReplayStates(); });
+        modeSandboxBtn.addEventListener('click', () => { setMode('sandbox'); resetReplayStates(); });
+        nextChallengeBtn.addEventListener('click', generateChallengeProblem);
+
+        replayChallengeBtn.addEventListener('click', async () => {
+            if (!lastChallengeState) return;
+
+            root = JSON.parse(JSON.stringify(lastChallengeState.root));
+            unbalancedNode = findNodeByValue(root, lastChallengeState.unbalancedNodeValue);
+
+            drawTree(root, svg, unbalancedNode);
+
+            await new Promise(resolve => setTimeout(resolve, 400));
+            await animateAndBalance();
+        });
+
+        async function runSequence(operations) {
+
+            replaySequenceBtn.classList.add('hidden');
+            buildTreeBtn.classList.add('hidden');
+            pauseResumeSequenceBtn.classList.remove('hidden');
+            pauseResumeSequenceBtn.textContent = 'Pausar';
+            isSequencePaused = false;
+
+            root = null;
+            unbalancedNode = null;
+            drawTree(root);
+            await new Promise(res => setTimeout(res, 500));
+
+            for (const num of operations) {
+                while (isSequencePaused) {
+                    await new Promise(res => setTimeout(res, 100));
+                }
+                if (num >= 0) { // Inserção
+                    root = insert(root, num);
+                    drawTree(root);
+                    const newNodeEl = svg.querySelector(`#node-${num}`);
+                    const lineToNewNode = svg.querySelector(`#line-to-${num}`);
+                    if (newNodeEl) {
+                        newNodeEl.style.opacity = '0';
+                        if(lineToNewNode) lineToNewNode.style.opacity = '0';
+                        await new Promise(res => setTimeout(res, 50));
+                        newNodeEl.style.opacity = '1';
+                        if(lineToNewNode) lineToNewNode.style.opacity = '1';
+                    }
+                    await new Promise(res => setTimeout(res, 800));
+
+                    unbalancedNode = findUnbalancedNode(root);
+                    if (unbalancedNode) {
+                        drawTree(root, svg, unbalancedNode);
+                        await new Promise(res => setTimeout(res, 800));
+                        await animateAndBalance();
+                        await new Promise(res => setTimeout(res, 800));
+                    }
+                } else { // Remoção
+                    const valToRemove = Math.abs(num);
+                    if (findNodeByValue(root, valToRemove)) {
+                        const nodeToRemoveEl = svg.querySelector(`#node-${valToRemove}`);
+                        const lineToNode = svg.querySelector(`#line-to-${valToRemove}`);
+                        if(nodeToRemoveEl) nodeToRemoveEl.style.opacity = '0';
+                        if(lineToNode) lineToNode.style.opacity = '0';
+                        await new Promise(res => setTimeout(res, 750));
+
+                        root = removeNode(root, valToRemove);
+                        drawTree(root);
+                        await new Promise(res => setTimeout(res, 800));
+
+                        let needsBalancing = true;
+                        while(needsBalancing) {
+                             while (isSequencePaused) {
+                                await new Promise(res => setTimeout(res, 100));
+                            }
+                            unbalancedNode = findUnbalancedNode(root);
+                            if (unbalancedNode) {
+                                drawTree(root, svg, unbalancedNode);
+                                await new Promise(res => setTimeout(res, 800));
+                                await animateAndBalance();
+                                await new Promise(res => setTimeout(res, 800));
+                            } else {
+                                needsBalancing = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            pauseResumeSequenceBtn.classList.add('hidden');
+            buildTreeBtn.classList.remove('hidden');
+            if (lastSequence && lastSequence.length > 0) {
+                replaySequenceBtn.classList.remove('hidden');
+            }
+        }
+
+        buildTreeBtn.addEventListener('click', () => {
+             const sequenceText = sequenceInput.value;
+            if (!sequenceText) return;
+
+            lastSequence = sequenceText.split(',')
+                .map(s => s.trim())
+                .filter(s => s !== '')
+                .map(s => parseInt(s, 10))
+                .filter(n => !isNaN(n));
+
+            runSequence(lastSequence);
+        });
+
+        replaySequenceBtn.addEventListener('click', () => {
+             if (lastSequence) {
+                runSequence(lastSequence);
+            }
+        });
+
+        pauseResumeSequenceBtn.addEventListener('click', () => {
+            isSequencePaused = !isSequencePaused;
+            pauseResumeSequenceBtn.textContent = isSequencePaused ? 'Continuar' : 'Pausar';
+        });
+
+        generateBtn.addEventListener('click', () => {
+            resetReplayStates();
+            root = null; unbalancedNode = null;
+            const count = parseInt(countInput.value) || 5;
+            const values = new Set(); while(values.size < count) values.add(Math.floor(Math.random() * 100));
+            values.forEach(val => { root = insert(root, val); root = balanceRecursive(root); });
+            endChallenge(true); drawTree(root);
+        });
+        insertBtn.addEventListener('click', () => { resetReplayStates(); const val = parseInt(valueInput.value); if (!isNaN(val)) { root = insert(root, val); valueInput.value = ''; processChange(); } });
+        removeBtn.addEventListener('click', () => { resetReplayStates(); const val = parseInt(valueInput.value); if (!isNaN(val)) { root = removeNode(root, val); root = balanceRecursive(root); valueInput.value = ''; processChange(); } });
+        sequenceInput.addEventListener('input', () => {
+            replaySequenceBtn.classList.add('hidden');
+            lastSequence = null;
+        });
+        optionsContainer.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON') checkChallengeAnswer(e.target.dataset.answer); });
+
+        feedbackContinueBtn.addEventListener('click', async () => {
+            feedbackContinueBtn.classList.add('hidden'); // Hide self after click
+
+            if (currentMode === 'challenge') {
+                lastChallengeState = {
+                    root: JSON.parse(JSON.stringify(root)),
+                    unbalancedNodeValue: unbalancedNode ? unbalancedNode.value : null
+                };
+            }
+
+            // Do not hide the feedback section here.
+            await animateAndBalance();
+
+            // After animation, handle different modes.
+            if (currentMode === 'challenge') {
+                // Main controls remain disabled.
+                // Show the replay button.
+                if(lastChallengeState) {
+                    replayChallengeBtn.classList.remove('hidden');
+                }
+                nextChallengeBtn.focus();
+            } else { // Sandbox mode - re-enable controls
+                optionsContainer.querySelectorAll('button').forEach(btn => btn.disabled = false);
+                challengeQuestionSection.classList.add('hidden');
+            }
+        });
+
+        function setupQuizSelection() {
+            const container = document.getElementById('quiz-buttons-container');
+            container.innerHTML = '';
+            const numQuizzes = 5;
+            for (let i = 1; i <= numQuizzes; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Quiz ${i}`;
+                button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
+                button.onclick = () => startQuiz(i);
+                container.appendChild(button);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (!practiceContent.classList.contains('hidden')) {
+                 drawTree(root);
+            }
+        });
+
+        // Initial state
+        setMode('sandbox');
+        switchTab('practice-content');
+        initializeTheoryExamples();
+        setupQuizSelection();
+
+    </script>
+</body>
+</html>
+
+
