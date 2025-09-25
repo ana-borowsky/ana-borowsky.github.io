@@ -145,28 +145,28 @@
 
         <!-- Conteúdo da Aba de Prática -->
         <div id="practice-content">
-            <p class="text-slate-600 text-center mb-6 -mt-2">Escolha um modo: resolva um 'Desafio Rápido' ou construa sua própria árvore no 'Modo Sandbox'.</p>
+            <p class="text-slate-600 text-center mb-6 -mt-2">Escolha um modo: resolva um 'Desafio' ou construa sua própria árvore no 'Sandbox'.</p>
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Coluna de Controles -->
                 <div id="controls-section" class="lg:w-1/4">
                     <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Modo</h2>
                     <div class="flex border border-slate-300 rounded-lg p-1 bg-slate-100 mb-4">
-                        <button id="mode-challenge-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors">Desafio Rápido</button>
-                        <button id="mode-sandbox-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors active">Modo Sandbox</button>
+                        <button id="mode-challenge-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors">Desafio</button>
+                        <button id="mode-sandbox-btn" class="mode-btn w-1/2 p-2 rounded-md text-sm font-medium transition-colors active">Sandbox</button>
                     </div>
                     <fieldset id="controls-fieldset">
                         <div id="sandbox-controls">
                             <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Criar Árvore</h2>
                             <div class="space-y-4">
                                 <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                    <label for="node-count" class="block text-sm font-medium text-slate-700">Nós Aleatórios</label>
+                                    <label for="node-count" class="block text-sm font-medium text-slate-700">Nós aleatórios</label>
                                     <div class="flex items-center gap-2 mt-1">
                                         <input type="number" id="node-count" value="5" min="3" max="15" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button id="generate-tree-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
                                     </div>
                                 </div>
                                 <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                    <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir / Remover Nó</label>
+                                    <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir / Remover nó</label>
                                     <div class="flex items-center gap-2 mt-1">
                                         <input type="number" id="node-value" placeholder="Valor" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button id="insert-node-btn" class="w-1/2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Inserir</button>
@@ -175,7 +175,7 @@
                                     <button id="replay-sandbox-btn" class="hidden w-full mt-2 bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Rever Animação</button>
                                 </div>
                                 <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                    <label for="sequence-input" class="block text-sm font-medium text-slate-700">Construir a partir de Sequência</label>
+                                    <label for="sequence-input" class="block text-sm font-medium text-slate-700">Construir a partir de lista</label>
                                     <div class="flex flex-wrap items-center gap-2 mt-1">
                                         <input type="text" id="sequence-input" placeholder="Ex: 50, 25, -50, 75" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button id="build-tree-btn" class="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Construir</button>
@@ -227,7 +227,7 @@
         <div id="theory-content" class="hidden text-left">
             <!-- Conteúdo da teoria permanece o mesmo -->
              <h2>O que é uma Árvore AVL?</h2>
-             <p>Uma Árvore AVL é um tipo especial de <strong>Árvore Binária de Busca (ABB)</strong> que é <strong>auto-balanceável</strong>. Ela mantém sua altura a menor possível, garantindo que operações como busca, inserção e remoção sejam extremamente eficientes, com complexidade de tempo de <strong>O(log n)</strong> no pior caso.</p>
+             <p>Uma Árvore AVL é um tipo especial de <strong>Árvore Binária de Busca (ABB)</strong> que é <strong>auto-balanceável</strong>. Ela mantém sua altura a menor possível, garantindo que operações como busca, inserção e remoção sejam extremamente eficientes, com complexidade de tempo de <strong>O(log n)</strong> no pior caso. O seu nome vem da junção das iniciais de seus criadores: <strong>A</strong>delson <strong>V</strong>elsky e <strong>L</strong>andis</p>
               <div class="theory-example-container">
                    <div class="theory-svg-wrapper"><svg id="theory-svg-balanced"></svg></div>
               </div>
