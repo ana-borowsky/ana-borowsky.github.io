@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Git para Estudantes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; /* slate-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* slate-500 */
+        }
+        .active-link {
+            color: #38bdf8 !important; /* sky-400 */
+            font-weight: 600;
+            border-left-color: #38bdf8 !important;
+        }
+        .prose-custom {
+            color: #cbd5e1;
+        }
+        .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+            color: #f1f5f9; /* slate-100 */
+            scroll-margin-top: 80px;
+        }
+        .prose-custom a {
+            color: #7dd3fc; /* sky-300 */
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .prose-custom a:hover {
+            color: #38bdf8; /* sky-400 */
+        }
+        .prose-custom strong {
+            color: #f8fafc; /* slate-50 */
+        }
+        .prose-custom em {
+            font-style: italic;
+            color: #e2e8f0;
+        }
+        .prose-custom blockquote {
+            border-left-color: #475569;
+            color: #94a3b8;
+        }
+        .code-block {
+            position: relative;
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            color: #e2e8f0; /* slate-200 */
+            border: 1px solid #334155; /* slate-700 */
+        }
+        .code-block button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #334155; /* slate-700 */
+            color: #cbd5e1; /* slate-300 */
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .code-block button:hover {
+            background-color: #475569; /* slate-600 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="flex">
+        <!-- Sidebar de Navegação -->
+        <aside class="hidden lg:block fixed top-0 left-0 h-screen w-64 overflow-y-auto bg-slate-900/70 backdrop-blur-lg border-r border-slate-800 p-8">
+            <h2 class="text-lg font-bold text-sky-400 mb-6">Índice</h2>
+            <nav id="table-of-contents">
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#section-1" class="text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1. Como usar o git?</a>
+                        <ul class="space-y-2 mt-2 ml-4">
+                            <li><a href="#section-1-1" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1.1 Para que serve o git?</a></li>
+                            <li><a href="#section-1-2" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1.2 Como salvar o código?</a></li>
+                            <li><a href="#section-1-3" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1.3 Regras do commit</a></li>
+                            <li><a href="#section-1-4" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1.4 Resumo padrões commit</a></li>
+                            <li><a href="#section-1-5" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">1.5 Resumo comandos commit</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#section-2" class="text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2. Uso de branches</a>
+                         <ul class="space-y-2 mt-2 ml-4">
+                            <li><a href="#section-2-1" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.1 O que são branches?</a></li>
+                            <li><a href="#section-2-2" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.2 Como criar branches?</a></li>
+                            <li><a href="#section-2-3" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.3 Como trocar de branches?</a></li>
+                            <li><a href="#section-2-4" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.4 Em qual branch estou?</a></li>
+                            <li><a href="#section-2-5" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.5 Ver branches no GitHub</a></li>
+                            <li><a href="#section-2-6" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.6 Merge / Pull Request</a></li>
+                            <li><a href="#section-2-7" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.7 Esqueci de criar branch!</a></li>
+                            <li><a href="#section-2-8" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.8 Fiz push na Main!!</a></li>
+                            <li><a href="#section-2-9" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.9 Procedimento rebase</a></li>
+                            <li><a href="#section-2-10" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.10 Entrar no branch de colegas</a></li>
+                            <li><a href="#section-2-11" class="text-sm text-slate-400 hover:text-sky-400 transition-colors border-l border-slate-700 pl-4 block">2.11 Resumo comandos branch</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="w-full lg:ml-64 p-8 md:p-12">
+            <div class="max-w-3xl mx-auto prose-custom">
+                <header class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">Guia de Git para Estudantes</h1>
+                    <p class="mt-4 text-lg text-slate-400">Um guia básico e descontraído de <em>git</em> feito por uma estudante para outros estudantes!</p>
+                    <div class="mt-6 text-yellow-400 text-lg">
+                        ⭐ Se este guia lhe foi útil, deixa sua <a href="https://github.com/ana-borowsky/guia_de_git_para_estudantes" target="_blank" class="text-yellow-300 underline hover:text-yellow-400">estrelinha</a> como agradecimento! ⭐
+                    </div>
+                     <p class="mt-4 text-slate-400">Achou que faltou algo? <a href="https://github.com/ana-borowsky/guia_de_git_para_estudantes/issues/new" target="_blank">Crie um novo issue!</a></p>
+                </header>
+
+                <section id="section-1">
+                    <h2 class="text-3xl font-bold border-b border-slate-700 pb-2">1. Como usar o <em>git</em>?</h2>
+                    <p class="mt-4">É importante mencionar que não abordarei neste guia a parte de instalação/setup do <em>git</em>, e sim, o seu uso! Ah, nós também faremos uso do git via linha de comando e não via aplicativo desktop.</p>
+                </section>
+
+                <section id="section-1-1" class="mt-8">
+                    <h3 class="text-2xl font-semibold">1.1 Afinal, para que serve o git?</h3>
+                    <p>O git é um sistema de versionamento de código. Mas o que significa isso? Bem, sabe quando você está fazendo um trabalho e começa a salvar como versão1, versão2, versãofinal, versãofinalfinalagoravai, etc? Então, é tipo isso, só que direito.</p>
+                    <p>Com isso, você consegue:</p>
+                    <ul class="list-disc list-inside space-y-2 mt-4">
+                        <li>ter um controle muito bom de qualquer trabalho,</li>
+                        <li>acompanhar a evolução,</li>
+                        <li>ter a certeza de que pode voltar para uma parte do código que funciona caso você resolva fazer uma mudança que dê ruim (sem depender do ctrl + z)</li>
+                        <li>acesso ao código de vários computadores de forma facilitada</li>
+                        <li>controle melhor de trabalhos em grupo</li>
+                    </ul>
+                    <p class="mt-4">Eu prometo que depois que você aprender a usar o <em>git</em>, você não vai conseguir entender como as pessoas viviam antes dele.</p>
+                </section>
+
+                <section id="section-1-2" class="mt-8">
+                    <h3 class="text-2xl font-semibold">1.2 Como salvar o código no <em>git?</em> Também conhecido como <em>commit</em></h3>
+                    <p>Primeiramente, o que é o <em>commit</em>? É mais ou menos o equivalente a salvar o seu código no <em>git</em> (não no seu computador). Existem algumas regras para fazer isso da maneira a aproveitar melhor essa feature, as quais serão explicadas ao longo deste capítulo, mas vamos começar pelo comando de como fazer isso.</p>
+                    <p>Se seu código está pronto para o <em>commit</em>, dê o comando:</p>
+                    <div class="code-block"><pre><code>git status</code></pre><button>Copiar</button></div>
+                    <p>Isso vai te mostrar se tem arquivos que foram modificados. Se você modificou o arquivo, ele deve aparecer em vermelho.</p>
+                    <img src="src/assets/images/imagem1.png" alt="Exemplo de saída do comando git status com arquivos modificados em vermelho" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                    <p class="mt-4">Agora adicione o que quer "commitar". Para adicionar todos os arquivos modificados:</p>
+                    <div class="code-block"><pre><code>git add .</code></pre><button>Copiar</button></div>
+                    <p>Ou adicione somente um arquivo:</p>
+                    <div class="code-block"><pre><code>git add nome_do_arquivo.py</code></pre><button>Copiar</button></div>
+                    <p>Agora faça novamente o comando <em>git status</em> e veja se os arquivos que você quer "commitar" ficaram verdinhos.</p>
+                    <img src="src/assets/images/imagem2.png" alt="Exemplo de saída do comando git status com arquivos prontos para commit em verde" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                    <p class="mt-4">Agora vamos fazer o <em>commit</em> propriamente dito.</p>
+                    <div class="code-block"><pre><code>git commit -m “Escreva aqui a mensagem do commit”</code></pre><button>Copiar</button></div>
+                    <p>Você já "commitou", mas se você abrir o GitHub, sua mudança ainda não está aparecendo. Para que ela apareça, é preciso fazer o <em>push</em>:</p>
+                    <div class="code-block"><pre><code>git push</code></pre><button>Copiar</button></div>
+                    <p>Agora sim, seu código está no GitHub.</p>
+                    <img src="src/assets/images/imagem3.png" alt="Visualização do commit recém enviado na interface do GitHub" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                </section>
+
+                <section id="section-1-3" class="mt-8">
+                    <h3 class="text-2xl font-semibold">1.3 Regras básicas de sobrevivência do <em>commit</em></h3>
+                    <p>Para fazer o melhor aproveitamento do <em>commit</em>, existe uma série de dicas que facilitarão muito a sua vida.</p>
+
+                    <h4 class="text-xl font-semibold mt-6">1.3.1 A primeira e mais importante dica</h4>
+                    <blockquote class="border-l-4 border-slate-600 pl-4 py-2 my-4">
+                        <p class="font-semibold text-slate-200">Só faça commit de códigos que funcionem.</p>
+                    </blockquote>
+                    <p>Assim, você consegue voltar para o último <em>commit</em> caso faça alguma alteração que quebre o código.</p>
+
+                    <h4 class="text-xl font-semibold mt-6">1.3.2 O que deve ter em um <em>commit</em>?</h4>
+                    <p>Para que um <em>commit</em> seja super legível, o ideal é que você faça somente <strong>uma coisa em cada um</strong>. Evite fazer um <em>commit</em> que implemente uma função, modifique a formatação e remova comentários ao mesmo tempo. É melhor criar um commit para cada uma dessas tarefas.</p>
+
+                    <h4 class="text-xl font-semibold mt-6">1.3.3 Padrões de mensagem de <em>commit</em></h4>
+                    <p>Sempre comece a mensagem com a primeira letra em maiúsculo, no tempo verbal imperativo afirmativo. É como se fosse uma resposta à pergunta: "o que este commit faz?". As mensagens não devem ter ponto final.</p>
+                    <img src="src/assets/images/imagem4.png" alt="Lista de commits com mensagens bem escritas" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                    <p class="mt-4">Evite commits genéricos e imprecisos como "Faz pequenas alterações" ou "Arruma bugs".</p>
+                    <p class="mt-2 font-semibold text-red-400">Anti-exemplos (como não fazer):</p>
+                     <img src="src/assets/images/imagem5.png" alt="Lista de commits com mensagens ruins" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                </section>
+
+                <section id="section-1-4" class="mt-8">
+                    <h3 class="text-2xl font-semibold">1.4 Resumo padrões commit</h3>
+                    <ul class="list-disc list-inside space-y-2 mt-4">
+                        <li>Só "commite" códigos que funcionem.</li>
+                        <li>Só mexa em <em>uma coisa</em> específica em cada <em>commit</em>.</li>
+                        <li>Dê nomes que digam exatamente o que você fez.</li>
+                        <li>Use sempre a mesma língua (português ou inglês).</li>
+                        <li>Primeira letra em maiúsculo e sem pontuação no final.</li>
+                    </ul>
+                </section>
+
+                <section id="section-1-5" class="mt-8">
+                    <h3 class="text-2xl font-semibold">1.5 Resumo comandos <em>commit</em></h3>
+                    <div class="code-block"><pre><code>git add .
+git commit -m "Cria função remover"
+git push</code></pre><button>Copiar</button></div>
+                </section>
+
+                <section id="section-2" class="mt-12">
+                     <h2 class="text-3xl font-bold border-b border-slate-700 pb-2">2. Uso de <em>branches</em></h2>
+                    <p class="mt-4">Seus problemas com trabalhos em grupo acabaram! Com branches, várias pessoas podem trabalhar no mesmo projeto sem gerar confusão.</p>
+                </section>
+
+                <section id="section-2-1" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.1 O que são <em>branches</em>?</h3>
+                    <p><em>Branches</em> são derivações do código utilizadas, normalmente, para adicionar novas funções ao programa. Ao utilizar <em>branches</em>, vários programadores podem trabalhar em um mesmo código ao mesmo tempo, ficando mais simples de resolver conflitos.</p>
+                    <p>Mesmo trabalhando sozinho, é uma prática recomendada. Você pode desenvolver uma nova funcionalidade em um branch separado, mantendo a <em>main</em> sempre estável e funcionando.</p>
+                    <img src="src/assets/images/imagem6.png" alt="Diagrama mostrando como vários desenvolvedores podem criar seus próprios branches a partir da main" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                </section>
+
+                <section id="section-2-2" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.2 Como criar <em>branches</em>?</h3>
+                    <p>Na linha de comando, digite:</p>
+                    <div class="code-block"><pre><code>git checkout -b nome-da-branch</code></pre><button>Copiar</button></div>
+                    <p>Este comando cria um novo branch e já troca para ele. O padrão para nomes de branches é ser tudo em minúsculo e com traços no lugar de espaços.</p>
+                </section>
+
+                <section id="section-2-3" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.3 Como trocar de <em>branches</em>?</h3>
+                    <div class="code-block"><pre><code>git checkout nome-da-branch</code></pre><button>Copiar</button></div>
+                </section>
+
+                <section id="section-2-4" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.4 Como saber em qual <em>branch</em> estou?</h3>
+                     <div class="code-block"><pre><code>git status</code></pre><button>Copiar</button></div>
+                </section>
+
+                <section id="section-2-5" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.5 Como ver os <em>branches</em> no GitHub?</h3>
+                    <p>Entre no repositório, e embaixo do nome do repositório irá mostrar o nome do branch. Clique nele e em seguida em "view all branches".</p>
+                    <img src="src/assets/images/imagem7.png" alt="Interface do GitHub mostrando onde clicar para ver todos os branches" class="w-full rounded-lg shadow-lg mt-4 border border-slate-700">
+                </section>
+
+                <section id="section-2-6" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.6 Procedimento <em>merge/pull request</em></h3>
+                    <p>Você termina a parte do código em que estava trabalhando, realiza os testes, <em>verifica que tudo funciona direitinho</em>. Então é hora de juntar a sua parte com a base do projeto (<em>main</em>).</p>
+                     <ul class="list-disc list-inside space-y-2 mt-4">
+                        <li>Primeiro: execute todos os passos do commit.</li>
+                        <li>Apenas na primeira vez que fizer o <em>push</em>, use: <code class="bg-slate-700 rounded px-1 text-sm">git push --set-upstream origin nome-da-branch</code></li>
+                        <li>Avise a todos os colegas de equipe que irá abrir um PR (<em>pull request</em>).</li>
+                        <li>Abra o GitHub no repositório do projeto e clique em “Compare & pull request”.</li>
+                    </ul>
+                    <img src="src/assets/images/imagem8.png" alt="Botão de Pull Request no GitHub" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                    <p>Ou entre no <em>branch</em> e faça por lá.</p>
+                     <img src="src/assets/images/imagem9.png" alt="Botão de Pull Request na página do branch" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                    <ul class="list-disc list-inside space-y-2 mt-4">
+                        <li>Preencha todos os campos do pull request de maneira clara.</li>
+                        <li>Peça para um colega revisar (ou aprove você mesmo).
+                        <li>Após a aprovação, faça o "merge".</li>
+                        <li><strong>Importante:</strong> Ao mergear um PR, seu <em>branch main</em> local <em>não será automaticamente atualizado</em>.</li>
+                    </ul>
+
+                    <p class="mt-4 font-semibold">Após o PR ser "mergeado":</p>
+
+                    <ul class="list-decimal list-inside space-y-2 mt-4">
+                        <li>Volte para o <em>branch main</em>:</li>
+                        <div class="code-block"><pre><code>git checkout main</code></pre><button>Copiar</button></div>
+                        <li>Atualize a sua <em>main</em> local:</li>
+                        <div class="code-block"><pre><code>git pull</code></pre><button>Copiar</button></div>
+                        <li>Delete o <em>branch</em> no GitHub.</li>
+                        <img src="src/assets/images/imagem10.png" alt="Botão para deletar o branch no GitHub" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                        <li>Avise a todos da equipe para que todos façam <em>pull</em> na <em>main</em>.</li>
+                    </ul>
+                </section>
+
+                <section id="section-2-7" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.7 Comecei a alterar o código mas esqueci de criar um branch!</h3>
+                    <p>Não se preocupe! Use o comando:</p>
+                    <div class="code-block"><pre><code>git checkout -b nome-da-branch</code></pre><button>Copiar</button></div>
+                    <p>Este comando irá levar suas alterações para este novo branch.</p>
+                </section>
+
+                <section id="section-2-8" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.8 Fiz <em>push</em> na <em>Main</em>!!</h3>
+                    <p class="text-red-400">Isso pode causar diversos problemas, pois pula a verificação de conflitos do GitHub. É sempre importante verificar em qual branch você está com <code class="bg-slate-700 rounded px-1 text-sm">git status</code> antes de começar a codar. É uma boa prática proteger o branch <em>main</em> contra pushes diretos nas configurações do repositório.</p>
+                </section>
+
+                <section id="section-2-9" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.9 Procedimento rebase</h3>
+                    <p><em>Rebase</em> faz exatamente o que o nome diz: troca a base. E o que é a base? É a <em>main</em>. Quando uma pessoa faz um <em>merge</em> na <em>main</em>, essa main não é automaticamente atualizada para todos.</p>
+                    <p class="mt-4">No exemplo abaixo, os programadores estão trabalhando em partes independentes do código. Logo, não há necessidade de atualizarem as suas bases, é só cada um fazer um <em>merge</em> que dará tudo certo.</p>
+                    <img src="src/assets/images/imagem11.png" alt="Diagrama de branches independentes" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                    <p class="mt-4">É sempre bom saber que quando um membro da equipe faz um <em>merge</em>, a <em>main</em> é atualizada no GitHub, mas não nos computadores de cada membro, como mostra a imagem:</p>
+                    <img src="src/assets/images/imagem12.png" alt="Diagrama mostrando main desatualizada localmente" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                    <p class="mt-4">Vamos dizer que Gustavo prefere saber como Ana fez sua função, então ele opta por fazer o rebase. Em sua branch ele dá o seguinte comando:</p>
+                    <div class="code-block"><pre><code>git rebase main</code></pre><button>Copiar</button></div>
+                    <p>Esse comando irá trocar a <em>main</em> do <em>branch</em> pela atualizada. Após esse comando, podem aparecer conflitos. Resolva-os e depois dê o comando:</p>
+                     <div class="code-block"><pre><code>git rebase --continue</code></pre><button>Copiar</button></div>
+                    <p>Ou, caso queira desistir do rebase, dê o comando:</p>
+                    <div class="code-block"><pre><code>git rebase --abort</code></pre><button>Copiar</button></div>
+                    <p>Quando for fazer o <em>push</em>, será necessário forçar:</p>
+                    <div class="code-block"><pre><code>git push --force</code></pre><button>Copiar</button></div>
+                    <p class="text-amber-400"><strong>Cuidado:</strong> O <em>git rebase</em> reescreve o histórico de commits. Por isso é necessário usar o <em>push force</em>. Em uma empresa, você vai demorar para ter permissão pra usar esse comando.</p>
+                    <p class="mt-4">E assim ficou a visão de Gustavo da <em>main</em> após o <em>rebase</em>:</p>
+                    <img src="src/assets/images/imagem13.png" alt="Diagrama da main de Gustavo após o rebase" class="w-full rounded-lg shadow-lg my-4 border border-slate-700">
+                </section>
+
+                <section id="section-2-10" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.10 Você pode entrar no <em>branch</em> dos amiguinhos</h3>
+                    <p>Se seu colega já tiver feito <em>push</em> no branch dele, basta você fazer os seguintes comandos caso queira entrar neste branch:</p>
+                     <div class="code-block"><pre><code>git checkout main
+git pull
+git checkout nome-do-branch-do-coleguinha</code></pre><button>Copiar</button></div>
+                </section>
+
+                <section id="section-2-11" class="mt-8">
+                    <h3 class="text-2xl font-semibold">2.11 Resumo comandos <em>branch</em></h3>
+                    <div class="code-block"><pre><code>git checkout -b nome-da-branch
+# Coda, coda, coda mais um pouquinho
+git add .
+git commit -m "Adiciona função de imprimir"
+git push
+# Termina o objetivo do branch, e mergeia um pull request
+git checkout main
+git pull</code></pre><button>Copiar</button></div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Funcionalidade de Copiar Código ---
+            const copyButtons = document.querySelectorAll('.code-block button');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const code = button.previousElementSibling.innerText;
+                    const textArea = document.createElement('textarea');
+                    textArea.value = code;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = 'Copiado!';
+                        button.classList.add('bg-green-600');
+                        setTimeout(() => {
+                            button.textContent = 'Copiar';
+                            button.classList.remove('bg-green-600');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Falha ao copiar texto: ', err);
+                    }
+                    document.body.removeChild(textArea);
+                });
+            });
+
+            // --- Scrollspy para destacar link ativo na navegação ---
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('#table-of-contents a');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                let lastVisibleSectionId = null;
+
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        lastVisibleSectionId = entry.target.id;
+                    }
+                });
+
+                if (lastVisibleSectionId) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active-link');
+                        const href = link.getAttribute('href');
+                        if (href === `#${lastVisibleSectionId}`) {
+                            link.classList.add('active-link');
+                        }
+                    });
+                }
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
