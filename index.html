@@ -30,6 +30,15 @@
                 background-position: 0% 50%;
             }
         }
+
+        /* Oculta a barra de rolagem do carrossel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -50,27 +59,122 @@
                 Projetos
             </h2>
         </div>
-        <div class="mt-6 flex justify-center">
-            <!-- Card Mathmagik -->
-            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-full sm:max-w-sm flex flex-col">
-                <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Mathmagik" alt="Pré-visualização do projeto Mathmagik" class="w-full h-48 object-cover">
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-2">Mathmagik</h3>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Typescript</span>
+        <div class="relative w-full">
+            <div id="carousel" class="flex overflow-x-auto gap-8 mt-6 pb-4 scroll-smooth no-scrollbar">
+                <!-- Card Mathmagik -->
+                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
+                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Mathmagik" alt="Pré-visualização do projeto Mathmagik" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Mathmagik</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Typescript</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
 
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Quiz de matemática, feito para ser fácil e intuitivo para pessoas de qualquer idade. Feito em Typescript.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://ana-borowsky.github.io/mathmagik/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Acessar
+                            </a>
+                            <a href="https://github.com/ana-borowsky/mathmagik" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
                     </div>
-                    <p class="text-sm opacity-80 mb-4 flex-grow">Quiz de matemática, feito para ser fácil e intuitivo para pessoas de qualquer idade. Feito em Typescript.</p>
-                    <div class="flex flex-col gap-3 mt-auto">
-                        <a href="https://ana-borowsky.github.io/mathmagik/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
-                            Acessar
-                        </a>
-                        <a href="https://github.com/ana-borowsky/mathmagik" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
-                            Ver no GitHub
-                        </a>
+                </div>
+
+                <!-- Card Py - UI -->
+                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
+                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Py-UI" alt="Pré-visualização do projeto Py - UI" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Py - UI</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Flask</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">JavaScript</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">MQTT</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Aplicação web para controle de maquetes de ferreomodelismo, com comunicação via MQTT para controlar locomotivas, desvios e sensores.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/gustacamara/py-ui" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card ShippingBox -->
+                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
+                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=ShippingBox" alt="Pré-visualização do projeto ShippingBox" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">ShippingBox</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Ruby on Rails</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Sistema de gerenciamento de fretes desenvolvido para o curso TreinaDev da CampusCode. É um sistema completo em Ruby on Rails.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/deliveryapp" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Card Urban Weather -->
+                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
+                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Urban+Weather" alt="Pré-visualização do projeto Urban Weather" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Urban Weather</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">React</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Node.js</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Express.js</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">MySQL</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Aplicação que mostra clima e horário de cidades à escolha do usuário. Possui API e CRUD completo para gerenciar cidades.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/cities_crud_weather_app" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Glow.tf -->
+                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
+                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Glow.tf" alt="Pré-visualização do projeto Glow.tf" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Glow.tf | Projeto Web</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">PHP</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">JavaScript</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">MySQL</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">E-commerce de itens cosméticos do jogo Team Fortress 2, construído sem frameworks para a disciplina de Projeto Web.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/glowtf" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <button id="prevBtn" class="absolute left-0 md:-left-12 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full z-10 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button id="nextBtn" class="absolute right-0 md:-right-12 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full z-10 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </button>
         </div>
 
         <!-- Seção de Aplicações Gemini -->
@@ -94,7 +198,7 @@
                         <a href="https://ana-borowsky.github.io/git" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Acessar
                         </a>
-                        <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                        <a href="https://github.com/ana-borowsky/git" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -114,7 +218,7 @@
                         <a href="https://ana-borowsky.github.io/rpec/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Acessar
                         </a>
-                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                         <a href="https://github.com/ana-borowsky/rpec" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -134,7 +238,7 @@
                         <a href="https://ana-borowsky.github.io/cmsm_pt/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Acessar
                         </a>
-                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                         <a href="https://github.com/ana-borowsky/cmsm_pt" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -152,7 +256,60 @@
         </div>
 
     </main>
+<script>
+    const carousel = document.getElementById('carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
+    const scrollAmount = () => {
+        const card = carousel.querySelector('div');
+        if (!card) return 0;
+        const cardWidth = card.offsetWidth;
+        const gap = parseInt(window.getComputedStyle(carousel).gap);
+        return cardWidth + gap;
+    };
+
+    nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({
+            left: scrollAmount(),
+            behavior: 'smooth'
+        });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({
+            left: -scrollAmount(),
+            behavior: 'smooth'
+        });
+    });
+
+    const updateButtonState = () => {
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+        // Botão "anterior"
+        if (carousel.scrollLeft <= 0) {
+            prevBtn.style.opacity = '0';
+            prevBtn.style.pointerEvents = 'none';
+        } else {
+            prevBtn.style.opacity = '1';
+            prevBtn.style.pointerEvents = 'auto';
+        }
+
+        // Botão "próximo"
+        // Usamos uma pequena tolerância (1px) para evitar problemas de arredondamento
+        if (carousel.scrollLeft >= maxScrollLeft - 1) {
+            nextBtn.style.opacity = '0';
+            nextBtn.style.pointerEvents = 'none';
+        } else {
+            nextBtn.style.opacity = '1';
+            nextBtn.style.pointerEvents = 'auto';
+        }
+    }
+
+    carousel.addEventListener('scroll', updateButtonState);
+    window.addEventListener('load', updateButtonState);
+    window.addEventListener('resize', updateButtonState);
+</script>
 </body>
 </html>
 
