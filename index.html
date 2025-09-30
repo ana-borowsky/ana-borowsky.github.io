@@ -45,12 +45,19 @@
         .image-carousel .image-carousel-next {
             opacity: 0;
             transition: opacity 0.2s ease-in-out;
+            background-color: rgba(0, 87, 188, 0.6); /* Azul do gradiente com transparência */
+        }
+
+        .image-carousel .image-carousel-prev:hover,
+        .image-carousel .image-carousel-next:hover {
+            background-color: rgba(0, 87, 188, 0.8);
         }
 
         .image-carousel:hover .image-carousel-prev,
         .image-carousel:hover .image-carousel-next {
             opacity: 1;
         }
+
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -81,8 +88,8 @@
                             <img src="src/assets/images/imagem2.png" alt="[Imagem 2 do projeto Mathmagik]" class="w-full h-full object-cover flex-shrink-0">
                             <img src="src/assets/images/imagem3.png" alt="[Imagem 2 do projeto Mathmagik]" class="w-full h-full object-cover flex-shrink-0">
                         </div>
-                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Mathmagik</h3>
@@ -112,8 +119,8 @@
                             <img src="src/assets/images/imagem10.png" alt="[Imagem 3 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
                             <img src="src/assets/images/imagem11.png" alt="[Imagem 4 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
                         </div>
-                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Urban Weather</h3>
@@ -141,8 +148,8 @@
                             <img src="src/assets/images/imagem4.jpg" alt="[Imagem 3 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
                             <img src="src/assets/images/imagem5.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
                         </div>
-                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Py - UI</h3>
@@ -171,8 +178,8 @@
                             <img src="src/assets/images/imagem7.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
 
                         </div>
-                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">ShippingBox</h3>
@@ -199,8 +206,8 @@
                             <img src="src/assets/images/imagem13.png" alt="[Imagem 2 do projeto Glow.tf]" class="w-full h-full object-cover flex-shrink-0">
                             <img src="src/assets/images/imagem14.png" alt="[Imagem 3 do projeto Glow.tf]" class="w-full h-full object-cover flex-shrink-0">
                         </div>
-                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Glow.tf</h3>
@@ -370,4 +377,3 @@
 </script>
 </body>
 </html>
-
