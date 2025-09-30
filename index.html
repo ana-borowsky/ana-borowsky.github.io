@@ -39,6 +39,18 @@
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
         }
+
+        /* Estilos para os carrosseis de imagens dentro dos cards */
+        .image-carousel .image-carousel-prev,
+        .image-carousel .image-carousel-next {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .image-carousel:hover .image-carousel-prev,
+        .image-carousel:hover .image-carousel-next {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -62,15 +74,22 @@
         <div class="relative w-full">
             <div id="carousel" class="flex overflow-x-auto gap-8 mt-6 pb-4 scroll-smooth no-scrollbar">
                 <!-- Card Mathmagik -->
-                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
-                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Mathmagik" alt="Pré-visualização do projeto Mathmagik" class="w-full h-48 object-cover">
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left w-[492px] flex-shrink-0 flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem1.png" alt="[Imagem 1 do projeto Mathmagik]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem2.png" alt="[Imagem 2 do projeto Mathmagik]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem3.png" alt="[Imagem 2 do projeto Mathmagik]" class="w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Mathmagik</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Typescript</span>
                             <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
                             <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
-
                         </div>
                         <p class="text-sm opacity-80 mb-4 flex-grow">Quiz de matemática, feito para ser fácil e intuitivo para pessoas de qualquer idade. Feito em Typescript.</p>
                         <div class="flex flex-col gap-3 mt-auto">
@@ -84,52 +103,18 @@
                     </div>
                 </div>
 
-                <!-- Card Py - UI -->
-                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
-                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Py-UI" alt="Pré-visualização do projeto Py - UI" class="w-full h-48 object-cover">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">Py - UI</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Flask</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">JavaScript</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">MQTT</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
-
+                                 <!-- Card Urban Weather -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left w-[492px] flex-shrink-0 flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem8.png" alt="[Imagem 1 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem9.png" alt="[Imagem 2 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem10.png" alt="[Imagem 3 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem11.png" alt="[Imagem 4 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
                         </div>
-                        <p class="text-sm opacity-80 mb-4 flex-grow">Aplicação web para controle de maquetes de ferreomodelismo, com comunicação via MQTT para controlar locomotivas, desvios e sensores.</p>
-                        <div class="flex flex-col gap-3 mt-auto">
-                            <a href="https://github.com/gustacamara/py-ui" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
-                                Ver no GitHub
-                            </a>
-                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
                     </div>
-                </div>
-
-                <!-- Card ShippingBox -->
-                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
-                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=ShippingBox" alt="Pré-visualização do projeto ShippingBox" class="w-full h-48 object-cover">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">ShippingBox</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Ruby on Rails</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
-                        </div>
-                        <p class="text-sm opacity-80 mb-4 flex-grow">Sistema de gerenciamento de fretes desenvolvido para o curso TreinaDev da CampusCode. É um sistema completo em Ruby on Rails.</p>
-                        <div class="flex flex-col gap-3 mt-auto">
-                            <a href="https://github.com/ana-borowsky/deliveryapp" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
-                                Ver no GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Card Urban Weather -->
-                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
-                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Urban+Weather" alt="Pré-visualização do projeto Urban Weather" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">Urban Weather</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
@@ -148,11 +133,77 @@
                     </div>
                 </div>
 
-                <!-- Card Glow.tf -->
-                <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-80 flex-shrink-0 flex flex-col">
-                    <img src="https://placehold.co/600x338/transparent/FFFFFF?text=Glow.tf" alt="Pré-visualização do projeto Glow.tf" class="w-full h-48 object-cover">
+                <!-- Card Py - UI -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left w-[492px] flex-shrink-0 flex flex-col">
+                     <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem4.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem4.jpg" alt="[Imagem 3 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem5.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">Glow.tf | Projeto Web</h3>
+                        <h3 class="text-xl font-bold mb-2">Py - UI</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Flask</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">JavaScript</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">MQTT</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Aplicação web para controle de maquetes de ferreomodelismo, com comunicação via MQTT para controlar locomotivas, desvios e sensores.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/gustacamara/py-ui" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card ShippingBox -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left w-[492px] flex-shrink-0 flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem6.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem7.png" alt="[Imagem 2 do projeto Py - UI]" class="w-full h-full object-cover flex-shrink-0">
+
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">ShippingBox</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Ruby on Rails</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQLite</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Sistema de gerenciamento de fretes desenvolvido para o curso TreinaDev da CampusCode. É um sistema completo em Ruby on Rails.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/deliveryapp" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Glow.tf -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left w-[492px] flex-shrink-0 flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem12.png" alt="[Imagem 1 do projeto Glow.tf]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem13.png" alt="[Imagem 2 do projeto Glow.tf]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem14.png" alt="[Imagem 3 do projeto Glow.tf]" class="w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Glow.tf</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">HTML</span>
                             <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">CSS</span>
@@ -248,6 +299,7 @@
 
     </main>
 <script>
+    // Script para o carrossel principal de projetos
     const carousel = document.getElementById('carousel');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -261,45 +313,60 @@
     };
 
     nextBtn.addEventListener('click', () => {
-        carousel.scrollBy({
-            left: scrollAmount(),
-            behavior: 'smooth'
-        });
+        carousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
     });
 
     prevBtn.addEventListener('click', () => {
-        carousel.scrollBy({
-            left: -scrollAmount(),
-            behavior: 'smooth'
-        });
+        carousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
     });
 
     const updateButtonState = () => {
         const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-
-        // Botão "anterior"
-        if (carousel.scrollLeft <= 0) {
-            prevBtn.style.opacity = '0';
-            prevBtn.style.pointerEvents = 'none';
-        } else {
-            prevBtn.style.opacity = '1';
-            prevBtn.style.pointerEvents = 'auto';
-        }
-
-        // Botão "próximo"
-        // Usamos uma pequena tolerância (1px) para evitar problemas de arredondamento
-        if (carousel.scrollLeft >= maxScrollLeft - 1) {
-            nextBtn.style.opacity = '0';
-            nextBtn.style.pointerEvents = 'none';
-        } else {
-            nextBtn.style.opacity = '1';
-            nextBtn.style.pointerEvents = 'auto';
-        }
+        prevBtn.style.opacity = carousel.scrollLeft <= 0 ? '0' : '1';
+        prevBtn.style.pointerEvents = carousel.scrollLeft <= 0 ? 'none' : 'auto';
+        nextBtn.style.opacity = carousel.scrollLeft >= maxScrollLeft - 1 ? '0' : '1';
+        nextBtn.style.pointerEvents = carousel.scrollLeft >= maxScrollLeft - 1 ? 'none' : 'auto';
     }
 
     carousel.addEventListener('scroll', updateButtonState);
     window.addEventListener('load', updateButtonState);
     window.addEventListener('resize', updateButtonState);
+
+    // Script para os carrosseis de imagens dentro dos cards
+    const innerCarousels = document.querySelectorAll('.image-carousel');
+    innerCarousels.forEach(carousel => {
+        const track = carousel.querySelector('.image-carousel-track');
+        if (!track) return;
+
+        const images = Array.from(track.children);
+        const prevButton = carousel.querySelector('.image-carousel-prev');
+        const nextButton = carousel.querySelector('.image-carousel-next');
+        let currentIndex = 0;
+
+        const updateInnerCarousel = () => {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            prevButton.classList.toggle('hidden', currentIndex === 0);
+            nextButton.classList.toggle('hidden', currentIndex === images.length - 1);
+        };
+
+        nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateInnerCarousel();
+            }
+        });
+
+        prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateInnerCarousel();
+            }
+        });
+
+        updateInnerCarousel(); // Inicializa o estado dos botões
+    });
 </script>
 </body>
 </html>
