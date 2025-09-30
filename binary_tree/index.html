@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de estudos de Árvores Binárias de Busca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .node, .line {
+            transition: all 0.5s ease-in-out;
+        }
+        #quiz-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilos para desabilitar inputs */
+        .controls-disabled fieldset {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        /* Estilos das abas */
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
+        }
+        /* Estilos para o conteúdo da teoria */
+        #theory-content h2, #quiz-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+         #theory-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #theory-content p, #theory-content ul {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        #theory-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        #theory-content code {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        #theory-content strong {
+            font-weight: 600;
+        }
+        .theory-example-container {
+            margin: 1.5rem auto;
+            max-width: 450px;
+        }
+        .theory-svg-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 220px; /* Define uma altura mínima mas permite que cresça */
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: left;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+        .node-highlight circle {
+            fill: #facc15; /* yellow-400 */
+            stroke: #ca8a04; /* yellow-600 */
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center min-h-screen p-4">
+
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-4 md:mt-10">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de estudos de Árvores Binárias de Busca</h1>
+            <p class="text-slate-600 mt-2">Alterne entre 'Prática', 'Teoria' e 'Quiz' para aprofundar seus conhecimentos.</p>
+        </header>
+
+        <!-- Abas de Navegação -->
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                <button id="tab-practice" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Prática</button>
+                <button id="tab-theory" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Teoria</button>
+                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo da Aba de Prática -->
+        <div id="practice-content">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Coluna de Controles -->
+                <div id="controls-section" class="lg:w-1/3">
+                    <fieldset id="controls-fieldset">
+                         <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Criar Árvore</h2>
+                         <div class="space-y-4">
+                             <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                 <label for="node-count" class="block text-sm font-medium text-slate-700">Nós aleatórios</label>
+                                 <div class="flex items-center gap-2 mt-1">
+                                     <input type="number" id="node-count" value="7" min="1" max="10" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                     <button id="generate-tree-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
+                                 </div>
+                             </div>
+                             <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                 <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir / Remover nó</label>
+                                 <div class="flex items-center gap-2 mt-1">
+                                     <input type="number" id="node-value" placeholder="Valor" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                     <button id="insert-node-btn" class="w-1/2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Inserir</button>
+                                     <button id="remove-node-btn" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover</button>
+                                 </div>
+                             </div>
+                              <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                 <label for="sequence-input" class="block text-sm font-medium text-slate-700">Construir a partir de lista</label>
+                                 <div class="flex items-center gap-2 mt-1">
+                                     <input type="text" id="sequence-input" placeholder="Ex: 50, 25, 75" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                     <button id="build-tree-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Construir</button>
+                                 </div>
+                             </div>
+                             <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                 <label class="block text-sm font-medium text-slate-700 mb-2">Travessia (Percursos)</label>
+                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                     <button id="inorder-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-3 rounded-md transition-colors text-sm">Em Ordem</button>
+                                     <button id="preorder-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-3 rounded-md transition-colors text-sm">Pré-Ordem</button>
+                                     <button id="postorder-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-3 rounded-md transition-colors text-sm">Pós-Ordem</button>
+                                 </div>
+                                  <div id="traversal-output" class="mt-3 text-center text-sm font-mono bg-white p-2 rounded h-12 flex items-center justify-center"></div>
+                             </div>
+                         </div>
+                    </fieldset>
+                </div>
+                <!-- Coluna da Árvore -->
+                <div class="lg:w-2/3 flex flex-col">
+                    <div id="visualization-container" class="w-full h-96 lg:h-full flex-grow bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden relative">
+                        <svg id="tree-svg" width="100%" height="100%"></svg>
+                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-500 text-center w-full px-4">Use os controles para começar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Teoria -->
+        <div id="theory-content" class="hidden text-left max-w-4xl mx-auto">
+            <h2>O que é uma Árvore Binária de Busca (ABB)?</h2>
+            <p>
+                Uma <strong>Árvore Binária de Busca</strong> (do inglês, <em>Binary Search Tree</em> ou BST) é uma estrutura de dados baseada em nós, onde cada nó possui no máximo dois filhos: um à esquerda e um à direita. A principal característica que a define é a sua propriedade de ordenação:
+            </p>
+            <ul>
+                <li>Para qualquer nó <code>N</code>, todos os valores na sua subárvore <strong>esquerda</strong> são <strong>menores</strong> que o valor de <code>N</code>.</li>
+                <li>Para qualquer nó <code>N</code>, todos os valores na sua subárvore <strong>direita</strong> são <strong>maiores</strong> que o valor de <code>N</code>.</li>
+                <li>Ambas as subárvores (esquerda e direita) também devem ser árvores binárias de busca.</li>
+            </ul>
+             <div class="theory-example-container">
+                <p class="text-center text-sm text-slate-600 mb-2">Exemplo de uma ABB válida:</p>
+                <div class="theory-svg-wrapper"><svg id="theory-svg-bst" width="100%" height="100%"></svg></div>
+             </div>
+            <p>Esta propriedade torna operações como busca, inserção e remoção muito eficientes, com uma complexidade de tempo média de <strong>O(log n)</strong>, onde 'n' é o número de nós na árvore.</p>
+
+            <h2>O Pior Cenário: Árvore Desbalanceada</h2>
+            <p>
+                A eficiência de uma ABB depende de sua altura. Se os nós forem inseridos em uma ordem já ordenada (por exemplo: 10, 20, 30, 40, 50), a árvore pode se tornar <strong>desbalanceada</strong>, assumindo a forma de uma lista ligada.
+            </p>
+             <div class="theory-example-container">
+                <p class="text-center text-sm text-slate-600 mb-2">Exemplo de uma ABB desbalanceada:</p>
+                <div class="theory-svg-wrapper"><svg id="theory-svg-unbalanced" width="100%" height="100%"></svg></div>
+             </div>
+            <p>Neste cenário, a altura da árvore se torna 'n', e a complexidade das operações cai para <strong>O(n)</strong>, o mesmo que uma busca linear em uma lista. Estruturas como as <a href="#" class="text-indigo-600 hover:underline">Árvores AVL</a> ou Rubro-Negras foram criadas para resolver este problema através do auto-balanceamento.</p>
+
+            <h2>Travessia (Percursos)</h2>
+            <p>Percorrer uma árvore significa visitar cada um de seus nós exatamente uma vez, em uma ordem específica. Existem três formas principais de travessia em profundidade:</p>
+            <h3>1. Em Ordem (In-order)</h3>
+            <p>A travessia <strong>Em Ordem</strong> segue os passos: <strong>Esquerda, Raiz, Direita</strong>. Uma característica notável deste percurso em uma ABB é que ele visita os nós em ordem crescente de seus valores.</p>
+            <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 5, 6, 8, 10, 11, 14</code></p>
+
+            <h3>2. Pré-Ordem (Pre-order)</h3>
+            <p>A travessia <strong>Pré-Ordem</strong> segue os passos: <strong>Raiz, Esquerda, Direita</strong>. Este percurso é útil para criar uma cópia da árvore, pois a raiz é visitada primeiro, permitindo recriar a estrutura hierárquica.</p>
+             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 8, 5, 3, 6, 11, 10, 14</code></p>
+
+            <h3>3. Pós-Ordem (Post-order)</h3>
+            <p>A travessia <strong>Pós-Ordem</strong> segue os passos: <strong>Esquerda, Direita, Raiz</strong>. Este percurso é frequentemente usado para deletar uma árvore da memória, pois garante que os filhos de um nó sejam processados antes do próprio nó.</p>
+             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 6, 5, 10, 14, 11, 8</code></p>
+        </div>
+
+
+        <!-- Conteúdo da Aba de Quiz -->
+        <div id="quiz-content" class="hidden text-center">
+             <div id="quiz-container" class="hidden max-w-2xl mx-auto">
+                <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
+                <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                <div id="quiz-options" class="space-y-3"></div>
+                <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
+                <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+             </div>
+             <div id="quiz-results-screen" class="hidden">
+                 <h2>Quiz Finalizado!</h2>
+                 <p class="my-4 text-lg">Sua pontuação foi:</p>
+                 <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
+                 <div class="flex justify-center gap-4 mt-8">
+                     <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente</button>
+                     <button id="back-to-practice-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Voltar à Prática</button>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Classes e Variáveis Globais ---
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.left = null;
+                this.right = null;
+            }
+        }
+
+        // --- DOM Elements ---
+        const svg = document.getElementById('tree-svg');
+        const emptyMessage = document.getElementById('empty-message');
+        const controlsFieldset = document.getElementById('controls-fieldset');
+        const generateBtn = document.getElementById('generate-tree-btn');
+        const countInput = document.getElementById('node-count');
+        const insertBtn = document.getElementById('insert-node-btn');
+        const removeBtn = document.getElementById('remove-node-btn');
+        const valueInput = document.getElementById('node-value');
+        const sequenceInput = document.getElementById('sequence-input');
+        const buildTreeBtn = document.getElementById('build-tree-btn');
+        const inorderBtn = document.getElementById('inorder-btn');
+        const preorderBtn = document.getElementById('preorder-btn');
+        const postorderBtn = document.getElementById('postorder-btn');
+        const traversalOutput = document.getElementById('traversal-output');
+
+        const tabPractice = document.getElementById('tab-practice');
+        const tabTheory = document.getElementById('tab-theory');
+        const tabQuiz = document.getElementById('tab-quiz');
+        const practiceContent = document.getElementById('practice-content');
+        const theoryContent = document.getElementById('theory-content');
+        const quizContent = document.getElementById('quiz-content');
+
+        // --- State ---
+        let root = null;
+        let isAnimating = false;
+
+        // --- Lógica da Árvore Binária de Busca (ABB) ---
+        function insert(node, value) {
+            if (!node) {
+                return new Node(value);
+            }
+            if (value < node.value) {
+                node.left = insert(node.left, value);
+            } else if (value > node.value) {
+                node.right = insert(node.right, value);
+            }
+            return node;
+        }
+
+        function removeNode(node, value) {
+            if (node === null) {
+                return null;
+            }
+            if (value < node.value) {
+                node.left = removeNode(node.left, value);
+                return node;
+            } else if (value > node.value) {
+                node.right = removeNode(node.right, value);
+                return node;
+            } else {
+                // Nó sem filhos ou com um filho
+                if (node.left === null) {
+                    return node.right;
+                } else if (node.right === null) {
+                    return node.left;
+                }
+
+                // Nó com dois filhos
+                let temp = node.right;
+                while (temp.left !== null) {
+                    temp = temp.left;
+                }
+                node.value = temp.value;
+                node.right = removeNode(node.right, temp.value);
+                return node;
+            }
+        }
+
+        function findNodeByValue(node, value) {
+            if (!node) return null;
+            if (node.value === value) return node;
+            return value < node.value ? findNodeByValue(node.left, value) : findNodeByValue(node.right, value);
+        }
+
+        function countNodes(node) {
+            if (!node) return 0;
+            return 1 + countNodes(node.left) + countNodes(node.right);
+        }
+
+        // --- Lógica de Travessia ---
+        function inOrder(node, result = []) {
+            if (node) {
+                inOrder(node.left, result);
+                result.push(node.value);
+                inOrder(node.right, result);
+            }
+            return result;
+        }
+        function preOrder(node, result = []) {
+            if (node) {
+                result.push(node.value);
+                preOrder(node.left, result);
+                preOrder(node.right, result);
+            }
+            return result;
+        }
+        function postOrder(node, result = []) {
+            if (node) {
+                postOrder(node.left, result);
+                postOrder(node.right, result);
+                result.push(node.value);
+            }
+            return result;
+        }
+
+        // --- Lógica de Visualização ---
+        function getPositions(node, x, y, xOffset, map) {
+            if (!node) return;
+            map.set(node.value, { x, y });
+            if (node.left) getPositions(node.left, x - xOffset, y + 80, xOffset / 2, map);
+            if (node.right) getPositions(node.right, x + xOffset, y + 80, xOffset / 2, map);
+        }
+
+        function drawTree(node, svgEl = svg) {
+            svgEl.innerHTML = '';
+
+            if (!node) {
+                if (svgEl === svg) emptyMessage.classList.remove('hidden');
+                return;
+            }
+            if (svgEl === svg) emptyMessage.classList.add('hidden');
+
+            const positions = new Map();
+            const virtualWidth = 800;
+            getPositions(node, virtualWidth / 2, 50, virtualWidth / 4, positions);
+
+            const nodeCount = countNodes(node);
+            const MAX_R = 15; // Raio máximo para um diâmetro de 30px
+            const MIN_R = 10;
+            const START_SHRINK_COUNT = 8;
+            const MAX_SHRINK_COUNT = 25;
+            let radius = MAX_R;
+            if (nodeCount > START_SHRINK_COUNT) {
+                const shrinkRange = MAX_SHRINK_COUNT - START_SHRINK_COUNT;
+                const nodesOverThreshold = nodeCount - START_SHRINK_COUNT;
+                const shrinkProgress = Math.min(1, nodesOverThreshold / shrinkRange);
+                radius = MAX_R - (MAX_R - MIN_R) * shrinkProgress;
+            }
+
+            if (positions.size > 0) {
+                 let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+                 for (const pos of positions.values()) {
+                     minX = Math.min(minX, pos.x);
+                     maxX = Math.max(maxX, pos.x);
+                     minY = Math.min(minY, pos.y);
+                     maxY = Math.max(maxY, pos.y);
+                 }
+
+                 const treeContentWidth = maxX - minX;
+                 const treeContentHeight = maxY - minY;
+
+                 const padding = 50;
+                 const desiredViewBoxWidth = treeContentWidth + padding * 2;
+                 const desiredViewBoxHeight = treeContentHeight + padding * 2;
+
+                 // Define uma área de visualização mínima para evitar o "zoom" excessivo
+                 const MIN_VIEWBOX_WIDTH = 400;
+                 const MIN_VIEWBOX_HEIGHT = 300;
+
+                 const finalViewBoxWidth = Math.max(desiredViewBoxWidth, MIN_VIEWBOX_WIDTH);
+                 const finalViewBoxHeight = Math.max(desiredViewBoxHeight, MIN_VIEWBOX_HEIGHT);
+
+                 // Centraliza o conteúdo dentro da área de visualização final
+                 const finalViewBoxX = minX - (finalViewBoxWidth - treeContentWidth) / 2;
+                 const finalViewBoxY = minY - (finalViewBoxHeight - treeContentHeight) / 2;
+
+                 svgEl.setAttribute('viewBox', `${finalViewBoxX} ${finalViewBoxY} ${finalViewBoxWidth} ${finalViewBoxHeight}`);
+            }
+
+            function drawRecursive(curr) {
+                if (!curr) return;
+                const pos = positions.get(curr.value);
+                if (curr.left) { const childPos = positions.get(curr.left.value); drawLine(svgEl, pos.x, pos.y, childPos.x, childPos.y, `line-to-${curr.left.value}`); drawRecursive(curr.left); }
+                if (curr.right) { const childPos = positions.get(curr.right.value); drawLine(svgEl, pos.x, pos.y, childPos.x, childPos.y, `line-to-${curr.right.value}`); drawRecursive(curr.right); }
+                drawNode(svgEl, pos.x, pos.y, curr.value, `node-${curr.value}`, radius);
+            }
+            drawRecursive(node);
+        }
+
+        function drawNode(svgEl, cx, cy, value, id, radius = 15) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('class', 'node');
+            g.id = id;
+            g.setAttribute('transform', `translate(${cx}, ${cy})`);
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('r', radius);
+            circle.setAttribute('class', 'fill-sky-200 stroke-sky-500');
+            circle.setAttribute('stroke-width', '2');
+
+            const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            valueText.setAttribute('y', 4);
+            valueText.setAttribute('text-anchor', 'middle');
+            valueText.setAttribute('class', 'fill-slate-900 font-bold text-sm');
+            valueText.textContent = value;
+
+            g.appendChild(circle);
+            g.appendChild(valueText);
+            svgEl.appendChild(g);
+        }
+
+        function drawLine(svgEl, x1, y1, x2, y2, id) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.id = id;
+            line.setAttribute('class', 'line stroke-slate-400');
+            line.setAttribute('stroke-width', '2');
+            svgEl.prepend(line);
+        }
+
+        // --- Animações ---
+        async function animateTraversal(order) {
+            if (isAnimating || !root) return;
+            isAnimating = true;
+            controlsFieldset.disabled = true;
+            traversalOutput.textContent = '';
+
+            // Remove previous highlights
+            document.querySelectorAll('.node-highlight').forEach(el => el.classList.remove('node-highlight'));
+
+            const delay = 500;
+            let outputText = [];
+
+            for (const val of order) {
+                const nodeEl = document.getElementById(`node-${val}`);
+                if (nodeEl) {
+                    nodeEl.classList.add('node-highlight');
+                    outputText.push(val);
+                    traversalOutput.textContent = outputText.join(', ');
+                    await new Promise(res => setTimeout(res, delay));
+                    nodeEl.classList.remove('node-highlight');
+                }
+            }
+
+            isAnimating = false;
+            controlsFieldset.disabled = false;
+        }
+
+
+        // --- Lógica Geral e de Abas ---
+        function switchTab(tabId) {
+            [practiceContent, theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
+            [tabPractice, tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
+
+            if (tabId === 'practice-content') {
+                drawTree(root);
+            }
+            if (tabId === 'quiz-content') {
+                startQuiz(); // Start the quiz when tab is clicked
+            }
+        }
+
+        // --- Lógica da Teoria ---
+        function initializeTheoryExamples() {
+             const svgBst = document.getElementById('theory-svg-bst');
+             let bstRoot = null;
+             [8, 5, 11, 3, 6, 10, 14].forEach(val => bstRoot = insert(bstRoot, val));
+             drawTree(bstRoot, svgBst);
+
+             const svgUnbalanced = document.getElementById('theory-svg-unbalanced');
+             let unbalancedRoot = null;
+             [10, 20, 30, 40, 50].forEach(val => unbalancedRoot = insert(unbalancedRoot, val));
+             drawTree(unbalancedRoot, svgUnbalanced);
+        }
+
+        // --- Lógica do QUIZ ---
+        const quizQuestions = [
+            { question: 'Em uma ABB, onde estaria um nó com valor 15 em relação a um nó raiz com valor 20?', options: ['Na subárvore esquerda', 'Na subárvore direita', 'Pode estar em qualquer uma', 'Não pode ser inserido'], correctAnswer: 'Na subárvore esquerda', explanation: 'Valores menores que a raiz são sempre inseridos na subárvore esquerda.' },
+            { question: 'Qual travessia em uma ABB resulta nos valores em ordem crescente?', options: ['Pré-Ordem', 'Pós-Ordem', 'Em Ordem', 'Em Nível'], correctAnswer: 'Em Ordem', explanation: 'A travessia Em Ordem (Esquerda, Raiz, Direita) visita os nós de uma ABB em ordem ascendente.' },
+            { question: 'Qual é a complexidade de tempo do pior caso para uma busca em uma ABB?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n^2)'], correctAnswer: 'O(n)', explanation: 'No pior caso, a ABB fica desbalanceada, parecendo uma lista ligada, e a busca se torna linear.' },
+            { question: 'Dada a sequência de inserção [10, 20, 5], qual nó será a raiz da árvore?', options: ['10', '20', '5', 'Qualquer um'], correctAnswer: '10', explanation: 'O primeiro elemento inserido em uma ABB sempre se torna a raiz.' },
+            { question: 'Na travessia Pré-Ordem, qual nó é visitado primeiro?', options: ['O menor nó (folha mais à esquerda)', 'A raiz', 'O maior nó (folha mais à direita)', 'O nó do meio'], correctAnswer: 'A raiz', explanation: 'A sequência da Pré-Ordem é Raiz, Esquerda, Direita.' },
+            { question: 'Para deletar um nó com dois filhos, o que geralmente o substitui?', options: ['Seu filho esquerdo', 'Seu filho direito', 'Seu sucessor em ordem (o menor da subárvore direita)', 'A raiz da árvore'], correctAnswer: 'Seu sucessor em ordem (o menor da subárvore direita)', explanation: 'Substituir pelo sucessor em ordem (ou predecessor) mantém a propriedade da ABB.' },
+            { question: 'Uma árvore binária com a sequência Pré-Ordem [8, 5, 11] e Em Ordem [5, 8, 11]. Qual a sequência Pós-Ordem?', options: ['11, 5, 8', '5, 11, 8', '8, 11, 5', '11, 8, 5'], correctAnswer: '5, 11, 8', explanation: 'Com base nas travessias Pré-Ordem e Em Ordem, a estrutura é 8 como raiz, 5 à esquerda e 11 à direita. A Pós-Ordem (Esquerda, Direita, Raiz) resulta em 5, 11, 8.' }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const backToPracticeBtn = document.getElementById('back-to-practice-btn');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizExplanationEl = document.getElementById('quiz-explanation');
+
+        let shuffledQuestions, currentQuestionIndex, score;
+
+        function startQuiz() {
+            quizResultsScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+            shuffledQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            resetQuizState();
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            quizQuestionEl.textContent = questionData.question;
+
+            questionData.options.forEach(optionText => {
+                const button = document.createElement('button');
+                button.textContent = optionText;
+                button.className = 'quiz-option';
+                button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+                quizOptionsEl.appendChild(button);
+            });
+        }
+
+        function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
+            const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
+            allOptions.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            } else {
+                buttonEl.classList.add('incorrect');
+            }
+
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            if (questionData.explanation) {
+                quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${questionData.explanation}`;
+                quizExplanationEl.classList.remove('hidden');
+            }
+
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function resetQuizState() {
+            quizOptionsEl.innerHTML = '';
+            quizExplanationEl.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+        }
+
+        function showQuizResults() {
+            quizContainer.classList.add('hidden');
+            quizResultsScreen.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
+        }
+
+        // --- Event Listeners ---
+        tabPractice.addEventListener('click', () => switchTab('practice-content'));
+        tabTheory.addEventListener('click', () => switchTab('theory-content'));
+        tabQuiz.addEventListener('click', () => switchTab('quiz-content'));
+
+        // --- Sandbox Listeners ---
+        insertBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            const val = parseInt(valueInput.value);
+            if (isNaN(val) || findNodeByValue(root, val)) return;
+            root = insert(root, val);
+            drawTree(root);
+            valueInput.value = '';
+            traversalOutput.textContent = '';
+        });
+
+        removeBtn.addEventListener('click', () => {
+             if (isAnimating) return;
+            const val = parseInt(valueInput.value);
+            if (isNaN(val)) return;
+            root = removeNode(root, val);
+            drawTree(root);
+            valueInput.value = '';
+            traversalOutput.textContent = '';
+        });
+
+        generateBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            root = null;
+            const count = parseInt(countInput.value) || 7;
+            const values = new Set();
+            while (values.size < count) {
+                values.add(Math.floor(Math.random() * 100));
+            }
+            values.forEach(val => { root = insert(root, val); });
+            drawTree(root);
+            traversalOutput.textContent = '';
+        });
+
+        buildTreeBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            const sequenceText = sequenceInput.value;
+            if (!sequenceText) return;
+            const values = sequenceText.split(',')
+                .map(s => parseInt(s.trim()))
+                .filter(n => !isNaN(n));
+
+            root = null;
+            values.forEach(val => {
+                if (!findNodeByValue(root, val)) {
+                    root = insert(root, val);
+                }
+            });
+            drawTree(root);
+            traversalOutput.textContent = '';
+        });
+
+        // --- Traversal Listeners ---
+        inorderBtn.addEventListener('click', () => animateTraversal(inOrder(root)));
+        preorderBtn.addEventListener('click', () => animateTraversal(preOrder(root)));
+        postorderBtn.addEventListener('click', () => animateTraversal(postOrder(root)));
+
+        // --- Quiz Listeners ---
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayNextQuestion();
+        });
+        restartQuizBtn.addEventListener('click', startQuiz);
+        backToPracticeBtn.addEventListener('click', () => switchTab('practice-content'));
+
+        // --- Inicialização ---
+        window.addEventListener('resize', () => {
+            if (!practiceContent.classList.contains('hidden')) {
+                drawTree(root);
+            }
+        });
+
+        switchTab('practice-content');
+        initializeTheoryExamples();
+        generateBtn.click(); // Gerar uma árvore inicial
+
+    </script>
+</body>
+</html>
+
