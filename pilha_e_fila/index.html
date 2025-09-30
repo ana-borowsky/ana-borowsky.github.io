@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de estudos de Filas e Pilhas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        #quiz-container, .feedback-card {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .structure-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
+        }
+        #theory-content h2, #quiz-content h2 {
+            font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem;
+        }
+        #theory-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        #theory-content p, #theory-content ul { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
+        #theory-content ul { list-style-type: disc; padding-left: 1.5rem; }
+        #theory-content code { background-color: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        #theory-content strong { font-weight: 600; }
+        .quiz-option {
+            display: block; width: 100%; padding: 0.75rem; border: 1px solid #d1d5db;
+            border-radius: 0.5rem; text-align: left; transition: all 0.2s; cursor: pointer;
+        }
+        .quiz-option:hover:not(:disabled) { border-color: #4f46e5; background-color: #eef2ff; }
+        .quiz-option.correct { background-color: #dcfce7; border-color: #22c55e; }
+        .quiz-option.incorrect { background-color: #fee2e2; border-color: #ef4444; }
+
+        /* Estilos para animações da teoria */
+        .theory-example-container {
+            margin: 1.5rem auto;
+            max-width: 450px;
+        }
+        .theory-svg-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+        .theory-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+        .theory-btn {
+            background-color: #4338ca; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem;
+            font-weight: 500; transition: background-color 0.2s;
+        }
+        .theory-btn:hover { background-color: #3730a3; }
+        .theory-svg-wrapper svg g { transition: all 0.6s ease-in-out; }
+
+        #stack-theory-wrapper { height: 280px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center min-h-screen p-4">
+
+    <div class="w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-6">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de estudos de Filas e Pilhas</h1>
+            <p class="text-slate-600 mt-2">Alterne entre 'Teoria' e 'Quiz' para aprofundar os seus conhecimentos.</p>
+        </header>
+
+        <!-- Abas de Navegação -->
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
+                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo da Aba de Teoria -->
+        <div id="theory-content">
+             <h2>O que é uma Pilha (Stack)? 🥞</h2>
+             <p>Uma Pilha é uma estrutura de dados linear que segue o princípio <strong>LIFO (Last-In, First-Out)</strong>, que significa "o último a entrar é o primeiro a sair".</p>
+             <p>A melhor analogia é uma <strong>pilha de pratos</strong>. Você coloca (<code>push</code>) um prato no topo da pilha e, quando precisa de um, retira (<code>pop</code>) o prato que está no topo. Não é possível retirar um prato do meio ou da base sem antes remover todos os que estão acima dele.</p>
+             <div class="theory-example-container">
+                <div class="theory-svg-wrapper" id="stack-theory-wrapper"><svg id="theory-svg-stack"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-stack" class="theory-btn">Play</button>
+                    <button id="replay-stack" class="theory-btn">Replay</button>
+                </div>
+            </div>
+             <h3>Operações Principais</h3>
+             <ul>
+                 <li><code>push (empilhar)</code>: Adiciona um elemento no <strong>topo</strong> da pilha.</li>
+                 <li><code>pop (desempilhar)</code>: Remove e retorna o elemento do <strong>topo</strong> da pilha.</li>
+                 <li><code>peek / top (espiar / topo)</code>: Retorna o elemento do topo <strong>sem o remover</strong>.</li>
+                 <li><code>isEmpty (estáVazia)</code>: Verifica se a pilha está vazia.</li>
+             </ul>
+             <p>Todas estas operações são extremamente rápidas, com uma complexidade de tempo de <strong>O(1)</strong>, pois não dependem do número de elementos na pilha.</p>
+
+             <h3>Onde são usadas?</h3>
+             <ul>
+                 <li><strong>Navegadores Web:</strong> O botão "Voltar" usa uma pilha para armazenar as páginas visitadas.</li>
+                 <li><strong>Função Desfazer/Refazer (Undo/Redo):</strong> Editores de texto usam pilhas para guardar os estados anteriores do documento.</li>
+                 <li><strong>Execução de Funções:</strong> Linguagens de programação usam a "pilha de chamadas" (call stack) para controlar qual função está a ser executada.</li>
+             </ul>
+
+            <h2 class="mt-12">O que é uma Fila (Queue)? 🚶‍♂️🚶‍♀️🚶</h2>
+            <p>Uma Fila é uma estrutura de dados linear que segue o princípio <strong>FIFO (First-In, First-Out)</strong>, que significa "o primeiro a entrar é o primeiro a sair".</p>
+            <p>Pense numa <strong>fila de supermercado</strong>. A primeira pessoa que chega à fila é a primeira a ser atendida e a sair. Novas pessoas chegam (<code>enqueue</code>) no <strong>fim</strong> da fila, e as pessoas são atendidas (<code>dequeue</code>) no <strong>início</strong> da fila.</p>
+            <div class="theory-example-container">
+                <div class="theory-svg-wrapper"><svg id="theory-svg-queue"></svg></div>
+                <div class="theory-controls">
+                    <button id="play-queue" class="theory-btn">Play</button>
+                    <button id="replay-queue" class="theory-btn">Replay</button>
+                </div>
+            </div>
+            <h3>Operações Principais</h3>
+            <ul>
+                <li><code>enqueue (enfileirar)</code>: Adiciona um elemento no <strong>fim (rear)</strong> da fila.</li>
+                <li><code>dequeue (desenfileirar)</code>: Remove e retorna o elemento do <strong>início (front)</strong> da fila.</li>
+                <li><code>peek / front (espiar / início)</code>: Retorna o elemento do início <strong>sem o remover</strong>.</li>
+                <li><code>isEmpty (estáVazia)</code>: Verifica se a fila está vazia.</li>
+            </ul>
+            <p>Assim como nas pilhas, as operações básicas de uma fila também têm complexidade de tempo de <strong>O(1)</strong>.</p>
+
+            <h3>Onde são usadas?</h3>
+            <ul>
+                <li><strong>Gestão de impressão:</strong> Documentos enviados para uma impressora entram numa fila e são impressos na ordem em que chegaram.</li>
+                <li><strong>Sistemas Operativos:</strong> Para gerir processos que estão à espera para usar a CPU.</li>
+                <li><strong>Redes de Computadores:</strong> Pacotes de dados são colocados numa fila antes de serem transmitidos.</li>
+            </ul>
+        </div>
+
+
+        <!-- Conteúdo da Aba de Quiz -->
+        <div id="quiz-content" class="hidden text-center">
+             <div id="quiz-selection-screen">
+                <h2>Quiz sobre Filas e Pilhas</h2>
+                <p class="my-4">Teste os seus conhecimentos com 12 perguntas.</p>
+                <div id="quiz-buttons-container" class="flex justify-center">
+                    <!-- Botão do Quiz será gerado aqui -->
+                </div>
+            </div>
+            <div id="quiz-container" class="hidden">
+                 <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
+                 <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                 <div id="quiz-options" class="space-y-3"></div>
+                 <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
+                 <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+            </div>
+             <div id="quiz-results-screen" class="hidden">
+                 <h2>Quiz Finalizado!</h2>
+                 <p class="my-4 text-lg">A sua pontuação foi:</p>
+                 <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
+                 <button id="restart-quiz-btn" class="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg">Tentar Novamente</button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Elementos do DOM ---
+        const tabs = {
+            theory: document.getElementById('tab-theory'),
+            quiz: document.getElementById('tab-quiz'),
+        };
+        const contents = {
+            theory: document.getElementById('theory-content'),
+            quiz: document.getElementById('quiz-content'),
+        };
+
+        // --- Lógica das Abas ---
+        function switchTab(tabName) {
+            Object.keys(contents).forEach(key => {
+                contents[key].classList.add('hidden');
+                tabs[key].classList.remove('active');
+            });
+            contents[tabName].classList.remove('hidden');
+            tabs[tabName].classList.add('active');
+
+            if(tabName === 'quiz') {
+                 showQuizScreen('selection');
+            }
+        }
+
+        // --- Lógica do Quiz ---
+        const quizQuestions = [
+            { question: 'Qual princípio uma Pilha (Stack) segue?', options: ['FIFO (Primeiro a Entrar, Primeiro a Sair)', 'LIFO (Último a Entrar, Primeiro a Sair)', 'Aleatório', 'LILO (Último a Entrar, Último a Sair)'], answer: 'LIFO (Último a Entrar, Primeiro a Sair)', explanation: 'LIFO é a sigla para "Last-In, First-Out", que descreve perfeitamente o comportamento de uma pilha, como uma pilha de pratos.' },
+            { question: 'Qual princípio uma Fila (Queue) segue?', options: ['LIFO (Último a Entrar, Primeiro a Sair)', 'FIFO (Primeiro a Entrar, Primeiro a Sair)', 'FILO (Primeiro a Entrar, Último a Sair)', 'Nenhum dos anteriores'], answer: 'FIFO (Primeiro a Entrar, Primeiro a Sair)', explanation: 'FIFO é a sigla para "First-In, First-Out", que descreve o comportamento de uma fila, como pessoas à espera para serem atendidas.' },
+            { question: 'A operação para adicionar um item ao topo de uma pilha é chamada de:', options: ['Enfileirar (enqueue)', 'Empilhar (push)', 'Adicionar (add)', 'Inserir (insert)'], answer: 'Empilhar (push)', explanation: 'A operação "empilhar" (push) é o termo correto para adicionar um elemento no topo de uma pilha.' },
+            { question: 'Qual operação remove um elemento do início de uma fila?', options: ['Desempilhar (pop)', 'Remover (remove)', 'Desenfileirar (dequeue)', 'Apagar (delete)'], answer: 'Desenfileirar (dequeue)', explanation: 'A operação "desenfileirar" (dequeue) é o termo correto para remover o elemento que está no início da fila.' },
+            { question: 'Numa pilha, você empilha os valores 10, 20 e 30, nesta ordem. Qual valor será o primeiro a ser removido?', options: ['10', '20', '30', 'Qualquer um'], answer: '30', explanation: 'Devido ao princípio LIFO, o último elemento a entrar (30) é sempre o primeiro a sair.' },
+            { question: 'Numa fila, você enfileira as letras "X", "Y" e "Z", nesta ordem. Qual letra estará no início da fila para ser a primeira a sair?', options: ['"X"', '"Y"', '"Z"', 'A ordem não é garantida'], answer: '"X"', explanation: 'Devido ao princípio FIFO, o primeiro elemento a entrar ("X") é também o primeiro a sair.' },
+            { question: 'A função de "Desfazer" (Undo) num editor de texto é um exemplo clássico de qual estrutura de dados?', options: ['Fila', 'Pilha', 'Lista Ligada', 'Árvore'], answer: 'Pilha', explanation: 'Cada ação é empilhada. Ao clicar em "desfazer", a última ação (no topo da pilha) é desfeita.' },
+            { question: 'Um sistema de gestão de impressão, que imprime documentos na ordem em que foram enviados, usa qual estrutura?', options: ['Fila', 'Pilha', 'Array', 'Tabela Hash'], answer: 'Fila', explanation: 'Os trabalhos de impressão são processados na ordem de chegada (FIFO), o que é a definição de uma fila.' },
+            { question: 'Qual operação permite ver o elemento no topo de uma pilha sem o remover?', options: ['Ver (view)', 'Olhar (look)', 'Topo (top/peek)', 'Frente (front)'], answer: 'Topo (top/peek)', explanation: 'As operações "topo" (top) ou "espiar" (peek) servem para inspecionar o elemento do topo sem alterar a pilha.' },
+            { question: 'Se uma pilha está vazia e você tenta executar uma operação de desempilhar (pop), o que acontece?', options: ['O programa dá erro (underflow)', 'Remove o último item que foi adicionado', 'Retorna o valor 0', 'Não acontece nada'], answer: 'O programa dá erro (underflow)', explanation: 'Tentar remover um item de uma pilha vazia resulta num erro conhecido como "underflow" (esvaziamento).' },
+            { question: 'A complexidade de tempo para enfileirar (enqueue) um item numa fila com "N" elementos é geralmente:', options: ['O(1)', 'O(log N)', 'O(N)', 'O(N²)'], answer: 'O(1)', explanation: 'Adicionar um item ao final de uma fila é uma operação de tempo constante, independentemente do seu tamanho.' },
+            { question: 'O botão "Voltar" de um navegador web armazena as páginas visitadas em qual tipo de estrutura?', options: ['Fila', 'Pilha', 'Ambas', 'Nenhuma'], answer: 'Pilha', explanation: 'A página mais recente visitada está no topo da pilha, e é para ela que o botão "Voltar" nos leva (LIFO).' },
+        ];
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizExplanationEl = document.getElementById('quiz-explanation');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        let shuffledQuestions, currentQuestionIndex, score;
+
+        function startQuiz() {
+            shuffledQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuizScreen('question');
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            resetQuizState();
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showQuizScreen('results');
+                quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
+                return;
+            }
+
+            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            const q = shuffledQuestions[currentQuestionIndex];
+            quizQuestionEl.textContent = q.question;
+
+            q.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'quiz-option';
+                button.addEventListener('click', () => selectAnswer(button, option, q.answer));
+                quizOptionsEl.appendChild(button);
+            });
+        }
+
+        function selectAnswer(btn, selected, correct) {
+            Array.from(quizOptionsEl.children).forEach(button => {
+                button.disabled = true;
+                if(button.textContent === correct) {
+                    button.classList.add('correct');
+                }
+            });
+
+            if (selected === correct) {
+                score++;
+            } else {
+                btn.classList.add('incorrect');
+            }
+
+            const explanation = shuffledQuestions[currentQuestionIndex].explanation;
+            quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${explanation}`;
+            quizExplanationEl.classList.remove('hidden');
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function resetQuizState() {
+            quizOptionsEl.innerHTML = '';
+            quizExplanationEl.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+        }
+
+        function showQuizScreen(screen) {
+             if (screen === 'question') {
+                quizSelectionScreen.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                quizResultsScreen.classList.add('hidden');
+            } else if (screen === 'results') {
+                quizSelectionScreen.classList.add('hidden');
+                quizContainer.classList.add('hidden');
+                quizResultsScreen.classList.remove('hidden');
+            } else { // selection (initial state)
+                quizSelectionScreen.classList.remove('hidden');
+                quizContainer.classList.add('hidden');
+                quizResultsScreen.classList.add('hidden');
+            }
+        }
+
+        function setupQuizSelection() {
+            const container = document.getElementById('quiz-buttons-container');
+            container.innerHTML = '';
+            const button = document.createElement('button');
+            button.textContent = 'Iniciar Quiz';
+            button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
+            button.onclick = startQuiz;
+            container.appendChild(button);
+        }
+
+        // --- Lógica de Animação da Teoria ---
+        const SVG_NS = "http://www.w3.org/2000/svg";
+
+        function createTheoryItem(id, value, x, y) {
+            const g = document.createElementNS(SVG_NS, 'g');
+            g.setAttribute('id', id);
+            g.setAttribute('transform', `translate(${x}, ${y})`);
+            g.style.opacity = '0';
+
+            const rect = document.createElementNS(SVG_NS, 'rect');
+            rect.setAttribute('width', '50');
+            rect.setAttribute('height', '50');
+            rect.setAttribute('rx', '6');
+            rect.setAttribute('class', 'fill-indigo-200 stroke-indigo-500');
+            rect.setAttribute('stroke-width', '2');
+
+            const text = document.createElementNS(SVG_NS, 'text');
+            text.setAttribute('x', '25');
+            text.setAttribute('y', '30');
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('class', 'fill-slate-900 font-bold');
+            text.textContent = value;
+
+            g.appendChild(rect);
+            g.appendChild(text);
+            return g;
+        }
+
+        function createTheoryPointer(id, textContent, x, y) {
+            const g = document.createElementNS(SVG_NS, 'g');
+            g.setAttribute('id', id);
+            g.setAttribute('transform', `translate(${x}, ${y})`);
+            g.style.opacity = '0';
+
+            const text = document.createElementNS(SVG_NS, 'text');
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('class', 'font-semibold text-slate-600');
+            text.textContent = textContent;
+
+            g.appendChild(text);
+            return g;
+        }
+
+        function setupTheoryAnimation(svgId, playId, replayId, animationFunc, initialStateFunc) {
+            const svg = document.getElementById(svgId);
+            const playBtn = document.getElementById(playId);
+            const replayBtn = document.getElementById(replayId);
+            let isTheoryAnimating = false;
+
+            const reset = () => {
+                isTheoryAnimating = false;
+                svg.innerHTML = '';
+                initialStateFunc(svg);
+                playBtn.disabled = false;
+            }
+
+            playBtn.addEventListener('click', async () => {
+                if (isTheoryAnimating) return;
+                isTheoryAnimating = true;
+                playBtn.disabled = true;
+                await animationFunc(svg);
+                isTheoryAnimating = false;
+            });
+            replayBtn.addEventListener('click', reset);
+
+            reset();
+        }
+
+        // Animação da Pilha
+        const drawInitialStack = (svg) => {
+            svg.setAttribute('viewBox', '0 0 450 280');
+            const border = document.createElementNS(SVG_NS, 'path');
+            border.setAttribute('d', 'M 175 270 L 175 40 L 275 40 L 275 270');
+            border.setAttribute('class', 'stroke-slate-300 stroke-2 fill-none');
+            svg.appendChild(border);
+        };
+
+        async function animateStackTheory(svg) {
+            const wait = (ms) => new Promise(res => setTimeout(res, ms));
+            const centerX = 225;
+            const itemHeight = 55; // height + gap
+            const startY = 210;
+
+            // Step 1: Push 10
+            const item10 = createTheoryItem('t-stack-10', '10', centerX - 25, 10);
+            const pointer = createTheoryPointer('t-stack-ptr', 'Topo', centerX, startY - 5);
+            svg.appendChild(item10);
+            svg.appendChild(pointer);
+            await wait(100);
+            item10.style.opacity = '1';
+            item10.setAttribute('transform', `translate(${centerX - 25}, ${startY})`);
+            pointer.style.opacity = '1';
+            await wait(800);
+
+            // Step 2: Push 20
+            const item20 = createTheoryItem('t-stack-20', '20', centerX - 25, 10);
+            svg.appendChild(item20);
+            await wait(100);
+            item20.style.opacity = '1';
+            item20.setAttribute('transform', `translate(${centerX - 25}, ${startY - itemHeight})`);
+            pointer.setAttribute('transform', `translate(${centerX}, ${startY - itemHeight - 5})`);
+            await wait(800);
+
+            // Step 3: Push 30
+            const item30 = createTheoryItem('t-stack-30', '30', centerX - 25, 10);
+            svg.appendChild(item30);
+            await wait(100);
+            item30.style.opacity = '1';
+            item30.setAttribute('transform', `translate(${centerX - 25}, ${startY - itemHeight * 2})`);
+            pointer.setAttribute('transform', `translate(${centerX}, ${startY - itemHeight * 2 - 5})`);
+            await wait(800);
+
+            // Step 4: Push 40
+            const item40 = createTheoryItem('t-stack-40', '40', centerX - 25, 10);
+            svg.appendChild(item40);
+            await wait(100);
+            item40.style.opacity = '1';
+            item40.setAttribute('transform', `translate(${centerX - 25}, ${startY - itemHeight * 3})`);
+            pointer.setAttribute('transform', `translate(${centerX}, ${startY - itemHeight * 3 - 5})`);
+            await wait(1200);
+
+            // Step 5: Pop 40
+            item40.setAttribute('transform', `translate(${centerX - 25}, -50)`);
+            item40.style.opacity = '0';
+            pointer.setAttribute('transform', `translate(${centerX}, ${startY - itemHeight * 2 - 5})`);
+            await wait(800);
+
+            // Step 6: Pop 30
+            item30.setAttribute('transform', `translate(${centerX - 25}, -50)`);
+            item30.style.opacity = '0';
+            pointer.setAttribute('transform', `translate(${centerX}, ${startY - itemHeight - 5})`);
+            await wait(800);
+        }
+
+        // Animação da Fila
+        const drawInitialQueue = (svg) => {
+             svg.setAttribute('viewBox', '0 0 450 220');
+        };
+
+        async function animateQueueTheory(svg) {
+            const wait = (ms) => new Promise(res => setTimeout(res, ms));
+            const startX = 20;
+            const itemGap = 60;
+            const y = 80;
+
+            // Step 1: Enqueue A
+            const itemA = createTheoryItem('t-queue-A', 'A', 400, y);
+            const ptrFront = createTheoryPointer('t-queue-front', 'Início', startX + 25, y + 85);
+            const ptrRear = createTheoryPointer('t-queue-rear', 'Fim', startX + 25, y + 85);
+            svg.appendChild(itemA);
+            svg.appendChild(ptrFront);
+            svg.appendChild(ptrRear);
+            await wait(100);
+            itemA.style.opacity = '1';
+            itemA.setAttribute('transform', `translate(${startX}, ${y})`);
+            ptrFront.style.opacity = '1';
+            ptrRear.style.opacity = '1';
+            await wait(800);
+
+            // Step 2: Enqueue B
+            const itemB = createTheoryItem('t-queue-B', 'B', 400, y);
+            svg.appendChild(itemB);
+            await wait(100);
+            itemB.style.opacity = '1';
+            itemB.setAttribute('transform', `translate(${startX + itemGap}, ${y})`);
+            ptrRear.setAttribute('transform', `translate(${startX + itemGap + 25}, ${y + 85})`);
+            await wait(800);
+
+            // Step 3: Enqueue C
+            const itemC = createTheoryItem('t-queue-C', 'C', 400, y);
+            svg.appendChild(itemC);
+            await wait(100);
+            itemC.style.opacity = '1';
+            itemC.setAttribute('transform', `translate(${startX + itemGap * 2}, ${y})`);
+            ptrRear.setAttribute('transform', `translate(${startX + itemGap * 2 + 25}, ${y + 85})`);
+            await wait(800);
+
+            // Step 4: Enqueue D
+            const itemD = createTheoryItem('t-queue-D', 'D', 400, y);
+            svg.appendChild(itemD);
+            await wait(100);
+            itemD.style.opacity = '1';
+            itemD.setAttribute('transform', `translate(${startX + itemGap * 3}, ${y})`);
+            ptrRear.setAttribute('transform', `translate(${startX + itemGap * 3 + 25}, ${y + 85})`);
+            await wait(1200);
+
+            // Step 5: Dequeue A
+            itemA.setAttribute('transform', `translate(-60, ${y})`);
+            itemA.style.opacity = '0';
+            ptrFront.setAttribute('transform', `translate(${startX + itemGap + 25}, ${y + 85})`);
+            await wait(800);
+
+            // Step 6: Dequeue B
+            itemB.setAttribute('transform', `translate(-60, ${y})`);
+            itemB.style.opacity = '0';
+            ptrFront.setAttribute('transform', `translate(${startX + itemGap * 2 + 25}, ${y + 85})`);
+            await wait(800);
+        }
+
+        // --- Event Listeners ---
+        Object.keys(tabs).forEach(key => {
+            tabs[key].addEventListener('click', () => switchTab(key));
+        });
+
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayNextQuestion();
+        });
+        restartQuizBtn.addEventListener('click', startQuiz);
+
+
+        // --- Inicialização ---
+        switchTab('theory');
+        setupQuizSelection();
+        setupTheoryAnimation('theory-svg-stack', 'play-stack', 'replay-stack', animateStackTheory, drawInitialStack);
+        setupTheoryAnimation('theory-svg-queue', 'play-queue', 'replay-queue', animateQueueTheory, drawInitialQueue);
+    });
+    </script>
+</body>
+</html>
+
