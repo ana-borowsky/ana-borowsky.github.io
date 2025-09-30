@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de estudos de Listas Encadeadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .node, .pointer, .label {
+            transition: all 0.7s ease-in-out;
+        }
+        #quiz-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .controls-disabled fieldset {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
+        }
+        #theory-content h2, #quiz-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+         #theory-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #theory-content p, #theory-content ul, #theory-content ol {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        #theory-content ul, #theory-content ol {
+            padding-left: 1.5rem;
+        }
+        #theory-content code {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        #theory-content strong {
+            font-weight: 600;
+        }
+        .theory-example-container {
+            margin: 1.5rem auto;
+            max-width: 550px;
+        }
+        .theory-svg-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 150px;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: left;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+        .node-highlight rect {
+            fill: #facc15; /* yellow-400 */
+            stroke: #ca8a04; /* yellow-600 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center min-h-screen p-4">
+
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-4 md:mt-10">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de estudos de Listas Encadeadas</h1>
+            <p class="text-slate-600 mt-2">Alterne entre 'Prática', 'Teoria' e 'Quiz' para aprofundar seus conhecimentos.</p>
+        </header>
+
+        <!-- Abas de Navegação -->
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                <button id="tab-practice" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Prática</button>
+                <button id="tab-theory" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Teoria</button>
+                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo da Aba de Prática -->
+        <div id="practice-content">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Coluna de Controles -->
+                <div id="controls-section" class="lg:w-1/3">
+                    <fieldset id="controls-fieldset">
+                         <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Controlar Lista (Simplesmente Encadeada)</h2>
+                        <div class="space-y-4">
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label for="node-count" class="block text-sm font-medium text-slate-700">Lista aleatória</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="number" id="node-count" value="5" min="1" max="8" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <button id="generate-list-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
+                                </div>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir Valor</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="number" id="node-value" placeholder="Valor" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mt-2">
+                                     <button id="insert-start-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">No Início</button>
+                                     <button id="insert-end-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">No Fim</button>
+                                </div>
+                            </div>
+                             <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                <label class="block text-sm font-medium text-slate-700">Remover Valor</label>
+                                 <div class="grid grid-cols-2 gap-2 mt-1">
+                                    <button id="remove-start-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Do Início</button>
+                                    <button id="remove-end-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Do Fim</button>
+                                 </div>
+                                  <div id="removed-value" class="mt-3 text-center text-sm font-mono bg-white p-2 rounded h-10 flex items-center justify-center"></div>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                 <label class="block text-sm font-medium text-slate-700">Limpar</label>
+                                <button id="clear-btn" class="w-full mt-1 bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Limpar Lista</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Coluna da Fila -->
+                <div class="lg:w-2/3 flex flex-col">
+                    <div id="visualization-container" class="w-full h-96 lg:h-full flex-grow bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden relative">
+                        <svg id="list-svg" width="100%" height="100%"></svg>
+                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-500 text-center w-full px-4">A lista está vazia. Use os controles para começar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Teoria -->
+        <div id="theory-content" class="hidden text-left max-w-4xl mx-auto">
+            <h2>O que é uma Lista Encadeada?</h2>
+            <p>
+                Uma <strong>Lista Encadeada</strong> (ou Lista Ligada) é uma estrutura de dados linear e dinâmica composta por uma sequência de <strong>nós</strong>. Diferente de um array, os elementos não são armazenados em posições contíguas de memória. Em vez disso, cada nó contém:
+            </p>
+            <ul>
+                <li>O <strong>dado</strong> (valor) do elemento.</li>
+                <li>Um <strong>ponteiro</strong> (ou referência) que aponta para o próximo nó na sequência.</li>
+            </ul>
+            <p>A lista mantém um ponteiro especial, chamado <code>head</code> (cabeça), que aponta para o primeiro nó. O último nó da lista aponta para <code>null</code>, indicando o fim da sequência.</p>
+
+            <h2>Tipos de Listas Encadeadas</h2>
+            <p>Existem variações da lista encadeada, cada uma com suas próprias características e casos de uso.</p>
+
+            <h3>1. Lista Simplesmente Encadeada</h3>
+            <p>É o tipo mais básico. Cada nó possui apenas um ponteiro, que aponta para o <strong>próximo</strong> nó. Isso permite percorrer a lista em apenas uma direção, do início para o fim.</p>
+            <div class="theory-example-container">
+                <p class="text-center text-sm text-slate-600 mb-2">Exemplo de Lista Simplesmente Encadeada:</p>
+                <div class="theory-svg-wrapper"><svg id="theory-svg-singly" width="100%" height="100%"></svg></div>
+            </div>
+
+            <h3>2. Lista Duplamente Encadeada</h3>
+            <p>Esta é a lista que "pode ir e voltar". Cada nó possui <strong>dois ponteiros</strong>:</p>
+            <ul>
+                <li><code>next</code>: aponta para o próximo nó.</li>
+                <li><code>prev</code>: aponta para o nó anterior.</li>
+            </ul>
+            <p>Essa estrutura permite percorrer a lista em ambas as direções (para frente e para trás), o que torna algumas operações, como a remoção de um nó no meio da lista, mais eficientes.</p>
+            <div class="theory-example-container">
+                 <p class="text-center text-sm text-slate-600 mb-2">Exemplo de Lista Duplamente Encadeada:</p>
+                <div class="theory-svg-wrapper"><svg id="theory-svg-doubly" width="100%" height="100%"></svg></div>
+            </div>
+
+             <h3>3. Lista Circular</h3>
+            <p>Em uma lista circular (que pode ser simples ou duplamente encadeada), o ponteiro do <strong>último nó</strong> não aponta para <code>null</code>. Em vez disso, ele aponta de volta para o <strong>primeiro nó</strong> (o <code>head</code>), formando um ciclo.</p>
+            <p>Isso é útil para aplicações que precisam de um comportamento contínuo, como um carrossel de imagens em um site ou o gerenciamento de processos em um sistema operacional (Round Robin).</p>
+             <div class="theory-example-container">
+                 <p class="text-center text-sm text-slate-600 mb-2">Exemplo de Lista Circular Simples:</p>
+                <div class="theory-svg-wrapper"><svg id="theory-svg-circular" width="100%" height="100%"></svg></div>
+            </div>
+
+            <h3>Aplicações Comuns</h3>
+            <p>Listas encadeadas são fundamentais em ciência da computação e são usadas para implementar outras estruturas de dados, como:</p>
+             <ul>
+                <li><strong>Pilhas e Filas:</strong> Podem ser implementadas eficientemente com listas encadeadas.</li>
+                <li><strong>Histórico de Navegador:</strong> Uma lista duplamente encadeada é perfeita para as funções "avançar" e "voltar".</li>
+                <li><strong>Playlists de Música:</strong> Uma lista duplamente encadeada e circular permite navegar pelas músicas e repetir a lista quando ela termina.</li>
+            </ul>
+        </div>
+
+        <!-- Conteúdo da Aba de Quiz -->
+        <div id="quiz-content" class="hidden text-center">
+            <div id="quiz-selection-screen">
+                <h2>Quiz sobre Listas Encadeadas</h2>
+                <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
+                <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
+                    <!-- Buttons will be generated here -->
+                </div>
+            </div>
+            <div id="quiz-container" class="hidden max-w-2xl mx-auto">
+                <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
+                <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                <div id="quiz-practice-area" class="hidden my-4">
+                    <div class="w-full h-48 bg-slate-100 rounded-lg mx-auto">
+                        <svg id="quiz-list-svg" width="100%" height="100%"></svg>
+                    </div>
+                </div>
+                <div id="quiz-options" class="space-y-3"></div>
+                <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
+                <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+            </div>
+            <div id="quiz-results-screen" class="hidden">
+                 <h2>Quiz Finalizado!</h2>
+                 <p class="my-4 text-lg">Sua pontuação foi:</p>
+                 <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
+                 <div class="flex justify-center gap-4 mt-8">
+                     <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
+                     <button id="back-to-quizzes-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Classes e Variáveis Globais ---
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        // --- DOM Elements ---
+        const svg = document.getElementById('list-svg');
+        const emptyMessage = document.getElementById('empty-message');
+        const controlsFieldset = document.getElementById('controls-fieldset');
+        const generateBtn = document.getElementById('generate-list-btn');
+        const countInput = document.getElementById('node-count');
+        const insertStartBtn = document.getElementById('insert-start-btn');
+        const insertEndBtn = document.getElementById('insert-end-btn');
+        const removeStartBtn = document.getElementById('remove-start-btn');
+        const removeEndBtn = document.getElementById('remove-end-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const valueInput = document.getElementById('node-value');
+        const removedValueEl = document.getElementById('removed-value');
+
+        const tabPractice = document.getElementById('tab-practice');
+        const tabTheory = document.getElementById('tab-theory');
+        const tabQuiz = document.getElementById('tab-quiz');
+        const practiceContent = document.getElementById('practice-content');
+        const theoryContent = document.getElementById('theory-content');
+        const quizContent = document.getElementById('quiz-content');
+
+        // --- Quiz DOM Elements ---
+        const quizStartScreen = document.getElementById('quiz-selection-screen');
+        const quizButtonsContainer = document.getElementById('quiz-buttons-container');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const backToQuizzesBtn = document.getElementById('back-to-quizzes-btn');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const quizPracticeArea = document.getElementById('quiz-practice-area');
+        const quizListSvg = document.getElementById('quiz-list-svg');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizExplanationEl = document.getElementById('quiz-explanation');
+
+        // --- State ---
+        let head = null;
+        let isAnimating = false;
+        let shuffledQuestions, currentQuestionIndex, score, currentQuizNumber;
+
+        // --- Lógica da Lista Encadeada ---
+        function insertAtStart(value) {
+            const newNode = new Node(value);
+            newNode.next = head;
+            head = newNode;
+        }
+
+        function insertAtEnd(value) {
+            const newNode = new Node(value);
+            if (!head) {
+                head = newNode;
+                return;
+            }
+            let current = head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+
+        function removeFromStart() {
+            if (!head) return null;
+            const removedNode = head;
+            head = head.next;
+            return removedNode.value;
+        }
+
+        function removeFromEnd() {
+            if (!head) return null;
+            if (!head.next) {
+                const removedValue = head.value;
+                head = null;
+                return removedValue;
+            }
+            let current = head;
+            while(current.next && current.next.next) {
+                current = current.next;
+            }
+            const removedNode = current.next;
+            current.next = null;
+            return removedNode.value;
+        }
+
+        function clearList() {
+            head = null;
+        }
+
+        // --- Lógica de Visualização ---
+        const NODE_WIDTH = 60;
+        const NODE_HEIGHT = 40;
+        const SPACING = 40;
+        const POINTER_LENGTH = SPACING - 10;
+
+        function drawList(listHead, svgEl = svg, isCircular = false, isDoubly = false) {
+            svgEl.innerHTML = '';
+            if (!listHead) {
+                if (svgEl === svg) emptyMessage.classList.remove('hidden');
+                return;
+            }
+            if (svgEl === svg) emptyMessage.classList.add('hidden');
+
+            // Define a ponta da flecha uma única vez
+            if (!svgEl.querySelector(`#arrowhead`)) {
+                const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+                const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+                marker.id = `arrowhead`;
+                marker.setAttribute('viewBox', '0 0 10 10');
+                marker.setAttribute('refX', '9');
+                marker.setAttribute('refY', '5');
+                marker.setAttribute('markerWidth', '6');
+                marker.setAttribute('markerHeight', '6');
+                marker.setAttribute('orient', 'auto');
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+                path.setAttribute('class', 'fill-slate-500');
+                marker.appendChild(path);
+                defs.appendChild(marker);
+                svgEl.prepend(defs);
+            }
+
+            let current = listHead;
+            let i = 0;
+            let listLength = 0;
+
+            // Loop para desenhar nós e ponteiros
+            do {
+                const x = (NODE_WIDTH + SPACING) * i;
+                const y = 50;
+
+                // Ponteiro para o PRÓXIMO
+                if (current.next && !(isCircular && current.next === listHead)) {
+                     const yOffset = isDoubly ? -5 : 0;
+                     drawPointer(svgEl, x + NODE_WIDTH, y + NODE_HEIGHT / 2 + yOffset, x + NODE_WIDTH + SPACING, y + NODE_HEIGHT / 2 + yOffset, `pointer-${i}`);
+                }
+
+                // Ponteiro para o ANTERIOR (Doubly)
+                if (isDoubly && current.prev) {
+                    const yOffset = 5;
+                    drawPointer(svgEl, x, y + NODE_HEIGHT / 2 + yOffset, x - SPACING, y + NODE_HEIGHT / 2 + yOffset, `prev-pointer-${i}`);
+                }
+
+                drawNode(svgEl, x, y, current.value, `node-${i}`);
+                current = current.next;
+                i++;
+                listLength++;
+            } while (current && current !== listHead);
+
+            // Centraliza a visualização
+            const totalWidth = listLength * NODE_WIDTH + (listLength - 1) * SPACING;
+            const svgWidth = svgEl.parentElement.clientWidth || 500;
+            const startX = (svgWidth - totalWidth) / 2 - SPACING; // Adiciona um padding
+            svgEl.setAttribute('viewBox', `${-startX} 0 ${svgWidth + SPACING * 2} 150`);
+
+            // Desenha terminadores e labels específicos da Teoria
+            if (svgEl.id.startsWith('theory-svg')) {
+                const firstNodeX = 0;
+                const lastNodeX = (NODE_WIDTH + SPACING) * (listLength - 1);
+
+                if (isCircular) {
+                    const pathData = `M ${lastNodeX + NODE_WIDTH - 10},${50 + NODE_HEIGHT} C ${lastNodeX + NODE_WIDTH + 20},${50 + NODE_HEIGHT + 40} ${firstNodeX - 20},${50 + NODE_HEIGHT + 40} ${firstNodeX + 10},${50 + NODE_HEIGHT}`;
+                    drawCurvedPointer(svgEl, pathData, 'circular-pointer');
+                } else { // Singly or Doubly
+                    const yNextOffset = isDoubly ? -5 : 0;
+                    drawPointer(svgEl, lastNodeX + NODE_WIDTH, 50 + NODE_HEIGHT / 2 + yNextOffset, lastNodeX + NODE_WIDTH + SPACING, 50 + NODE_HEIGHT / 2 + yNextOffset, 'pointer-to-null');
+                    const nullTextEnd = drawLabel(svgEl, "null", lastNodeX + NODE_WIDTH + SPACING + 20, 50 + NODE_HEIGHT / 2 + 5);
+                    nullTextEnd.setAttribute('class', 'fill-slate-500 font-mono');
+
+                    if (isDoubly) {
+                        const yPrevOffset = 5;
+                        drawPointer(svgEl, firstNodeX, 50 + NODE_HEIGHT / 2 + yPrevOffset, firstNodeX - SPACING, 50 + NODE_HEIGHT / 2 + yPrevOffset, 'prev-pointer-to-null');
+                        const nullTextStart = drawLabel(svgEl, "null", firstNodeX - SPACING - 20, 50 + NODE_HEIGHT / 2 + 5);
+                        nullTextStart.setAttribute('class', 'fill-slate-500 font-mono');
+                    }
+                }
+            }
+            // Desenha labels da Prática
+            else if (listHead && svgEl === svg) {
+                const firstNodeX = 0;
+                const lastNodeX = (NODE_WIDTH + SPACING) * (listLength - 1);
+                drawLabel(svgEl, 'Head', firstNodeX + NODE_WIDTH / 2, 10);
+                if (listLength > 1) {
+                    drawLabel(svgEl, 'Tail', lastNodeX + NODE_WIDTH / 2, NODE_HEIGHT + 60);
+                }
+            }
+        }
+
+        function drawNode(svgEl, x, y, value, id) {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('class', 'node');
+            g.id = id;
+            g.setAttribute('transform', `translate(${x}, ${y})`);
+
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('width', NODE_WIDTH);
+            rect.setAttribute('height', NODE_HEIGHT);
+            rect.setAttribute('rx', 8);
+            rect.setAttribute('class', 'fill-sky-200 stroke-sky-500');
+            rect.setAttribute('stroke-width', '2');
+
+            const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            valueText.setAttribute('x', NODE_WIDTH / 2);
+            valueText.setAttribute('y', NODE_HEIGHT / 2 + 5);
+            valueText.setAttribute('text-anchor', 'middle');
+            valueText.setAttribute('class', 'fill-slate-900 font-bold text-base');
+            valueText.textContent = value;
+
+            g.appendChild(rect);
+            g.appendChild(valueText);
+            svgEl.appendChild(g);
+            return g;
+        }
+
+        function drawPointer(svgEl, x1, y1, x2, y2, id) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.setAttribute('class', 'pointer stroke-slate-500');
+            line.id = id;
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('marker-end', `url(#arrowhead)`);
+            svgEl.appendChild(line);
+        }
+
+        function drawCurvedPointer(svgEl, pathData, id) {
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.id = id;
+            path.setAttribute('class', 'pointer stroke-slate-500');
+            path.setAttribute('stroke-width', '2');
+            path.setAttribute('fill', 'none');
+            path.setAttribute('marker-end', 'url(#arrowhead)');
+            svgEl.appendChild(path);
+        }
+
+        function drawLabel(svgEl, text, x, y) {
+             const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+             label.setAttribute('x', x);
+             label.setAttribute('y', y);
+             label.setAttribute('text-anchor', 'middle');
+             label.setAttribute('class', 'label fill-indigo-600 font-semibold text-sm');
+             label.textContent = text;
+             svgEl.appendChild(label);
+             return label;
+        }
+
+        // --- Animações ---
+        async function runAnimatedOperation(operation) {
+             if (isAnimating) return;
+
+             const val = parseInt(valueInput.value);
+             if ((operation === 'insertStart' || operation === 'insertEnd') && isNaN(val)) return;
+
+             isAnimating = true;
+             controlsFieldset.disabled = true;
+             removedValueEl.textContent = '';
+
+             switch (operation) {
+                 case 'insertStart':
+                    const animatedNodeStart = drawNode(svg, 0, 50, val, 'animated-node');
+                    animatedNodeStart.style.opacity = '0';
+                    animatedNodeStart.style.transform = `translateY(-50px)`;
+                    await new Promise(res => setTimeout(res, 50));
+                    animatedNodeStart.style.opacity = '1';
+                    animatedNodeStart.style.transform = `translateY(0)`;
+                    await new Promise(res => setTimeout(res, 700));
+                    insertAtStart(val);
+                    break;
+                 case 'insertEnd':
+                    let count = 0;
+                    let current = head;
+                    while(current) { count++; current = current.next; }
+                    const initialX = (NODE_WIDTH + SPACING) * count;
+                    const animatedNodeEnd = drawNode(svg, initialX, 50, val, 'animated-node');
+                    animatedNodeEnd.style.opacity = '0';
+                    animatedNodeEnd.style.transform = `translateY(50px)`;
+                    await new Promise(res => setTimeout(res, 50));
+                    animatedNodeEnd.style.opacity = '1';
+                    animatedNodeEnd.style.transform = `translateY(0)`;
+                    await new Promise(res => setTimeout(res, 700));
+                    insertAtEnd(val);
+                    break;
+                 case 'removeStart':
+                    if(!head) break;
+                    const firstNodeEl = svg.querySelector('#node-0');
+                    if(firstNodeEl) {
+                        firstNodeEl.style.opacity = '0';
+                        firstNodeEl.style.transform = `translateY(-50px)`;
+                    }
+                    await new Promise(res => setTimeout(res, 700));
+                    const removedValStart = removeFromStart();
+                    removedValueEl.textContent = `Valor removido: ${removedValStart}`;
+                    break;
+                case 'removeEnd':
+                    if(!head) break;
+                    let nodeCount = 0;
+                    let curr = head;
+                    while(curr) { nodeCount++; curr = curr.next; }
+
+                    const lastNodeEl = svg.querySelector(`#node-${nodeCount - 1}`);
+                    if(lastNodeEl) {
+                        lastNodeEl.style.opacity = '0';
+                        lastNodeEl.style.transform = `translateY(50px)`;
+                    }
+                    await new Promise(res => setTimeout(res, 700));
+                    const removedValEnd = removeFromEnd();
+                    removedValueEl.textContent = `Valor removido: ${removedValEnd}`;
+                    break;
+             }
+
+             drawList(head);
+             valueInput.value = '';
+             isAnimating = false;
+             controlsFieldset.disabled = false;
+        }
+
+        // --- Lógica Geral e de Abas ---
+        function switchTab(tabId) {
+            [practiceContent, theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
+            [tabPractice, tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
+
+            if (tabId === 'practice-content') {
+                drawList(head);
+            } else if (tabId === 'theory-content') {
+                initializeTheoryExamples();
+            }
+             if (tabId === 'quiz-content') {
+                quizContainer.classList.add('hidden');
+                quizResultsScreen.classList.add('hidden');
+                quizStartScreen.classList.remove('hidden');
+            }
+        }
+
+        // --- Lógica da Teoria ---
+        function initializeTheoryExamples() {
+            // Singly
+            const svgSingly = document.getElementById('theory-svg-singly');
+            let head1 = new Node(10);
+            head1.next = new Node(20);
+            head1.next.next = new Node(30);
+            drawList(head1, svgSingly);
+
+            // Doubly
+            const svgDoubly = document.getElementById('theory-svg-doubly');
+            let head2 = { value: 10, next: null, prev: null };
+            let node2 = { value: 20, next: null, prev: head2 };
+            let node3 = { value: 30, next: null, prev: node2 };
+            head2.next = node2;
+            node2.next = node3;
+            drawList(head2, svgDoubly, false, true);
+
+            // Circular
+            const svgCircular = document.getElementById('theory-svg-circular');
+            let head3 = new Node(10);
+            head3.next = new Node(20);
+            head3.next.next = new Node(30);
+            head3.next.next.next = head3; // Link back to head
+            drawList(head3, svgCircular, true);
+        }
+
+        // --- Lógica do QUIZ ---
+        const quizQuestions = [
+            // Quiz 1
+            { type: 'theory', question: 'Qual a principal desvantagem de uma lista simplesmente encadeada em comparação com uma duplamente encadeada?', options: ['Consome mais memória', 'Não é possível percorrer para trás', 'A inserção no início é mais lenta', 'É mais complexa de implementar'], correctAnswer: 'Não é possível percorrer para trás', explanation: 'A lista simplesmente encadeada só tem ponteiros "next", impedindo a navegação na direção inversa.' },
+            { type: 'theory', question: 'Em uma lista circular, para onde o ponteiro "next" do último nó aponta?', options: ['Para null', 'Para o nó anterior', 'Para o primeiro nó (head)', 'Para ele mesmo'], correctAnswer: 'Para o primeiro nó (head)', explanation: 'Essa ligação de volta ao início é o que forma o "círculo" na estrutura.' },
+            { type: 'theory', question: 'Qual a complexidade de tempo para inserir um elemento no início de uma lista encadeada?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n^2)'], correctAnswer: 'O(1)', explanation: 'A inserção no início requer apenas a atualização do ponteiro "head", uma operação de tempo constante.' },
+            { type: 'practice', question: 'Qual é o estado da lista [10, 20] após inserir 5 no início e 30 no fim?', initialState: [10, 20], operations: [{op: 'insertStart', val: 5}, {op: 'insertEnd', val: 30}], correctAnswer: '[5, 10, 20, 30]' },
+            { type: 'practice', question: 'Começando com a lista [5, 10, 15, 20], qual será a lista após remover do início e do fim?', initialState: [5, 10, 15, 20], operations: [{op: 'removeStart'}, {op: 'removeEnd'}], correctAnswer: '[10, 15]' },
+            { type: 'theory', question: 'O ponteiro que marca o início de uma lista encadeada é comumente chamado de:', options: ['root', 'start', 'head', 'first'], correctAnswer: 'head', explanation: '"Head" (cabeça) é a convenção mais comum para nomear o ponteiro para o primeiro nó.' },
+            { type: 'theory', question: 'Qual a principal diferença na alocação de memória entre um array e uma lista encadeada?', options: ['Array usa alocação contígua, lista encadeada não', 'Lista encadeada sempre usa mais memória', 'Array é alocado na stack, lista na heap', 'Não há diferença significativa'], correctAnswer: 'Array usa alocação contígua, lista encadeada não', explanation: 'Arrays armazenam elementos lado a lado na memória, enquanto listas os espalham, conectando-os com ponteiros.' },
+            { type: 'theory', question: 'Para que serve o valor `null` no ponteiro do último nó de uma lista simplesmente encadeada?', options: ['Para indicar um erro', 'Para marcar o fim da lista', 'Para conectar ao início', 'Para apontar para o nó anterior'], correctAnswer: 'Para marcar o fim da lista', explanation: 'O `null` é um marcador padrão que sinaliza que não há mais nós na sequência.' },
+            { type: 'theory', question: 'Se uma lista contém [40, 50, 60], e o nó 50 é removido, qual ponteiro é atualizado?', options: ['O ponteiro "next" do nó 40', 'O ponteiro "next" do nó 50', 'O ponteiro "head" da lista', 'Nenhum ponteiro é atualizado'], correctAnswer: 'O ponteiro "next" do nó 40', explanation: 'Para remover o 50, o "next" do nó anterior (40) deve ser remapeado para apontar para o nó seguinte (60), pulando o 50.' },
+            { type: 'theory', question: 'Qual operação tem complexidade O(n) em uma lista simplesmente encadeada?', options: ['Inserir no início', 'Remover do início', 'Acessar o primeiro elemento', 'Acessar o último elemento'], correctAnswer: 'Acessar o último elemento', explanation: 'Para acessar o último elemento, é necessário percorrer toda a lista a partir do "head", o que leva tempo linear.' },
+
+            // Quiz 2
+            { type: 'theory', question: 'Em uma lista simplesmente encadeada, qual a complexidade de tempo para remover o último elemento?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n^2)'], correctAnswer: 'O(n)', explanation: 'É preciso percorrer a lista inteira (O(n)) para encontrar o penúltimo nó e atualizar seu ponteiro "next" para null.' },
+            { type: 'theory', question: 'Qual tipo de lista é mais adequado para implementar a função "voltar" de um navegador web?', options: ['Lista Simplesmente Encadeada', 'Lista Duplamente Encadeada', 'Fila', 'Pilha'], correctAnswer: 'Lista Duplamente Encadeada', explanation: 'A capacidade de navegar para frente (next) e para trás (prev) é ideal para o histórico de um navegador.' },
+            { type: 'theory', question: 'O que caracteriza um nó em uma lista duplamente encadeada?', options: ['Apenas um ponteiro "next"', 'Um ponteiro "next" e um "prev"', 'Um ponteiro que aponta para o "head"', 'Nenhum ponteiro'], correctAnswer: 'Um ponteiro "next" e um "prev"', explanation: 'São esses dois ponteiros que permitem a navegação bidirecional.' },
+            { type: 'practice', question: 'Dada a lista [A, B, C], o que acontece se o ponteiro "next" de C for alterado para apontar para A?', initialState: ['A', 'B', 'C'], operations: [], correctAnswer: 'A lista se torna circular'},
+            { type: 'practice', question: 'Qual o valor do segundo nó após as operações: Inserir Fim(1), Inserir Início(2), Inserir Fim(3)?', initialState: [], operations: [{op: 'insertEnd', val: 1}, {op: 'insertStart', val: 2}, {op: 'insertEnd', val: 3}], correctAnswer: '1' },
+            { type: 'theory', question: 'Comparado a um array, qual é a principal vantagem de uma lista encadeada?', options: ['Acesso mais rápido aos elementos por índice', 'Uso mais eficiente de memória cache', 'Inserção e remoção eficientes no meio da lista', 'Menor consumo de memória total'], correctAnswer: 'Inserção e remoção eficientes no meio da lista', explanation: 'Em listas, basta remapear ponteiros, enquanto em arrays é preciso deslocar múltiplos elementos, o que é mais custoso.' },
+            { type: 'theory', question: 'Em uma lista duplamente encadeada, por que a remoção de um nó no meio é mais eficiente que em uma lista simples?', options: ['Porque não precisa percorrer a lista', 'Porque o ponteiro "prev" dá acesso direto ao nó anterior', 'Porque consome menos memória', 'Porque a busca é mais rápida'], correctAnswer: 'Porque o ponteiro "prev" dá acesso direto ao nó anterior', explanation: 'Com o ponteiro "prev", não é preciso percorrer a lista desde o início para encontrar o nó anterior para atualizar seu ponteiro "next".' },
+            { type: 'theory', question: 'Qual é um caso de uso comum para listas circulares em sistemas operacionais?', options: ['Gerenciamento de arquivos', 'Alocação de memória', 'Escalonamento de processos (Round Robin)', 'Controle de permissões'], correctAnswer: 'Escalonamento de processos (Round Robin)', explanation: 'O Round Robin dá a cada processo uma fatia de tempo da CPU e depois passa para o próximo, ciclando continuamente pela lista de processos.' },
+            { type: 'theory', question: 'Numa lista duplamente encadeada [1, 2, 3], para qual valor o ponteiro "prev" do nó 3 aponta?', options: ['1', '2', '3', 'null'], correctAnswer: '2', explanation: 'O ponteiro "prev" de cada nó aponta para o elemento imediatamente anterior na sequência.' },
+            { type: 'theory', question: 'Qual é o `head` da lista após: Inserir Fim(A), Inserir Fim(B), Remover Início(), Inserir Início(C)?', options: ['A', 'B', 'C', 'A lista fica vazia'], correctAnswer: 'C', explanation: 'A sequência de operações resulta em: [A] -> [A, B] -> [B] -> [C, B]. O "head" é o primeiro elemento, que é C.' }
+        ];
+
+        function setupQuizSelection() {
+            quizButtonsContainer.innerHTML = '';
+            const questionsPerQuiz = 10;
+            const numQuizzes = Math.ceil(quizQuestions.length / questionsPerQuiz);
+
+            for (let i = 1; i <= numQuizzes; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Quiz ${i}`;
+                button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
+                button.onclick = () => startQuiz(i);
+                quizButtonsContainer.appendChild(button);
+            }
+        }
+
+        function startQuiz(quizNum) {
+            currentQuizNumber = quizNum;
+            quizStartScreen.classList.add('hidden');
+            quizResultsScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+            const questionsPerQuiz = 10;
+            const startIndex = (quizNum - 1) * questionsPerQuiz;
+            const endIndex = startIndex + questionsPerQuiz;
+            const questionSubset = quizQuestions.slice(startIndex, endIndex);
+
+            shuffledQuestions = questionSubset.sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            resetQuizState();
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            quizQuestionEl.textContent = questionData.question;
+
+            if(questionData.type === 'theory') {
+                quizPracticeArea.classList.add('hidden');
+                questionData.options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.textContent = optionText;
+                    button.className = 'quiz-option';
+                    button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+                    quizOptionsEl.appendChild(button);
+                });
+            } else { // Practice
+                quizPracticeArea.classList.remove('hidden');
+                let qHead = null;
+
+                function qInsertStart(val) { const n = new Node(val); n.next = qHead; qHead = n; }
+                function qInsertEnd(val) {
+                    if (!qHead) { qHead = new Node(val); return; }
+                    let c = qHead; while(c.next) c = c.next; c.next = new Node(val);
+                }
+                function qRemoveStart() { if(qHead) qHead = qHead.next; }
+                function qRemoveEnd() {
+                    if (!qHead || !qHead.next) { qHead = null; return; }
+                    let c = qHead; while(c.next.next) c=c.next; c.next = null;
+                }
+
+                (questionData.initialState || []).forEach(val => qInsertEnd(val));
+                (questionData.operations || []).forEach(op => {
+                    if (op.op === 'insertStart') qInsertStart(op.val);
+                    else if (op.op === 'insertEnd') qInsertEnd(op.val);
+                    else if (op.op === 'removeStart') qRemoveStart();
+                    else if (op.op === 'removeEnd') qRemoveEnd();
+                });
+
+                requestAnimationFrame(() => {
+                    drawList(qHead, quizListSvg);
+                });
+
+                // Gerar opções
+                let options = [questionData.correctAnswer.toString()];
+                let current = qHead;
+                let finalState = [];
+                while(current) { finalState.push(current.value); current = current.next; }
+                const finalStateString = `[${finalState.join(', ')}]`;
+
+                if (finalState.length > 0 && finalStateString !== questionData.correctAnswer) {
+                    options.push(finalStateString);
+                }
+
+                let reversedState = [...finalState].reverse();
+                if(reversedState.length > 0 && `[${reversedState.join(', ')}]` !== questionData.correctAnswer) {
+                    options.push(`[${reversedState.join(', ')}]`);
+                }
+
+                while(options.length < 3) {
+                    const randomVal = `[${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 50)}]`;
+                    if(!options.includes(randomVal)) options.push(randomVal);
+                }
+
+                const uniqueOptions = [...new Set(options)];
+                const shuffledOptions = uniqueOptions.sort(() => Math.random() - 0.5).slice(0, 4);
+                if (!shuffledOptions.includes(questionData.correctAnswer.toString())) {
+                    shuffledOptions.pop();
+                    shuffledOptions.push(questionData.correctAnswer.toString());
+                    shuffledOptions.sort(() => Math.random() - 0.5);
+                }
+
+                shuffledOptions.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.textContent = optionText;
+                    button.className = 'quiz-option';
+                    button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+                    quizOptionsEl.appendChild(button);
+                });
+            }
+        }
+
+        function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
+            const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
+            allOptions.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer.toString()) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (selectedAnswer.toString() === correctAnswer.toString()) {
+                score++;
+            } else {
+                buttonEl.classList.add('incorrect');
+            }
+
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            if (questionData.explanation) {
+                quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${questionData.explanation}`;
+                quizExplanationEl.classList.remove('hidden');
+            }
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function resetQuizState() {
+            quizOptionsEl.innerHTML = '';
+            quizExplanationEl.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+        }
+
+        function showQuizResults() {
+            quizContainer.classList.add('hidden');
+            quizResultsScreen.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
+        }
+
+        // --- Event Listeners ---
+        tabPractice.addEventListener('click', () => switchTab('practice-content'));
+        tabTheory.addEventListener('click', () => switchTab('theory-content'));
+        tabQuiz.addEventListener('click', () => switchTab('quiz-content'));
+
+        insertStartBtn.addEventListener('click', () => runAnimatedOperation('insertStart'));
+        insertEndBtn.addEventListener('click', () => runAnimatedOperation('insertEnd'));
+        removeStartBtn.addEventListener('click', () => runAnimatedOperation('removeStart'));
+        removeEndBtn.addEventListener('click', () => runAnimatedOperation('removeEnd'));
+
+        clearBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            clearList();
+            drawList(head);
+            removedValueEl.textContent = '';
+        });
+
+        generateBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            clearList();
+            removedValueEl.textContent = '';
+            const count = parseInt(countInput.value) || 5;
+            for (let i = 0; i < count; i++) {
+                insertAtEnd(Math.floor(Math.random() * 100));
+            }
+            drawList(head);
+        });
+
+        // --- Quiz Listeners ---
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayNextQuestion();
+        });
+        restartQuizBtn.addEventListener('click', () => startQuiz(currentQuizNumber));
+        backToQuizzesBtn.addEventListener('click', () => {
+            quizResultsScreen.classList.add('hidden');
+            quizStartScreen.classList.remove('hidden');
+        });
+
+        // --- Inicialização ---
+        window.addEventListener('resize', () => {
+            if (!practiceContent.classList.contains('hidden')) {
+                drawList(head);
+            }
+            if (!theoryContent.classList.contains('hidden')) {
+                initializeTheoryExamples();
+            }
+        });
+
+        switchTab('practice-content');
+        setupQuizSelection();
+        generateBtn.click();
+    </script>
+</body>
+</html>
+
