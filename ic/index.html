@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoio à Pesquisa: Smart Metering com AIoT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* A detecção de preferência de esquema de cores do Tailwind cuidará do modo escuro. */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-button svg {
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <div class="max-w-5xl mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-cyan-600 dark:text-cyan-400">Portal de Apoio à Pesquisa</h1>
+            <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">Smart Metering com AIoT: Resumos, Tabelas e Termos</p>
+        </header>
+
+        <main class="space-y-6">
+
+            <!-- Artigo 1 -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div id="accordion-1" class="accordion-container">
+                    <button class="accordion-button w-full p-5 text-left flex justify-between items-center text-xl font-semibold text-gray-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 focus:outline-none transition-colors" data-target="content-1">
+                        <span class="text-cyan-700 dark:text-cyan-400">Avaliação de Modelos de ML em Smart Metering</span>
+                        <svg class="w-6 h-6 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-1" class="accordion-content px-5 pb-5">
+                        <article class="py-5 text-gray-600 dark:text-gray-300 space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Visão Geral</h3>
+                            <p>Este artigo investiga a viabilidade de executar modelos de Machine Learning (ML) em dispositivos de baixo custo, como o microcontrolador ESP32-S3, para reconhecimento de dígitos em medidores inteligentes (smart meters). O estudo foca em converter modelos treinados em computadores potentes para um formato leve (TensorFlow Lite) e avalia o desempenho em termos de precisão, tempo de inferência e desafios no processo de conversão.</p>
+
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mt-4">Tabelas Chave</h3>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">Comparativo de Tamanho dos Modelos (TensorFlow vs. TFLite)</h4>
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr><th scope="col" class="px-6 py-3">Modelo</th><th scope="col" class="px-6 py-3">Tamanho TensorFlow (MB)</th><th scope="col" class="px-6 py-3">Tamanho TensorFlow Lite (MB)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">LeNet5</td><td class="px-6 py-4">1.08</td><td class="px-6 py-4">0.30</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700">
+                                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">TinyML</td><td class="px-6 py-4">0.77</td><td class="px-6 py-4">0.21</td></tr>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">MobileNet</td><td class="px-6 py-4">3.26</td><td class="px-6 py-4">1.55</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700">
+                                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">MiniVGG</td><td class="px-6 py-4">19.71</td><td class="px-6 py-4">6.40</td></tr>
+                                    <tr class="bg-white dark:bg-slate-800">
+                                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">SqueezeNet</td><td class="px-6 py-4">9.32</td><td class="px-6 py-4">2.80</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200 pt-4">Precisão e Tempo de Predição no ESP32-S3</h4>
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr><th scope="col" class="px-6 py-3">Modelo</th><th scope="col" class="px-6 py-3">Precisão no ESP32</th><th scope="col" class="px-6 py-3">Tempo de Predição (10.000 imgs)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">LeNet5</td><td class="px-6 py-4">98.95%</td><td class="px-6 py-4">00:21:27</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">TinyML</td><td class="px-6 py-4">98.63%</td><td class="px-6 py-4">00:56:24</td></tr>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">MobileNet</td><td class="px-6 py-4">98.42%</td><td class="px-6 py-4">01:19:58</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">MiniVGG</td><td class="px-6 py-4">99.33%</td><td class="px-6 py-4">28:48:08</td></tr>
+                                    <tr class="bg-white dark:bg-slate-800"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">SqueezeNet</td><td class="px-6 py-4">97.61%</td><td class="px-6 py-4">00:10:13</td></tr>
+                                </tbody>
+                            </table>
+                             <p class="text-sm mt-4 p-3 bg-cyan-50 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-300 rounded-lg"><strong>Conclusão:</strong> É viável executar modelos de ML em dispositivos de borda com alta precisão. Modelos como <strong>LeNet5</strong> e <strong>SqueezeNet</strong> oferecem um excelente equilíbrio entre precisão, tamanho e velocidade.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artigo 2 -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div id="accordion-2" class="accordion-container">
+                    <button class="accordion-button w-full p-5 text-left flex justify-between items-center text-xl font-semibold text-gray-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 focus:outline-none transition-colors" data-target="content-2">
+                        <span class="text-cyan-700 dark:text-cyan-400">Avaliação de Câmeras de Baixa Resolução</span>
+                         <svg class="w-6 h-6 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-2" class="accordion-content px-5 pb-5">
+                        <article class="py-5 text-gray-600 dark:text-gray-300 space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Visão Geral</h3>
+                            <p>O desempenho de sistemas de visão computacional depende criticamente da qualidade da imagem. Este trabalho avalia cinco câmeras de baixa resolução (OV2640, OV7670, OV7725, NT99141, GC0308) conectadas a um ESP32-S3. A análise utiliza métricas quantitativas de nitidez, contraste, ruído e tempos de operação para selecionar a câmera mais adequada para aplicações de ML embarcado.</p>
+
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mt-4">Tabelas Chave</h3>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">Métricas de Qualidade de Imagem</h4>
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr><th scope="col" class="px-6 py-3">Modelo da Câmera</th><th scope="col" class="px-6 py-3">Ruído (σ) ↓</th><th scope="col" class="px-6 py-3">Nitidez ↑</th><th scope="col" class="px-6 py-3">Contraste (σ) ↑</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">GC0308</td><td class="px-6 py-4">2.38</td><td class="px-6 py-4">103.36</td><td class="px-6 py-4">81.50</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">NT99141</td><td class="px-6 py-4">11.10</td><td class="px-6 py-4">228.30</td><td class="px-6 py-4">61.75</td></tr>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV2640</td><td class="px-6 py-4">13.66</td><td class="px-6 py-4">163.00</td><td class="px-6 py-4">83.01</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV7670</td><td class="px-6 py-4">18.76</td><td class="px-6 py-4">409.87</td><td class="px-6 py-4">94.39</td></tr>
+                                    <tr class="bg-white dark:bg-slate-800"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV7725</td><td class="px-6 py-4">6.63</td><td class="px-6 py-4">214.29</td><td class="px-6 py-4">82.86</td></tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200 pt-4">Tempos de Operação</h4>
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr><th scope="col" class="px-6 py-3">Modelo da Câmera</th><th scope="col" class="px-6 py-3">Captura (µs) ↓</th><th scope="col" class="px-6 py-3">Inicialização (ms) ↓</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">GC0308</td><td class="px-6 py-4">37</td><td class="px-6 py-4">285</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">NT99141</td><td class="px-6 py-4">157046</td><td class="px-6 py-4">671</td></tr>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV2640</td><td class="px-6 py-4">3920</td><td class="px-6 py-4">172</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV7670</td><td class="px-6 py-4">29</td><td class="px-6 py-4">146</td></tr>
+                                    <tr class="bg-white dark:bg-slate-800"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">OV7725</td><td class="px-6 py-4">35</td><td class="px-6 py-4">174</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm mt-4 p-3 bg-cyan-50 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-300 rounded-lg"><strong>Conclusão:</strong> A câmera <strong>OV7725</strong> apresenta o melhor equilíbrio entre qualidade de imagem (baixo ruído, boa nitidez) e tempos de operação, sendo a mais balanceada para o cenário proposto.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artigo 3 -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div id="accordion-3" class="accordion-container">
+                    <button class="accordion-button w-full p-5 text-left flex justify-between items-center text-xl font-semibold text-gray-800 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 focus:outline-none transition-colors" data-target="content-3">
+                        <span class="text-cyan-700 dark:text-cyan-400">Técnicas de Aumento de Dados</span>
+                         <svg class="w-6 h-6 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-3" class="accordion-content px-5 pb-5">
+                       <article class="py-5 text-gray-600 dark:text-gray-300 space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Visão Geral</h3>
+                            <p>Este artigo avalia a eficácia de várias técnicas de aumento de dados (Data Augmentation) para melhorar o desempenho de modelos de ML em dispositivos com recursos limitados. Usando três conjuntos de dados de dígitos, o estudo testa o impacto de ruído, brilho, contraste e transformações geométricas na precisão do modelo, buscando encontrar um "ponto ótimo" de aumento que melhore a performance sem causar overfitting.</p>
+
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mt-4">Principais Descobertas</h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                <li><strong>Impacto Positivo:</strong> O aumento de dados geralmente melhora a performance do modelo.</li>
+                                <li><strong>Ponto de Saturação:</strong> Existe um limite a partir do qual o aumento de dados não traz mais ganhos.</li>
+                                <li><strong>Técnicas mais Eficazes:</strong> Ajustes de <strong>brilho</strong>, <strong>translação horizontal</strong> e <strong>deformações elásticas</strong> mostraram-se particularmente eficazes.</li>
+                                <li><strong>Técnicas a Evitar:</strong> Rotações com ângulos muito grandes prejudicaram a precisão.</li>
+                            </ul>
+
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200 pt-4">Exemplo de Resultados (Dataset Kaggle)</h4>
+                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr><th scope="col" class="px-6 py-3">Técnica de Aumento</th><th scope="col" class="px-6 py-3">Precisão Original</th><th scope="col" class="px-6 py-3">Melhor Precisão</th><th scope="col" class="px-6 py-3">Observação</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Nenhum</td><td class="px-6 py-4">85.26%</td><td class="px-6 py-4">-</td><td class="px-6 py-4">Linha de base</td></tr>
+                                    <tr class="bg-gray-50 border-b dark:bg-slate-800/80 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Elastic Transformation</td><td class="px-6 py-4">85.26%</td><td class="px-6 py-4"><strong>93.68%</strong></td><td class="px-6 py-4">Melhora robustez.</td></tr>
+                                    <tr class="bg-white border-b dark:bg-slate-800 dark:border-gray-700"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Horizontal Translation</td><td class="px-6 py-4">85.26%</td><td class="px-6 py-4"><strong>93.68%</strong></td><td class="px-6 py-4">Ajuda com desalinhamentos.</td></tr>
+                                    <tr class="bg-gray-50 dark:bg-slate-800/80"><td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Rotation (60 graus)</td><td class="px-6 py-4">85.26%</td><td class="px-6 py-4">86.32%</td><td class="px-6 py-4">Ângulos grandes são prejudiciais.</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="text-sm mt-4 p-3 bg-cyan-50 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-300 rounded-lg"><strong>Conclusão:</strong> O aumento de dados é uma ferramenta poderosa, mas deve ser aplicado de forma criteriosa, ajustando as técnicas para as características específicas de cada dataset.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glossário -->
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 mt-8">
+                <h2 class="text-2xl font-bold text-cyan-700 dark:text-cyan-400 mb-5">Glossário de Termos Técnicos</h2>
+                <div class="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Acurácia (Accuracy)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Métrica que mede a proporção de previsões corretas de um modelo em relação ao total de previsões. É a forma mais comum de avaliar o desempenho geral de um modelo de classificação.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">AIoT (Artificial Intelligence of Things)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">A integração de Inteligência Artificial (IA) com a Internet das Coisas (IoT). Permite que dispositivos conectados analisem dados e tomem decisões inteligentes de forma local e autônoma.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Backpropagation</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Algoritmo fundamental para o treinamento de redes neurais. Ele calcula o gradiente da função de perda em relação aos pesos da rede, permitindo que os pesos sejam ajustados para minimizar o erro.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Camada Densa (Dense Layer)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Também chamada de camada totalmente conectada, é um tipo de camada em uma rede neural onde cada neurônio recebe entrada de todos os neurônios da camada anterior. É comumente usada nas partes finais de uma CNN para classificação.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">CNN (Rede Neural Convolucional)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Tipo de rede neural profunda especialmente eficaz na análise de imagens, sendo a base para modelos de reconhecimento de dígitos como o LeNet-5.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Data Augmentation (Aumento de Dados)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Técnicas para criar artificialmente novos dados de treinamento (ex: rotacionando imagens) para tornar o modelo mais robusto e evitar overfitting.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Dataset (Conjunto de Dados)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma coleção de dados (imagens, textos, números) usada para treinar, validar e testar modelos de machine learning.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Edge AI / Computação de Borda</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Processamento de algoritmos de IA diretamente no dispositivo local (na "borda" da rede), em vez de na nuvem. Reduz latência, aumenta a privacidade e economiza dados.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Época (Epoch)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma passagem completa de todo o conjunto de dados de treinamento através da rede neural durante o processo de treinamento.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">ESP32-S3</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Um microcontrolador de baixo custo e alta performance, ideal para aplicações de AIoT, com capacidade para executar modelos de ML de pequeno porte.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Função de Ativação</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma função matemática aplicada a cada neurônio em uma rede neural que decide se ele deve ser "ativado" ou não. Exemplos incluem ReLU, Sigmoid e Tanh.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Função de Perda (Loss Function)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma função que mede o quão errada é a previsão do modelo em comparação com o valor real. O objetivo do treinamento é minimizar o valor desta função.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Hiperparâmetros</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Configurações externas de um modelo que não são aprendidas dos dados. São definidas antes do treinamento, como a taxa de aprendizagem, o número de épocas e o tamanho do lote.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Inferência</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">O processo de usar um modelo de machine learning já treinado para fazer previsões sobre novos dados nunca vistos antes.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">LoRaWAN</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Um protocolo de rede de longa distância e baixo consumo de energia (LPWAN), ideal para conectar dispositivos IoT que enviam pequenas quantidades de dados, como os medidores inteligentes.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Matriz de Confusão</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma tabela que resume o desempenho de um modelo de classificação, mostrando os verdadeiros positivos, falsos positivos, verdadeiros negativos e falsos negativos.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Otimizador (Optimizer)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Algoritmo que ajusta os pesos da rede neural para minimizar a função de perda. Exemplos populares são Adam, SGD e RMSprop.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Overfitting (Superajuste)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Ocorre quando um modelo de ML "decora" os dados de treinamento e perde a capacidade de generalizar para dados novos, resultando em baixo desempenho.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Quantização</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Uma técnica de otimização que reduz a precisão numérica dos pesos de um modelo (ex: de 32 bits para 8 bits). Isso diminui o tamanho do modelo e acelera a inferência, sendo crucial para dispositivos de borda.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Tamanho do Lote (Batch Size)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">O número de amostras de dados que são propagadas através da rede de uma só vez durante o treinamento. Um hiperparâmetro que afeta o uso de memória e a velocidade de treinamento.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Taxa de Aprendizagem (Learning Rate)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Um hiperparâmetro que controla o tamanho do passo que o otimizador dá para ajustar os pesos do modelo. É um dos hiperparâmetros mais importantes a serem ajustados.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">TensorFlow Lite (TFLite)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">Versão otimizada do TensorFlow, criada para implantar modelos de ML em dispositivos móveis e embarcados com recursos limitados.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100">Treinamento, Validação e Teste</h3>
+                        <p class="text-gray-600 dark:text-gray-400 ml-2">A divisão padrão de um dataset. O conjunto de <strong>treinamento</strong> é usado para ensinar o modelo. O de <strong>validação</strong> é usado para ajustar os hiperparâmetros. O de <strong>teste</strong> é usado para avaliar o desempenho final do modelo em dados desconhecidos.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = document.getElementById(button.dataset.target);
+                const svg = button.querySelector('svg');
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    svg.style.transform = 'rotate(0deg)';
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                    document.querySelectorAll('.accordion-button svg').forEach(s => s.style.transform = 'rotate(0deg)');
+
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    svg.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
