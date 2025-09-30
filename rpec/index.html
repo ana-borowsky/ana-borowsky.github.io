@@ -9,54 +9,68 @@
     <!-- Incluindo a fonte Inter do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Aplicando a fonte Inter como padrão */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto Mono', monospace;
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
 
     <!-- Card principal que centraliza o conteúdo -->
-    <main class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-16 max-w-2xl w-full text-center transform transition-all">
+    <main class="bg-white rounded-2xl shadow-2xl p-28 md:p-32 max-w-4xl w-full text-center transform transition-all">
 
         <!-- Título principal -->
-        <h1 class="text-4xl md:text-2xl font-extrabold text-gray-800 mb-[60px]">
+        <h1 class="text-3xl md:text-4xl font-light text-gray-800 mb-4">
             Resolução de Problemas Estruturados em Computação
         </h1>
 
-        <!-- Container para os botões -->
-        <div class="grid grid-cols-1 gap-6 max-w-sm mx-auto">
+        <!-- Parágrafo descritivo -->
+        <p class="text-base text-gray-600 font-light max-w-2xl mx-auto mb-12">
+            Esta página reúne uma série de aplicações interativas para auxiliar no estudo/ revisão dos principais conceitos da disciplina de Resolução de Problemas Estruturados em Computação.
+        </p>
+
+        <!-- Container para os botões em grid 2x2 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
             <!-- Botão 1: Fila e Pilha -->
             <a href="https://ana-borowsky.github.io/pilha_e_fila" target="_blank" rel="noopener noreferrer"
-               class="block bg-sky-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-sky-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+               class="block bg-sky-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-sky-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
                 Fila e Pilha
             </a>
 
             <!-- Botão 2: Lista Encadeada -->
             <a href="https://ana-borowsky.github.io/lista_encadeada" target="_blank" rel="noopener noreferrer"
-               class="block bg-emerald-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+               class="block bg-emerald-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-300">
                 Lista Encadeada
             </a>
 
             <!-- Botão 3: Árvores Binárias -->
             <a href="https://ana-borowsky.github.io/arvore_binaria" target="_blank" rel="noopener noreferrer"
-               class="block bg-purple-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-300">
+               class="block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-300">
                 Árvores Binárias
             </a>
 
             <!-- Botão 4: Árvores AVL -->
             <a href="https://ana-borowsky.github.io/avl" target="_blank" rel="noopener noreferrer"
-               class="block bg-orange-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300">
+               class="block bg-orange-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300">
                 Árvores AVL
             </a>
+        </div>
+
+        <!-- Imagem ilustrativa com legenda -->
+        <div class="mt-12">
+            <figure>
+                <img src="src/assets/images/image.jpeg" alt="[Ilustração de Computação]" class="rounded-lg mx-auto w-full max-w-lg">
+                <figcaption class="text-xs text-gray-500 font-light mt-2">
+                    Sim, essa imagem foi feita por IA.
+                </figcaption>
+            </figure>
         </div>
 
     </main>
 
 </body>
 </html>
-
 
