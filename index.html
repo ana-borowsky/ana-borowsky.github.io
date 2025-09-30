@@ -9,12 +9,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto Mono', monospace;
             background-image: linear-gradient(to right top, #bf87ba, #c186c1, #c185ca, #c185d2, #c085db, #ad93eb, #97a0f7, #80acff, #50c4ff, #16d9ff, #23ebff, #5ffbf1);
             background-size: 200% 200%;
             animation: gradient-animation 15s ease-in-out infinite;
@@ -31,59 +30,42 @@
                 background-position: 0% 50%;
             }
         }
-
-        .text-shadow {
-            text-shadow: 4px 4px 0px rgba(0,0,0,0.2);
-        }
-        .text-shadow-h2 {
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-        }
-        .text-shadow-subtle {
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-        .button-shadow {
-            box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .roboto-light {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 300;
-        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <main class="w-full max-w-5xl p-4 md:p-8 text-center text-white">
 
-        <h1 class="text-3xl md:text-5xl font-black mb-4 text-shadow">
+        <h1 class="text-3xl md:text-5xl font-black mb-4">
             Olá!
         </h1>
 
-        <p class="text-lg md:text-xl opacity-90 mb-10 text-shadow-subtle">
+        <p class="text-lg md:text-xl opacity-90 mb-10">
             Oi, eu sou a Ana, e aqui você verá alguns dos meus projetos.
         </p>
 
         <!-- Seção de Projetos Pessoais -->
         <div class="flex justify-center items-center gap-3 mt-12">
-            <h2 class="text-2xl font-bold text-shadow-h2">
+            <h2 class="text-2xl font-bold">
                 Projetos
             </h2>
         </div>
         <div class="mt-6 flex justify-center">
             <!-- Card Mathmagik -->
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/20 text-left w-full sm:max-w-sm flex flex-col">
+            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left w-full sm:max-w-sm flex flex-col">
                 <img src="https://placehold.co/600x338/23ebff/000000?text=Mathmagik" alt="Pré-visualização do projeto Mathmagik" class="w-full h-48 object-cover">
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-2 text-shadow-h2">Mathmagik</h3>
+                    <h3 class="text-xl font-bold mb-2">Mathmagik</h3>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Typescript</span>
-                        <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Quiz</span>
+                        <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Typescript</span>
+                        <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Quiz</span>
                     </div>
-                    <p class="text-sm opacity-80 mb-4 flex-grow text-shadow-subtle">Quiz de matemática, feito para ser fácil e intuitivo para pessoas de qualquer idade. Feito em Typescript.</p>
+                    <p class="text-sm opacity-80 mb-4 flex-grow">Quiz de matemática, feito para ser fácil e intuitivo para pessoas de qualquer idade. Feito em Typescript.</p>
                     <div class="flex flex-col gap-3 mt-auto">
-                        <a href="https://ana-borowsky.github.io/mathmagik/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm button-shadow roboto-light no-underline" style="background-color: #00EADB;">
+                        <a href="https://ana-borowsky.github.io/mathmagik/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline" style="background-color: #00EADB;">
                             Acessar
                         </a>
-                        <a href="https://github.com/ana-borowsky/mathmagik" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm roboto-light no-underline">
+                        <a href="https://github.com/ana-borowsky/mathmagik" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -93,27 +75,27 @@
 
         <!-- Seção de Aplicações Gemini -->
         <div class="flex justify-center items-center gap-3 mt-12">
-            <h2 class="text-2xl font-bold text-shadow-h2">
-                Vibe-coding para aprender/ estudar conteúdos
+            <h2 class="text-2xl font-bold">
+                Vibe-coding para estudar/ ensinar conteúdos
             </h2>
         </div>
 
-        <div class="flex flex-col md:flex-row items-stretch justify-center gap-8 mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
             <!-- Card Guia de Git -->
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/20 text-left flex flex-col">
+            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                 <img src="https://placehold.co/600x338/23ebff/000000?text=Guia+de+Git" alt="Pré-visualização do projeto Guia de Git" class="w-full h-48 object-cover">
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-2 text-shadow-h2">Guia de git</h3>
+                    <h3 class="text-xl font-bold mb-2">Guia de git</h3>
                     <div class="flex flex-wrap gap-2 mb-4">
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Git</span>
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Estudo</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Tutorial</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Computação</span>
                     </div>
-                    <p class="text-sm opacity-80 mb-4 flex-grow text-shadow-subtle">Um guia simples e direto com os principais comandos e conceitos do Git, ideal para iniciantes.</p>
+                    <p class="text-sm opacity-80 mb-4 flex-grow">Um guia simples e direto com os principais comandos e conceitos do Git, ideal para iniciantes.</p>
                     <div class="flex flex-col gap-3 mt-auto">
-                        <a href="https://ana-borowsky.github.io/git" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm button-shadow roboto-light no-underline" style="background-color: #00EADB;">
+                        <a href="https://ana-borowsky.github.io/git" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline" style="background-color: #00EADB;">
                             Acessar
                         </a>
-                        <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm roboto-light no-underline">
+                        <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -121,20 +103,20 @@
             </div>
 
             <!-- Card Árvores AVL -->
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/20 text-left flex flex-col">
+            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                  <img src="https://placehold.co/600x338/23ebff/000000?text=Árvores+AVL" alt="Pré-visualização do projeto Resolução de Problemas Estruturados em Computação" class="w-full h-48 object-cover">
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-2 text-shadow-h2">Resolução de Problemas Estruturados em Computação</h3>
+                    <h3 class="text-xl font-bold mb-2">Resolução de Problemas Estruturados em Computação</h3>
                     <div class="flex flex-wrap gap-2 mb-4">
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Estrutura de Dados</span>
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Estudo</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Estrutura de Dados</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Computação</span>
                     </div>
-                    <p class="text-sm opacity-80 mb-4 flex-grow text-shadow-subtle">Uma série de aplicações para estudo da disciplina Resolução de Problemas Estruturados em Computação</p>
+                    <p class="text-sm opacity-80 mb-4 flex-grow">Uma série de aplicações para estudo da disciplina Resolução de Problemas Estruturados em Computação</p>
                     <div class="flex flex-col gap-3 mt-auto">
-                        <a href="https://ana-borowsky.github.io/rpec/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm button-shadow roboto-light no-underline" style="background-color: #00EADB;">
+                        <a href="https://ana-borowsky.github.io/rpec/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline" style="background-color: #00EADB;">
                             Acessar
                         </a>
-                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm roboto-light no-underline">
+                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -142,20 +124,20 @@
             </div>
 
             <!-- Card Simulado CMSM -->
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/20 text-left flex flex-col">
+            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                  <img src="https://placehold.co/600x338/23ebff/000000?text=Simulado+CMSM" alt="Pré-visualização do projeto Simulado CMSM" class="w-full h-48 object-cover">
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold mb-2 text-shadow-h2">Simulato CMSM - Pt</h3>
+                    <h3 class="text-xl font-bold mb-2">Simulato CMSM - Pt</h3>
                     <div class="flex flex-wrap gap-2 mb-4">
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Português</span>
-                         <span class="bg-cyan-400/20 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Quiz</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Português</span>
+                         <span class="text-black text-xs font-light px-2.5 py-0.5 rounded-full" style="background-color: #BD86E7;">Ensino Fundamental</span>
                     </div>
-                    <p class="text-sm opacity-80 mb-4 flex-grow text-shadow-subtle">Simulado de português com questões de concursos anteriores do Colégio Militar de Santa Maria.</p>
+                    <p class="text-sm opacity-80 mb-4 flex-grow">Simulado de português com questões de concursos anteriores do Colégio Militar de Santa Maria.</p>
                     <div class="flex flex-col gap-3 mt-auto">
-                        <a href="https://ana-borowsky.github.io/cmsm_pt/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm button-shadow roboto-light no-underline" style="background-color: #00EADB;">
+                        <a href="https://ana-borowsky.github.io/cmsm_pt/" target="_blank" rel="noopener noreferrer" class="w-full text-center text-black py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline" style="background-color: #00EADB;">
                             Acessar
                         </a>
-                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm roboto-light no-underline">
+                         <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Ver no GitHub
                         </a>
                     </div>
@@ -164,11 +146,11 @@
         </div>
 
         <div class="mt-16 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-[60px]">
-            <span class="text-sm opacity-80 text-shadow-subtle">Ana Paula Borowsky de Borba</span>
+            <span class="text-sm opacity-80">Ana Paula Borowsky de Borba</span>
              <a href="https://github.com/ana-borowsky" target="_blank" rel="noopener noreferrer"
                class="inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100 hover:underline transition-all">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                <span class="text-shadow-subtle">Meu perfil no GitHub</span>
+                <span>Meu perfil no GitHub</span>
             </a>
         </div>
 
