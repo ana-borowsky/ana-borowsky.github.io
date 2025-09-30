@@ -112,66 +112,15 @@
     <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-4 md:mt-10">
         <header class="mb-6 text-center">
             <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de estudos de Listas Encadeadas</h1>
-            <p class="text-slate-600 mt-2">Alterne entre 'Prática', 'Teoria' e 'Quiz' para aprofundar seus conhecimentos.</p>
+            <p class="text-slate-600 mt-2">Alterne entre 'Teoria' e 'Quiz' para aprofundar seus conhecimentos.</p>
         </header>
 
         <!-- Abas de Navegação -->
         <div class="border-b border-slate-200 mb-6">
             <nav class="flex -mb-px space-x-6" aria-label="Tabs">
-                <button id="tab-practice" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Prática</button>
-                <button id="tab-theory" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Teoria</button>
+                <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
                 <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
             </nav>
-        </div>
-
-        <!-- Conteúdo da Aba de Prática -->
-        <div id="practice-content">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Coluna de Controles -->
-                <div id="controls-section" class="lg:w-1/3">
-                    <fieldset id="controls-fieldset">
-                         <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Controlar Lista (Simplesmente Encadeada)</h2>
-                        <div class="space-y-4">
-                            <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                <label for="node-count" class="block text-sm font-medium text-slate-700">Lista aleatória</label>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <input type="number" id="node-count" value="5" min="1" max="8" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    <button id="generate-list-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
-                                </div>
-                            </div>
-                            <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                <label for="node-value" class="block text-sm font-medium text-slate-700">Inserir Valor</label>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <input type="number" id="node-value" placeholder="Valor" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 mt-2">
-                                     <button id="insert-start-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">No Início</button>
-                                     <button id="insert-end-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">No Fim</button>
-                                </div>
-                            </div>
-                             <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                <label class="block text-sm font-medium text-slate-700">Remover Valor</label>
-                                 <div class="grid grid-cols-2 gap-2 mt-1">
-                                    <button id="remove-start-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Do Início</button>
-                                    <button id="remove-end-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Do Fim</button>
-                                 </div>
-                                  <div id="removed-value" class="mt-3 text-center text-sm font-mono bg-white p-2 rounded h-10 flex items-center justify-center"></div>
-                            </div>
-                            <div class="bg-slate-100 p-4 rounded-lg text-left">
-                                 <label class="block text-sm font-medium text-slate-700">Limpar</label>
-                                <button id="clear-btn" class="w-full mt-1 bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Limpar Lista</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Coluna da Fila -->
-                <div class="lg:w-2/3 flex flex-col">
-                    <div id="visualization-container" class="w-full h-96 lg:h-full flex-grow bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden relative">
-                        <svg id="list-svg" width="100%" height="100%"></svg>
-                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-500 text-center w-full px-4">A lista está vazia. Use os controles para começar.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Conteúdo da Aba de Teoria -->
@@ -251,8 +200,8 @@
                  <p class="my-4 text-lg">Sua pontuação foi:</p>
                  <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
                  <div class="flex justify-center gap-4 mt-8">
-                     <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
-                     <button id="back-to-quizzes-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
+                      <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
+                      <button id="back-to-quizzes-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
                  </div>
             </div>
         </div>
@@ -268,23 +217,8 @@
         }
 
         // --- DOM Elements ---
-        const svg = document.getElementById('list-svg');
-        const emptyMessage = document.getElementById('empty-message');
-        const controlsFieldset = document.getElementById('controls-fieldset');
-        const generateBtn = document.getElementById('generate-list-btn');
-        const countInput = document.getElementById('node-count');
-        const insertStartBtn = document.getElementById('insert-start-btn');
-        const insertEndBtn = document.getElementById('insert-end-btn');
-        const removeStartBtn = document.getElementById('remove-start-btn');
-        const removeEndBtn = document.getElementById('remove-end-btn');
-        const clearBtn = document.getElementById('clear-btn');
-        const valueInput = document.getElementById('node-value');
-        const removedValueEl = document.getElementById('removed-value');
-
-        const tabPractice = document.getElementById('tab-practice');
         const tabTheory = document.getElementById('tab-theory');
         const tabQuiz = document.getElementById('tab-quiz');
-        const practiceContent = document.getElementById('practice-content');
         const theoryContent = document.getElementById('theory-content');
         const quizContent = document.getElementById('quiz-content');
 
@@ -305,70 +239,18 @@
         const quizExplanationEl = document.getElementById('quiz-explanation');
 
         // --- State ---
-        let head = null;
-        let isAnimating = false;
         let shuffledQuestions, currentQuestionIndex, score, currentQuizNumber;
-
-        // --- Lógica da Lista Encadeada ---
-        function insertAtStart(value) {
-            const newNode = new Node(value);
-            newNode.next = head;
-            head = newNode;
-        }
-
-        function insertAtEnd(value) {
-            const newNode = new Node(value);
-            if (!head) {
-                head = newNode;
-                return;
-            }
-            let current = head;
-            while (current.next) {
-                current = current.next;
-            }
-            current.next = newNode;
-        }
-
-        function removeFromStart() {
-            if (!head) return null;
-            const removedNode = head;
-            head = head.next;
-            return removedNode.value;
-        }
-
-        function removeFromEnd() {
-            if (!head) return null;
-            if (!head.next) {
-                const removedValue = head.value;
-                head = null;
-                return removedValue;
-            }
-            let current = head;
-            while(current.next && current.next.next) {
-                current = current.next;
-            }
-            const removedNode = current.next;
-            current.next = null;
-            return removedNode.value;
-        }
-
-        function clearList() {
-            head = null;
-        }
 
         // --- Lógica de Visualização ---
         const NODE_WIDTH = 60;
         const NODE_HEIGHT = 40;
         const SPACING = 40;
-        const POINTER_LENGTH = SPACING - 10;
 
-        function drawList(listHead, svgEl = svg, isCircular = false, isDoubly = false) {
+        function drawList(listHead, svgEl, isCircular = false, isDoubly = false) {
             svgEl.innerHTML = '';
             if (!listHead) {
-                if (svgEl === svg) emptyMessage.classList.remove('hidden');
                 return;
             }
-            if (svgEl === svg) emptyMessage.classList.add('hidden');
 
             // Define a ponta da flecha uma única vez
             if (!svgEl.querySelector(`#arrowhead`)) {
@@ -431,26 +313,17 @@
                     const pathData = `M ${lastNodeX + NODE_WIDTH - 10},${50 + NODE_HEIGHT} C ${lastNodeX + NODE_WIDTH + 20},${50 + NODE_HEIGHT + 40} ${firstNodeX - 20},${50 + NODE_HEIGHT + 40} ${firstNodeX + 10},${50 + NODE_HEIGHT}`;
                     drawCurvedPointer(svgEl, pathData, 'circular-pointer');
                 } else { // Singly or Doubly
-                    const yNextOffset = isDoubly ? -5 : 0;
-                    drawPointer(svgEl, lastNodeX + NODE_WIDTH, 50 + NODE_HEIGHT / 2 + yNextOffset, lastNodeX + NODE_WIDTH + SPACING, 50 + NODE_HEIGHT / 2 + yNextOffset, 'pointer-to-null');
-                    const nullTextEnd = drawLabel(svgEl, "null", lastNodeX + NODE_WIDTH + SPACING + 20, 50 + NODE_HEIGHT / 2 + 5);
-                    nullTextEnd.setAttribute('class', 'fill-slate-500 font-mono');
+                     const yNextOffset = isDoubly ? -5 : 0;
+                     drawPointer(svgEl, lastNodeX + NODE_WIDTH, 50 + NODE_HEIGHT / 2 + yNextOffset, lastNodeX + NODE_WIDTH + SPACING, 50 + NODE_HEIGHT / 2 + yNextOffset, 'pointer-to-null');
+                     const nullTextEnd = drawLabel(svgEl, "null", lastNodeX + NODE_WIDTH + SPACING + 20, 50 + NODE_HEIGHT / 2 + 5);
+                     nullTextEnd.setAttribute('class', 'fill-slate-500 font-mono');
 
-                    if (isDoubly) {
-                        const yPrevOffset = 5;
-                        drawPointer(svgEl, firstNodeX, 50 + NODE_HEIGHT / 2 + yPrevOffset, firstNodeX - SPACING, 50 + NODE_HEIGHT / 2 + yPrevOffset, 'prev-pointer-to-null');
-                        const nullTextStart = drawLabel(svgEl, "null", firstNodeX - SPACING - 20, 50 + NODE_HEIGHT / 2 + 5);
-                        nullTextStart.setAttribute('class', 'fill-slate-500 font-mono');
-                    }
-                }
-            }
-            // Desenha labels da Prática
-            else if (listHead && svgEl === svg) {
-                const firstNodeX = 0;
-                const lastNodeX = (NODE_WIDTH + SPACING) * (listLength - 1);
-                drawLabel(svgEl, 'Head', firstNodeX + NODE_WIDTH / 2, 10);
-                if (listLength > 1) {
-                    drawLabel(svgEl, 'Tail', lastNodeX + NODE_WIDTH / 2, NODE_HEIGHT + 60);
+                     if (isDoubly) {
+                         const yPrevOffset = 5;
+                         drawPointer(svgEl, firstNodeX, 50 + NODE_HEIGHT / 2 + yPrevOffset, firstNodeX - SPACING, 50 + NODE_HEIGHT / 2 + yPrevOffset, 'prev-pointer-to-null');
+                         const nullTextStart = drawLabel(svgEl, "null", firstNodeX - SPACING - 20, 50 + NODE_HEIGHT / 2 + 5);
+                         nullTextStart.setAttribute('class', 'fill-slate-500 font-mono');
+                     }
                 }
             }
         }
@@ -506,97 +379,25 @@
         }
 
         function drawLabel(svgEl, text, x, y) {
-             const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-             label.setAttribute('x', x);
-             label.setAttribute('y', y);
-             label.setAttribute('text-anchor', 'middle');
-             label.setAttribute('class', 'label fill-indigo-600 font-semibold text-sm');
-             label.textContent = text;
-             svgEl.appendChild(label);
-             return label;
-        }
-
-        // --- Animações ---
-        async function runAnimatedOperation(operation) {
-             if (isAnimating) return;
-
-             const val = parseInt(valueInput.value);
-             if ((operation === 'insertStart' || operation === 'insertEnd') && isNaN(val)) return;
-
-             isAnimating = true;
-             controlsFieldset.disabled = true;
-             removedValueEl.textContent = '';
-
-             switch (operation) {
-                 case 'insertStart':
-                    const animatedNodeStart = drawNode(svg, 0, 50, val, 'animated-node');
-                    animatedNodeStart.style.opacity = '0';
-                    animatedNodeStart.style.transform = `translateY(-50px)`;
-                    await new Promise(res => setTimeout(res, 50));
-                    animatedNodeStart.style.opacity = '1';
-                    animatedNodeStart.style.transform = `translateY(0)`;
-                    await new Promise(res => setTimeout(res, 700));
-                    insertAtStart(val);
-                    break;
-                 case 'insertEnd':
-                    let count = 0;
-                    let current = head;
-                    while(current) { count++; current = current.next; }
-                    const initialX = (NODE_WIDTH + SPACING) * count;
-                    const animatedNodeEnd = drawNode(svg, initialX, 50, val, 'animated-node');
-                    animatedNodeEnd.style.opacity = '0';
-                    animatedNodeEnd.style.transform = `translateY(50px)`;
-                    await new Promise(res => setTimeout(res, 50));
-                    animatedNodeEnd.style.opacity = '1';
-                    animatedNodeEnd.style.transform = `translateY(0)`;
-                    await new Promise(res => setTimeout(res, 700));
-                    insertAtEnd(val);
-                    break;
-                 case 'removeStart':
-                    if(!head) break;
-                    const firstNodeEl = svg.querySelector('#node-0');
-                    if(firstNodeEl) {
-                        firstNodeEl.style.opacity = '0';
-                        firstNodeEl.style.transform = `translateY(-50px)`;
-                    }
-                    await new Promise(res => setTimeout(res, 700));
-                    const removedValStart = removeFromStart();
-                    removedValueEl.textContent = `Valor removido: ${removedValStart}`;
-                    break;
-                case 'removeEnd':
-                    if(!head) break;
-                    let nodeCount = 0;
-                    let curr = head;
-                    while(curr) { nodeCount++; curr = curr.next; }
-
-                    const lastNodeEl = svg.querySelector(`#node-${nodeCount - 1}`);
-                    if(lastNodeEl) {
-                        lastNodeEl.style.opacity = '0';
-                        lastNodeEl.style.transform = `translateY(50px)`;
-                    }
-                    await new Promise(res => setTimeout(res, 700));
-                    const removedValEnd = removeFromEnd();
-                    removedValueEl.textContent = `Valor removido: ${removedValEnd}`;
-                    break;
-             }
-
-             drawList(head);
-             valueInput.value = '';
-             isAnimating = false;
-             controlsFieldset.disabled = false;
+              const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+              label.setAttribute('x', x);
+              label.setAttribute('y', y);
+              label.setAttribute('text-anchor', 'middle');
+              label.setAttribute('class', 'label fill-indigo-600 font-semibold text-sm');
+              label.textContent = text;
+              svgEl.appendChild(label);
+              return label;
         }
 
         // --- Lógica Geral e de Abas ---
         function switchTab(tabId) {
-            [practiceContent, theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
-            [tabPractice, tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
+            [theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
+            [tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
 
             document.getElementById(tabId).classList.remove('hidden');
             document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
 
-            if (tabId === 'practice-content') {
-                drawList(head);
-            } else if (tabId === 'theory-content') {
+            if (tabId === 'theory-content') {
                 initializeTheoryExamples();
             }
              if (tabId === 'quiz-content') {
@@ -812,32 +613,8 @@
         }
 
         // --- Event Listeners ---
-        tabPractice.addEventListener('click', () => switchTab('practice-content'));
         tabTheory.addEventListener('click', () => switchTab('theory-content'));
         tabQuiz.addEventListener('click', () => switchTab('quiz-content'));
-
-        insertStartBtn.addEventListener('click', () => runAnimatedOperation('insertStart'));
-        insertEndBtn.addEventListener('click', () => runAnimatedOperation('insertEnd'));
-        removeStartBtn.addEventListener('click', () => runAnimatedOperation('removeStart'));
-        removeEndBtn.addEventListener('click', () => runAnimatedOperation('removeEnd'));
-
-        clearBtn.addEventListener('click', () => {
-            if (isAnimating) return;
-            clearList();
-            drawList(head);
-            removedValueEl.textContent = '';
-        });
-
-        generateBtn.addEventListener('click', () => {
-            if (isAnimating) return;
-            clearList();
-            removedValueEl.textContent = '';
-            const count = parseInt(countInput.value) || 5;
-            for (let i = 0; i < count; i++) {
-                insertAtEnd(Math.floor(Math.random() * 100));
-            }
-            drawList(head);
-        });
 
         // --- Quiz Listeners ---
         nextQuestionBtn.addEventListener('click', () => {
@@ -852,18 +629,14 @@
 
         // --- Inicialização ---
         window.addEventListener('resize', () => {
-            if (!practiceContent.classList.contains('hidden')) {
-                drawList(head);
-            }
             if (!theoryContent.classList.contains('hidden')) {
                 initializeTheoryExamples();
             }
         });
 
-        switchTab('practice-content');
+        switchTab('theory-content');
         setupQuizSelection();
-        generateBtn.click();
+
     </script>
 </body>
 </html>
-
