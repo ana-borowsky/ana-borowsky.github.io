@@ -96,8 +96,8 @@
         <!-- Conteúdo da Aba de Teoria -->
         <div id="theory-content">
              <h2>O que é uma Pilha (Stack)? 🥞</h2>
-             <p>Uma Pilha é uma estrutura de dados linear que segue o princípio <strong>LIFO (Last-In, First-Out)</strong>, que significa "o último a entrar é o primeiro a sair".</p>
-             <p>A melhor analogia é uma <strong>pilha de pratos</strong>. Você coloca (<code>push</code>) um prato no topo da pilha e, quando precisa de um, retira (<code>pop</code>) o prato que está no topo. Não é possível retirar um prato do meio ou da base sem antes remover todos os que estão acima dele.</p>
+             <p>Uma pilha é uma coleção ordenada de ítens na qual os itens podem ser inseridos e retirados a partir da última posição, chamada topo da pilha. Ou seja, ela segue o princípio <strong>LIFO (Last-In, First-Out)</strong>, que significa "o último a entrar é o primeiro a sair".</p>
+             <p>A melhor analogia é uma <strong>pilha de pratos</strong>. Você coloca um prato no topo da pilha e, quando precisa de um, retira o prato que está no topo. Não é possível retirar um prato do meio ou da base sem antes remover todos os que estão acima dele.</p>
              <div class="theory-example-container">
                 <div class="theory-svg-wrapper" id="stack-theory-wrapper"><svg id="theory-svg-stack"></svg></div>
                 <div class="theory-controls">
@@ -107,21 +107,25 @@
             </div>
              <h3>Operações Principais</h3>
              <ul>
-                 <li><code>push (empilhar)</code>: Adiciona um elemento no <strong>topo</strong> da pilha.</li>
-                 <li><code>pop (desempilhar)</code>: Remove e retorna o elemento do <strong>topo</strong> da pilha.</li>
-                 <li><code>peek / top (espiar / topo)</code>: Retorna o elemento do topo <strong>sem o remover</strong>.</li>
-                 <li><code>isEmpty (estáVazia)</code>: Verifica se a pilha está vazia.</li>
-             </ul>
-             <p>Todas estas operações são extremamente rápidas, com uma complexidade de tempo de <strong>O(1)</strong>, pois não dependem do número de elementos na pilha.</p>
-
-             <h3>Onde são usadas?</h3>
-             <ul>
-                 <li><strong>Navegadores Web:</strong> O botão "Voltar" usa uma pilha para armazenar as páginas visitadas.</li>
-                 <li><strong>Função Desfazer/Refazer (Undo/Redo):</strong> Editores de texto usam pilhas para guardar os estados anteriores do documento.</li>
-                 <li><strong>Execução de Funções:</strong> Linguagens de programação usam a "pilha de chamadas" (call stack) para controlar qual função está a ser executada.</li>
+                <li><code>insere():</code> insere um novo elemento na pilha</li>
+                <li><code>cheia():</code> Verifica se a pilha está cheia</li>
+                <li><code>vazia():</code> Verifica se a pilha está vazia</li>
+                <li><code>remove():</code> Remove um elemento da pilha</li>
+                <li><code>imprime():</code> Imprime todos os elementos da pilha.</li>
              </ul>
 
-            <h2 class="mt-12">O que é uma Fila (Queue)? 🚶‍♂️🚶‍♀️🚶</h2>
+             <h3>Implementação com vetor</h3>
+            <img src="src/assets/images/imagem1.png" class="w-1/2">
+            <p>Inicialmente o índice topo é inicializado com –1. Isto indica que a pilha está vazia. Desta forma pode-se implementar um teste para verificar se a pilha está vazia da seguinte forma:</p>
+            <img src="src/assets/images/imagem2.png" class="w-1/2">
+            <p>Obs: Pode-se retornar o valor do topo no caso de não vazia.</p>
+            <p>É importante verificar a realização do teste de “overflow” antes de efetivamente inserir o elemento na pilha. Este teste pode ser implementado da seguinte forma:</p>
+            <img src="src/assets/images/imagem3.png" class="w-1/2"><br>
+            <p>Inserção / Empilhamento</p>
+            <img src="src/assets/images/imagem4.png" class="w-1/2"><br>
+            <p>Remoção / Desempilhamento</p>
+            <img src="src/assets/images/imagem5.png" class="w-1/2"><br>
+            <h2 class="mt-12">O que é uma Fila? 🚶‍♂️🚶‍♀️🚶</h2>
             <p>Uma Fila é uma estrutura de dados linear que segue o princípio <strong>FIFO (First-In, First-Out)</strong>, que significa "o primeiro a entrar é o primeiro a sair".</p>
             <p>Pense numa <strong>fila de supermercado</strong>. A primeira pessoa que chega à fila é a primeira a ser atendida e a sair. Novas pessoas chegam (<code>enqueue</code>) no <strong>fim</strong> da fila, e as pessoas são atendidas (<code>dequeue</code>) no <strong>início</strong> da fila.</p>
             <div class="theory-example-container">
@@ -133,19 +137,16 @@
             </div>
             <h3>Operações Principais</h3>
             <ul>
-                <li><code>enqueue (enfileirar)</code>: Adiciona um elemento no <strong>fim (rear)</strong> da fila.</li>
-                <li><code>dequeue (desenfileirar)</code>: Remove e retorna o elemento do <strong>início (front)</strong> da fila.</li>
-                <li><code>peek / front (espiar / início)</code>: Retorna o elemento do início <strong>sem o remover</strong>.</li>
-                <li><code>isEmpty (estáVazia)</code>: Verifica se a fila está vazia.</li>
+                <li><code>cheia():</code> verifica se a fila está cheia</li>
+                <li><code>vazia():</code> verifica se a fila está vazia</li>
+                <li><code>insere(E):</code> insere o elemento E na Fila;</li>
+                <li><code>remove():</code> remove um elemento da Fila.</li>
+                <li><code>imprime():</code> imprime todos os elementos da Fila, do primeiro ao último </li>
             </ul>
             <p>Assim como nas pilhas, as operações básicas de uma fila também têm complexidade de tempo de <strong>O(1)</strong>.</p>
+            <h3>Implementação com vetor</h3>
+            <img src="src/assets/images/imagem8.png" class="w-1/2"><br>
 
-            <h3>Onde são usadas?</h3>
-            <ul>
-                <li><strong>Gestão de impressão:</strong> Documentos enviados para uma impressora entram numa fila e são impressos na ordem em que chegaram.</li>
-                <li><strong>Sistemas Operativos:</strong> Para gerir processos que estão à espera para usar a CPU.</li>
-                <li><strong>Redes de Computadores:</strong> Pacotes de dados são colocados numa fila antes de serem transmitidos.</li>
-            </ul>
         </div>
 
 
