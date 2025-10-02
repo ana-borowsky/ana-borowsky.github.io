@@ -226,8 +226,17 @@
         <!-- Conteúdo da Aba de Teoria -->
         <div id="theory-content" class="hidden text-left">
             <!-- Conteúdo da teoria permanece o mesmo -->
+                           <h2>Altura de uma árvore</h2>
+            <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto"><br>
+            <h2>Busca em Árvore Binária</h2>
+            <p>
+                Pode-se verificar que todo filho esquerdo contém um elemento menor do que o elemento armazenado no seu pai e todo filho direito contém um elemento maior ou igual do que o elemento armazenado no seu pai. Um elemento a pode ser pesquisado em uma árvore binária utilizando-se um algoritmo de travesia como o colocado a seguir:
+            </p>
+            <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto"><br>
+            <p>Dessa maneira, a cada interação é esperado que o número de possibilidades seja dividido por dois O(log n).</p>
+
              <h2>O que é uma Árvore AVL?</h2>
-             <p>Uma Árvore AVL é um tipo especial de <strong>Árvore Binária de Busca (ABB)</strong> que é <strong>auto-balanceável</strong>. Ela mantém sua altura a menor possível, garantindo que operações como busca, inserção e remoção sejam extremamente eficientes, com complexidade de tempo de <strong>O(log n)</strong> no pior caso. O seu nome vem da junção das iniciais de seus criadores: <strong>A</strong>delson <strong>V</strong>elsky e <strong>L</strong>andis</p>
+             <p>Uma Árvore AVL é um tipo especial de <strong>Árvore Binária de Busca (ABB)</strong> que é <strong>auto-balanceável</strong>. Ela mantém sua altura a menor possível, garantindo que operações como busca, inserção e remoção sejam extremamente eficientes, com complexidade de tempo de <strong>O(log n)</strong> no pior caso. O seu nome vem da junção das iniciais de seus criadores: <strong>A</strong>delson <strong>V</strong>elsky e <strong>L</strong>andis.</p>
               <div class="theory-example-container">
                    <div class="theory-svg-wrapper"><svg id="theory-svg-balanced"></svg></div>
               </div>
@@ -235,10 +244,21 @@
               <div class="theory-example-container">
                    <div class="theory-svg-wrapper"><svg id="theory-svg-unbalanced"></svg></div>
               </div>
+            <p>Uma árvore balanceada é uma árvore binária na qual a diferença entre a altura das duas subárvores (esquerda e direita) de qualquer nó da árvore não é maior do que 1.</p>
+
              <h2>Fator de Balanceamento</h2>
+             <p>Em uma árvore balanceada, o balanceamento de cada nó é –1, 0 ou 1.</p>
+             <ul>
+                <li>Balanceamento -1: altura da subárvore esquerda é menor do que a altura da direita</li>
+                <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto"><br>
+                <li>Balanceamento 0: ambas as subárvores possuem a mesma altura</li>
+                <img src="src/assets/images/imagem4.png" class="w-1/2 block mx-auto"><br>
+                <li>Balanceamento 1: a altura da subárvore esquerda é maior do que a altura da direita.</li>
+                <img src="src/assets/images/imagem5.png" class="w-1/2 block mx-auto"><br>
+            </ul>
              <p>A "mágica" da AVL reside em monitorar o <strong>Fator de Balanceamento (FB)</strong> de cada nó. O FB de um nó é calculado da seguinte forma:</p>
              <p class="text-center bg-slate-100 p-3 rounded-md"><code>FB = Altura(Subárvore Esquerda) - Altura(Subárvore Direita)</code></p>
-             <p>Em uma árvore AVL válida, o Fator de Balanceamento de <strong>todos</strong> os nós deve ser <strong>-1, 0 ou 1</strong>. Se, após uma inserção ou remoção, o FB de algum nó se torna -2 ou 2, a árvore está desbalanceada e uma rotação é necessária para corrigir o problema.</p>
+             <p>Se, após uma inserção ou remoção, o FB de algum nó se torna -2 ou 2, a árvore está desbalanceada e uma rotação é necessária para corrigir o problema.</p>
              <h2>As Rotações: Corrigindo o Desbalanceamento</h2>
              <p>Existem quatro tipos de desbalanceamento que podem ocorrer, cada um corrigido por um tipo específico de rotação.</p>
              <h3>1. Rotação Simples à Direita (Caso Esquerda-Esquerda)</h3>
@@ -250,6 +270,14 @@
                      <button id="replay-rr" class="theory-btn">Replay</button>
                  </div>
              </div>
+             <h3>Algoritmo</h3>
+             <ul>
+                <li>Node novaRaiz = raiz.esquerda</li>
+                <li>Node temp = novaRaiz.direita</li>
+                <li>novaRaiz.direita = raiz</li>
+                <li>raiz.esquerda = temp</li>
+            </ul>
+
              <h3>2. Rotação Simples à Esquerda (Caso Direita-Direita)</h3>
              <p>É o espelho do caso anterior. Ocorre quando um nó (Z) fica desbalanceado (FB = -2) porque seu filho direito (Y) também está "pesado" para a direita (FB = -1). A solução é uma única rotação à esquerda em Z.</p>
              <div class="theory-example-container">
@@ -259,6 +287,13 @@
                      <button id="replay-lr" class="theory-btn">Replay</button>
                  </div>
              </div>
+            <h3>Algoritmo</h3>
+             <ul>
+                <li>Node novaRaiz = raiz.direita</li>
+                <li>Node temp = novaRaiz.esquerda</li>
+                <li>novaRaiz.esquerda = raiz</li>
+                <li>raiz.direita = temp</li>
+            </ul>
              <h3>3. Rotação Dupla: Esquerda-Direita (Caso Esquerda-Direita)</h3>
              <p>Este é um caso "em zigue-zague". O nó (Z) fica desbalanceado para a esquerda (FB = 2), mas seu filho esquerdo (Y) está pesado para a direita (FB = -1). Para corrigir, são necessários dois passos:</p>
              <ul>
@@ -285,6 +320,7 @@
                        <button id="replay-rlr" class="theory-btn">Replay</button>
                    </div>
               </div>
+
         </div>
 
         <!-- Conteúdo da Aba de Quiz -->
