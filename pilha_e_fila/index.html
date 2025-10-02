@@ -12,25 +12,14 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        #quiz-container, .feedback-card {
+        .theory-example-container {
             animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .structure-btn.active {
-            background-color: #4f46e5; /* indigo-600 */
-            color: white;
-        }
-        .tab-btn {
-            border-bottom: 2px solid transparent;
-        }
-        .tab-btn.active {
-            border-color: #4f46e5; /* indigo-600 */
-            color: #4f46e5;
-        }
-        #theory-content h2, #quiz-content h2 {
+        #theory-content h2 {
             font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem;
             border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem;
         }
@@ -39,13 +28,6 @@
         #theory-content ul { list-style-type: disc; padding-left: 1.5rem; }
         #theory-content code { background-color: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
         #theory-content strong { font-weight: 600; }
-        .quiz-option {
-            display: block; width: 100%; padding: 0.75rem; border: 1px solid #d1d5db;
-            border-radius: 0.5rem; text-align: left; transition: all 0.2s; cursor: pointer;
-        }
-        .quiz-option:hover:not(:disabled) { border-color: #4f46e5; background-color: #eef2ff; }
-        .quiz-option.correct { background-color: #dcfce7; border-color: #22c55e; }
-        .quiz-option.incorrect { background-color: #fee2e2; border-color: #ef4444; }
 
         /* Estilos para animações da teoria */
         .theory-example-container {
@@ -75,6 +57,21 @@
         .theory-svg-wrapper svg g { transition: all 0.6s ease-in-out; }
 
         #stack-theory-wrapper { height: 280px; }
+
+        /* Fallback para imagens quebradas */
+        img {
+            display: block;
+            position: relative;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            text-align: center;
+            color: #6b7280;
+            padding: 1rem;
+        }
+        img::after {
+            content: 'Imagem não encontrada';
+            font-size: 0.875rem;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 text-slate-800 flex flex-col items-center min-h-screen p-4">
@@ -82,16 +79,8 @@
     <div class="w-full max-w-5xl mx-auto bg-neutral-50 rounded-2xl shadow-lg p-6 md:p-8 mt-6">
         <header class="mb-6 text-center">
             <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de estudos de Filas e Pilhas</h1>
-            <p class="text-slate-600 mt-2">Alterne entre 'Teoria' e 'Quiz' para aprofundar os seus conhecimentos.</p>
+            <p class="text-slate-600 mt-2">Explore os conceitos de Filas e Pilhas com animações interativas.</p>
         </header>
-
-        <!-- Abas de Navegação -->
-        <div class="border-b border-slate-200 mb-6">
-            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
-                <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
-                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
-            </nav>
-        </div>
 
         <!-- Conteúdo da Aba de Teoria -->
         <div id="theory-content">
@@ -115,16 +104,20 @@
              </ul>
 
              <h3>Implementação com vetor</h3>
-            <img src="src/assets/images/imagem1.png" class="w-1/2">
+            <img src="src/assets/images/imagem1.png" class="w-1/2 block mx-auto">
             <p>Inicialmente o índice topo é inicializado com –1. Isto indica que a pilha está vazia. Desta forma pode-se implementar um teste para verificar se a pilha está vazia da seguinte forma:</p>
-            <img src="src/assets/images/imagem2.png" class="w-1/2">
+            <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto">
             <p>Obs: Pode-se retornar o valor do topo no caso de não vazia.</p>
             <p>É importante verificar a realização do teste de “overflow” antes de efetivamente inserir o elemento na pilha. Este teste pode ser implementado da seguinte forma:</p>
-            <img src="src/assets/images/imagem3.png" class="w-1/2"><br>
-            <p>Inserção / Empilhamento</p>
-            <img src="src/assets/images/imagem4.png" class="w-1/2"><br>
-            <p>Remoção / Desempilhamento</p>
-            <img src="src/assets/images/imagem5.png" class="w-1/2"><br>
+            <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto"><br>
+
+            <p class="text-center text-sm text-slate-600 mb-2">Inserção / Empilhamento</p>
+            <img src="src/assets/images/imagem4.png" class="w-1/2 block mx-auto"><br>
+
+            <p class="text-center text-sm text-slate-600 mb-2">Remoção / Desempilhamento
+            <img src="src/assets/images/imagem5.png" class="w-1/2 block mx-auto"><br>
+
+
             <h2 class="mt-12">O que é uma Fila? 🚶‍♂️🚶‍♀️🚶</h2>
             <p>Uma Fila é uma estrutura de dados linear que segue o princípio <strong>FIFO (First-In, First-Out)</strong>, que significa "o primeiro a entrar é o primeiro a sair".</p>
             <p>Pense numa <strong>fila de supermercado</strong>. A primeira pessoa que chega à fila é a primeira a ser atendida e a sair. Novas pessoas chegam (<code>enqueue</code>) no <strong>fim</strong> da fila, e as pessoas são atendidas (<code>dequeue</code>) no <strong>início</strong> da fila.</p>
@@ -146,171 +139,11 @@
             <p>Assim como nas pilhas, as operações básicas de uma fila também têm complexidade de tempo de <strong>O(1)</strong>.</p>
             <h3>Implementação com vetor</h3>
             <img src="src/assets/images/imagem8.png" class="w-1/2"><br>
-
-        </div>
-
-
-        <!-- Conteúdo da Aba de Quiz -->
-        <div id="quiz-content" class="hidden text-center">
-             <div id="quiz-selection-screen">
-                <h2>Quiz sobre Filas e Pilhas</h2>
-                <p class="my-4">Teste os seus conhecimentos com 12 perguntas.</p>
-                <div id="quiz-buttons-container" class="flex justify-center">
-                    <!-- Botão do Quiz será gerado aqui -->
-                </div>
-            </div>
-            <div id="quiz-container" class="hidden">
-                 <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
-                 <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
-                 <div id="quiz-options" class="space-y-3"></div>
-                 <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
-                 <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
-            </div>
-             <div id="quiz-results-screen" class="hidden">
-                 <h2>Quiz Finalizado!</h2>
-                 <p class="my-4 text-lg">A sua pontuação foi:</p>
-                 <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
-                 <button id="restart-quiz-btn" class="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg">Tentar Novamente</button>
-             </div>
         </div>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- Elementos do DOM ---
-        const tabs = {
-            theory: document.getElementById('tab-theory'),
-            quiz: document.getElementById('tab-quiz'),
-        };
-        const contents = {
-            theory: document.getElementById('theory-content'),
-            quiz: document.getElementById('quiz-content'),
-        };
-
-        // --- Lógica das Abas ---
-        function switchTab(tabName) {
-            Object.keys(contents).forEach(key => {
-                contents[key].classList.add('hidden');
-                tabs[key].classList.remove('active');
-            });
-            contents[tabName].classList.remove('hidden');
-            tabs[tabName].classList.add('active');
-
-            if(tabName === 'quiz') {
-                 showQuizScreen('selection');
-            }
-        }
-
-        // --- Lógica do Quiz ---
-        const quizQuestions = [
-            { question: 'Qual princípio uma Pilha (Stack) segue?', options: ['FIFO (Primeiro a Entrar, Primeiro a Sair)', 'LIFO (Último a Entrar, Primeiro a Sair)', 'Aleatório', 'LILO (Último a Entrar, Último a Sair)'], answer: 'LIFO (Último a Entrar, Primeiro a Sair)', explanation: 'LIFO é a sigla para "Last-In, First-Out", que descreve perfeitamente o comportamento de uma pilha, como uma pilha de pratos.' },
-            { question: 'Qual princípio uma Fila (Queue) segue?', options: ['LIFO (Último a Entrar, Primeiro a Sair)', 'FIFO (Primeiro a Entrar, Primeiro a Sair)', 'FILO (Primeiro a Entrar, Último a Sair)', 'Nenhum dos anteriores'], answer: 'FIFO (Primeiro a Entrar, Primeiro a Sair)', explanation: 'FIFO é a sigla para "First-In, First-Out", que descreve o comportamento de uma fila, como pessoas à espera para serem atendidas.' },
-            { question: 'A operação para adicionar um item ao topo de uma pilha é chamada de:', options: ['Enfileirar (enqueue)', 'Empilhar (push)', 'Adicionar (add)', 'Inserir (insert)'], answer: 'Empilhar (push)', explanation: 'A operação "empilhar" (push) é o termo correto para adicionar um elemento no topo de uma pilha.' },
-            { question: 'Qual operação remove um elemento do início de uma fila?', options: ['Desempilhar (pop)', 'Remover (remove)', 'Desenfileirar (dequeue)', 'Apagar (delete)'], answer: 'Desenfileirar (dequeue)', explanation: 'A operação "desenfileirar" (dequeue) é o termo correto para remover o elemento que está no início da fila.' },
-            { question: 'Numa pilha, você empilha os valores 10, 20 e 30, nesta ordem. Qual valor será o primeiro a ser removido?', options: ['10', '20', '30', 'Qualquer um'], answer: '30', explanation: 'Devido ao princípio LIFO, o último elemento a entrar (30) é sempre o primeiro a sair.' },
-            { question: 'Numa fila, você enfileira as letras "X", "Y" e "Z", nesta ordem. Qual letra estará no início da fila para ser a primeira a sair?', options: ['"X"', '"Y"', '"Z"', 'A ordem não é garantida'], answer: '"X"', explanation: 'Devido ao princípio FIFO, o primeiro elemento a entrar ("X") é também o primeiro a sair.' },
-            { question: 'A função de "Desfazer" (Undo) num editor de texto é um exemplo clássico de qual estrutura de dados?', options: ['Fila', 'Pilha', 'Lista Ligada', 'Árvore'], answer: 'Pilha', explanation: 'Cada ação é empilhada. Ao clicar em "desfazer", a última ação (no topo da pilha) é desfeita.' },
-            { question: 'Um sistema de gestão de impressão, que imprime documentos na ordem em que foram enviados, usa qual estrutura?', options: ['Fila', 'Pilha', 'Array', 'Tabela Hash'], answer: 'Fila', explanation: 'Os trabalhos de impressão são processados na ordem de chegada (FIFO), o que é a definição de uma fila.' },
-            { question: 'Qual operação permite ver o elemento no topo de uma pilha sem o remover?', options: ['Ver (view)', 'Olhar (look)', 'Topo (top/peek)', 'Frente (front)'], answer: 'Topo (top/peek)', explanation: 'As operações "topo" (top) ou "espiar" (peek) servem para inspecionar o elemento do topo sem alterar a pilha.' },
-            { question: 'Se uma pilha está vazia e você tenta executar uma operação de desempilhar (pop), o que acontece?', options: ['O programa dá erro (underflow)', 'Remove o último item que foi adicionado', 'Retorna o valor 0', 'Não acontece nada'], answer: 'O programa dá erro (underflow)', explanation: 'Tentar remover um item de uma pilha vazia resulta num erro conhecido como "underflow" (esvaziamento).' },
-            { question: 'A complexidade de tempo para enfileirar (enqueue) um item numa fila com "N" elementos é geralmente:', options: ['O(1)', 'O(log N)', 'O(N)', 'O(N²)'], answer: 'O(1)', explanation: 'Adicionar um item ao final de uma fila é uma operação de tempo constante, independentemente do seu tamanho.' },
-            { question: 'O botão "Voltar" de um navegador web armazena as páginas visitadas em qual tipo de estrutura?', options: ['Fila', 'Pilha', 'Ambas', 'Nenhuma'], answer: 'Pilha', explanation: 'A página mais recente visitada está no topo da pilha, e é para ela que o botão "Voltar" nos leva (LIFO).' },
-        ];
-
-        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
-        const quizContainer = document.getElementById('quiz-container');
-        const quizResultsScreen = document.getElementById('quiz-results-screen');
-        const quizQuestionEl = document.getElementById('quiz-question');
-        const quizOptionsEl = document.getElementById('quiz-options');
-        const nextQuestionBtn = document.getElementById('next-question-btn');
-        const quizProgressEl = document.getElementById('quiz-progress');
-        const quizScoreEl = document.getElementById('quiz-score');
-        const quizExplanationEl = document.getElementById('quiz-explanation');
-        const restartQuizBtn = document.getElementById('restart-quiz-btn');
-
-        let shuffledQuestions, currentQuestionIndex, score;
-
-        function startQuiz() {
-            shuffledQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
-            currentQuestionIndex = 0;
-            score = 0;
-            showQuizScreen('question');
-            displayNextQuestion();
-        }
-
-        function displayNextQuestion() {
-            resetQuizState();
-            if (currentQuestionIndex >= shuffledQuestions.length) {
-                showQuizScreen('results');
-                quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
-                return;
-            }
-
-            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
-            const q = shuffledQuestions[currentQuestionIndex];
-            quizQuestionEl.textContent = q.question;
-
-            q.options.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.className = 'quiz-option';
-                button.addEventListener('click', () => selectAnswer(button, option, q.answer));
-                quizOptionsEl.appendChild(button);
-            });
-        }
-
-        function selectAnswer(btn, selected, correct) {
-            Array.from(quizOptionsEl.children).forEach(button => {
-                button.disabled = true;
-                if(button.textContent === correct) {
-                    button.classList.add('correct');
-                }
-            });
-
-            if (selected === correct) {
-                score++;
-            } else {
-                btn.classList.add('incorrect');
-            }
-
-            const explanation = shuffledQuestions[currentQuestionIndex].explanation;
-            quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${explanation}`;
-            quizExplanationEl.classList.remove('hidden');
-            nextQuestionBtn.classList.remove('hidden');
-        }
-
-        function resetQuizState() {
-            quizOptionsEl.innerHTML = '';
-            quizExplanationEl.classList.add('hidden');
-            nextQuestionBtn.classList.add('hidden');
-        }
-
-        function showQuizScreen(screen) {
-             if (screen === 'question') {
-                quizSelectionScreen.classList.add('hidden');
-                quizContainer.classList.remove('hidden');
-                quizResultsScreen.classList.add('hidden');
-            } else if (screen === 'results') {
-                quizSelectionScreen.classList.add('hidden');
-                quizContainer.classList.add('hidden');
-                quizResultsScreen.classList.remove('hidden');
-            } else { // selection (initial state)
-                quizSelectionScreen.classList.remove('hidden');
-                quizContainer.classList.add('hidden');
-                quizResultsScreen.classList.add('hidden');
-            }
-        }
-
-        function setupQuizSelection() {
-            const container = document.getElementById('quiz-buttons-container');
-            container.innerHTML = '';
-            const button = document.createElement('button');
-            button.textContent = 'Iniciar Quiz';
-            button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
-            button.onclick = startQuiz;
-            container.appendChild(button);
-        }
-
         // --- Lógica de Animação da Teoria ---
         const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -510,21 +343,7 @@
             await wait(800);
         }
 
-        // --- Event Listeners ---
-        Object.keys(tabs).forEach(key => {
-            tabs[key].addEventListener('click', () => switchTab(key));
-        });
-
-        nextQuestionBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            displayNextQuestion();
-        });
-        restartQuizBtn.addEventListener('click', startQuiz);
-
-
         // --- Inicialização ---
-        switchTab('theory');
-        setupQuizSelection();
         setupTheoryAnimation('theory-svg-stack', 'play-stack', 'replay-stack', animateStackTheory, drawInitialStack);
         setupTheoryAnimation('theory-svg-queue', 'play-queue', 'replay-queue', animateQueueTheory, drawInitialQueue);
     });
