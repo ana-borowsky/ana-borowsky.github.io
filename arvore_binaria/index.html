@@ -185,18 +185,42 @@
         <div id="theory-content" class="hidden text-left max-w-4xl mx-auto">
             <h2>O que é uma Árvore Binária de Busca (ABB)?</h2>
             <p>
-                Uma <strong>Árvore Binária de Busca</strong> (do inglês, <em>Binary Search Tree</em> ou BST) é uma estrutura de dados baseada em nós, onde cada nó possui no máximo dois filhos: um à esquerda e um à direita. A principal característica que a define é a sua propriedade de ordenação:
+                Uma <strong>Árvore Binária de Busca</strong> (do inglês, <em>Binary Search Tree</em> ou BST) consiste em um conjunto de nós, onde cada nó possui no máximo dois filhos: um à esquerda e um à direita.
             </p>
+            <P>Existem três componentes em uma árvore binária:</P>
+            <ul>
+                <li>A raiz</li>
+                <li>Subárvore esquerda</li>
+                <li>Subárvore direita</li>
+            </ul>
+
+            <p>Cada subárvore também é uma árvore binária e pode ou não estar vazia.</p>
+            <p>Além disso, subárvores esquerda e direita são conjuntos disjuntos de nós.</p>
+
+            <p>A principal característica que define uma ABB é a sua propriedade de ordenação:</p>
             <ul>
                 <li>Para qualquer nó <code>N</code>, todos os valores na sua subárvore <strong>esquerda</strong> são <strong>menores</strong> que o valor de <code>N</code>.</li>
                 <li>Para qualquer nó <code>N</code>, todos os valores na sua subárvore <strong>direita</strong> são <strong>maiores</strong> que o valor de <code>N</code>.</li>
                 <li>Ambas as subárvores (esquerda e direita) também devem ser árvores binárias de busca.</li>
             </ul>
-             <div class="theory-example-container">
+
+            <div class="theory-example-container">
                 <p class="text-center text-sm text-slate-600 mb-2">Exemplo de uma ABB válida:</p>
-                <div class="theory-svg-wrapper"><svg id="theory-svg-bst" width="100%" height="100%"></svg></div>
-             </div>
+                <div class="block flex justify-center items-center">
+                    <svg id="theory-svg-bst" width="200%" height="200%" class="scale-[1.3]"></svg>
+                </div>
+            </div>
             <p>Esta propriedade torna operações como busca, inserção e remoção muito eficientes, com uma complexidade de tempo média de <strong>O(log n)</strong>, onde 'n' é o número de nós na árvore.</p>
+
+            <h2>Elementos</h2>
+            <ul>
+                <li> O elemento da raiz de uma subárvore é chamado nó pai.</li>
+                <li>A raiz de sua subárvore esquerda é chamada filho esquerdo e a raiz da subárvore direita é chamado filho direito.</li>
+                <li>Um determinado nó que não possui filhos (subárvores esquerda e direita são vazias) é chamado de <strong>nó folha</strong>.</li>
+                <li>Dois nós são ditos irmãos se são filhos do mesmo nó-pai.</li>
+                <li>A altura de um nó é dada da seguinte forma: a raiz tem altura 0 e a altura de qualquer outro nó é dado pela distância do nó até a raiz da árvore.</li>
+                <li>A altura de uma árvore é dada pela maior altura obtida dentre o conjunto de nós folha da árvore.</li>
+            </ul>
 
             <h2>O Pior Cenário: Árvore Desbalanceada</h2>
             <p>
@@ -207,19 +231,47 @@
                 <div class="theory-svg-wrapper"><svg id="theory-svg-unbalanced" width="100%" height="100%"></svg></div>
              </div>
             <p>Neste cenário, a altura da árvore se torna 'n', e a complexidade das operações cai para <strong>O(n)</strong>, o mesmo que uma busca linear em uma lista. Estruturas como as <a href="#" class="text-indigo-600 hover:underline">Árvores AVL</a> ou Rubro-Negras foram criadas para resolver este problema através do auto-balanceamento.</p>
+            <p class="text-center text-sm text-slate-600 mb-2">Não são árvores binárias
+            <img src="src/assets/images/imagem1.png" class="w-1/2 block mx-auto"><br>
+
+            <h2>Implementação dinâmica</h2>
+            <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto"><br>
+            <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto"><br>
+
 
             <h2>Travessia (Percursos)</h2>
-            <p>Percorrer uma árvore significa visitar cada um de seus nós exatamente uma vez, em uma ordem específica. Existem três formas principais de travessia em profundidade:</p>
-            <h3>1. Em Ordem (In-order)</h3>
-            <p>A travessia <strong>Em Ordem</strong> segue os passos: <strong>Esquerda, Raiz, Direita</strong>. Uma característica notável deste percurso em uma ABB é que ele visita os nós em ordem crescente de seus valores.</p>
+            <p>Em uma Lista simplesmente encadeada, a única forma de pesquisar seus elementos é percorrer a lista sequencialmente, em ordem linear. Porém, em uma árvore existem várias estratégias de pesquisa. Todas elas envolvem a visita ao nó raiz e às suas subárvores esquerda e direita em uma determinada ordem.</p>
+            <p class="text-center text-sm text-slate-600 mb-2">Árvore binária que será usada nas travessias
+            <img src="src/assets/images/imagem4.png" class="w-3/4 block mx-auto"><br>
+            <p>Existem três formas principais de travessia em profundidade:</p>
+            <h3>1. Pré-Ordem (Pre-order)</h3>
+            <p>A travessia <strong>Em Ordem</strong> segue os passos:
+            <ul>
+                <li>Visite a raiz da árvore</li>
+                <li>Percorra a subárvore esquerda</li>
+                <li>Percorra a subárvore direita</li>
+            </ul>
+            <p>Ou <strong>raiz, esquerda, direita</strong>.</p>
             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 5, 6, 8, 10, 11, 14</code></p>
 
-            <h3>2. Pré-Ordem (Pre-order)</h3>
-            <p>A travessia <strong>Pré-Ordem</strong> segue os passos: <strong>Raiz, Esquerda, Direita</strong>. Este percurso é útil para criar uma cópia da árvore, pois a raiz é visitada primeiro, permitindo recriar a estrutura hierárquica.</p>
-             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 8, 5, 3, 6, 11, 10, 14</code></p>
+            <h3>2. Em Ordem (In-order)</h3>
+            <p>A travessia <strong>Pré-Ordem</strong> segue os passos:
+            <ul>
+                <li>Percorra a subárvore esquerda</li>
+                <li>Visite a raiz da árvore</li>
+                <li>Percorra a subárvore direita</li>
+            </ul>
+            <p>Ou <strong>raiz, esquerda, direita</strong>.</p>
+            <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 8, 5, 3, 6, 11, 10, 14</code></p>
 
             <h3>3. Pós-Ordem (Post-order)</h3>
-            <p>A travessia <strong>Pós-Ordem</strong> segue os passos: <strong>Esquerda, Direita, Raiz</strong>. Este percurso é frequentemente usado para deletar uma árvore da memória, pois garante que os filhos de um nó sejam processados antes do próprio nó.</p>
+            <p>A travessia <strong>Pós-Ordem</strong> segue os passos:
+            <ul>
+                <li>Percorra a subárvore esquerda</li>
+                <li>Percorra a subárvore direita</li>
+                <li>Visite a raiz da árvore</li>
+            </ul>
+            <p>Ou <strong>Esquerda, Direita, Raiz</strong>.</p>
              <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 6, 5, 10, 14, 11, 8</code></p>
         </div>
 
@@ -681,7 +733,7 @@
             { type: 'theory', question: 'Qual é a complexidade de tempo do pior caso para uma busca em uma ABB?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n^2)'], correctAnswer: 'O(n)', explanation: 'No pior caso, a ABB fica desbalanceada, parecendo uma lista ligada, e a busca se torna linear.' },
             { type: 'theory', question: 'Dada a sequência de inserção [10, 20, 5], qual nó será a raiz da árvore?', options: ['10', '20', '5', 'Qualquer um'], correctAnswer: '10', explanation: 'O primeiro elemento inserido em uma ABB sempre se torna a raiz.' },
             { type: 'theory', question: 'Na travessia Pré-Ordem, qual nó é visitado primeiro?', options: ['O menor nó (folha mais à esquerda)', 'A raiz', 'O maior nó (folha mais à direita)', 'O nó do meio'], correctAnswer: 'A raiz', explanation: 'A sequência da Pré-Ordem é Raiz, Esquerda, Direita.' },
-            { type: 'theory', question: 'Para deletar um nó com dois filhos, o que geralmente o substitui?', options: ['Seu filho esquerdo', 'Seu filho direito', 'Seu sucessor em ordem (o menor da subárvore direita)', 'A raiz da árvore'], correctAnswer: 'Seu sucessor em ordem (o menor da subárvore direita)', explanation: 'Substituir pelo sucessor em ordem (ou predecessor) mantém a propriedade da ABB.' },
+            { type: 'theory', question: 'Se deletar um nó com dois filhos, qual nó irá substituí-lo?', options: ['Seu filho esquerdo', 'Seu filho direito', 'Seu sucessor em ordem (o menor da subárvore direita)', 'A raiz da árvore'], correctAnswer: 'Seu sucessor em ordem (o menor da subárvore direita)', explanation: 'Substituir pelo sucessor em ordem (ou predecessor) mantém a propriedade da ABB.' },
 
             // Quiz 2: Percursos Práticos
             { type: 'practice', question: 'Qual o resultado da travessia EM ORDEM para a árvore abaixo?', values: [50, 30, 70, 20, 40, 60, 80], correctAnswer: '20, 30, 40, 50, 60, 70, 80'},
@@ -715,7 +767,6 @@
             { type: 'practice', question: 'Na árvore abaixo, qual é o predecessor em ordem do nó 50?', values: [50, 30, 70, 20, 40, 60, 80], correctAnswer: '40'},
             { type: 'practice', question: 'Qual sequência de inserção criaria uma árvore perfeitamente balanceada?', options: ['10, 20, 30, 40, 50, 60, 70', '40, 20, 60, 10, 30, 50, 70', '70, 60, 50, 40, 30, 20, 10', '10, 70, 20, 60, 30, 50, 40'], correctAnswer: '40, 20, 60, 10, 30, 50, 70', explanation: 'Inserir a mediana primeiro e depois as medianas de cada sub-intervalo tende a criar árvores mais balanceadas.' },
         ];
-
 
         function setupQuizSelection() {
             quizButtonsContainer.innerHTML = '';
