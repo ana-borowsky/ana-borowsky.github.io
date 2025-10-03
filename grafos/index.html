@@ -216,6 +216,7 @@
                       Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
                       nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
                     </p>
+                    <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
                       Ele consiste em duas partes principais:
                     </p>
@@ -326,31 +327,205 @@
                     independente de tamanho.
                     </p>
                     <h2 id="algoritmos-fundamentais">Algoritmos Fundamentais</h2>
-                    <p>Existem vários algoritmos para extrair informações úteis de grafos. Aqui estão três dos mais importantes:</p>
-
-                    <h3 id="bfs">1. Busca em Largura (BFS - Breadth-First Search)</h3>
+                    <h3>Algoritmo de Warshall</h3>
                     <p>
-                        A BFS explora os vizinhos de um vértice antes de se aprofundar no grafo. Ela funciona em "camadas", visitando todos os nós a uma distância 1 do início, depois todos a uma distância 2, e assim por diante.
-                    </p>
-                    <p>
-                        É como jogar uma pedra em um lago: as ondulações se espalham uniformemente para fora. A BFS usa uma estrutura de dados de <strong>fila (FIFO - First-In, First-Out)</strong> para controlar quais nós visitar em seguida. É garantido que a BFS encontrará o <strong>caminho mais curto</strong> em um grafo não-ponderado.
-                    </p>
-
-                    <h3 id="dfs">2. Busca em Profundidade (DFS - Depth-First Search)</h3>
-                    <p>
-                        A DFS explora o mais fundo possível ao longo de cada "ramo" antes de retroceder (backtracking). Ela segue um caminho até não poder mais avançar e, em seguida, volta para o último ponto de decisão e tenta um caminho diferente.
-                    </p>
-                    <p>
-                        É como tentar sair de um labirinto seguindo sempre a parede da direita. A DFS usa uma estrutura de dados de <strong>pilha (LIFO - Last-In, First-Out)</strong>, seja explicitamente ou implicitamente através de recursão. É útil para tarefas como detecção de ciclos e ordenação topológica.
+                      Na aula anterior foi estudado como era possível encontrar o fechamento transitivo de
+                      um grafo representado como matriz de adjacência. Tal método consistia em encontrar a
+                      matriz mtam utilizando sucessivas operações de soma (disjunção). Existe um algoritmo
+                      chamado Algoritmo de Warshall que é capaz de encontrar o fechamento transitivo de
+                      um grafo representado como matriz de adjacência.
+                      O algoritmo inicia com um índice k que representa as colunas da matriz. Para cada valor
+                      de k tenta-se encontrar uma linha i com valor true. Se uma linha i com valor true é
+                      encontrada, faz-se uma atualização dessa linha i com a disjunção entre essa linha e a
+                      linha que possui o índice k.
+                      O algoritmo de Warshall está colocado a seguir.
                     </p>
 
-                    <h3 id="dijkstra">3. Algoritmo de Dijkstra</h3>
+                    <img src="src/assets/images/imagem11.png" class="block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+                    <h3 id="dijkstra">3. Algoritmo de Menor Caminho (Algoritmo de Dijkstra)</h3>
                     <p>
-                        O Algoritmo de Dijkstra é usado para encontrar o <strong>caminho mais curto</strong> entre um nó inicial e todos os outros nós em um <strong>grafo ponderado e direcionado com pesos de aresta não-negativos</strong>.
+                        Em um grafo com peso, uma operação muito comum consiste em encontrar o menor
+                        caminho entre dois nós. O caminho mais curto entre dois nós s e t é o caminho cuja
+                        soma dos arcos é minimizado. Será assumido a existência de uma função peso(i,j) que
+                        retorna o peso do arco que sai de i e chega em j. Caso este arco não exista, a função
+                        retornará um valor bastante grande chamado infinito que denota a situação de
+                        impossibilidade de se alcançar o nó j a partir de i em um único passo.
                     </p>
                     <p>
-                        Ele funciona mantendo um conjunto de nós visitados e, a cada passo, seleciona o nó não visitado com a menor distância conhecida do início. Ele então atualiza as distâncias de seus vizinhos se um caminho mais curto for encontrado através do nó atual. Ele usa uma <strong>fila de prioridade</strong> para selecionar eficientemente o próximo nó a ser visitado.
+                        O algoritmo funciona da seguinte forma:
+                        distancia[i] armazena o custo do menor caminho do nó s até i. Inicialmente distancia[s]
+                        = 0 e distancia[i] = infinito para todo i != s. Um conjunto perm contém todos os nós
+                        cuja distância mínima de s é conhecida, ou seja, aqueles nós cujo valor da distância é
+                        fixa e não mudará. Se um nó i é um membro de perm, distancia[i] é a distância mínima
+                        de s até i. Inicialmente, o único membro de perm é s. Uma vez que t torna-se um
+                        membro de perm, sabe-se que distancia[t] é a menor distância de s até t e o algoritmo
+                        termina.
                     </p>
+                    <p>
+                        O algoritmo mantém uma variável chamada corrente, que é o último nó adicionado a
+                        perm. Inicialmente corrente = s. Quando um nó corrente é adicionado a perm a
+                        distância deve ser recalculada para todos os sucessores de corrente. Para qualquer
+                        sucessor i de corrente, se distancia[corrente] + peso(corrente,i) é menor que
+                        distancia[i], a distância de s até i passando por corrente é menor que qualquer outra
+                        distância de s até i encontrada até esse momento. Portanto, distancia[i] deve ser
+                        atualizada com esse menor valor.
+                    </p>
+                    <p>
+                        Uma vez que distancia foi recalculada para todo sucessor de corrente, distancia[j] (para
+                        qualquer j) representa o caminho mais curto de s até j que inclui somente membros de
+                        perm (exceto o próprio j). Isto significa que para todo k que não pertence a perm, para
+                        qual distancia[k] é o menor, não há caminho de s até k cujo tamanho é mais curto que
+                        distancia[k]. Desta forma k pode ser adicionado a perm. corrente é então reiniciado com
+                        k e o processo é repetido.
+                    </p>
+                    <p>
+                        O método a seguir implementa o algoritmo do menor caminho. O método utiliza um
+                        conjunto adicional caminho tal que caminho[i] é o nó que precede o nó i no caminho
+                        mais curto encontrado. O procedimento retorna a menor distância entre dois nós s e t e
+                        armazena em precede os nós que formam o menor caminho.
+                    </p>
+                    <img src="src/assets/images/imagem12.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <p>
+                      A partir do vetor caminho pode-se mostrar o menor caminho encontrado pelo algoritmo
+                      com o procedimento imprimeCaminho.
+                    </p>
+                    <img src="src/assets/images/imagem13.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+                    <h4>Exercícios</h4>
+                    <p>1. A partir do grafo representado na Figura 1:</p>
+                    <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <ul>
+
+                        <li>a) encontre sua representação como matriz de adjacência;</li>
+                        <li>b) encontre o fechamento transitivo do grafo utilizando multiplicação de matrizes;</li>
+                        <li>c) encontre o fechamento transitivo do grafo utilizando o algoritmo de Warshall.</li>
+                        <li>2. Ilustre graficamente um dígrafo correspondente a cada uma das seguintes relações
+                          sobre inteiros de 1 a 12:</li>
+                        <li>a) x está relacionado a y se x – y é divisível por 3;</li>
+                        <li>b) x está relacionado a y se (x + 10 * y) < (x * y);</li>
+                        <li>c) x está relacionado a y se o resto da divisão de x por y é 2.</li>
+                    </ul>
+
+                    <h2>Travessia em Grafos</h2>
+                    <p>
+                    Muitos problemas com grafos envolvem a travessia e acesso a todos os vértices de um grafo.
+                    Durante aulas anteriores já foram estudados métodos de travessia em árvore binária (inordem,
+                    pré-ordem e pós-ordem) e lista encadeada (seqüencial). Porém, quando tratamos de travessia em
+                    grafos não existe uma ordenação natural entre os vértices, diferentemente de árvores ou listas.
+                    Portanto algumas questões tornam a travessia em grafo mais complexa:
+                    </p>
+                    <ul>
+                      <li>Não existe um nó que naturalmente seja o inicial. Em uma lista encadeada sempre inicia-se
+                      com o primeiro da lista e árvore sempre com a raiz. Além disso, quando um nó inicial é pré-
+                      determinado, nem sempre todos os vértices do grafo poderão ser visitados, pois podem
+                      existir vértices que não são alcançáveis a partir do nó inicial. Em lista ou árvore, todos os nós
+                      eram visitados, desta forma, um novo nó inicial deve ser determinado para que o grafo seja
+                      completamente percorrido;</li>
+                      <li>Não há uma ordem natural entre os sucessores de um determinado vértice. Desta forma, a
+                      partir de um determinado vértice, não há uma ordem obrigatória na qual os sucessores são
+                      visitados;</li>
+                      <li>Um determinado vértice pode ter mais de um predecessor, desta forma, se um determinado
+                      vértice v possui mais de um predecessor, é possível que v seja visitado antes de algum
+                      predecessor.</li>
+                    </ul>
+                    <p>
+                      Existem duas formas tradicionais de travessia em grafos: busca em largura e profundidade. A
+                      busca em largura utiliza uma lista para armazenar os vértices visitados. A busca em
+                      profundidade utiliza uma pilha que não precisa ser explicitamente implementada quando se
+                      utiliza recursão.
+                    </p>
+
+                    <h3 id="bfs">1. Busca em Profundidade</h3>
+                    <p>
+                      Será considerado que a tarefa do procedimento de travessia consiste em a partir de um
+                      determinado vértice (neste exemplo “0”) visitar (processar) todos os outros vértices. Considere a
+                      Figura 1.
+                    </p>
+                    <img src="src/assets/images/imagem14.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      A partir do grafo anterior o primeiro nó a ser processado é o nó
+                      inicial 0. O grafo da Figura 1 é ilustrado na Figura 2. A partir
+                      do nó inicial há duas alternativas: continuar o processo no nó 1
+                      ou no nó 4. Considere que o nó escolhido é o nó 1. O processo
+                      é ilustrado na Figura 3.
+                      A partir do nó 1 seu único vizinho ainda não visitado é
+                      escolhido para que o processo continue. Essa situação é
+                      ilustrada na Figura 4.
+                    </p>
+                    <img src="src/assets/images/imagem15.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Seguindo a estratégia de escolher o nó com menor conteúdo (ou menor nó) para prosseguir o
+                      processo de travessia, a partir do nó 3 o nó 0 seria o escolhido. Essa é uma situação interessante.
+                      Se o nó 0 for o escolhido, o processo de travessia entrará em loop infinito, pois o caminho 0-1-3-
+                      0 forma um ciclo, uma vez que a origem e o destino do caminho são os mesmos. Portanto é
+                      necessário uma estratégia para evitar tal problema. Geralmente um nó marcado como visitado
+                      nunca será escolhido novamente, uma vez que ele já foi processado. Portanto restam os vértices
+                      5 e 6 (adjacentes a 3). Considerando que o vértice 5 seja o escolhido, o grafo seria representado
+                      mostra a Figura 5.
+                    </p>
+                    <img src="src/assets/images/imagem16.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Como o vértice 5 não possui nós adjacentes, a busca não pode continuar seguindo adiante. Neste
+                      caso o processo retorna para o vértice visitado anteriormente (vértice 3) e verifica se existe mais
+                      algum nó adjacente que ainda não foi visitado. Neste exemplo o vértice 3 possui o vértice 6
+                      adjacente e não visitado, portanto o vértice 6 será o próximo vértice escolhido, como ilustrado na
+                      Figura 6. Como o vértice 6 não possui mais vértices adjacentes ainda não visitados, o processo
+                      retorna para o vértice 3. Neste ponto, o vértice 3 também não possui nenhum outro nó adjacente
+                      ainda não visitado, portanto, o processo retorna para o nó anterior ao 3 (vértice 1) e tenta
+                      encontrar outro nó adjacente não visitado. Como o vértice 1 não possui nenhum nó adjacente
+                      ainda não visitado, o processo retorna ao vértice 0 que possui o adjacente 4 ainda não visitado.
+                      Logo o vértice 4 é escolhido como ilustrado na Figura 7. Como não há mais nenhum vértice
+                      adjacente a 0 e ele é o vértice inicial, o processo é encerrado.
+                    </p>
+                    <img src="src/assets/images/imagem17.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      É possível perceber que esse processo pode ser implementado de maneira muito simples
+                      utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
+                    </p>
+                    <h3 id="bfs">1. Busca em Largura</h3>
+                    <p>1. Se a fila de vértices não está vazia então</p>
+                    <ul>
+                        <li>1.1. Remover o vértice i que está na fila // note-se que uma fila sempre remove o primeiro elemento</li>
+                        <li>1.2. Processar o vértice i</li>
+                        <li>1.3. Adicionar os vértices adjacentes a i na fila // um nó só é adicionado se ele já não foi visitado</li>
+                        <li>1.4. Executar o procedimento 1 sobre a fila atualizada</li>
+                    </ul>
+                    <p>
+                      É importante ressaltar que na primeira chamada do algoritmo a fila contém um único vértice que
+                      é o vértice inicial.
+                    </p>
+                    <h3>Vantagens e desvantagens de Busca em Profundidade e Largura</h3>
+                    <p>
+                      As duas metodologias de travessia em grafos possuem vantagens e desvantagens. Ambas podem
+                      ser utilizadas para se encontrar um determinado elemento dentro de um grafo. Considere-se, por
+                      exemplo as Figuras 15 e 16
+                    </p>
+                    <p>
+                      Os grafos das Figuras 15 e 16 são os mesmos. A partir do vértice 0 tenta-se encontrar o vértice o
+                      vértice 6. Pode-se verificar que se a busca em profundidade é utilizada muito mais vértices
+                      precisam ser visitados para que a solução seja encontrada. No exemplo, os vértices [0, 1, 2, 3, 4,
+                      8, 9, 5, 10, 11, 12, 2 e 6] precisam ser visitados. Por outro lado, com busca em largura muito
+                      menos vértices precisam ser visitados [0, 1, 2, 3, 4, 5, 6].
+                      Geralmente a busca em largura tende a encontrar a solução de um problema de busca
+                      necessitando menos comparações. Além disso a busca em largura trata naturalmente o problema
+                      de ciclos em grafos. Porém sua implementação tende a ser mais complexa, pois necessita de uma
+                      fila para armazenar os vértices.
+                      A busca em profundidade possui uma implementação mais simples, porém necessita de um
+                      mecanismo auxiliar para tratamento de ciclos, geralmente implementado marcando os vértices
+                      como visitados.
+                    </p>
+                    <img src="src/assets/images/imagem18.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+
+                    <h3>Exercício</h3>
+                    <p>
+                      A partir do Grafo a seguir mostrar a seqüência com que os vértices são visitados executando
+                      tanto busca em largura quanto busca em profundidade a partir do vértice A:
+                    </p>
+                    <img src="src/assets/images/imagem19.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+
+
+
                 </div>
             </div>
 
