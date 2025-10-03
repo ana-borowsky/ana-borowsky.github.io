@@ -127,7 +127,7 @@
         }
         .node.visited circle {
              fill: #14532d; /* green-900 */
-             stroke: #4ade80; /* green-400 */
+            stroke: #4ade80; /* green-400 */
         }
         .node.current circle {
             fill: #7f1d1d; /* red-900 */
@@ -149,7 +149,7 @@
         }
         .edge.path {
              stroke: #8b5cf6; /* violet-500 */
-             stroke-width: 4px;
+            stroke-width: 4px;
         }
         .edge-label {
             font-size: 10px;
@@ -174,18 +174,23 @@
                                 <li><a href="#tipos-de-grafos" class="text-slate-400 hover:text-slate-200 hover:underline">Tipos de Grafos</a></li>
                             </ul>
                         </li>
-                        <li><a href="#representacoes" class="text-indigo-400 hover:text-indigo-300 hover:underline">Representações de Grafos</a>
+                        <li><a href="#representacoes" class="text-indigo-400 hover:text-indigo-300 hover:underline">Representações</a>
                              <ul class="pl-4 mt-2 space-y-1">
                                 <li><a href="#matriz-adjacencia" class="text-slate-400 hover:text-slate-200 hover:underline">Matriz de Adjacência</a></li>
-                                <li><a href="#representacao-com-peso" class="text-slate-400 hover:text-slate-200 hover:underline">Representação com Peso e Informação</a></li>
+                                <li><a href="#representacao-com-peso" class="text-slate-400 hover:text-slate-200 hover:underline">Com Peso e Informação</a></li>
                                 <li><a href="#fechamento-transitivo" class="text-slate-400 hover:text-slate-200 hover:underline">Fechamento Transitivo</a></li>
                             </ul>
                         </li>
                         <li><a href="#algoritmos-fundamentais" class="text-indigo-400 hover:text-indigo-300 hover:underline">Algoritmos Fundamentais</a>
                             <ul class="pl-4 mt-2 space-y-1">
-                                <li><a href="#bfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Largura (BFS)</a></li>
-                                <li><a href="#dfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Profundidade (DFS)</a></li>
+                                <li><a href="#warshall" class="text-slate-400 hover:text-slate-200 hover:underline">Algoritmo de Warshall</a></li>
                                 <li><a href="#dijkstra" class="text-slate-400 hover:text-slate-200 hover:underline">Algoritmo de Dijkstra</a></li>
+                            </ul>
+                        </li>
+                         <li><a href="#travessia" class="text-indigo-400 hover:text-indigo-300 hover:underline">Travessia em Grafos</a>
+                            <ul class="pl-4 mt-2 space-y-1">
+                                <li><a href="#dfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Profundidade (DFS)</a></li>
+                                <li><a href="#bfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Largura (BFS)</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -213,18 +218,26 @@
                 <div class="text-left max-w-4xl mx-auto">
                     <h2 id="o-que-sao-grafos">O que são Grafos?</h2>
                     <p>
-                      Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
-                      nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
+                        Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
+                        nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
                     </p>
                     <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      Ele consiste em duas partes principais:
+                        Ele consiste em duas partes principais:
                     </p>
                     <ul>
                         <li><strong>Vértices (ou Nós):</strong> Representam os objetos ou entidades. Pense neles como cidades em um mapa, pessoas em uma rede social ou páginas na web.</li>
                         <li><strong>Arestas (ou Arcos):</strong> Representam as conexões ou relações entre os vértices. Uma aresta conecta um par de vértices, como uma estrada entre duas cidades ou um link entre duas páginas.</li>
                     </ul>
-
+                    <p>
+                    Um grafo é comumente utilizado para representar <strong>Relações</strong>. Uma relação R sobre um conjunto A de nós é um conjunto de pares ordenados a partir de A. Por exemplo, se A =
+                    {3, 5, 6, 8, 10, 17} e o conjunto R = {<3,10>, <5,6>, <5,8>, <6, 17>, <8,17>, <10,17>}
+                    é uma relação. A relação R é obtida computando o resto da divisão do valor armazenado no nó pelo valor associado ao arco (Figura 3). Quando um grafo possui arcos com
+                    valores associados, o grafo é dito <strong>grafo com peso</strong>, onde o valor associado ao arco é o <strong>peso do arco</strong>.
+                    Um caminho de tamanho k de um nó a até um no b consiste numa seqüência de k + 1 nós n1, n2, ..., nk+1 tal que n1 = a e nk+1 = b e (ni é adjacente a ni+1) para 1 < i < k. Na
+                    Figura 2 existe um caminho de tamanho 2 entre os nós A e D: {A,C,D}.Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado
+                    <strong>cíclico</strong> e um grafo que não possui ciclos é chamado <strong>acíclico</strong>.
+                    </p>
                     <h3 id="tipos-de-grafos">Tipos de Grafos</h3>
                     <p>Grafos podem ser classificados de várias maneiras, dependendo de suas propriedades:</p>
                     <ul>
@@ -241,109 +254,153 @@
                         é chamado sucessor de m e m o predecessor de n. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
                         <img src="src/assets/images/imagem3.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                         <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
-                      </ul>
-                    <p>
-                    Um grafo é comumente utilizado para representar <strong>Relações</strong>. Uma relação R sobre um conjunto A de nós é um conjunto de pares ordenados a partir de A. Por exemplo, se A =
-                    {3, 5, 6, 8, 10, 17} e o conjunto R = {<3,10>, <5,6>, <5,8>, <6, 17>, <8,17>, <10,17>}
-                    é uma relação. A relação R é obtida computando o resto da divisão do valor armazenado no nó pelo valor associado ao arco (Figura 3). Quando um grafo possui arcos com
-                    valores associados, o grafo é dito <strong>grafo com peso</strong>, onde o valor associado ao arco é o <strong>peso do arco</strong>.
-                    Um caminho de tamanho k de um nó a até um no b consiste numa seqüência de k + 1 nós n1, n2, ..., nk+1 tal que n1 = a e nk+1 = b e (ni é adjacente a ni+1) para 1 < i < k. Na
-                    Figura 2 existe um caminho de tamanho 2 entre os nós A e D: {A,C,D}.Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado
-                    <strong>cíclico</strong> e um grafo que não possui ciclos é chamado <strong>acíclico</strong>.
-                    </p>
+                        <li><strong>Grafo simples:</strong> um tipo de grafo que não possui laços (arestas que conectam
+                          um vértice a si mesmo) nem arestas múltiplas (mais de uma aresta ligando o
+                          mesmo par de vértices).</li>
+                        <li><strong>Grafo rotulado:</strong> é um grafo onde vértices ou arestas possuem rótulos
+                          associados, que podem ser números, letras ou outros símbolos, para
+                          representar informações adicionais ou funções.</li>
+                        <li><strong>Grafo conexo/desconexo:</strong> Um grafo é considerado conexo se existe um
+                          caminho entre qualquer par de vértices no grafo. Caso contrário, o grafo é
+                          chamado de desconexo.</li>
+                        <li><strong>Grafo completo:</strong> é um tipo de grafo em que todos os pares de vértices
+                            distintos são conectados por uma aresta.</li>
+                        <li><strong>Grafo conexo:</strong> um grafo é considerado conexo se existe um caminho entre
+                            qualquer par de vértices no grafo. Caso contrário, o grafo é chamado de
+                            desconexo.</li>
+                        <li><strong>Grafo bipartido completo:</strong> é um tipo especial de grafo bipartido onde cada
+                          vértice de um conjunto é conectado a todos os vértices do outro conjunto.</li>
+                        <li><strong>Grafo planar:</strong> um grafo que pode ser representado no plano sem que suas
+                          arestas se cruzem.</li>
+                        <li><strong>Grafo cíclico</strong>Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado cíclico.
+                        <li><strong>Grafo acíclico</strong>um grafo que não possui ciclos.</li>
+                    </ul>
+
+
+                    <h3>Conceitos</h3>
+                    <ul>
+                      <li>Vértices adjacentes: vértices que estão conectados por uma aresta.</li>
+                      <li>Laço: é uma aresta que conecta um vértice a ele mesmo.</li>
+                      <li>Arestas paralelas: duas ou mais arestas que conectam o mesmo par de
+                          vértices em um grafo.</li>
+                      <li>Caminho: um caminho em um grafo é uma sequência finita ou infinita de
+                          vértices conectados por uma sequência de arestas que, na maioria das
+                          definições, são todos diferentes uns dos outros. O primeiro vértice é chamado
+                          de vértice inicial e o último é chamado de vértice final.</li>
+                      <li>Comprimento/tamanho do caminho: é o número de arestas que ele contém.</li>
+                      <li>Ciclo: um conjunto de vértices conectados em uma sequência fechada.</li>
+                      <li>Grafo cíclico/acíclico: possui pelo menos um ciclo, ou seja, um caminho
+                          fechado que começa e termina no mesmo vértice, sem passar duas vezes
+                          pelo mesmo vértice intermediário. Por outro lado, um grafo acíclico é aquele
+                          que não contém nenhum ciclo.</li>
+                      <li>Subgrafo: um subgrafo de um grafo G é um grafo cujo conjunto de vértices é
+                          um subconjunto do conjunto de vértices G e o conjunto de arestas é um
+                          subconjunto do conjunto de arestas de G,[1] ou seja, cuja relação de
+                          adjacência é um subconjunto de G restrita a esse subconjunto. Dizemos que
+                          um grafo G contém um outro grafo H se algum subgrafo de G é H ou é
+                          isomorfo a H.</li>
+                      <li>Grau de um vértice: quantidade de arestas ligadas a ele.</li>
+                      <li>Grau de entrada de um vértice: é o número de arestas que chegam a ele.</li>
+                      <li>Grau de saída de um vértice: número de arestas que partem dele.</li>
+                      <li>Vértice isolado: vértice de grau zero.</li>
+                      <li>Componente de um grafo: Em um grafo vazio , cada vértice forma um
+                        componente com um vértice e zero arestas. De forma mais geral, um
+                        componente desse tipo é formado para cada vértice isolado em qualquer
+                        grafo.</li>
+                    </ul>
 
                     <h2 id="representacoes">Representações de Grafos</h2>
                     <h3 id="matriz-adjacencia">Matriz de Adjacência</h3>
 
                     <p>
-                      Se um grafo possui o número de nós constante (nós não podem ser criados e removidos), por exemplo MAX e não possui pesos nos arcos ele pode ser representado
-                      como uma matriz m booleana quadrada de tamanho MAX. Quando a posição m[i][j] é true então existe um arco que sai de i e chega em j, ou seja, j é adjacente a i. A Figura 4
-                      ilustra a representação de um grafo e sua matriz de adjacência correspondente.
+                        Se um grafo possui o número de nós constante (nós não podem ser criados e removidos), por exemplo MAX e não possui pesos nos arcos ele pode ser representado
+                        como uma matriz m booleana quadrada de tamanho MAX. Quando a posição m[i][j] é true então existe um arco que sai de i e chega em j, ou seja, j é adjacente a i. A Figura 4
+                        ilustra a representação de um grafo e sua matriz de adjacência correspondente.
                     </p>
                     <img src="src/assets/images/imagem4.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      A representação de um grafo sem peso, sem informação associada e número constante de nós pode ser obtida simplesmente com a declaração:
+                        A representação de um grafo sem peso, sem informação associada e número constante de nós pode ser obtida simplesmente com a declaração:
                     </p>
                     <img src="src/assets/images/imagem10.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
                     <h3 id="representacao-com-peso">Representação de Grafos com Peso e Informação nos Nós</h3>
                     <p>
-                      Como comentado anteriormente, um grafo pode necessitar armazenar pesos em seus
-                      arcos e informação dentro de cada nó. Desta forma uma possível representação com um
-                      número constante (MAX) de nós (nós não podem ser adicionados ou removidos) seria a
-                      seguinte:
+                        Como comentado anteriormente, um grafo pode necessitar armazenar pesos em seus
+                        arcos e informação dentro de cada nó. Desta forma uma possível representação com um
+                        número constante (MAX) de nós (nós não podem ser adicionados ou removidos) seria a
+                        seguinte:
                     </p>
                     <img src="src/assets/images/imagem5.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
 
                     <h3 id="fechamento-transitivo">Fechamento Transitivo</h3>
                     <p>
-                      Nesta seção é assumido que um grafo é descrito por sua matriz de adjacência m e não há
-                      informação contida no nó nem nas ligações. Dada a expressão m[i][k] && m[k][j],
-                      obtém-se o valor true se e somente se os valores de m[i][k] e m[k][j] são true, logo isso
-                      implica que há um caminho de tamanho 2 entre o nó i e o nó j que passa por k. Portanto
-                      dada a expressão:
+                        Nesta seção é assumido que um grafo é descrito por sua matriz de adjacência m e não há
+                        informação contida no nó nem nas ligações. Dada a expressão m[i][k] && m[k][j],
+                        obtém-se o valor true se e somente se os valores de m[i][k] e m[k][j] são true, logo isso
+                        implica que há um caminho de tamanho 2 entre o nó i e o nó j que passa por k. Portanto
+                        dada a expressão:
                     </p>
                     <img src="src/assets/images/imagem6.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
 
                     <p>
-                      ela será true se que há um caminho de tamanho 2 de i até j passando por 0, ou passando
-                      por 1 ou passando por 2 ... ou passando por MAX-1. A matriz m representa todos os
-                      caminhos de tamanho 1. A matriz m2 representa a matriz de todos os caminhos de
-                      tamanho 2, a matriz m3. A multiplicação de matrizes booleanas é feita de maneira
-                      semelhante à multiplicação de matrizes numéricas. Obviamente não será possível fazer
-                      a multiplicação nem a soma de elementos da matriz. As únicas modificações necessárias
-                      no algoritmo de multiplicação de matrizes são:
+                        ela será true se que há um caminho de tamanho 2 de i até j passando por 0, ou passando
+                        por 1 ou passando por 2 ... ou passando por MAX-1. A matriz m representa todos os
+                        caminhos de tamanho 1. A matriz m2 representa a matriz de todos os caminhos de
+                        tamanho 2, a matriz m3. A multiplicação de matrizes booleanas é feita de maneira
+                        semelhante à multiplicação de matrizes numéricas. Obviamente não será possível fazer
+                        a multiplicação nem a soma de elementos da matriz. As únicas modificações necessárias
+                        no algoritmo de multiplicação de matrizes são:
                     </p>
 
                     <ul>
-                      <li>substituir somas pelo operador de disjunção “| |”;</li>
-                      <li>substituir multiplicações pelo operador de conjunção “&&”.</li>
+                        <li>substituir somas pelo operador de disjunção “| |”;</li>
+                        <li>substituir multiplicações pelo operador de conjunção “&&”.</li>
                     </ul>
 
                     <p>
-                      A Figura 5 ilustra o processo pelo qual se pode encontrar todos os caminhos de tamanho
-                      2 dentro de um determinado grafo.
+                        A Figura 5 ilustra o processo pelo qual se pode encontrar todos os caminhos de tamanho
+                        2 dentro de um determinado grafo.
                     </p>
 
                     <img src="src/assets/images/imagem7.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
 
                     <p>
-                      Portanto se for necessário encontrar todos os caminhos de tamanho tam dentro de um
-                      grafo, basta encontrar a matriz mtam. Para verificar se há um caminho de tamanho tam
-                      entre dois nós i e j, basta verficar se mtam[i][j] = true.
-                      A soma (ou disjunção) dentre duas matrizes mi + mj (mi | | mj) retorna, portanto, todos
-                      os caminhos de tamanho i ou j dentro do grafo. Pode-se concluir que se é necessário
-                      encontrar todos os caminhos no grafo de quaisquer tamanhos, basta realizar o seguinte
-                      somatório (disjunção):
+                        Portanto se for necessário encontrar todos os caminhos de tamanho tam dentro de um
+                        grafo, basta encontrar a matriz mtam. Para verificar se há um caminho de tamanho tam
+                        entre dois nós i e j, basta verficar se mtam[i][j] = true.
+                        A soma (ou disjunção) dentre duas matrizes mi + mj (mi | | mj) retorna, portanto, todos
+                        os caminhos de tamanho i ou j dentro do grafo. Pode-se concluir que se é necessário
+                        encontrar todos os caminhos no grafo de quaisquer tamanhos, basta realizar o seguinte
+                        somatório (disjunção):
                     </p>
 
                     <img src="src/assets/images/imagem8.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
                     <p>
-                      o que é equivalente a:
+                        o que é equivalente a:
                     </p>
                     <img src="src/assets/images/imagem9.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
                     <p>
-                      A matriz obtida pelo somatório (disjunção) anterior é chamada de <strong>fechamento
-                    transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
-                    independente de tamanho.
+                        A matriz obtida pelo somatório (disjunção) anterior é chamada de <strong>fechamento
+                        transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
+                        independente de tamanho.
                     </p>
                     <h2 id="algoritmos-fundamentais">Algoritmos Fundamentais</h2>
-                    <h3>Algoritmo de Warshall</h3>
+                    <h3 id="warshall">Algoritmo de Warshall</h3>
                     <p>
-                      Na aula anterior foi estudado como era possível encontrar o fechamento transitivo de
-                      um grafo representado como matriz de adjacência. Tal método consistia em encontrar a
-                      matriz mtam utilizando sucessivas operações de soma (disjunção). Existe um algoritmo
-                      chamado Algoritmo de Warshall que é capaz de encontrar o fechamento transitivo de
-                      um grafo representado como matriz de adjacência.
-                      O algoritmo inicia com um índice k que representa as colunas da matriz. Para cada valor
-                      de k tenta-se encontrar uma linha i com valor true. Se uma linha i com valor true é
-                      encontrada, faz-se uma atualização dessa linha i com a disjunção entre essa linha e a
-                      linha que possui o índice k.
-                      O algoritmo de Warshall está colocado a seguir.
+                        Na aula anterior foi estudado como era possível encontrar o fechamento transitivo de
+                        um grafo representado como matriz de adjacência. Tal método consistia em encontrar a
+                        matriz mtam utilizando sucessivas operações de soma (disjunção). Existe um algoritmo
+                        chamado Algoritmo de Warshall que é capaz de encontrar o fechamento transitivo de
+                        um grafo representado como matriz de adjacência.
+                        O algoritmo inicia com um índice k que representa as colunas da matriz. Para cada valor
+                        de k tenta-se encontrar uma linha i com valor true. Se uma linha i com valor true é
+                        encontrada, faz-se uma atualização dessa linha i com a disjunção entre essa linha e a
+                        linha que possui o índice k.
+                        O algoritmo de Warshall está colocado a seguir.
                     </p>
 
                     <img src="src/assets/images/imagem11.png" class="block mx-auto my-4 rounded-md border border-slate-600"><br>
 
-                    <h3 id="dijkstra">3. Algoritmo de Menor Caminho (Algoritmo de Dijkstra)</h3>
+                    <h3 id="dijkstra">Algoritmo de Dijkstra</h3>
                     <p>
                         Em um grafo com peso, uma operação muito comum consiste em encontrar o menor
                         caminho entre dois nós. O caminho mais curto entre dois nós s e t é o caminho cuja
@@ -387,8 +444,8 @@
                     </p>
                     <img src="src/assets/images/imagem12.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
                     <p>
-                      A partir do vetor caminho pode-se mostrar o menor caminho encontrado pelo algoritmo
-                      com o procedimento imprimeCaminho.
+                        A partir do vetor caminho pode-se mostrar o menor caminho encontrado pelo algoritmo
+                        com o procedimento imprimeCaminho.
                     </p>
                     <img src="src/assets/images/imagem13.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
 
@@ -401,13 +458,13 @@
                         <li>b) encontre o fechamento transitivo do grafo utilizando multiplicação de matrizes;</li>
                         <li>c) encontre o fechamento transitivo do grafo utilizando o algoritmo de Warshall.</li>
                         <li>2. Ilustre graficamente um dígrafo correspondente a cada uma das seguintes relações
-                          sobre inteiros de 1 a 12:</li>
+                        sobre inteiros de 1 a 12:</li>
                         <li>a) x está relacionado a y se x – y é divisível por 3;</li>
                         <li>b) x está relacionado a y se (x + 10 * y) < (x * y);</li>
                         <li>c) x está relacionado a y se o resto da divisão de x por y é 2.</li>
                     </ul>
 
-                    <h2>Travessia em Grafos</h2>
+                    <h2 id="travessia">Travessia em Grafos</h2>
                     <p>
                     Muitos problemas com grafos envolvem a travessia e acesso a todos os vértices de um grafo.
                     Durante aulas anteriores já foram estudados métodos de travessia em árvore binária (inordem,
@@ -416,74 +473,74 @@
                     Portanto algumas questões tornam a travessia em grafo mais complexa:
                     </p>
                     <ul>
-                      <li>Não existe um nó que naturalmente seja o inicial. Em uma lista encadeada sempre inicia-se
-                      com o primeiro da lista e árvore sempre com a raiz. Além disso, quando um nó inicial é pré-
-                      determinado, nem sempre todos os vértices do grafo poderão ser visitados, pois podem
-                      existir vértices que não são alcançáveis a partir do nó inicial. Em lista ou árvore, todos os nós
-                      eram visitados, desta forma, um novo nó inicial deve ser determinado para que o grafo seja
-                      completamente percorrido;</li>
-                      <li>Não há uma ordem natural entre os sucessores de um determinado vértice. Desta forma, a
-                      partir de um determinado vértice, não há uma ordem obrigatória na qual os sucessores são
-                      visitados;</li>
-                      <li>Um determinado vértice pode ter mais de um predecessor, desta forma, se um determinado
-                      vértice v possui mais de um predecessor, é possível que v seja visitado antes de algum
-                      predecessor.</li>
+                        <li>Não existe um nó que naturalmente seja o inicial. Em uma lista encadeada sempre inicia-se
+                        com o primeiro da lista e árvore sempre com a raiz. Além disso, quando um nó inicial é pré-
+                        determinado, nem sempre todos os vértices do grafo poderão ser visitados, pois podem
+                        existir vértices que não são alcançáveis a partir do nó inicial. Em lista ou árvore, todos os nós
+                        eram visitados, desta forma, um novo nó inicial deve ser determinado para que o grafo seja
+                        completamente percorrido;</li>
+                        <li>Não há uma ordem natural entre os sucessores de um determinado vértice. Desta forma, a
+                        partir de um determinado vértice, não há uma ordem obrigatória na qual os sucessores são
+                        visitados;</li>
+                        <li>Um determinado vértice pode ter mais de um predecessor, desta forma, se um determinado
+                        vértice v possui mais de um predecessor, é possível que v seja visitado antes de algum
+                        predecessor.</li>
                     </ul>
                     <p>
-                      Existem duas formas tradicionais de travessia em grafos: busca em largura e profundidade. A
-                      busca em largura utiliza uma lista para armazenar os vértices visitados. A busca em
-                      profundidade utiliza uma pilha que não precisa ser explicitamente implementada quando se
-                      utiliza recursão.
+                        Existem duas formas tradicionais de travessia em grafos: busca em largura e profundidade. A
+                        busca em largura utiliza uma lista para armazenar os vértices visitados. A busca em
+                        profundidade utiliza uma pilha que não precisa ser explicitamente implementada quando se
+                        utiliza recursão.
                     </p>
 
-                    <h3 id="bfs">1. Busca em Profundidade</h3>
+                    <h3 id="dfs">Busca em Profundidade (DFS)</h3>
                     <p>
-                      Será considerado que a tarefa do procedimento de travessia consiste em a partir de um
-                      determinado vértice (neste exemplo “0”) visitar (processar) todos os outros vértices. Considere a
-                      Figura 1.
+                        Será considerado que a tarefa do procedimento de travessia consiste em a partir de um
+                        determinado vértice (neste exemplo “0”) visitar (processar) todos os outros vértices. Considere a
+                        Figura 1.
                     </p>
                     <img src="src/assets/images/imagem14.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      A partir do grafo anterior o primeiro nó a ser processado é o nó
-                      inicial 0. O grafo da Figura 1 é ilustrado na Figura 2. A partir
-                      do nó inicial há duas alternativas: continuar o processo no nó 1
-                      ou no nó 4. Considere que o nó escolhido é o nó 1. O processo
-                      é ilustrado na Figura 3.
-                      A partir do nó 1 seu único vizinho ainda não visitado é
-                      escolhido para que o processo continue. Essa situação é
-                      ilustrada na Figura 4.
+                        A partir do grafo anterior o primeiro nó a ser processado é o nó
+                        inicial 0. O grafo da Figura 1 é ilustrado na Figura 2. A partir
+                        do nó inicial há duas alternativas: continuar o processo no nó 1
+                        ou no nó 4. Considere que o nó escolhido é o nó 1. O processo
+                        é ilustrado na Figura 3.
+                        A partir do nó 1 seu único vizinho ainda não visitado é
+                        escolhido para que o processo continue. Essa situação é
+                        ilustrada na Figura 4.
                     </p>
                     <img src="src/assets/images/imagem15.png" class="block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      Seguindo a estratégia de escolher o nó com menor conteúdo (ou menor nó) para prosseguir o
-                      processo de travessia, a partir do nó 3 o nó 0 seria o escolhido. Essa é uma situação interessante.
-                      Se o nó 0 for o escolhido, o processo de travessia entrará em loop infinito, pois o caminho 0-1-3-
-                      0 forma um ciclo, uma vez que a origem e o destino do caminho são os mesmos. Portanto é
-                      necessário uma estratégia para evitar tal problema. Geralmente um nó marcado como visitado
-                      nunca será escolhido novamente, uma vez que ele já foi processado. Portanto restam os vértices
-                      5 e 6 (adjacentes a 3). Considerando que o vértice 5 seja o escolhido, o grafo seria representado
-                      mostra a Figura 5.
+                        Seguindo a estratégia de escolher o nó com menor conteúdo (ou menor nó) para prosseguir o
+                        processo de travessia, a partir do nó 3 o nó 0 seria o escolhido. Essa é uma situação interessante.
+                        Se o nó 0 for o escolhido, o processo de travessia entrará em loop infinito, pois o caminho 0-1-3-
+                        0 forma um ciclo, uma vez que a origem e o destino do caminho são os mesmos. Portanto é
+                        necessário uma estratégia para evitar tal problema. Geralmente um nó marcado como visitado
+                        nunca será escolhido novamente, uma vez que ele já foi processado. Portanto restam os vértices
+                        5 e 6 (adjacentes a 3). Considerando que o vértice 5 seja o escolhido, o grafo seria representado
+                        mostra a Figura 5.
                     </p>
                     <img src="src/assets/images/imagem16.png" class="block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      Como o vértice 5 não possui nós adjacentes, a busca não pode continuar seguindo adiante. Neste
-                      caso o processo retorna para o vértice visitado anteriormente (vértice 3) e verifica se existe mais
-                      algum nó adjacente que ainda não foi visitado. Neste exemplo o vértice 3 possui o vértice 6
-                      adjacente e não visitado, portanto o vértice 6 será o próximo vértice escolhido, como ilustrado na
-                      Figura 6. Como o vértice 6 não possui mais vértices adjacentes ainda não visitados, o processo
-                      retorna para o vértice 3. Neste ponto, o vértice 3 também não possui nenhum outro nó adjacente
-                      ainda não visitado, portanto, o processo retorna para o nó anterior ao 3 (vértice 1) e tenta
-                      encontrar outro nó adjacente não visitado. Como o vértice 1 não possui nenhum nó adjacente
-                      ainda não visitado, o processo retorna ao vértice 0 que possui o adjacente 4 ainda não visitado.
-                      Logo o vértice 4 é escolhido como ilustrado na Figura 7. Como não há mais nenhum vértice
-                      adjacente a 0 e ele é o vértice inicial, o processo é encerrado.
+                        Como o vértice 5 não possui nós adjacentes, a busca não pode continuar seguindo adiante. Neste
+                        caso o processo retorna para o vértice visitado anteriormente (vértice 3) e verifica se existe mais
+                        algum nó adjacente que ainda não foi visitado. Neste exemplo o vértice 3 possui o vértice 6
+                        adjacente e não visitado, portanto o vértice 6 será o próximo vértice escolhido, como ilustrado na
+                        Figura 6. Como o vértice 6 não possui mais vértices adjacentes ainda não visitados, o processo
+                        retorna para o vértice 3. Neste ponto, o vértice 3 também não possui nenhum outro nó adjacente
+                        ainda não visitado, portanto, o processo retorna para o nó anterior ao 3 (vértice 1) e tenta
+                        encontrar outro nó adjacente não visitado. Como o vértice 1 não possui nenhum nó adjacente
+                        ainda não visitado, o processo retorna ao vértice 0 que possui o adjacente 4 ainda não visitado.
+                        Logo o vértice 4 é escolhido como ilustrado na Figura 7. Como não há mais nenhum vértice
+                        adjacente a 0 e ele é o vértice inicial, o processo é encerrado.
                     </p>
                     <img src="src/assets/images/imagem17.png" class="block mx-auto my-4 rounded-md border border-slate-600">
                     <p>
-                      É possível perceber que esse processo pode ser implementado de maneira muito simples
-                      utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
+                        É possível perceber que esse processo pode ser implementado de maneira muito simples
+                        utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
                     </p>
-                    <h3 id="bfs">1. Busca em Largura</h3>
+                    <h3 id="bfs">Busca em Largura (BFS)</h3>
                     <p>1. Se a fila de vértices não está vazia então</p>
                     <ul>
                         <li>1.1. Remover o vértice i que está na fila // note-se que uma fila sempre remove o primeiro elemento</li>
@@ -492,35 +549,35 @@
                         <li>1.4. Executar o procedimento 1 sobre a fila atualizada</li>
                     </ul>
                     <p>
-                      É importante ressaltar que na primeira chamada do algoritmo a fila contém um único vértice que
-                      é o vértice inicial.
+                        É importante ressaltar que na primeira chamada do algoritmo a fila contém um único vértice que
+                        é o vértice inicial.
                     </p>
                     <h3>Vantagens e desvantagens de Busca em Profundidade e Largura</h3>
                     <p>
-                      As duas metodologias de travessia em grafos possuem vantagens e desvantagens. Ambas podem
-                      ser utilizadas para se encontrar um determinado elemento dentro de um grafo. Considere-se, por
-                      exemplo as Figuras 15 e 16
+                        As duas metodologias de travessia em grafos possuem vantagens e desvantagens. Ambas podem
+                        ser utilizadas para se encontrar um determinado elemento dentro de um grafo. Considere-se, por
+                        exemplo as Figuras 15 e 16
                     </p>
                     <p>
-                      Os grafos das Figuras 15 e 16 são os mesmos. A partir do vértice 0 tenta-se encontrar o vértice o
-                      vértice 6. Pode-se verificar que se a busca em profundidade é utilizada muito mais vértices
-                      precisam ser visitados para que a solução seja encontrada. No exemplo, os vértices [0, 1, 2, 3, 4,
-                      8, 9, 5, 10, 11, 12, 2 e 6] precisam ser visitados. Por outro lado, com busca em largura muito
-                      menos vértices precisam ser visitados [0, 1, 2, 3, 4, 5, 6].
-                      Geralmente a busca em largura tende a encontrar a solução de um problema de busca
-                      necessitando menos comparações. Além disso a busca em largura trata naturalmente o problema
-                      de ciclos em grafos. Porém sua implementação tende a ser mais complexa, pois necessita de uma
-                      fila para armazenar os vértices.
-                      A busca em profundidade possui uma implementação mais simples, porém necessita de um
-                      mecanismo auxiliar para tratamento de ciclos, geralmente implementado marcando os vértices
-                      como visitados.
+                        Os grafos das Figuras 15 e 16 são os mesmos. A partir do vértice 0 tenta-se encontrar o vértice o
+                        vértice 6. Pode-se verificar que se a busca em profundidade é utilizada muito mais vértices
+                        precisam ser visitados para que a solução seja encontrada. No exemplo, os vértices [0, 1, 2, 3, 4,
+                        8, 9, 5, 10, 11, 12, 2 e 6] precisam ser visitados. Por outro lado, com busca em largura muito
+                        menos vértices precisam ser visitados [0, 1, 2, 3, 4, 5, 6].
+                        Geralmente a busca em largura tende a encontrar a solução de um problema de busca
+                        necessitando menos comparações. Além disso a busca em largura trata naturalmente o problema
+                        de ciclos em grafos. Porém sua implementação tende a ser mais complexa, pois necessita de uma
+                        fila para armazenar os vértices.
+                        A busca em profundidade possui uma implementação mais simples, porém necessita de um
+                        mecanismo auxiliar para tratamento de ciclos, geralmente implementado marcando os vértices
+                        como visitados.
                     </p>
                     <img src="src/assets/images/imagem18.png" class="block mx-auto my-4 rounded-md border border-slate-600">
 
                     <h3>Exercício</h3>
                     <p>
-                      A partir do Grafo a seguir mostrar a seqüência com que os vértices são visitados executando
-                      tanto busca em largura quanto busca em profundidade a partir do vértice A:
+                        A partir do Grafo a seguir mostrar a seqüência com que os vértices são visitados executando
+                        tanto busca em largura quanto busca em profundidade a partir do vértice A:
                     </p>
                     <img src="src/assets/images/imagem19.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
 
@@ -577,12 +634,12 @@
                                 <h2 class="text-xl font-bold text-slate-100 mb-4 text-left">Algoritmos</h2>
                                  <div class="bg-slate-700 p-4 rounded-lg text-left space-y-3">
                                      <div>
-                                         <label for="algorithm-select" class="block text-sm font-medium text-slate-300">Escolha o algoritmo</label>
-                                         <select id="algorithm-select" class="w-full mt-1 p-2 bg-slate-600 border border-slate-500 text-slate-100 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                             <option value="bfs">Busca em Largura (BFS)</option>
-                                             <option value="dfs">Busca em Profundidade (DFS)</option>
-                                             <option value="dijkstra">Dijkstra (Caminho Mais Curto)</option>
-                                         </select>
+                                        <label for="algorithm-select" class="block text-sm font-medium text-slate-300">Escolha o algoritmo</label>
+                                        <select id="algorithm-select" class="w-full mt-1 p-2 bg-slate-600 border border-slate-500 text-slate-100 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="bfs">Busca em Largura (BFS)</option>
+                                            <option value="dfs">Busca em Profundidade (DFS)</option>
+                                            <option value="dijkstra">Dijkstra (Caminho Mais Curto)</option>
+                                        </select>
                                      </div>
                                      <div class="flex items-center gap-2">
                                         <input type="number" id="start-node-input" placeholder="Nó inicial" class="w-full p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
@@ -856,10 +913,10 @@
              edge.el.setAttribute('y2', toNode.y);
 
              if (edge.labelEl) {
-                edge.labelEl.setAttribute('x', (fromNode.x + toNode.x) / 2);
-                edge.labelEl.setAttribute('y', (fromNode.y + toNode.y) / 2 - 5);
+                 edge.labelEl.setAttribute('x', (fromNode.x + toNode.x) / 2);
+                 edge.labelEl.setAttribute('y', (fromNode.y + toNode.y) / 2 - 5);
              }
-        }
+         }
 
         function onNodeMouseDown(event, nodeData) {
             event.preventDefault();
@@ -869,14 +926,14 @@
         }
 
         function onNodeClick(event, nodeData) {
-             event.stopPropagation(); // Prevent canvas click
-             if (isRemovingNode) {
-                 removeNode(nodeData.id);
-                 isRemovingNode = false;
-                 svg.style.cursor = 'crosshair';
-                 document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
-             }
-        }
+              event.stopPropagation(); // Prevent canvas click
+              if (isRemovingNode) {
+                  removeNode(nodeData.id);
+                  isRemovingNode = false;
+                  svg.style.cursor = 'crosshair';
+                  document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
+              }
+         }
 
         function onMouseMove(event) {
             if (!draggingNode) return;
@@ -902,10 +959,10 @@
 
         function onCanvasClick(event) {
             if (isRemovingNode) { // Clicked away, cancel removal
-                 isRemovingNode = false;
-                 svg.style.cursor = 'crosshair';
-                 document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
-                 return;
+                  isRemovingNode = false;
+                  svg.style.cursor = 'crosshair';
+                  document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
+                  return;
             }
             if (event.target.tagName !== 'svg') return;
             const coords = getSVGCoordinates(event);

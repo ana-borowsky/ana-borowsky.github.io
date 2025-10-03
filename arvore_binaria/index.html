@@ -236,8 +236,8 @@
             <img src="src/assets/images/imagem1.png" class="w-1/2 block mx-auto"><br>
 
             <h2>Implementação dinâmica</h2>
-            <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto"><br>
-            <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto"><br>
+            <img src="src/assets/images/imagem2.png" class="w-1/3 block mx-auto"><br>
+            <img src="src/assets/images/imagem3.png" class="w-1/3 block mx-auto"><br>
 
 
             <h2>Travessia (Percursos)</h2>
@@ -245,25 +245,26 @@
             <p class="text-center text-sm text-slate-600 mb-2">Árvore binária que será usada nas travessias
             <img src="src/assets/images/imagem4.png" class="w-3/4 block mx-auto"><br>
             <p>Existem três formas principais de travessia em profundidade:</p>
-            <h3>1. Pré-Ordem (Pre-order)</h3>
-            <p>A travessia <strong>Em Ordem</strong> segue os passos:
-            <ul>
-                <li>Visite a raiz da árvore</li>
-                <li>Percorra a subárvore esquerda</li>
-                <li>Percorra a subárvore direita</li>
-            </ul>
-            <p>Ou <strong>raiz, esquerda, direita</strong>.</p>
-            <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 5, 6, 8, 10, 11, 14</code></p>
 
-            <h3>2. Em Ordem (In-order)</h3>
+            <h3>1. Pré-Ordem (Pre-order)</h3>
             <p>A travessia <strong>Pré-Ordem</strong> segue os passos:
             <ul>
-                <li>Percorra a subárvore esquerda</li>
                 <li>Visite a raiz da árvore</li>
+                <li>Percorra a subárvore esquerda</li>
                 <li>Percorra a subárvore direita</li>
             </ul>
             <p>Ou <strong>raiz, esquerda, direita</strong>.</p>
             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 8, 5, 3, 6, 11, 10, 14</code></p>
+
+            <h3>2. Em Ordem (In-order)</h3>
+            <p>A travessia <strong>Em Ordem</strong> segue os passos:
+            <ul>
+                <li>Percorra a subárvore esquerda</li>
+                <li>Visite a raiz da árvore</li>
+                <li>Percorra a subárvore direita</li>
+            </ul>
+            <p>Ou <strong>esquerda, raiz, direita</strong>.</p>
+            <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 5, 6, 8, 10, 11, 14</code></p>
 
             <h3>3. Pós-Ordem (Post-order)</h3>
             <p>A travessia <strong>Pós-Ordem</strong> segue os passos:
@@ -273,8 +274,8 @@
                 <li>Visite a raiz da árvore</li>
             </ul>
             <p>Ou <strong>esquerda, direita, raiz</strong>.</p>
-             <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 6, 5, 10, 14, 11, 8</code></p>
-        </div>
+            <p class="text-center bg-slate-100 p-3 rounded-md"><code>Resultado: 3, 6, 5, 10, 14, 11, 8</code></p>
+            </div>
 
 
         <!-- Conteúdo da Aba de Quiz -->

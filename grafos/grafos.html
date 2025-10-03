@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Grafos Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .mode-button.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 0 0 2px #4338ca;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4f46e5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4f46e5;
+        }
+        canvas {
+            touch-action: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 antialiased">
+    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+        <!-- Painel de Controle -->
+        <div class="w-full lg:w-80 bg-gray-800 p-5 overflow-y-auto shadow-lg">
+            <h1 class="text-2xl font-bold text-white mb-6">Gerador de Grafos</h1>
+
+            <!-- Geração Aleatória -->
+            <div class="space-y-4 bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-lg font-semibold text-indigo-400 border-b border-gray-600 pb-2">Geração Aleatória</h2>
+                <div>
+                    <label for="numNodes" class="block text-sm font-medium mb-1">Número de Vértices:</label>
+                    <input type="number" id="numNodes" value="8" min="1" max="50" class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label for="numEdges" class="block text-sm font-medium mb-1">Número de Arestas:</label>
+                    <input type="number" id="numEdges" value="10" min="0" max="100" class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <button id="generateGraphBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-200">
+                    Gerar Grafo
+                </button>
+            </div>
+
+            <!-- Controles Manuais -->
+            <div class="space-y-4 bg-gray-700 p-4 rounded-lg mt-6">
+                <h2 class="text-lg font-semibold text-indigo-400 border-b border-gray-600 pb-2">Edição Manual</h2>
+                <div class="grid grid-cols-1 gap-2">
+                    <button id="addNodeBtn" class="mode-button w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-200">Adicionar Vértice</button>
+                    <button id="addEdgeBtn" class="mode-button w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-200">Adicionar Aresta</button>
+                    <button id="deleteBtn" class="mode-button w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md transition-all duration-200">Remover</button>
+                </div>
+            </div>
+
+            <!-- Opções e Ações -->
+            <div class="space-y-4 bg-gray-700 p-4 rounded-lg mt-6">
+                 <h2 class="text-lg font-semibold text-indigo-400 border-b border-gray-600 pb-2">Opções</h2>
+                <div class="flex items-center justify-between">
+                    <label for="directedToggle" class="text-sm font-medium">Grafo Direcionado</label>
+                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="directedToggle" id="directedToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                        <label for="directedToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-500 cursor-pointer"></label>
+                    </div>
+                </div>
+                 <div class="flex items-center justify-between">
+                    <label for="weightedToggle" class="text-sm font-medium">Arestas com Peso</label>
+                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="weightedToggle" id="weightedToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                        <label for="weightedToggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-500 cursor-pointer"></label>
+                    </div>
+                </div>
+                 <button id="clearBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-200 mt-4">
+                    Limpar Tudo
+                </button>
+            </div>
+
+            <!-- Como Usar -->
+            <div class="mt-6 text-xs text-gray-400 bg-gray-700 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-300 mb-2">Como Usar:</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><b>Adicionar Vértice:</b> Clique em uma área vazia do canvas.</li>
+                    <li><b>Adicionar Aresta:</b> Clique no vértice de origem e depois no de destino.</li>
+                    <li><b>Remover:</b> Clique em um vértice ou aresta.</li>
+                    <li><b>Mover:</b> Clique e arraste um vértice.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Área do Canvas -->
+        <div id="canvas-container" class="flex-grow p-2 bg-gray-900">
+            <canvas id="graphCanvas" class="bg-gray-800 rounded-lg w-full h-full"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Configurações e variáveis globais
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        const canvasContainer = document.getElementById('canvas-container');
+
+        let nodes = [];
+        let edges = [];
+        let nodeIdCounter = 0;
+        let isDirected = false;
+        let areWeighted = false;
+
+        const NODE_RADIUS = 20;
+
+        // Estado da UI
+        let currentMode = 'none'; // 'addNode', 'addEdge', 'delete', 'none'
+        let edgeSourceNode = null;
+        let draggedNode = null;
+        let isDragging = false;
+        let lastMousePosition = { x: 0, y: 0 };
+
+        // Elementos da DOM
+        const generateGraphBtn = document.getElementById('generateGraphBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const addNodeBtn = document.getElementById('addNodeBtn');
+        const addEdgeBtn = document.getElementById('addEdgeBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const directedToggle = document.getElementById('directedToggle');
+        const weightedToggle = document.getElementById('weightedToggle');
+        const modeButtons = [addNodeBtn, addEdgeBtn, deleteBtn];
+
+        // --- Funções de Desenho ---
+
+        function resizeCanvas() {
+            canvas.width = canvasContainer.clientWidth;
+            canvas.height = canvasContainer.clientHeight;
+            drawGraph();
+        }
+
+        function drawGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Desenha a linha de pré-visualização da aresta
+            if (currentMode === 'addEdge' && edgeSourceNode && lastMousePosition) {
+                 ctx.beginPath();
+                 ctx.moveTo(edgeSourceNode.x, edgeSourceNode.y);
+                 ctx.lineTo(lastMousePosition.x, lastMousePosition.y);
+                 ctx.strokeStyle = '#a5b4fc'; // indigo-200
+                 ctx.setLineDash([5, 5]);
+                 ctx.lineWidth = 2;
+                 ctx.stroke();
+                 ctx.setLineDash([]);
+            }
+
+            edges.forEach(edge => drawEdge(edge));
+            nodes.forEach(node => drawNode(node));
+        }
+
+        function drawNode(node) {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, NODE_RADIUS, 0, 2 * Math.PI);
+
+            // Destaque para o nó de origem da aresta
+            if (currentMode === 'addEdge' && edgeSourceNode && edgeSourceNode.id === node.id) {
+                ctx.fillStyle = '#4f46e5'; // indigo-600
+                ctx.strokeStyle = '#c7d2fe'; // indigo-200
+                ctx.lineWidth = 3;
+            } else {
+                ctx.fillStyle = '#374151'; // gray-700
+                ctx.strokeStyle = '#818cf8'; // indigo-400
+                ctx.lineWidth = 2;
+            }
+
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#e5e7eb'; // gray-200
+            ctx.font = 'bold 14px Inter';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(node.id, node.x, node.y);
+        }
+
+        function drawEdge(edge) {
+            const source = nodes.find(n => n.id === edge.source);
+            const target = nodes.find(n => n.id === edge.target);
+
+            if (!source || !target) return;
+
+            ctx.beginPath();
+            ctx.moveTo(source.x, source.y);
+            ctx.lineTo(target.x, target.y);
+            ctx.strokeStyle = '#9ca3af'; // gray-400
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Desenha o peso se existir
+            if (edge.weight !== undefined) {
+                const midX = (source.x + target.x) / 2;
+                const midY = (source.y + target.y) / 2;
+                const text = edge.weight.toString();
+
+                ctx.font = 'bold 12px Inter';
+                const textWidth = ctx.measureText(text).width;
+
+                // Fundo para legibilidade
+                ctx.fillStyle = '#4b5563'; // gray-600
+                ctx.fillRect(midX - textWidth / 2 - 4, midY - 9, textWidth + 8, 18);
+
+                ctx.fillStyle = '#f3f4f6'; // gray-100
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, midX, midY);
+            }
+
+            if (isDirected) {
+                drawArrowhead(source, target);
+            }
+        }
+
+        function drawArrowhead(from, to) {
+            const headlen = 10;
+            const angle = Math.atan2(to.y - from.y, to.x - from.x);
+
+            const dx = to.x - from.x;
+            const dy = to.y - from.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            // Ponto na borda do círculo de destino
+            const ratio = (dist - NODE_RADIUS) / dist;
+            const endX = from.x + dx * ratio;
+            const endY = from.y + dy * ratio;
+
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - headlen * Math.cos(angle - Math.PI / 6), endY - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(endX - headlen * Math.cos(angle + Math.PI / 6), endY - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.strokeStyle = '#9ca3af';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // --- Funções de Lógica ---
+
+        function generateRandomGraph() {
+            clearGraph();
+            const numNodes = parseInt(document.getElementById('numNodes').value, 10);
+            const numEdges = parseInt(document.getElementById('numEdges').value, 10);
+
+            // Cria nós em posições aleatórias
+            for (let i = 0; i < numNodes; i++) {
+                nodes.push({
+                    id: nodeIdCounter++,
+                    x: NODE_RADIUS + Math.random() * (canvas.width - NODE_RADIUS * 2),
+                    y: NODE_RADIUS + Math.random() * (canvas.height - NODE_RADIUS * 2)
+                });
+            }
+
+            // Cria arestas aleatórias
+            const possibleEdges = [];
+            if (nodes.length < 2) return;
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    possibleEdges.push({ source: nodes[i].id, target: nodes[j].id });
+                }
+            }
+
+            for (let i = 0; i < numEdges && possibleEdges.length > 0; i++) {
+                const randIndex = Math.floor(Math.random() * possibleEdges.length);
+                const baseEdge = possibleEdges.splice(randIndex, 1)[0];
+
+                const edgeToAdd = { ...baseEdge };
+                if (areWeighted) {
+                    edgeToAdd.weight = Math.floor(Math.random() * 20) + 1;
+                }
+
+                // Em grafos direcionados, pode haver aresta nos dois sentidos
+                 if (isDirected && Math.random() > 0.5) {
+                    edges.push({ source: edgeToAdd.target, target: edgeToAdd.source, weight: edgeToAdd.weight });
+                 } else {
+                    edges.push(edgeToAdd);
+                 }
+            }
+            drawGraph();
+        }
+
+        function clearGraph() {
+            nodes = [];
+            edges = [];
+            nodeIdCounter = 0;
+            edgeSourceNode = null;
+            drawGraph();
+        }
+
+        function setMode(newMode) {
+            // Desativa o modo atual se o mesmo botão for clicado
+            if (currentMode === newMode) {
+                currentMode = 'none';
+            } else {
+                currentMode = newMode;
+            }
+            edgeSourceNode = null; // Reseta a seleção de aresta ao trocar de modo
+            updateModeButtons();
+            drawGraph();
+        }
+
+        function updateModeButtons() {
+            modeButtons.forEach(button => {
+                const buttonMode = button.id.replace('Btn', '');
+                if (buttonMode === currentMode) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        function getNodeAt(x, y) {
+            return nodes.find(node => {
+                const dx = node.x - x;
+                const dy = node.y - y;
+                return Math.sqrt(dx * dx + dy * dy) < NODE_RADIUS;
+            });
+        }
+
+         // Verifica se um ponto está perto de uma linha (aresta)
+        function isPointOnLine(p, a, b, threshold = 5) {
+            const L2 = (b.x - a.x) ** 2 + (b.y - a.y) ** 2;
+            if (L2 === 0) return Math.sqrt((p.x - a.x) ** 2 + (p.y - a.y) ** 2) < threshold;
+            const t = ((p.x - a.x) * (b.x - a.x) + (p.y - a.y) * (b.y - a.y)) / L2;
+            const t_clamped = Math.max(0, Math.min(1, t));
+            const closestX = a.x + t_clamped * (b.x - a.x);
+            const closestY = a.y + t_clamped * (b.y - a.y);
+            const dist = Math.sqrt((p.x - closestX) ** 2 + (p.y - closestY) ** 2);
+            return dist < threshold;
+        }
+
+        function getEdgeAt(x, y) {
+            return edges.find(edge => {
+                const source = nodes.find(n => n.id === edge.source);
+                const target = nodes.find(n => n.id === edge.target);
+                if (!source || !target) return false;
+                return isPointOnLine({x,y}, source, target);
+            });
+        }
+
+        // --- Handlers de Eventos ---
+
+        function handleCanvasMouseDown(e) {
+            const pos = getMousePos(e);
+            const clickedNode = getNodeAt(pos.x, pos.y);
+
+            if (clickedNode) {
+                if (currentMode === 'addEdge') {
+                    if (!edgeSourceNode) {
+                        edgeSourceNode = clickedNode;
+                    } else {
+                        // Não permite arestas para o mesmo nó
+                        if (edgeSourceNode.id !== clickedNode.id) {
+                            // Verifica se a aresta já existe
+                            const edgeExists = edges.some(edge =>
+                                (edge.source === edgeSourceNode.id && edge.target === clickedNode.id) ||
+                                (!isDirected && edge.source === clickedNode.id && edge.target === edgeSourceNode.id)
+                            );
+                            if (!edgeExists) {
+                                const newEdge = { source: edgeSourceNode.id, target: clickedNode.id };
+                                let addEdge = true;
+
+                                if (areWeighted) {
+                                    const weightInput = prompt("Digite o peso da aresta:", "1");
+                                    if (weightInput !== null && !isNaN(weightInput) && weightInput.trim() !== "") {
+                                        newEdge.weight = parseFloat(weightInput);
+                                    } else {
+                                        addEdge = false; // Cancela se o prompt for inválido ou cancelado
+                                    }
+                                }
+                                if (addEdge) {
+                                    edges.push(newEdge);
+                                }
+                            }
+                        }
+                        edgeSourceNode = null;
+                    }
+                } else if (currentMode === 'delete') {
+                    // Remove o nó e as arestas conectadas a ele
+                    nodes = nodes.filter(n => n.id !== clickedNode.id);
+                    edges = edges.filter(edge => edge.source !== clickedNode.id && edge.target !== clickedNode.id);
+                } else {
+                    // Modo padrão ou mover
+                    isDragging = true;
+                    draggedNode = clickedNode;
+                }
+            } else {
+                // Clique em área vazia
+                if (currentMode === 'addNode') {
+                    nodes.push({ id: nodeIdCounter++, x: pos.x, y: pos.y });
+                } else if (currentMode === 'addEdge') {
+                     edgeSourceNode = null; // Cancela seleção
+                } else if (currentMode === 'delete') {
+                    const clickedEdge = getEdgeAt(pos.x, pos.y);
+                    if (clickedEdge) {
+                        edges = edges.filter(edge => edge !== clickedEdge);
+                    }
+                }
+            }
+            drawGraph();
+        }
+
+        function handleCanvasMouseMove(e) {
+            const pos = getMousePos(e);
+            lastMousePosition = pos;
+
+            if (isDragging && draggedNode) {
+                draggedNode.x = pos.x;
+                draggedNode.y = pos.y;
+            }
+            // Redesenha para mostrar a pré-visualização da aresta
+            drawGraph();
+        }
+
+        function handleCanvasMouseUp(e) {
+            isDragging = false;
+            draggedNode = null;
+        }
+
+        function getMousePos(evt) {
+            const rect = canvas.getBoundingClientRect();
+            // Para eventos de toque (touch) e mouse
+            const clientX = evt.clientX || (evt.touches && evt.touches[0].clientX);
+            const clientY = evt.clientY || (evt.touches && evt.touches[0].clientY);
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        // --- Inicialização ---
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Event listeners para os botões
+        generateGraphBtn.addEventListener('click', generateRandomGraph);
+        clearBtn.addEventListener('click', clearGraph);
+        addNodeBtn.addEventListener('click', () => setMode('addNode'));
+        addEdgeBtn.addEventListener('click', () => setMode('addEdge'));
+        deleteBtn.addEventListener('click', () => setMode('delete'));
+        directedToggle.addEventListener('change', (e) => {
+            isDirected = e.target.checked;
+            drawGraph();
+        });
+        weightedToggle.addEventListener('change', (e) => {
+            areWeighted = e.target.checked;
+            // Se desativar pesos, remove-os das arestas existentes
+            if (!areWeighted) {
+                edges.forEach(edge => delete edge.weight);
+            }
+            drawGraph();
+        });
+
+        // Event listeners para o canvas (mouse)
+        canvas.addEventListener('mousedown', handleCanvasMouseDown);
+        canvas.addEventListener('mousemove', handleCanvasMouseMove);
+        canvas.addEventListener('mouseup', handleCanvasMouseUp);
+        canvas.addEventListener('mouseout', handleCanvasMouseUp);
+
+        // Event listeners para o canvas (toque)
+        canvas.addEventListener('touchstart', handleCanvasMouseDown);
+        canvas.addEventListener('touchmove', handleCanvasMouseMove);
+        canvas.addEventListener('touchend', handleCanvasMouseUp);
+
+        // Inicializa o canvas
+        resizeCanvas();
+        generateRandomGraph(); // Gera um grafo inicial
+    </script>
+</body>
+</html>
+
