@@ -168,7 +168,7 @@
   </div>
 
   <script>
-    // Dados dos flashcards totalmente revisados para fluidez em Português
+    // Dados dos flashcards totalmente revisados e expandidos
     const flashcardData = {
       "Conceitos Básicos de Grafos": [
         {
@@ -216,6 +216,22 @@
         {
           q: "O que é um **Grafo Planar**?",
           a: "Um grafo que pode ser desenhado em um plano sem que nenhuma de suas arestas se cruze."
+        },
+        {
+          q: "O que é um **Grafo Bipartido**?",
+          a: "É um grafo cujos vértices podem ser divididos em dois conjuntos, $U$ e $V$, de forma que cada aresta conecta um vértice de $U$ a um vértice de $V$ (não há arestas dentro de $U$ ou dentro de $V$)."
+        },
+        {
+          q: "O que é um **Multigrafo**?",
+          a: "É um grafo que permite a existência de **arestas múltiplas** (mais de uma aresta entre o mesmo par de vértices) ou **laços** (arestas que ligam um vértice a si mesmo)."
+        },
+        {
+          q: "O que é uma **Árvore (Tree)**?",
+          a: "É um grafo não-direcionado **conexo** e **acíclico** (não possui ciclos). Tem exatamente $V-1$ arestas, onde $V$ é o número de vértices."
+        },
+        {
+          q: "O que é uma **Floresta (Forest)**?",
+          a: "É um grafo não-direcionado **acíclico** (sem ciclos) que pode ser desconexo. Cada componente conexa de uma floresta é uma **árvore**."
         }
       ],
       "Graus e Conexões": [
@@ -239,6 +255,20 @@
           q: "O que é o **Comprimento do caminho**?",
           a: "É o número de arestas que compõem o caminho percorrido no grafo."
         },
+      ],
+      "Ciclos e Traços Especiais": [
+        {
+          q: "O que é um **Caminho Euleriano**?",
+          a: "É um caminho que visita **todas as arestas** do grafo exatamente uma vez."
+        },
+        {
+          q: "O que é um **Circuito Euleriano**?",
+          a: "É um Caminho Euleriano que tem o mesmo vértice inicial e final. Um grafo que possui um circuito Euleriano é chamado de **Grafo Euleriano**."
+        },
+        {
+          q: "O que é um **Ciclo Hamiltoniano**?",
+          a: "É um ciclo que visita **todos os vértices** do grafo exatamente uma vez, exceto o vértice inicial/final."
+        }
       ],
       "Representação e Fechamento Transitivo": [
         {
