@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos de Grafos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .node, .edge, .edge-label {
+            transition: all 0.5s ease-in-out;
+            user-select: none;
+        }
+        .feedback-card, #quiz-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilos para desabilitar inputs */
+        .controls-disabled fieldset {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .mode-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        /* Estilos das abas */
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
+        }
+        /* Estilos para o conteúdo da teoria */
+        #theory-content h2, #quiz-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        #theory-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #theory-content p, #theory-content ul {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        #theory-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        #theory-content code {
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        #theory-content strong {
+            font-weight: 600;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: left;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+        /* Estilos para o grafo */
+        .node circle {
+            stroke-width: 2px;
+            fill: #a5f3fc; /* cyan-200 */
+            stroke: #0891b2; /* cyan-600 */
+        }
+        .node text {
+            font-size: 12px;
+            font-weight: bold;
+            fill: #1e293b; /* slate-800 */
+            pointer-events: none;
+        }
+        .node.dragging circle {
+            fill: #fdba74; /* orange-300 */
+            stroke: #f97316; /* orange-500 */
+        }
+        .node.visited circle {
+             fill: #86efac; /* green-300 */
+             stroke: #16a34a; /* green-600 */
+        }
+        .node.current circle {
+            fill: #fca5a5; /* red-400 */
+            stroke: #dc2626; /* red-600 */
+            stroke-width: 3px;
+        }
+        .node.path circle {
+            fill: #c4b5fd; /* violet-300 */
+            stroke: #7c3aed; /* violet-600 */
+        }
+
+        .edge {
+            stroke: #94a3b8; /* slate-400 */
+            stroke-width: 2px;
+        }
+        .edge.highlighted {
+            stroke: #fb923c; /* orange-400 */
+            stroke-width: 3px;
+        }
+        .edge.path {
+             stroke: #8b5cf6; /* violet-500 */
+             stroke-width: 4px;
+        }
+        .edge-label {
+            font-size: 10px;
+            fill: #475569; /* slate-600 */
+            font-weight: 500;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-500 text-slate-800 flex flex-col items-center min-h-screen p-4">
+
+    <div class="w-full max-w-7xl mx-auto bg-neutral-50 rounded-2xl shadow-lg p-6 md:p-8 mt-4">
+        <header class="mb-6 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Guia de Estudos de Grafos</h1>
+            <p class="text-slate-600 mt-2">Alterne entre 'Teoria', 'Prática' e 'Quiz' para aprofundar seus conhecimentos.</p>
+        </header>
+
+        <!-- Abas de Navegação -->
+        <div class="border-b border-slate-200 mb-6">
+            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
+                <button id="tab-practice" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Prática</button>
+                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors">Quiz</button>
+            </nav>
+        </div>
+
+        <!-- Conteúdo da Aba de Teoria -->
+        <div id="theory-content">
+            <div class="text-left max-w-4xl mx-auto">
+                <h2>O que são Grafos?</h2>
+                <p>
+                    Um <strong>grafo</strong> é uma estrutura de dados fundamental usada para modelar relações entre objetos. Ele consiste em duas partes principais:
+                </p>
+                <ul>
+                    <li><strong>Vértices (ou Nós):</strong> Representam os objetos ou entidades. Pense neles como cidades em um mapa, pessoas em uma rede social ou páginas na web.</li>
+                    <li><strong>Arestas (ou Arcos):</strong> Representam as conexões ou relações entre os vértices. Uma aresta conecta um par de vértices, como uma estrada entre duas cidades ou um link entre duas páginas.</li>
+                </ul>
+
+                <h3>Tipos de Grafos</h3>
+                <p>Grafos podem ser classificados de várias maneiras, dependendo de suas propriedades:</p>
+                <ul>
+                    <li><strong>Grafo Não-Direcionado:</strong> As arestas não têm uma direção. Se existe uma aresta entre A e B, a conexão é mútua (A está conectado a B e B está conectado a A). Ex: amizades no Facebook.</li>
+                    <img src="src/assets/images/imagem1.png" class="w-1/2 block mx-auto">
+                    <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Ex: seguir alguém no Instagram.</li>
+                    <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto">
+                    <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
+                    <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto">
+                    <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
+                  </ul>
+
+                <h2>Algoritmos Fundamentais</h2>
+                <p>Existem vários algoritmos para extrair informações úteis de grafos. Aqui estão três dos mais importantes:</p>
+
+                <h3>1. Busca em Largura (BFS - Breadth-First Search)</h3>
+                <p>
+                    A BFS explora os vizinhos de um vértice antes de se aprofundar no grafo. Ela funciona em "camadas", visitando todos os nós a uma distância 1 do início, depois todos a uma distância 2, e assim por diante.
+                </p>
+                <p>
+                    É como jogar uma pedra em um lago: as ondulações se espalham uniformemente para fora. A BFS usa uma estrutura de dados de <strong>fila (FIFO - First-In, First-Out)</strong> para controlar quais nós visitar em seguida. É garantido que a BFS encontrará o <strong>caminho mais curto</strong> em um grafo não-ponderado.
+                </p>
+
+                <h3>2. Busca em Profundidade (DFS - Depth-First Search)</h3>
+                <p>
+                    A DFS explora o mais fundo possível ao longo de cada "ramo" antes de retroceder (backtracking). Ela segue um caminho até não poder mais avançar e, em seguida, volta para o último ponto de decisão e tenta um caminho diferente.
+                </p>
+                <p>
+                    É como tentar sair de um labirinto seguindo sempre a parede da direita. A DFS usa uma estrutura de dados de <strong>pilha (LIFO - Last-In, First-Out)</strong>, seja explicitamente ou implicitamente através de recursão. É útil para tarefas como detecção de ciclos e ordenação topológica.
+                </p>
+
+                <h3>3. Algoritmo de Dijkstra</h3>
+                <p>
+                    O Algoritmo de Dijkstra é usado para encontrar o <strong>caminho mais curto</strong> entre um nó inicial e todos os outros nós em um <strong>grafo ponderado e direcionado com pesos de aresta não-negativos</strong>.
+                </p>
+                <p>
+                    Ele funciona mantendo um conjunto de nós visitados e, a cada passo, seleciona o nó não visitado com a menor distância conhecida do início. Ele então atualiza as distâncias de seus vizinhos se um caminho mais curto for encontrado através do nó atual. Ele usa uma <strong>fila de prioridade</strong> para selecionar eficientemente o próximo nó a ser visitado.
+                </p>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Prática -->
+        <div id="practice-content" class="hidden">
+             <p class="text-slate-600 text-center mb-6 -mt-2">Use o modo 'Sandbox' para construir seu grafo ou visualize 'Algoritmos' em ação.</p>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Coluna de Controles -->
+                <div id="controls-section" class="lg:w-1/4">
+                    <fieldset id="controls-fieldset">
+                        <!-- Controles do Grafo -->
+                        <div id="sandbox-controls">
+                            <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Sandbox</h2>
+                            <div class="space-y-4">
+                                <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                    <label class="block text-sm font-medium text-slate-700">Nós (Vértices)</label>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <button id="add-node-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar Nó</button>
+                                        <button id="remove-node-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover Nó</button>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-1">Clique na tela para adicionar ou no nó para remover.</p>
+                                </div>
+                                <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                    <label class="block text-sm font-medium text-slate-700">Arestas</label>
+                                    <div class="grid grid-cols-2 gap-2 mt-1">
+                                        <input type="number" id="from-node-input" placeholder="De" class="p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        <input type="number" id="to-node-input" placeholder="Para" class="p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        <input type="number" id="weight-input" placeholder="Peso (opcional)" value="1" class="col-span-2 p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                     <div class="flex items-center gap-2 mt-2">
+                                        <button id="add-edge-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar</button>
+                                        <button id="remove-edge-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover</button>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-100 p-4 rounded-lg text-left">
+                                    <label class="block text-sm font-medium text-slate-700">Gerar Grafo Aleatório</label>
+                                    <div class="grid grid-cols-2 gap-2 mt-1">
+                                        <input type="number" id="random-nodes-input" placeholder="Nós" value="5" min="1" class="p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        <input type="number" id="random-edges-input" placeholder="Arestas" value="4" min="0" class="p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <button id="generate-random-graph-btn" class="w-full mt-2 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
+                                </div>
+                                <button id="clear-graph-btn" class="w-full bg-slate-500 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Limpar Tudo</button>
+                            </div>
+                        </div>
+
+                        <!-- Controles de Algoritmo -->
+                        <div id="algorithm-controls" class="mt-6">
+                            <h2 class="text-xl font-bold text-slate-800 mb-4 text-left">Algoritmos</h2>
+                             <div class="bg-slate-100 p-4 rounded-lg text-left space-y-3">
+                                 <div>
+                                     <label for="algorithm-select" class="block text-sm font-medium text-slate-700">Escolha o algoritmo</label>
+                                     <select id="algorithm-select" class="w-full mt-1 p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                         <option value="bfs">Busca em Largura (BFS)</option>
+                                         <option value="dfs">Busca em Profundidade (DFS)</option>
+                                         <option value="dijkstra">Dijkstra (Caminho Mais Curto)</option>
+                                     </select>
+                                 </div>
+                                 <div class="flex items-center gap-2">
+                                    <input type="number" id="start-node-input" placeholder="Nó inicial" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <input type="number" id="end-node-input" placeholder="Nó final" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 hidden">
+                                 </div>
+                                 <button id="run-algorithm-btn" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Visualizar</button>
+                             </div>
+                        </div>
+                    </fieldset>
+                    <div id="algorithm-info" class="hidden mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+                        <h3 id="info-title" class="font-bold mb-2"></h3>
+                        <p id="info-description"></p>
+                    </div>
+                </div>
+
+                <!-- Coluna da Visualização -->
+                <div class="lg:w-3/4 flex flex-col">
+                    <div id="visualization-container" class="w-full min-h-[400px] lg:min-h-0 flex-grow bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden relative cursor-crosshair">
+                        <svg id="graph-svg" width="100%" height="100%"></svg>
+                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-500 text-center w-full px-4">Clique na tela para adicionar um nó.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da Aba de Quiz -->
+        <div id="quiz-content" class="hidden text-center">
+             <div id="quiz-selection-screen">
+                <h2>Quiz sobre Grafos</h2>
+                <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
+                <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
+                    <!-- Buttons will be generated here -->
+                </div>
+            </div>
+            <div id="quiz-container" class="hidden">
+                <div id="quiz-progress" class="text-sm text-slate-600 mb-2 text-right"></div>
+                <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                <div id="quiz-options" class="space-y-3"></div>
+                <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-100 rounded-lg text-left text-sm"></div>
+                <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+            </div>
+            <div id="quiz-results-screen" class="hidden">
+                <h2>Quiz Finalizado!</h2>
+                <p class="my-4 text-lg">Sua pontuação foi:</p>
+                <p id="quiz-score" class="text-4xl font-bold text-indigo-600"></p>
+                <div class="flex justify-center gap-4 mt-8">
+                    <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
+                    <button id="back-to-quizzes-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Classes e Variáveis Globais ---
+        const svg = document.getElementById('graph-svg');
+        const emptyMessage = document.getElementById('empty-message');
+        const controlsFieldset = document.getElementById('controls-fieldset');
+        const algorithmSelect = document.getElementById('algorithm-select');
+        const startNodeInput = document.getElementById('start-node-input');
+        const endNodeInput = document.getElementById('end-node-input');
+        const runAlgorithmBtn = document.getElementById('run-algorithm-btn');
+        const algorithmInfo = document.getElementById('algorithm-info');
+        const generateRandomGraphBtn = document.getElementById('generate-random-graph-btn');
+
+        // State
+        let nodes = new Map(); // Map<id, {x, y, el}>
+        let edges = new Map(); // Map<"from-to", {from, to, weight, el, labelEl}>
+        let adj = new Map();   // Map<id, Set<id>>
+        let nextNodeId = 1;
+
+        let selectedNode = null;
+        let draggingNode = null;
+        let isRemovingNode = false;
+
+        // --- Lógica de Manipulação do Grafo ---
+
+        function addNode(cx, cy) {
+            const id = nextNodeId++;
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.id = `node-${id}`;
+            g.classList.add('node');
+            g.style.cursor = 'move';
+            g.setAttribute('transform', `translate(${cx}, ${cy})`);
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('r', 15);
+
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('y', 5);
+            text.setAttribute('text-anchor', 'middle');
+            text.textContent = id;
+
+            g.appendChild(circle);
+            g.appendChild(text);
+            svg.appendChild(g);
+
+            const nodeData = { id, x: cx, y: cy, el: g };
+            nodes.set(id, nodeData);
+            adj.set(id, new Map());
+
+            g.addEventListener('mousedown', (e) => onNodeMouseDown(e, nodeData));
+            g.addEventListener('click', (e) => onNodeClick(e, nodeData));
+
+            updateEmptyMessage();
+            return nodeData;
+        }
+
+        function removeNode(id) {
+            if (!nodes.has(id)) return;
+
+            // Remove edges connected to this node
+            const edgesToRemove = [];
+            for (const [key, edge] of edges.entries()) {
+                if (edge.from === id || edge.to === id) {
+                    edgesToRemove.push(key);
+                }
+            }
+            edgesToRemove.forEach(removeEdgeByKey);
+
+            // Remove node from adjacency lists of other nodes
+            for (const neighbors of adj.values()) {
+                for(const neighborId of neighbors.keys()){
+                     if(neighborId === id) {
+                        neighbors.delete(neighborId);
+                     }
+                }
+            }
+
+            adj.delete(id);
+            const node = nodes.get(id);
+            svg.removeChild(node.el);
+            nodes.delete(id);
+
+            updateEmptyMessage();
+        }
+
+        function addEdge(fromId, toId, weight) {
+            fromId = parseInt(fromId);
+            toId = parseInt(toId);
+
+            if (fromId === toId || !nodes.has(fromId) || !nodes.has(toId)) return;
+
+            const key1 = `${fromId}-${toId}`;
+            const key2 = `${toId}-${fromId}`;
+            if (edges.has(key1) || edges.has(key2)) return; // Edge already exists
+
+            const fromNode = nodes.get(fromId);
+            const toNode = nodes.get(toId);
+
+            // Add to adjacency list (undirected graph)
+            adj.get(fromId).set(toId, weight);
+            adj.get(toId).set(fromId, weight);
+
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.classList.add('edge');
+            line.setAttribute('x1', fromNode.x);
+            line.setAttribute('y1', fromNode.y);
+            line.setAttribute('x2', toNode.x);
+            line.setAttribute('y2', toNode.y);
+
+            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            label.classList.add('edge-label');
+            label.textContent = weight;
+
+            svg.prepend(label);
+            svg.prepend(line);
+
+            const edgeData = { from: fromId, to: toId, weight, el: line, labelEl: label };
+            edges.set(key1, edgeData);
+
+            updateEdgePosition(key1);
+        }
+
+        function removeEdge(fromId, toId) {
+            fromId = parseInt(fromId);
+            toId = parseInt(toId);
+
+            const key1 = `${fromId}-${toId}`;
+            const key2 = `${toId}-${fromId}`;
+            removeEdgeByKey(key1);
+            removeEdgeByKey(key2);
+
+            // Remove from adjacency list
+            if (adj.has(fromId)) adj.get(fromId).delete(toId);
+            if (adj.has(toId)) adj.get(toId).delete(fromId);
+        }
+
+        function removeEdgeByKey(key) {
+            if (edges.has(key)) {
+                const edge = edges.get(key);
+                svg.removeChild(edge.el);
+                if (edge.labelEl) svg.removeChild(edge.labelEl);
+                edges.delete(key);
+            }
+        }
+
+        function generateRandomGraph() {
+            // Clear existing graph
+            nodes.clear();
+            edges.clear();
+            adj.clear();
+            svg.innerHTML = '';
+            nextNodeId = 1;
+
+            const numNodes = parseInt(document.getElementById('random-nodes-input').value) || 5;
+            const numEdges = parseInt(document.getElementById('random-edges-input').value) || 4;
+            const containerRect = document.getElementById('visualization-container').getBoundingClientRect();
+
+            // Add nodes at random positions
+            const generatedNodeIds = [];
+            for (let i = 0; i < numNodes; i++) {
+                const padding = 30;
+                const x = Math.random() * (containerRect.width - padding * 2) + padding;
+                const y = Math.random() * (containerRect.height - padding * 2) + padding;
+                const newNode = addNode(x, y);
+                generatedNodeIds.push(newNode.id);
+            }
+
+            // Add edges between random nodes
+            if (generatedNodeIds.length < 2) {
+                updateEmptyMessage();
+                return;
+            }
+
+            const maxPossibleEdges = numNodes * (numNodes - 1) / 2;
+            const edgesToCreate = Math.min(numEdges, maxPossibleEdges);
+            const existingEdges = new Set();
+
+            for (let i = 0; i < edgesToCreate; i++) {
+                let fromId, toId, key1, key2;
+                let attempts = 0;
+                const maxAttempts = 50; // To prevent infinite loop if all edges are created
+
+                // Find a unique pair of nodes
+                do {
+                    fromId = generatedNodeIds[Math.floor(Math.random() * generatedNodeIds.length)];
+                    toId = generatedNodeIds[Math.floor(Math.random() * generatedNodeIds.length)];
+                    key1 = `${fromId}-${toId}`;
+                    key2 = `${toId}-${fromId}`;
+                    attempts++;
+                } while ((fromId === toId || existingEdges.has(key1) || existingEdges.has(key2)) && attempts < maxAttempts);
+
+                if (attempts < maxAttempts) {
+                    const weight = Math.floor(Math.random() * 10) + 1;
+                    addEdge(fromId, toId, weight);
+                    existingEdges.add(key1);
+                    existingEdges.add(key2);
+                }
+            }
+            updateEmptyMessage();
+        }
+
+        // --- Lógica de Visualização e Interação ---
+
+        function updateEmptyMessage() {
+            emptyMessage.style.display = nodes.size === 0 ? 'block' : 'none';
+        }
+
+        function updateEdgePosition(key) {
+             if (!edges.has(key)) return;
+             const edge = edges.get(key);
+             const fromNode = nodes.get(edge.from);
+             const toNode = nodes.get(edge.to);
+
+             edge.el.setAttribute('x1', fromNode.x);
+             edge.el.setAttribute('y1', fromNode.y);
+             edge.el.setAttribute('x2', toNode.x);
+             edge.el.setAttribute('y2', toNode.y);
+
+             if (edge.labelEl) {
+                edge.labelEl.setAttribute('x', (fromNode.x + toNode.x) / 2);
+                edge.labelEl.setAttribute('y', (fromNode.y + toNode.y) / 2 - 5);
+             }
+        }
+
+        function onNodeMouseDown(event, nodeData) {
+            event.preventDefault();
+            if (isRemovingNode) return;
+            draggingNode = nodeData;
+            draggingNode.el.classList.add('dragging');
+        }
+
+        function onNodeClick(event, nodeData) {
+             event.stopPropagation(); // Prevent canvas click
+             if (isRemovingNode) {
+                 removeNode(nodeData.id);
+                 isRemovingNode = false;
+                 svg.style.cursor = 'crosshair';
+                 document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
+             }
+        }
+
+        function onMouseMove(event) {
+            if (!draggingNode) return;
+            const coords = getSVGCoordinates(event);
+            draggingNode.x = coords.x;
+            draggingNode.y = coords.y;
+            draggingNode.el.setAttribute('transform', `translate(${draggingNode.x}, ${draggingNode.y})`);
+
+            // Update connected edges
+            for (const [key, edge] of edges.entries()) {
+                if (edge.from === draggingNode.id || edge.to === draggingNode.id) {
+                    updateEdgePosition(key);
+                }
+            }
+        }
+
+        function onMouseUp() {
+            if (draggingNode) {
+                draggingNode.el.classList.remove('dragging');
+            }
+            draggingNode = null;
+        }
+
+        function onCanvasClick(event) {
+            if (isRemovingNode) { // Clicked away, cancel removal
+                 isRemovingNode = false;
+                 svg.style.cursor = 'crosshair';
+                 document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
+                 return;
+            }
+            if (event.target.tagName !== 'svg') return;
+            const coords = getSVGCoordinates(event);
+            addNode(coords.x, coords.y);
+        }
+
+        function getSVGCoordinates(event) {
+            const pt = svg.createSVGPoint();
+            pt.x = event.clientX;
+            pt.y = event.clientY;
+            return pt.matrixTransform(svg.getScreenCTM().inverse());
+        }
+
+        function clearAllHighlights() {
+            nodes.forEach(node => node.el.classList.remove('visited', 'current', 'path'));
+            edges.forEach(edge => edge.el.classList.remove('highlighted', 'path'));
+        }
+
+        // --- Lógica dos Algoritmos ---
+
+        async function runAnimation(steps) {
+            controlsFieldset.disabled = true;
+            clearAllHighlights();
+            await new Promise(r => setTimeout(r, 200));
+
+            for(const step of steps) {
+                 clearCurrentHighlights(); // Clear previous 'current' state
+
+                switch(step.action) {
+                    case 'visit':
+                        nodes.get(step.nodeId).el.classList.add('visited');
+                        break;
+                    case 'current':
+                        nodes.get(step.nodeId).el.classList.add('current');
+                        break;
+                    case 'highlight-edge': {
+                        const key1 = `${step.from}-${step.to}`;
+                        const key2 = `${step.to}-${step.from}`;
+                        const edge = edges.get(key1) || edges.get(key2);
+                        if (edge) edge.el.classList.add('highlighted');
+                        break;
+                    }
+                    case 'path': {
+                        const key1 = `${step.from}-${step.to}`;
+                        const key2 = `${step.to}-${step.from}`;
+                        const edge = edges.get(key1) || edges.get(key2);
+                        if (edge) {
+                            edge.el.classList.add('path');
+                            nodes.get(step.from).el.classList.add('path');
+                            nodes.get(step.to).el.classList.add('path');
+                        }
+                        break;
+                    }
+                }
+                await new Promise(r => setTimeout(r, 700));
+            }
+            controlsFieldset.disabled = false;
+        }
+
+        function clearCurrentHighlights(){
+             nodes.forEach(node => node.el.classList.remove('current'));
+             edges.forEach(edge => edge.el.classList.remove('highlighted'));
+        }
+
+        function bfs(startId) {
+            const steps = [];
+            if (!nodes.has(startId)) return steps;
+
+            const queue = [startId];
+            const visited = new Set([startId]);
+
+            steps.push({ action: 'visit', nodeId: startId });
+
+            while (queue.length > 0) {
+                const u = queue.shift();
+                steps.push({ action: 'current', nodeId: u });
+                const neighbors = Array.from(adj.get(u).keys());
+
+                for (const v of neighbors) {
+                    if (!visited.has(v)) {
+                        visited.add(v);
+                        queue.push(v);
+                        steps.push({ action: 'highlight-edge', from: u, to: v });
+                        steps.push({ action: 'visit', nodeId: v });
+                    }
+                }
+            }
+            return steps;
+        }
+
+        function dfs(startId) {
+            const steps = [];
+            if (!nodes.has(startId)) return steps;
+
+            const visited = new Set();
+            const stack = [startId];
+
+            while(stack.length > 0) {
+                const u = stack.pop();
+
+                if(!visited.has(u)) {
+                    visited.add(u);
+                    steps.push({ action: 'current', nodeId: u });
+                    steps.push({ action: 'visit', nodeId: u });
+
+                    const neighbors = Array.from(adj.get(u).keys()).reverse(); // To explore in ascending order
+                    for (const v of neighbors) {
+                        if (!visited.has(v)) {
+                            stack.push(v);
+                            steps.push({ action: 'highlight-edge', from: u, to: v });
+                        }
+                    }
+                }
+            }
+            return steps;
+        }
+
+        function dijkstra(startId, endId) {
+            const steps = [];
+            if (!nodes.has(startId)) return steps;
+
+            const dist = new Map();
+            const prev = new Map();
+            const pq = new Map(); // Using a map as a simple priority queue
+
+            for (const id of nodes.keys()) {
+                dist.set(id, Infinity);
+                prev.set(id, null);
+                pq.set(id, Infinity);
+            }
+
+            dist.set(startId, 0);
+            pq.set(startId, 0);
+
+            while (pq.size > 0) {
+                // Get node with smallest distance from PQ
+                let u = null;
+                let min_dist = Infinity;
+                for(const [nodeId, d] of pq.entries()){
+                    if (d < min_dist){
+                        min_dist = d;
+                        u = nodeId;
+                    }
+                }
+                if (u === null) break; // All remaining nodes are inaccessible
+                pq.delete(u);
+
+                steps.push({ action: 'current', nodeId: u });
+
+                if (u === endId) break;
+
+                const neighbors = adj.get(u);
+                for (const [v, weight] of neighbors.entries()) {
+                     steps.push({ action: 'highlight-edge', from: u, to: v });
+                    const alt = dist.get(u) + weight;
+                    if (alt < dist.get(v)) {
+                        dist.set(v, alt);
+                        prev.set(v, u);
+                        pq.set(v, alt);
+                    }
+                }
+                 steps.push({ action: 'visit', nodeId: u });
+            }
+
+            // Reconstruct path
+            if (endId && prev.has(endId)) {
+                let current = endId;
+                while (current !== null) {
+                    const p = prev.get(current);
+                    if (p !== null) {
+                        steps.push({ action: 'path', from: p, to: current });
+                    }
+                    current = p;
+                }
+            }
+
+            return steps;
+        }
+
+        // --- Lógica de Controle e Event Listeners ---
+
+        document.getElementById('add-node-btn').addEventListener('click', () => {
+             isRemovingNode = false;
+             svg.style.cursor = 'crosshair';
+             document.getElementById('remove-node-btn').classList.remove('active', 'bg-red-800');
+        });
+
+        document.getElementById('remove-node-btn').addEventListener('click', (e) => {
+             isRemovingNode = !isRemovingNode;
+             if(isRemovingNode) {
+                 svg.style.cursor = 'not-allowed';
+                 e.target.classList.add('active', 'bg-red-800');
+             } else {
+                 svg.style.cursor = 'crosshair';
+                 e.target.classList.remove('active', 'bg-red-800');
+             }
+        });
+
+        document.getElementById('add-edge-btn').addEventListener('click', () => {
+            const fromId = document.getElementById('from-node-input').value;
+            const toId = document.getElementById('to-node-input').value;
+            const weight = parseInt(document.getElementById('weight-input').value) || 1;
+            if (fromId && toId) addEdge(fromId, toId, weight);
+        });
+
+        document.getElementById('remove-edge-btn').addEventListener('click', () => {
+            const fromId = document.getElementById('from-node-input').value;
+            const toId = document.getElementById('to-node-input').value;
+            if (fromId && toId) removeEdge(fromId, toId);
+        });
+
+        document.getElementById('clear-graph-btn').addEventListener('click', () => {
+            nodes.clear();
+            edges.clear();
+            adj.clear();
+            svg.innerHTML = '';
+            nextNodeId = 1;
+            updateEmptyMessage();
+        });
+
+        algorithmSelect.addEventListener('change', () => {
+            endNodeInput.style.display = algorithmSelect.value === 'dijkstra' ? 'block' : 'none';
+        });
+
+        runAlgorithmBtn.addEventListener('click', () => {
+            const algo = algorithmSelect.value;
+            const startId = parseInt(startNodeInput.value);
+
+            let steps = [];
+            switch (algo) {
+                case 'bfs':
+                    steps = bfs(startId);
+                    break;
+                case 'dfs':
+                    steps = dfs(startId);
+                    break;
+                case 'dijkstra':
+                    const endId = parseInt(endNodeInput.value);
+                    steps = dijkstra(startId, endId);
+                    break;
+            }
+            if (steps.length > 0) {
+                 runAnimation(steps);
+            } else {
+                alert("Nó inicial inválido ou não encontrado.");
+            }
+        });
+
+        generateRandomGraphBtn.addEventListener('click', generateRandomGraph);
+
+        svg.addEventListener('mousedown', onCanvasClick);
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+
+        // --- Lógica de Abas ---
+        const practiceContent = document.getElementById('practice-content');
+        const theoryContent = document.getElementById('theory-content');
+        const quizContent = document.getElementById('quiz-content');
+        const tabPractice = document.getElementById('tab-practice');
+        const tabTheory = document.getElementById('tab-theory');
+        const tabQuiz = document.getElementById('tab-quiz');
+
+        function switchTab(tabId) {
+            [practiceContent, theoryContent, quizContent].forEach(c => c.classList.add('hidden'));
+            [tabPractice, tabTheory, tabQuiz].forEach(t => t.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
+
+             if (tabId === 'quiz-content') {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('quiz-results-screen').classList.add('hidden');
+                document.getElementById('quiz-selection-screen').classList.remove('hidden');
+             }
+        }
+
+        tabPractice.addEventListener('click', () => switchTab('practice-content'));
+        tabTheory.addEventListener('click', () => switchTab('theory-content'));
+        tabQuiz.addEventListener('click', () => switchTab('quiz-content'));
+
+
+        // --- Lógica do QUIZ ---
+        const quizQuestions = [
+            // Quiz 1: Conceitos Básicos
+            { type: 'theory', question: 'Em teoria dos grafos, o que um vértice representa?', options: ['Uma conexão', 'Uma entidade ou objeto', 'Uma direção', 'Um peso'], correctAnswer: 'Uma entidade ou objeto', explanation: 'Vértices (ou nós) são os elementos fundamentais que representam os objetos em um grafo.' },
+            { type: 'theory', question: 'O que é um grafo ponderado?', options: ['Um grafo com muitas arestas', 'Um grafo onde as arestas têm um valor (peso) associado', 'Um grafo onde os vértices têm cores', 'Um grafo sem ciclos'], correctAnswer: 'Um grafo onde as arestas têm um valor (peso) associado', explanation: 'O peso pode representar custo, distância, tempo, etc.' },
+            { type: 'theory', question: 'Qual a principal diferença entre um grafo direcionado e um não-direcionado?', options: ['O número de vértices', 'A presença de pesos', 'A direção das arestas', 'A cor dos nós'], correctAnswer: 'A direção das arestas', explanation: 'Em grafos direcionados, uma aresta A -> B não implica B -> A. Em não-direcionados, a conexão é mútua.' },
+            { type: 'theory', question: 'Qual algoritmo de busca explora o grafo em "camadas", visitando todos os vizinhos primeiro?', options: ['Busca em Profundidade (DFS)', 'Algoritmo de Dijkstra', 'Busca em Largura (BFS)', 'Algoritmo de Prim'], correctAnswer: 'Busca em Largura (BFS)', explanation: 'A BFS usa uma fila para garantir que os nós mais próximos do início sejam visitados primeiro.' },
+            { type: 'theory', question: 'Qual estrutura de dados é comumente associada à Busca em Profundidade (DFS)?', options: ['Fila', 'Pilha', 'Heap', 'Tabela Hash'], correctAnswer: 'Pilha', explanation: 'A DFS usa uma pilha (seja explícita ou via recursão) para seguir um caminho o mais fundo possível antes de retroceder.' },
+            { type: 'theory', question: 'O Algoritmo de Dijkstra é usado para resolver qual tipo de problema?', options: ['Encontrar todos os ciclos em um grafo', 'Encontrar a Árvore Geradora Mínima', 'Encontrar o caminho mais curto em um grafo ponderado', 'Verificar se um grafo é bipartido'], correctAnswer: 'Encontrar o caminho mais curto em um grafo ponderado', explanation: 'Dijkstra é o algoritmo clássico para caminhos mais curtos, desde que os pesos das arestas não sejam negativos.' },
+
+            // Quiz 2: Algoritmos
+            { type: 'theory', question: 'Para qual tipo de grafo a BFS garante encontrar o caminho mais curto?', options: ['Qualquer grafo ponderado', 'Apenas grafos direcionados', 'Grafos não-ponderados', 'Grafos com pesos negativos'], correctAnswer: 'Grafos não-ponderados', explanation: 'Como a BFS explora em camadas, o primeiro caminho que ela encontra para um nó é garantido ser o mais curto em termos de número de arestas.' },
+            { type: 'theory', question: 'Qual algoritmo usa uma fila de prioridade para funcionar eficientemente?', options: ['Busca em Largura (BFS)', 'Busca em Profundidade (DFS)', 'Detecção de Ciclos', 'Algoritmo de Dijkstra'], correctAnswer: 'Algoritmo de Dijkstra', explanation: 'Dijkstra usa uma fila de prioridade para sempre selecionar o nó não visitado com a menor distância acumulada do início.' },
+            { type: 'theory', question: 'Se você precisa verificar se existe um caminho entre dois nós, qual algoritmo seria uma escolha simples e eficiente?', options: ['Dijkstra', 'Floyd-Warshall', 'BFS ou DFS', 'Kruskal'], correctAnswer: 'BFS ou DFS', explanation: 'Tanto a BFS quanto a DFS podem determinar a conectividade entre nós. A BFS encontrará o caminho mais curto (em arestas), enquanto a DFS pode ser mais rápida em alguns casos.' },
+            { type: 'theory', question: 'O que acontece se você executar o Algoritmo de Dijkstra em um grafo com pesos de aresta negativos?', options: ['Ele funciona normalmente', 'Ele pode produzir uma resposta incorreta', 'Ele entra em um loop infinito', 'Ele se transforma em uma BFS'], correctAnswer: 'Ele pode produzir uma resposta incorreta', explanation: 'A premissa de Dijkstra é que, uma vez que um nó é finalizado, seu caminho mais curto foi encontrado. Pesos negativos podem violar essa premissa.' },
+            { type: 'theory', question: 'Em uma Busca em Largura (BFS) partindo de um nó A, quais nós são visitados imediatamente após A?', options: ['Todos os nós do grafo', 'Nenhum nó', 'Os vizinhos diretos de A', 'O nó mais distante de A'], correctAnswer: 'Os vizinhos diretos de A', explanation: 'A BFS visita primeiro todos os nós que estão a uma aresta de distância do nó inicial.' },
+            { type: 'theory', question: 'Qual a principal aplicação da Busca em Profundidade (DFS)?', options: ['Encontrar o caminho mais curto em grafos ponderados', 'Calcular a distância entre todos os pares de nós', 'Detecção de ciclos e ordenação topológica', 'Balanceamento de grafos'], correctAnswer: 'Detecção de ciclos e ordenação topológica', explanation: 'A natureza de "ir fundo" da DFS a torna excelente para explorar caminhos e detectar "back edges", que indicam ciclos.' },
+        ];
+        const quizStartScreen = document.getElementById('quiz-selection-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const backToQuizzesBtn = document.getElementById('back-to-quizzes-btn');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizProgressEl = document.getElementById('quiz-progress');
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizExplanationEl = document.getElementById('quiz-explanation');
+
+        let shuffledQuestions, currentQuestionIndex, score, currentQuizNumber;
+
+        function startQuiz(quizNum) {
+            currentQuizNumber = quizNum;
+            quizStartScreen.classList.add('hidden');
+            quizResultsScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+
+            const questionsPerQuiz = 6;
+            const startIndex = (quizNum - 1) * questionsPerQuiz;
+            const endIndex = startIndex + questionsPerQuiz;
+            const questionSubset = quizQuestions.slice(startIndex, endIndex);
+
+            shuffledQuestions = questionSubset.sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            resetQuizState();
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            quizQuestionEl.textContent = questionData.question;
+
+            questionData.options.forEach(optionText => {
+                const button = document.createElement('button');
+                button.textContent = optionText;
+                button.className = 'quiz-option';
+                button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+                quizOptionsEl.appendChild(button);
+            });
+        }
+
+        function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
+            const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
+            allOptions.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            } else {
+                buttonEl.classList.add('incorrect');
+            }
+
+            const questionData = shuffledQuestions[currentQuestionIndex];
+            if (questionData.explanation) {
+                quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${questionData.explanation}`;
+                quizExplanationEl.classList.remove('hidden');
+            }
+
+            nextQuestionBtn.classList.remove('hidden');
+        }
+
+        function resetQuizState() {
+            quizOptionsEl.innerHTML = '';
+            quizExplanationEl.classList.add('hidden');
+            nextQuestionBtn.classList.add('hidden');
+        }
+
+        function showQuizResults() {
+            quizContainer.classList.add('hidden');
+            quizResultsScreen.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
+        }
+
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            displayNextQuestion();
+        });
+        restartQuizBtn.addEventListener('click', () => startQuiz(currentQuizNumber));
+        backToQuizzesBtn.addEventListener('click', () => {
+            quizResultsScreen.classList.add('hidden');
+            document.getElementById('quiz-selection-screen').classList.remove('hidden');
+        });
+
+        function setupQuizSelection() {
+            const container = document.getElementById('quiz-buttons-container');
+            container.innerHTML = '';
+            const numQuizzes = Math.ceil(quizQuestions.length / 6);
+            const quizNames = ["Conceitos Básicos", "Algoritmos"];
+            for (let i = 1; i <= numQuizzes; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Quiz ${i}: ${quizNames[i-1] || ''}`;
+                button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
+                button.onclick = () => startQuiz(i);
+                container.appendChild(button);
+            }
+        }
+
+
+        // --- Inicialização ---
+        updateEmptyMessage();
+        switchTab('theory-content');
+        setupQuizSelection();
+
+    </script>
+</body>
+</html>
+
