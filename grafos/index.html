@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+            overflow-y: scroll;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #111827; /* Adicionado para evitar flash de tela clara */
@@ -157,272 +161,305 @@
 </head>
 <body class="bg-gray-900 text-slate-200 flex flex-col items-center min-h-screen p-4">
 
-    <div class="w-full max-w-7xl mx-auto bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 mt-4">
-        <header class="mb-6 text-center">
-            <h1 class="text-2xl md:text-3xl font-bold text-slate-100">Guia de Estudos de Grafos</h1>
-            <p class="text-slate-400 mt-2">Alterne entre 'Teoria', 'Prática' e 'Quiz' para aprofundar seus conhecimentos.</p>
-        </header>
+    <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-center gap-8 mt-4">
 
-        <!-- Abas de Navegação -->
-        <div class="border-b border-slate-700 mb-6">
-            <nav class="flex -mb-px space-x-6" aria-label="Tabs">
-                <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
-                <button id="tab-practice" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-400 hover:text-slate-200 transition-colors">Prática</button>
-                <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-400 hover:text-slate-200 transition-colors">Quiz</button>
-            </nav>
+        <!-- Sidebar Wrapper -->
+        <div id="sidebar-wrapper" class="w-full lg:w-64 flex-shrink-0 self-start">
+            <aside class="lg:sticky lg:top-4">
+                <div class="bg-slate-900/50 border border-slate-700 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-100 mb-4 border-b border-slate-600 pb-2">Índice</h3>
+                    <ul class="space-y-2 list-none p-0">
+                        <li><a href="#o-que-sao-grafos" class="text-indigo-400 hover:text-indigo-300 hover:underline">O que são Grafos?</a>
+                            <ul class="pl-4 mt-2 space-y-1">
+                                <li><a href="#tipos-de-grafos" class="text-slate-400 hover:text-slate-200 hover:underline">Tipos de Grafos</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#representacoes" class="text-indigo-400 hover:text-indigo-300 hover:underline">Representações de Grafos</a>
+                             <ul class="pl-4 mt-2 space-y-1">
+                                <li><a href="#matriz-adjacencia" class="text-slate-400 hover:text-slate-200 hover:underline">Matriz de Adjacência</a></li>
+                                <li><a href="#representacao-com-peso" class="text-slate-400 hover:text-slate-200 hover:underline">Representação com Peso e Informação</a></li>
+                                <li><a href="#fechamento-transitivo" class="text-slate-400 hover:text-slate-200 hover:underline">Fechamento Transitivo</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#algoritmos-fundamentais" class="text-indigo-400 hover:text-indigo-300 hover:underline">Algoritmos Fundamentais</a>
+                            <ul class="pl-4 mt-2 space-y-1">
+                                <li><a href="#bfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Largura (BFS)</a></li>
+                                <li><a href="#dfs" class="text-slate-400 hover:text-slate-200 hover:underline">Busca em Profundidade (DFS)</a></li>
+                                <li><a href="#dijkstra" class="text-slate-400 hover:text-slate-200 hover:underline">Algoritmo de Dijkstra</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
         </div>
 
-        <!-- Conteúdo da Aba de Teoria -->
-        <div id="theory-content">
-            <div class="text-left max-w-4xl mx-auto">
-                <h2>O que são Grafos?</h2>
-                <p>
-                  Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
-                  nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
-                </p>
-                <p>
-                  Ele consiste em duas partes principais:
-                </p>
-                <ul>
-                    <li><strong>Vértices (ou Nós):</strong> Representam os objetos ou entidades. Pense neles como cidades em um mapa, pessoas em uma rede social ou páginas na web.</li>
-                    <li><strong>Arestas (ou Arcos):</strong> Representam as conexões ou relações entre os vértices. Uma aresta conecta um par de vértices, como uma estrada entre duas cidades ou um link entre duas páginas.</li>
-                </ul>
+        <main class="w-full flex-grow lg:max-w-[62rem] bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+            <header class="mb-6 text-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-100">Guia de Estudos de Grafos</h1>
+                <p class="text-slate-400 mt-2">Alterne entre 'Teoria', 'Prática' e 'Quiz' para aprofundar seus conhecimentos.</p>
+            </header>
 
-                <h3>Tipos de Grafos</h3>
-                <p>Grafos podem ser classificados de várias maneiras, dependendo de suas propriedades:</p>
-                <ul>
-                    <li><strong>Grafo Não-Direcionado:</strong> As arestas não têm uma direção. Se existe uma aresta entre A e B, a conexão é mútua (A está conectado a B e B está conectado a A). Ex: amizades no Facebook.</li>
-                    <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-                    <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Se um nó representa um par ordenado então o grafo é chamado de direcionado ou
-                    dígrafo. A Figura 2 ilustra um dígrafo. O conjunto de arcos da Figura 2 é {<A,B>, <A,C>, <A,D>, <C,D>, <F,C>, <E,G>, <A,A>}. São utilizados “()” para denotar
-                    ligações não direcionadas e “<>” para denotar ligações dirigidas. Ex: seguir alguém no Instagram.</li>
-                    <img src="src/assets/images/imagem2.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-                    <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Pode-se verificar que todas árvore é um grafo, mas o contrário nem sempre é
-                    verdadeiro, além disso, um nó pode não possuir nenhum arco ligado a ele. Um nó n é chamado incidente sobre um arco x se n é um dos nós que constituem o par
-                    ordenado x (também diz-se que x é incidente sobre n). O grau de um nó é o número de arcos que são incidentes sobre ele. O grau de entrada de um nó n é o número de arcos
-                    que chegam em n. O grau de saída de um nó é o número de arcos que partem de n. Um nó n é adjacente a um nó m se há um arco partindo de m para n. Se n é adjacente a m, n
-                    é chamado sucessor de m e m o predecessor de n. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
-                    <img src="src/assets/images/imagem3.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-                    <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
-                  </ul>
-                <p>
-                Um grafo é comumente utilizado para representar <strong>Relações</strong>. Uma relação R sobre um conjunto A de nós é um conjunto de pares ordenados a partir de A. Por exemplo, se A =
-                {3, 5, 6, 8, 10, 17} e o conjunto R = {<3,10>, <5,6>, <5,8>, <6, 17>, <8,17>, <10,17>}
-                é uma relação. A relação R é obtida computando o resto da divisão do valor armazenado no nó pelo valor associado ao arco (Figura 3). Quando um grafo possui arcos com
-                valores associados, o grafo é dito <strong>grafo com peso</strong>, onde o valor associado ao arco é o <strong>peso do arco</strong>.
-                Um caminho de tamanho k de um nó a até um no b consiste numa seqüência de k + 1 nós n1, n2, ..., nk+1 tal que n1 = a e nk+1 = b e (ni é adjacente a ni+1) para 1 < i < k. Na
-                Figura 2 existe um caminho de tamanho 2 entre os nós A e D: {A,C,D}.Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado
-                <strong>cíclico</strong> e um grafo que não possui ciclos é chamado <strong>acíclico</strong>.
-                </p>
-
-                <h2>Representações de Grafos</h2>
-                <h3>Matriz de Adjacência</h3>
-
-                <p>
-                  Se um grafo possui o número de nós constante (nós não podem ser criados e removidos), por exemplo MAX e não possui pesos nos arcos ele pode ser representado
-                  como uma matriz m booleana quadrada de tamanho MAX. Quando a posição m[i][j] é true então existe um arco que sai de i e chega em j, ou seja, j é adjacente a i. A Figura 4
-                  ilustra a representação de um grafo e sua matriz de adjacência correspondente.
-                </p>
-                <img src="src/assets/images/imagem4.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-                <p>
-                  A representação de um grafo sem peso, sem informação associada e número constante de nós pode ser obtida simplesmente com a declaração:
-                </p>
-                <img src="src/assets/images/imagem10.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
-                <h3>Representação de Grafos com Peso e Informação nos Nós</h3>
-                <p>
-                  Como comentado anteriormente, um grafo pode necessitar armazenar pesos em seus
-                  arcos e informação dentro de cada nó. Desta forma uma possível representação com um
-                  número constante (MAX) de nós (nós não podem ser adicionados ou removidos) seria a
-                  seguinte:
-                </p>
-                <img src="src/assets/images/imagem5.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-
-                <h3>Fechamento Transitivo</h3>
-                <p>
-                  Nesta seção é assumido que um grafo é descrito por sua matriz de adjacência m e não há
-                  informação contida no nó nem nas ligações. Dada a expressão m[i][k] && m[k][j],
-                  obtém-se o valor true se e somente se os valores de m[i][k] e m[k][j] são true, logo isso
-                  implica que há um caminho de tamanho 2 entre o nó i e o nó j que passa por k. Portanto
-                  dada a expressão:
-                </p>
-                <img src="src/assets/images/imagem6.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
-
-                <p>
-                  ela será true se que há um caminho de tamanho 2 de i até j passando por 0, ou passando
-                  por 1 ou passando por 2 ... ou passando por MAX-1. A matriz m representa todos os
-                  caminhos de tamanho 1. A matriz m2 representa a matriz de todos os caminhos de
-                  tamanho 2, a matriz m3. A multiplicação de matrizes booleanas é feita de maneira
-                  semelhante à multiplicação de matrizes numéricas. Obviamente não será possível fazer
-                  a multiplicação nem a soma de elementos da matriz. As únicas modificações necessárias
-                  no algoritmo de multiplicação de matrizes são:
-                </p>
-
-                <ul>
-                  <li>substituir somas pelo operador de disjunção “| |”;</li>
-                  <li>substituir multiplicações pelo operador de conjunção “&&”.</li>
-                </ul>
-
-                <p>
-                  A Figura 5 ilustra o processo pelo qual se pode encontrar todos os caminhos de tamanho
-                  2 dentro de um determinado grafo.
-                </p>
-
-                <img src="src/assets/images/imagem7.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
-
-                <p>
-                  Portanto se for necessário encontrar todos os caminhos de tamanho tam dentro de um
-                  grafo, basta encontrar a matriz mtam. Para verificar se há um caminho de tamanho tam
-                  entre dois nós i e j, basta verficar se mtam[i][j] = true.
-                  A soma (ou disjunção) dentre duas matrizes mi + mj (mi | | mj) retorna, portanto, todos
-                  os caminhos de tamanho i ou j dentro do grafo. Pode-se concluir que se é necessário
-                  encontrar todos os caminhos no grafo de quaisquer tamanhos, basta realizar o seguinte
-                  somatório (disjunção):
-                </p>
-
-                <img src="src/assets/images/imagem8.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
-                <p>
-                  o que é equivalente a:
-                </p>
-                <img src="src/assets/images/imagem9.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
-                <p>
-                  A matriz obtida pelo somatório (disjunção) anterior é chamada de <strong>fechamento
-                transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
-                independente de tamanho.
-                </p>
-                <h2>Algoritmos Fundamentais</h2>
-                <p>Existem vários algoritmos para extrair informações úteis de grafos. Aqui estão três dos mais importantes:</p>
-
-                <h3>1. Busca em Largura (BFS - Breadth-First Search)</h3>
-                <p>
-                    A BFS explora os vizinhos de um vértice antes de se aprofundar no grafo. Ela funciona em "camadas", visitando todos os nós a uma distância 1 do início, depois todos a uma distância 2, e assim por diante.
-                </p>
-                <p>
-                    É como jogar uma pedra em um lago: as ondulações se espalham uniformemente para fora. A BFS usa uma estrutura de dados de <strong>fila (FIFO - First-In, First-Out)</strong> para controlar quais nós visitar em seguida. É garantido que a BFS encontrará o <strong>caminho mais curto</strong> em um grafo não-ponderado.
-                </p>
-
-                <h3>2. Busca em Profundidade (DFS - Depth-First Search)</h3>
-                <p>
-                    A DFS explora o mais fundo possível ao longo de cada "ramo" antes de retroceder (backtracking). Ela segue um caminho até não poder mais avançar e, em seguida, volta para o último ponto de decisão e tenta um caminho diferente.
-                </p>
-                <p>
-                    É como tentar sair de um labirinto seguindo sempre a parede da direita. A DFS usa uma estrutura de dados de <strong>pilha (LIFO - Last-In, First-Out)</strong>, seja explicitamente ou implicitamente através de recursão. É útil para tarefas como detecção de ciclos e ordenação topológica.
-                </p>
-
-                <h3>3. Algoritmo de Dijkstra</h3>
-                <p>
-                    O Algoritmo de Dijkstra é usado para encontrar o <strong>caminho mais curto</strong> entre um nó inicial e todos os outros nós em um <strong>grafo ponderado e direcionado com pesos de aresta não-negativos</strong>.
-                </p>
-                <p>
-                    Ele funciona mantendo um conjunto de nós visitados e, a cada passo, seleciona o nó não visitado com a menor distância conhecida do início. Ele então atualiza as distâncias de seus vizinhos se um caminho mais curto for encontrado através do nó atual. Ele usa uma <strong>fila de prioridade</strong> para selecionar eficientemente o próximo nó a ser visitado.
-                </p>
+            <!-- Abas de Navegação -->
+            <div class="border-b border-slate-700 mb-6">
+                <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                    <button id="tab-theory" class="tab-btn active whitespace-nowrap py-3 px-1 text-sm font-semibold transition-colors">Teoria</button>
+                    <button id="tab-practice" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-400 hover:text-slate-200 transition-colors">Prática</button>
+                    <button id="tab-quiz" class="tab-btn whitespace-nowrap py-3 px-1 text-sm font-semibold text-slate-400 hover:text-slate-200 transition-colors">Quiz</button>
+                </nav>
             </div>
-        </div>
 
-        <!-- Conteúdo da Aba de Prática -->
-        <div id="practice-content" class="hidden">
-             <p class="text-slate-400 text-center mb-6 -mt-2">Use o modo 'Sandbox' para construir seu grafo ou visualize 'Algoritmos' em ação.</p>
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Coluna de Controles -->
-                <div id="controls-section" class="lg:w-1/4">
-                    <fieldset id="controls-fieldset">
-                        <!-- Controles do Grafo -->
-                        <div id="sandbox-controls">
-                            <h2 class="text-xl font-bold text-slate-100 mb-4 text-left">Sandbox</h2>
-                            <div class="space-y-4">
-                                <div class="bg-slate-700 p-4 rounded-lg text-left">
-                                    <label class="block text-sm font-medium text-slate-300">Nós (Vértices)</label>
-                                    <div class="flex items-center gap-2 mt-1">
-                                        <button id="add-node-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar Nó</button>
-                                        <button id="remove-node-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover Nó</button>
+            <!-- Conteúdo da Aba de Teoria -->
+            <div id="theory-content">
+                <div class="text-left max-w-4xl mx-auto">
+                    <h2 id="o-que-sao-grafos">O que são Grafos?</h2>
+                    <p>
+                      Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
+                      nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
+                    </p>
+                    <p>
+                      Ele consiste em duas partes principais:
+                    </p>
+                    <ul>
+                        <li><strong>Vértices (ou Nós):</strong> Representam os objetos ou entidades. Pense neles como cidades em um mapa, pessoas em uma rede social ou páginas na web.</li>
+                        <li><strong>Arestas (ou Arcos):</strong> Representam as conexões ou relações entre os vértices. Uma aresta conecta um par de vértices, como uma estrada entre duas cidades ou um link entre duas páginas.</li>
+                    </ul>
+
+                    <h3 id="tipos-de-grafos">Tipos de Grafos</h3>
+                    <p>Grafos podem ser classificados de várias maneiras, dependendo de suas propriedades:</p>
+                    <ul>
+                        <li><strong>Grafo Não-Direcionado:</strong> As arestas não têm uma direção. Se existe uma aresta entre A e B, a conexão é mútua (A está conectado a B e B está conectado a A). Ex: amizades no Facebook.</li>
+                        <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                        <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Se um nó representa um par ordenado então o grafo é chamado de direcionado ou
+                        dígrafo. A Figura 2 ilustra um dígrafo. O conjunto de arcos da Figura 2 é {<A,B>, <A,C>, <A,D>, <C,D>, <F,C>, <E,G>, <A,A>}. São utilizados “()” para denotar
+                        ligações não direcionadas e “<>” para denotar ligações dirigidas. Ex: seguir alguém no Instagram.</li>
+                        <img src="src/assets/images/imagem2.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                        <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Pode-se verificar que todas árvore é um grafo, mas o contrário nem sempre é
+                        verdadeiro, além disso, um nó pode não possuir nenhum arco ligado a ele. Um nó n é chamado incidente sobre um arco x se n é um dos nós que constituem o par
+                        ordenado x (também diz-se que x é incidente sobre n). O grau de um nó é o número de arcos que são incidentes sobre ele. O grau de entrada de um nó n é o número de arcos
+                        que chegam em n. O grau de saída de um nó é o número de arcos que partem de n. Um nó n é adjacente a um nó m se há um arco partindo de m para n. Se n é adjacente a m, n
+                        é chamado sucessor de m e m o predecessor de n. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
+                        <img src="src/assets/images/imagem3.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                        <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
+                      </ul>
+                    <p>
+                    Um grafo é comumente utilizado para representar <strong>Relações</strong>. Uma relação R sobre um conjunto A de nós é um conjunto de pares ordenados a partir de A. Por exemplo, se A =
+                    {3, 5, 6, 8, 10, 17} e o conjunto R = {<3,10>, <5,6>, <5,8>, <6, 17>, <8,17>, <10,17>}
+                    é uma relação. A relação R é obtida computando o resto da divisão do valor armazenado no nó pelo valor associado ao arco (Figura 3). Quando um grafo possui arcos com
+                    valores associados, o grafo é dito <strong>grafo com peso</strong>, onde o valor associado ao arco é o <strong>peso do arco</strong>.
+                    Um caminho de tamanho k de um nó a até um no b consiste numa seqüência de k + 1 nós n1, n2, ..., nk+1 tal que n1 = a e nk+1 = b e (ni é adjacente a ni+1) para 1 < i < k. Na
+                    Figura 2 existe um caminho de tamanho 2 entre os nós A e D: {A,C,D}.Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado
+                    <strong>cíclico</strong> e um grafo que não possui ciclos é chamado <strong>acíclico</strong>.
+                    </p>
+
+                    <h2 id="representacoes">Representações de Grafos</h2>
+                    <h3 id="matriz-adjacencia">Matriz de Adjacência</h3>
+
+                    <p>
+                      Se um grafo possui o número de nós constante (nós não podem ser criados e removidos), por exemplo MAX e não possui pesos nos arcos ele pode ser representado
+                      como uma matriz m booleana quadrada de tamanho MAX. Quando a posição m[i][j] é true então existe um arco que sai de i e chega em j, ou seja, j é adjacente a i. A Figura 4
+                      ilustra a representação de um grafo e sua matriz de adjacência correspondente.
+                    </p>
+                    <img src="src/assets/images/imagem4.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      A representação de um grafo sem peso, sem informação associada e número constante de nós pode ser obtida simplesmente com a declaração:
+                    </p>
+                    <img src="src/assets/images/imagem10.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                    <h3 id="representacao-com-peso">Representação de Grafos com Peso e Informação nos Nós</h3>
+                    <p>
+                      Como comentado anteriormente, um grafo pode necessitar armazenar pesos em seus
+                      arcos e informação dentro de cada nó. Desta forma uma possível representação com um
+                      número constante (MAX) de nós (nós não podem ser adicionados ou removidos) seria a
+                      seguinte:
+                    </p>
+                    <img src="src/assets/images/imagem5.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
+
+                    <h3 id="fechamento-transitivo">Fechamento Transitivo</h3>
+                    <p>
+                      Nesta seção é assumido que um grafo é descrito por sua matriz de adjacência m e não há
+                      informação contida no nó nem nas ligações. Dada a expressão m[i][k] && m[k][j],
+                      obtém-se o valor true se e somente se os valores de m[i][k] e m[k][j] são true, logo isso
+                      implica que há um caminho de tamanho 2 entre o nó i e o nó j que passa por k. Portanto
+                      dada a expressão:
+                    </p>
+                    <img src="src/assets/images/imagem6.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+                    <p>
+                      ela será true se que há um caminho de tamanho 2 de i até j passando por 0, ou passando
+                      por 1 ou passando por 2 ... ou passando por MAX-1. A matriz m representa todos os
+                      caminhos de tamanho 1. A matriz m2 representa a matriz de todos os caminhos de
+                      tamanho 2, a matriz m3. A multiplicação de matrizes booleanas é feita de maneira
+                      semelhante à multiplicação de matrizes numéricas. Obviamente não será possível fazer
+                      a multiplicação nem a soma de elementos da matriz. As únicas modificações necessárias
+                      no algoritmo de multiplicação de matrizes são:
+                    </p>
+
+                    <ul>
+                      <li>substituir somas pelo operador de disjunção “| |”;</li>
+                      <li>substituir multiplicações pelo operador de conjunção “&&”.</li>
+                    </ul>
+
+                    <p>
+                      A Figura 5 ilustra o processo pelo qual se pode encontrar todos os caminhos de tamanho
+                      2 dentro de um determinado grafo.
+                    </p>
+
+                    <img src="src/assets/images/imagem7.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+                    <p>
+                      Portanto se for necessário encontrar todos os caminhos de tamanho tam dentro de um
+                      grafo, basta encontrar a matriz mtam. Para verificar se há um caminho de tamanho tam
+                      entre dois nós i e j, basta verficar se mtam[i][j] = true.
+                      A soma (ou disjunção) dentre duas matrizes mi + mj (mi | | mj) retorna, portanto, todos
+                      os caminhos de tamanho i ou j dentro do grafo. Pode-se concluir que se é necessário
+                      encontrar todos os caminhos no grafo de quaisquer tamanhos, basta realizar o seguinte
+                      somatório (disjunção):
+                    </p>
+
+                    <img src="src/assets/images/imagem8.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <p>
+                      o que é equivalente a:
+                    </p>
+                    <img src="src/assets/images/imagem9.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <p>
+                      A matriz obtida pelo somatório (disjunção) anterior é chamada de <strong>fechamento
+                    transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
+                    independente de tamanho.
+                    </p>
+                    <h2 id="algoritmos-fundamentais">Algoritmos Fundamentais</h2>
+                    <p>Existem vários algoritmos para extrair informações úteis de grafos. Aqui estão três dos mais importantes:</p>
+
+                    <h3 id="bfs">1. Busca em Largura (BFS - Breadth-First Search)</h3>
+                    <p>
+                        A BFS explora os vizinhos de um vértice antes de se aprofundar no grafo. Ela funciona em "camadas", visitando todos os nós a uma distância 1 do início, depois todos a uma distância 2, e assim por diante.
+                    </p>
+                    <p>
+                        É como jogar uma pedra em um lago: as ondulações se espalham uniformemente para fora. A BFS usa uma estrutura de dados de <strong>fila (FIFO - First-In, First-Out)</strong> para controlar quais nós visitar em seguida. É garantido que a BFS encontrará o <strong>caminho mais curto</strong> em um grafo não-ponderado.
+                    </p>
+
+                    <h3 id="dfs">2. Busca em Profundidade (DFS - Depth-First Search)</h3>
+                    <p>
+                        A DFS explora o mais fundo possível ao longo de cada "ramo" antes de retroceder (backtracking). Ela segue um caminho até não poder mais avançar e, em seguida, volta para o último ponto de decisão e tenta um caminho diferente.
+                    </p>
+                    <p>
+                        É como tentar sair de um labirinto seguindo sempre a parede da direita. A DFS usa uma estrutura de dados de <strong>pilha (LIFO - Last-In, First-Out)</strong>, seja explicitamente ou implicitamente através de recursão. É útil para tarefas como detecção de ciclos e ordenação topológica.
+                    </p>
+
+                    <h3 id="dijkstra">3. Algoritmo de Dijkstra</h3>
+                    <p>
+                        O Algoritmo de Dijkstra é usado para encontrar o <strong>caminho mais curto</strong> entre um nó inicial e todos os outros nós em um <strong>grafo ponderado e direcionado com pesos de aresta não-negativos</strong>.
+                    </p>
+                    <p>
+                        Ele funciona mantendo um conjunto de nós visitados e, a cada passo, seleciona o nó não visitado com a menor distância conhecida do início. Ele então atualiza as distâncias de seus vizinhos se um caminho mais curto for encontrado através do nó atual. Ele usa uma <strong>fila de prioridade</strong> para selecionar eficientemente o próximo nó a ser visitado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conteúdo da Aba de Prática -->
+            <div id="practice-content" class="hidden">
+                 <p class="text-slate-400 text-center mb-6 -mt-2">Use o modo 'Sandbox' para construir seu grafo ou visualize 'Algoritmos' em ação.</p>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Coluna de Controles -->
+                    <div id="controls-section" class="lg:w-1/4">
+                        <fieldset id="controls-fieldset">
+                            <!-- Controles do Grafo -->
+                            <div id="sandbox-controls">
+                                <h2 class="text-xl font-bold text-slate-100 mb-4 text-left">Sandbox</h2>
+                                <div class="space-y-4">
+                                    <div class="bg-slate-700 p-4 rounded-lg text-left">
+                                        <label class="block text-sm font-medium text-slate-300">Nós (Vértices)</label>
+                                        <div class="flex items-center gap-2 mt-1">
+                                            <button id="add-node-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar Nó</button>
+                                            <button id="remove-node-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover Nó</button>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-1">Clique na tela para adicionar ou no nó para remover.</p>
                                     </div>
-                                    <p class="text-xs text-slate-400 mt-1">Clique na tela para adicionar ou no nó para remover.</p>
+                                    <div class="bg-slate-700 p-4 rounded-lg text-left">
+                                        <label class="block text-sm font-medium text-slate-300">Arestas</label>
+                                        <div class="grid grid-cols-2 gap-2 mt-1">
+                                            <input type="number" id="from-node-input" placeholder="De" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="number" id="to-node-input" placeholder="Para" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="number" id="weight-input" placeholder="Peso (opcional)" value="1" class="col-span-2 p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        </div>
+                                         <div class="flex items-center gap-2 mt-2">
+                                            <button id="add-edge-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar</button>
+                                            <button id="remove-edge-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover</button>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-700 p-4 rounded-lg text-left">
+                                        <label class="block text-sm font-medium text-slate-300">Gerar Grafo Aleatório</label>
+                                        <div class="grid grid-cols-2 gap-2 mt-1">
+                                            <input type="number" id="random-nodes-input" placeholder="Nós" value="5" min="1" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="number" id="random-edges-input" placeholder="Arestas" value="4" min="0" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        </div>
+                                        <button id="generate-random-graph-btn" class="w-full mt-2 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
+                                    </div>
+                                    <button id="clear-graph-btn" class="w-full bg-slate-600 hover:bg-slate-500 text-white font-medium py-2 px-4 rounded-md transition-colors">Limpar Tudo</button>
                                 </div>
-                                <div class="bg-slate-700 p-4 rounded-lg text-left">
-                                    <label class="block text-sm font-medium text-slate-300">Arestas</label>
-                                    <div class="grid grid-cols-2 gap-2 mt-1">
-                                        <input type="number" id="from-node-input" placeholder="De" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                        <input type="number" id="to-node-input" placeholder="Para" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                        <input type="number" id="weight-input" placeholder="Peso (opcional)" value="1" class="col-span-2 p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    </div>
-                                     <div class="flex items-center gap-2 mt-2">
-                                        <button id="add-edge-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Adicionar</button>
-                                        <button id="remove-edge-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors">Remover</button>
-                                    </div>
-                                </div>
-                                <div class="bg-slate-700 p-4 rounded-lg text-left">
-                                    <label class="block text-sm font-medium text-slate-300">Gerar Grafo Aleatório</label>
-                                    <div class="grid grid-cols-2 gap-2 mt-1">
-                                        <input type="number" id="random-nodes-input" placeholder="Nós" value="5" min="1" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                        <input type="number" id="random-edges-input" placeholder="Arestas" value="4" min="0" class="p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    </div>
-                                    <button id="generate-random-graph-btn" class="w-full mt-2 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Gerar</button>
-                                </div>
-                                <button id="clear-graph-btn" class="w-full bg-slate-600 hover:bg-slate-500 text-white font-medium py-2 px-4 rounded-md transition-colors">Limpar Tudo</button>
                             </div>
-                        </div>
 
-                        <!-- Controles de Algoritmo -->
-                        <div id="algorithm-controls" class="mt-6">
-                            <h2 class="text-xl font-bold text-slate-100 mb-4 text-left">Algoritmos</h2>
-                             <div class="bg-slate-700 p-4 rounded-lg text-left space-y-3">
-                                 <div>
-                                     <label for="algorithm-select" class="block text-sm font-medium text-slate-300">Escolha o algoritmo</label>
-                                     <select id="algorithm-select" class="w-full mt-1 p-2 bg-slate-600 border border-slate-500 text-slate-100 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                         <option value="bfs">Busca em Largura (BFS)</option>
-                                         <option value="dfs">Busca em Profundidade (DFS)</option>
-                                         <option value="dijkstra">Dijkstra (Caminho Mais Curto)</option>
-                                     </select>
+                            <!-- Controles de Algoritmo -->
+                            <div id="algorithm-controls" class="mt-6">
+                                <h2 class="text-xl font-bold text-slate-100 mb-4 text-left">Algoritmos</h2>
+                                 <div class="bg-slate-700 p-4 rounded-lg text-left space-y-3">
+                                     <div>
+                                         <label for="algorithm-select" class="block text-sm font-medium text-slate-300">Escolha o algoritmo</label>
+                                         <select id="algorithm-select" class="w-full mt-1 p-2 bg-slate-600 border border-slate-500 text-slate-100 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                             <option value="bfs">Busca em Largura (BFS)</option>
+                                             <option value="dfs">Busca em Profundidade (DFS)</option>
+                                             <option value="dijkstra">Dijkstra (Caminho Mais Curto)</option>
+                                         </select>
+                                     </div>
+                                     <div class="flex items-center gap-2">
+                                        <input type="number" id="start-node-input" placeholder="Nó inicial" class="w-full p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                        <input type="number" id="end-node-input" placeholder="Nó final" class="w-full p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 hidden">
+                                     </div>
+                                     <button id="run-algorithm-btn" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Visualizar</button>
                                  </div>
-                                 <div class="flex items-center gap-2">
-                                    <input type="number" id="start-node-input" placeholder="Nó inicial" class="w-full p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    <input type="number" id="end-node-input" placeholder="Nó final" class="w-full p-2 bg-slate-600 border border-slate-500 text-slate-100 placeholder-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 hidden">
-                                 </div>
-                                 <button id="run-algorithm-btn" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-4 rounded-md transition-colors">Visualizar</button>
-                             </div>
+                            </div>
+                        </fieldset>
+                        <div id="algorithm-info" class="hidden mt-4 p-4 bg-blue-900/50 border border-blue-500/30 rounded-lg text-sm text-blue-200">
+                            <h3 id="info-title" class="font-bold mb-2"></h3>
+                            <p id="info-description"></p>
                         </div>
-                    </fieldset>
-                    <div id="algorithm-info" class="hidden mt-4 p-4 bg-blue-900/50 border border-blue-500/30 rounded-lg text-sm text-blue-200">
-                        <h3 id="info-title" class="font-bold mb-2"></h3>
-                        <p id="info-description"></p>
+                    </div>
+
+                    <!-- Coluna da Visualização -->
+                    <div class="lg:w-3/4 flex flex-col">
+                        <div id="visualization-container" class="w-full min-h-[400px] lg:min-h-0 flex-grow bg-slate-900 rounded-lg flex items-center justify-center overflow-hidden relative cursor-crosshair">
+                            <svg id="graph-svg" width="100%" height="100%"></svg>
+                            <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400 text-center w-full px-4">Clique na tela para adicionar um nó.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Coluna da Visualização -->
-                <div class="lg:w-3/4 flex flex-col">
-                    <div id="visualization-container" class="w-full min-h-[400px] lg:min-h-0 flex-grow bg-slate-900 rounded-lg flex items-center justify-center overflow-hidden relative cursor-crosshair">
-                        <svg id="graph-svg" width="100%" height="100%"></svg>
-                        <p id="empty-message" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400 text-center w-full px-4">Clique na tela para adicionar um nó.</p>
+            <!-- Conteúdo da Aba de Quiz -->
+            <div id="quiz-content" class="hidden text-center">
+                 <div id="quiz-selection-screen">
+                    <h2>Quiz sobre Grafos</h2>
+                    <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
+                    <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
+                        <!-- Buttons will be generated here -->
+                    </div>
+                </div>
+                <div id="quiz-container" class="hidden">
+                    <div id="quiz-progress" class="text-sm text-slate-400 mb-2 text-right"></div>
+                    <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
+                    <div id="quiz-options" class="space-y-3"></div>
+                    <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-700 rounded-lg text-left text-sm"></div>
+                    <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
+                </div>
+                <div id="quiz-results-screen" class="hidden">
+                    <h2>Quiz Finalizado!</h2>
+                    <p class="my-4 text-lg">Sua pontuação foi:</p>
+                    <p id="quiz-score" class="text-4xl font-bold text-indigo-400"></p>
+                    <div class="flex justify-center gap-4 mt-8">
+                        <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
+                        <button id="back-to-quizzes-btn" class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Conteúdo da Aba de Quiz -->
-        <div id="quiz-content" class="hidden text-center">
-             <div id="quiz-selection-screen">
-                <h2>Quiz sobre Grafos</h2>
-                <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
-                <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
-                    <!-- Buttons will be generated here -->
-                </div>
-            </div>
-            <div id="quiz-container" class="hidden">
-                <div id="quiz-progress" class="text-sm text-slate-400 mb-2 text-right"></div>
-                <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
-                <div id="quiz-options" class="space-y-3"></div>
-                <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-700 rounded-lg text-left text-sm"></div>
-                <button id="next-question-btn" class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima Pergunta</button>
-            </div>
-            <div id="quiz-results-screen" class="hidden">
-                <h2>Quiz Finalizado!</h2>
-                <p class="my-4 text-lg">Sua pontuação foi:</p>
-                <p id="quiz-score" class="text-4xl font-bold text-indigo-400"></p>
-                <div class="flex justify-center gap-4 mt-8">
-                    <button id="restart-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Tentar Novamente este Quiz</button>
-                    <button id="back-to-quizzes-btn" class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105">Ver Outros Quizzes</button>
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 
     <script>
@@ -436,6 +473,7 @@
         const runAlgorithmBtn = document.getElementById('run-algorithm-btn');
         const algorithmInfo = document.getElementById('algorithm-info');
         const generateRandomGraphBtn = document.getElementById('generate-random-graph-btn');
+        const sidebarWrapper = document.getElementById('sidebar-wrapper');
 
         // State
         let nodes = new Map(); // Map<id, {x, y, el}>
@@ -962,6 +1000,14 @@
             document.getElementById(tabId).classList.remove('hidden');
             document.querySelector(`[id=tab-${tabId.split('-')[0]}]`).classList.add('active');
 
+            if(sidebarWrapper){
+                 if (tabId === 'theory-content') {
+                    sidebarWrapper.classList.remove('invisible');
+                } else {
+                    sidebarWrapper.classList.add('invisible');
+                }
+            }
+
              if (tabId === 'quiz-content') {
                 document.getElementById('quiz-container').classList.add('hidden');
                 document.getElementById('quiz-results-screen').classList.add('hidden');
@@ -1111,4 +1157,3 @@
     </script>
 </body>
 </html>
-
