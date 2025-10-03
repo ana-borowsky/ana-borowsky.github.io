@@ -618,7 +618,7 @@
                       grafo simples, conexo e planar é no máximo 4.
                       </p>
 
-                      <h2>Teoria do isomorfismo</h2>
+                      <h2>Aplicações de Grafos</h2>
 
                         <strong>1) Qual teoria da Teoria dos Grafos permite identificar que 2 grafos representam a mesma
                         estrutura?</strong>
@@ -747,6 +747,103 @@
                           FALTANTE Metodologia Ativa 26/08/2025: Fechamento Transitivo e Melhor Caminho
                         </strong>
                       </p>
+                      <p>
+                        <code><strong>Contexto:</strong> Uma empresa foi contratada para estabelecer conexão de fibra ótica
+                        entre algumas cidades. A tubulação subterrânea já foi instalada anteriormente e
+                        nela só é possível passar um cabo por vez. Toda a tubulação deve ser utilizada, ou
+                        seja, nenhuma tubulação deve ficar sem fibra e, para evitar emendas, um único
+                        cabo deve passar por toda a tubulação. O grafo que a tubulação forma é o G1,
+                        sendo os vértices as cidades.</code>
+                      </p>
+
+                      <p>
+                        Sobre esse problema, responda os itens a seguir.
+                      </p>
+
+                      <p>
+                        <strong>
+                        1) A empresa é especializada em passar fibra, mas não em instalar tubulação.
+                        Dessa forma, pergunta-se: a empresa deverá contratar outra empresa para
+                        construção de nova tubulação entre algumas cidades ou a tubulação existente é
+                        suficiente?
+                        </strong>
+                      </p>
+                      <img src="src/assets/images/imagem26.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        Grafo euleriano é um grafo que possui caminho que usa todas as arestas uma
+                        única vez.
+                      </p>
+                      <p>
+                        R: Para ter um caminho euleriano: Um grafo deve ser conectado e ter no
+                        máximo dois vértices com grau ímpar (ou seja, com um número ímpar de
+                        arestas que se conectam a eles). Ou zero, ou dois vértices com grau ímpar.
+                      </p>
+                      <ul>
+                          <li>O grafo em questão é conectado? Sim.</li>
+                          <li>O grafo em questão tem no máximo dois vértices com grau ímpar? Não.
+                          Então a empresa precisará contratar uma segunda empresa para construir mais
+                          tubulações.</li>
+                      </ul>
+                      <p>
+                        <strong>
+                          2) Qual teoria da Teoria dos Grafos poderia ser utilizada para responder essa
+                          questão?
+                        </strong>
+                      </p>
+                      <p>
+                        R: Caminho euleriano/ carteiro chinês.
+                        Circuito Euleriano: Se o caminho euleriano começa e termina no mesmo
+                        vértice, ele é chamado de circuito euleriano.
+                      </p>
+                      <p>
+                        Para ter um circuito euleriano: O grafo deve ser conectado e todos os seus
+                        vértices devem ter grau par.
+                      </p>
+                      <p>
+                        <strong>
+                          3) Como poderia ser classificado um Grafo que não necessita de nova tubulação
+                          para o problema em questão?
+                        </strong>
+                      </p>
+                      <p>
+                        Grafo euleriano: Se o grafo possui um circuito euleriano (ou seja, um caminho
+                        que começa e termina no mesmo vértice e passa por todas as arestas), ele é
+                        chamado de grafo euleriano. Isso ocorre quando todos os vértices têm grau par.
+                      </p>
+                      <p>
+                        <strong>
+                          4) Há algoritmo determinístico de tempo polinomial que responde o item 1?
+                        </strong>
+                      </p>
+                      <img src="src/assets/images/imagem27.png" class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        Do livro:
+                      </p>
+                      <img src="src/assets/images/imagem28.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        <code>
+                          <strong>Contexto:</strong> Considere que o grafo G1 agora representa infraestrutura rodoviária,
+                          que conecta cidades. Uma empresa de Logística precisa fazer entregas de
+                          produtos em todas essas cidades, mas para isso precisa estabelecer uma rota
+                        </code>
+                      </p>
+                      <p>Sobre esse problema, responda os itens a seguir.</p>
+                      <p><strong>1) Qual teoria da Teoria dos Grafos poderia ser utilizada para auxiliar na determinação dessa rota?</strong></p>
+                      <p>R: Problema do Ciclo Hamiltoniano.</p>
+                      <p><strong>2) Como poderia ser classificado um Grafo que possibilita que todas as cidades sejam visitadas uma única vez, sendo que a rota inicia e finaliza em uma dada cidade?</strong></p>
+                      <p>R: Grafo hamiltoniano.</p>
+                      <p><strong>3) Como pode ser denominado o caminho que inicia e termina na mesma cidade e passa por todas as cidades uma única vez?</strong></p>
+                      <p>R: Ciclo hamiltoniano.</p>
+                      <p><strong>4) Há algoritmo determinístico de tempo polinomial que permite encontrar essa rota?</strong></p>
+                      <p>R: Não.</p>
+                      <p><strong>5) Qual problema da teoria dos Grafos possui aderência à rota que responde o item 3 e ainda minimiza a distância percorrida?</strong></p>
+                      <p>R: Problema do Caixeiro-Viajante.</p>
+                      
+
+
+
+
+
                 </div>
             </div>
 
