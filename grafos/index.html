@@ -279,31 +279,31 @@
 
                     <h3>Conceitos</h3>
                     <ul>
-                      <li>Vértices adjacentes: vértices que estão conectados por uma aresta.</li>
-                      <li>Laço: é uma aresta que conecta um vértice a ele mesmo.</li>
-                      <li>Arestas paralelas: duas ou mais arestas que conectam o mesmo par de
+                      <li><strong>Vértices adjacentes:</strong> vértices que estão conectados por uma aresta.</li>
+                      <li><strong>Laço:</strong> é uma aresta que conecta um vértice a ele mesmo.</li>
+                      <li><strong>Arestas paralelas:</strong> duas ou mais arestas que conectam o mesmo par de
                           vértices em um grafo.</li>
-                      <li>Caminho: um caminho em um grafo é uma sequência finita ou infinita de
+                      <li><strong>Caminho:</strong> um caminho em um grafo é uma sequência finita ou infinita de
                           vértices conectados por uma sequência de arestas que, na maioria das
                           definições, são todos diferentes uns dos outros. O primeiro vértice é chamado
                           de vértice inicial e o último é chamado de vértice final.</li>
-                      <li>Comprimento/tamanho do caminho: é o número de arestas que ele contém.</li>
-                      <li>Ciclo: um conjunto de vértices conectados em uma sequência fechada.</li>
-                      <li>Grafo cíclico/acíclico: possui pelo menos um ciclo, ou seja, um caminho
+                      <li><strong>Comprimento/tamanho do caminho:</strong> é o número de arestas que ele contém.</li>
+                      <li><strong>Ciclo:</strong> um conjunto de vértices conectados em uma sequência fechada.</li>
+                      <li><strong>Grafo cíclico/acíclico:</strong> possui pelo menos um ciclo, ou seja, um caminho
                           fechado que começa e termina no mesmo vértice, sem passar duas vezes
                           pelo mesmo vértice intermediário. Por outro lado, um grafo acíclico é aquele
                           que não contém nenhum ciclo.</li>
-                      <li>Subgrafo: um subgrafo de um grafo G é um grafo cujo conjunto de vértices é
+                      <li><strong>Subgrafo:</strong> um subgrafo de um grafo G é um grafo cujo conjunto de vértices é
                           um subconjunto do conjunto de vértices G e o conjunto de arestas é um
                           subconjunto do conjunto de arestas de G,[1] ou seja, cuja relação de
                           adjacência é um subconjunto de G restrita a esse subconjunto. Dizemos que
                           um grafo G contém um outro grafo H se algum subgrafo de G é H ou é
                           isomorfo a H.</li>
-                      <li>Grau de um vértice: quantidade de arestas ligadas a ele.</li>
-                      <li>Grau de entrada de um vértice: é o número de arestas que chegam a ele.</li>
-                      <li>Grau de saída de um vértice: número de arestas que partem dele.</li>
-                      <li>Vértice isolado: vértice de grau zero.</li>
-                      <li>Componente de um grafo: Em um grafo vazio , cada vértice forma um
+                      <li><strong>Grau de um vértice:</strong> quantidade de arestas ligadas a ele.</li>
+                      <li><strong>Grau de entrada de um vértice:</strong> é o número de arestas que chegam a ele.</li>
+                      <li><strong>Grau de saída de um vértice:</strong> número de arestas que partem dele.</li>
+                      <li><strong>Vértice isolado:</strong> vértice de grau zero.</li>
+                      <li><strong>Componente de um grafo:</strong> Em um grafo vazio , cada vértice forma um
                         componente com um vértice e zero arestas. De forma mais geral, um
                         componente desse tipo é formado para cada vértice isolado em qualquer
                         grafo.</li>
@@ -581,8 +581,172 @@
                     </p>
                     <img src="src/assets/images/imagem19.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
 
+                    <h2>Coloracão em Grafos</h2>
+                      <strong>1) O que é o problema da coloração?</strong>
+                      <p>
+                      O problema da coloração de grafos é um conceito que consiste em atribuir
+                      "cores" a elementos de um grafo, geralmente os vértices, de forma a satisfazer
+                      certas condições. A regra fundamental é que dois vértices conectados por uma
+                      aresta não podem ter a mesma cor.
+                      </p>
 
+                      <strong>2) Qual a relação do problema da coloração com a propriedade de Planaridade de um grafo?</strong>
+                      <p>
+                      Teorema das Quatro Cores. Um grafo planar é um grafo que pode ser desenhado
+                      em um plano (como um pedaço de papel) sem que nenhuma de suas arestas se
+                      cruze. As arestas podem se tocar apenas nos vértices. Em outras palavras, para
+                      colorir um mapa (que pode ser modelado como um grafo planar), bastam no
+                      máximo quatro cores para garantir que países vizinhos tenham cores diferentes. O
+                      problema da coloração só pode ser aplicado a grafos planares.
+                      </p>
 
+                      <strong>3) O que é o número cromático de um grafo?</strong>
+                      <p>
+                      O número cromático do grafo é o menor número de cores necessárias para se
+                      para colorir o grafo de acordo com uma certa regra.
+                      </p>
+
+                      <strong>4) O que é um grafo dual?</strong>
+                      <p>
+                      Qualquer grafo simples, conexo e planar pode ser entendido como o grafo dual
+                      de um mapa.
+                      </p>
+
+                      <strong>5) O que diz o teorema das 4 cores?</strong>
+                      <p>
+                      O teorema das quatro cores estabelece que o número cromático de qualquer
+                      grafo simples, conexo e planar é no máximo 4.
+                      </p>
+
+                      <h2>Teoria do isomorfismo</h2>
+
+                        <strong>1) Qual teoria da Teoria dos Grafos permite identificar que 2 grafos representam a mesma
+                        estrutura?</strong>
+                        <p>
+                        R: A teoria do isomorfismo.
+                        Para saber se dois grafos são isomorfos:
+                        </p>
+                        <ul>
+                          <li>Ambos devem possuir o mesmo número de vértices</li>
+                          <li>Ambos devem possuir o mesmo número de arestas</li>
+                          <li>Ambos devem possuir o mesmo número de vértices com mesmo grau</li>
+                        </ul>
+                        <p>
+                        Mas só isso não é suficiente. O isomorfismo entre dois grafos G e H é uma bijeção entre os
+                        conjuntos de vértices de G e H
+                        </p>
+                        <p>
+                        f: V(G) -> V(H)
+                        </p>
+                        <p>
+                        De tal forma que dois vértices u e v de G são adjacentes em G se e somente se f(u) e f(v)
+                        são adjacentes em H. Esse tipo de bijeção é comumente chamada de “bijeção com
+                        preservação de arestas”.
+                        </p>
+                        <strong>
+                        2) Se os planejamentos das estradas forem os apresentados abaixo, é possível dizer que
+                        elas representam a mesma estrutura? Como provar isso?
+                        </strong>
+                        <img src="src/assets/images/imagem20.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                        <ul>
+                          <li>Ambas as estruturas possuem 8 arestas</li>
+                          <li>Ambas as estruturas possuem 5 nós</li>
+                          <li>Ambas possuem o mesmo número de vértices com o mesmo grau.</li>
+                        </ul>
+                      <p>
+                        Porém é preciso fazer uma equivalência entre os nós para conferir se são realmente
+                        isomorfos, para isso, precisamos achar pelo menos uma das equivalências possíveis entre
+                        ambas as estruturas, ou duas funções bijetivas.
+                      </p>
+                      <img src="src/assets/images/imagem21.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>Portanto os grafos apresentados são isomorfos.</p>
+                      <p><strong>3) Idem para os planejamentos abaixo:</strong></p>
+                      <img src="src/assets/images/imagem22.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p><strong>4) O que há de diferente entre a resolução dos itens 2 e 3?</strong></p>
+                      <p>Não há necessidade de representar a f2 porque são grafos simples, então só é preciso
+                      encontrar f1.</p>
+                      <img src="src/assets/images/imagem23.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        <strong>5) Há algoritmo de tempo polinomial para determinar que 2 grafos são a mesma estrutura?
+                        Não tem algoritmo determinístico, que não seja por força bruta.</strong>
+                      </p>
+
+                      <p>
+                        <strong>Contexto:</strong> Uma importante questão sobre esse mesmo problema é que deve-se evitar ao máximo os cruzamentos, pois representam interseções como semáforos e viadutos, onde há maior incidência de acidentes, provocam atrasos nos fluxos de movimentação e elevados custos de construção. Acerca desse problema, responder os itens abaixo.
+                      </p>
+
+                      <p>
+                        <strong>1) Qual teoria da Teoria dos Grafos permite verificar a propriedade de existência ou não de cruzamentos entre arestas de um grafo?</strong>
+                      </p>
+                      <p>
+                        R: Teoria dos Grafos Planos. Um grafo plano é um grafo que pode ser desenhado em um plano sem que nenhuma de suas arestas se cruze. Se um grafo não pode ser desenhado dessa forma, ele é chamado de grafo não-plano.
+                      </p>
+
+                      <p>
+                        <strong>2) Há algoritmo para determinar a inexistência ou existência de cruzamentos entre as arestas de um grafo?</strong>
+                      </p>
+                      <p>
+                        R: O Teorema de Kuratowski fornece uma condição necessária e suficiente para que um grafo seja plano. O teorema afirma que um grafo finito é plano se, e somente se, ele não contém um subgrafo que seja um homeomorfo de K5 (o grafo completo com 5 vértices) ou de K3,3 (o grafo bipartido completo com 3 vértices em cada conjunto).
+                      </p>
+                      <p>
+                        Enquanto o Teorema de Kuratowski fornece a base teórica para a planaridade (identificando os subgrafos proibidos K5 e K3,3), sua aplicação direta para grafos grandes é computacionalmente complexa. Por isso, foram desenvolvidos algoritmos mais eficientes.
+                      </p>
+                      <p>
+                        Principais Algoritmos para Teste de Planaridade:
+                      </p>
+
+                      <ul>
+                        <li>Algoritmo de Hopcroft e Tarjan (1974): Considerado um marco, foi o primeiro a atingir complexidade de tempo linear. Ele funciona com base em uma busca em profundidade (DFS) e utiliza uma estrutura de dados conhecida como "árvore de palm", que permite testar incrementalmente a planaridade do grafo. A implementação é complexa, mas é extremamente eficiente para grafos grandes.</li>
+                        <li>Algoritmo de Lempel, Even e Cederbaum (LEC, 1967), aprimorado por Booth e Lueker: Essa abordagem é do tipo "adição de vértices" e se baseia na ideia de construir o grafo passo a passo, adicionando um vértice de cada vez e verificando se a sub-representação planar ainda é possível.</li>
+                        <li>Algoritmo de Boyer e Myrvold (2004): Considerado um dos mais modernos e eficientes, este algoritmo também possui complexidade de tempo linear. Ele é baseado na adição de arestas e, em caso de não planaridade, ele pode até mesmo encontrar um subgrafo homeomorfo a K5 ou K3,3</li>
+                      </ul>
+
+                      <p>
+                        <strong>
+                          3) Qual a relação entre cruzamento de arestas e grafos completos?
+                        </strong>
+                      </p>
+
+                      <ul>
+                        <li>R: A relação entre o cruzamento de arestas e grafos completos é direta e fundamental, e pode ser entendida a partir da propriedade de planaridade.</li>
+                        <li>Um grafo completo, denotado por Kn , é aquele em que cada vértice está conectado a todos os outros vértices. A questão do cruzamento de arestas surge quando tentamos desenhar esses grafos no plano.</li>
+                        <li>A relação é a seguinte: Grafos completos com 4 ou menos vértices (K1 , K2 , K3 e K4) são planares. Isso significa que eles podem ser desenhados no plano sem que nenhuma de suas arestas se cruzem.</li>
+                        <li>Qualquer grafo completo com 5 ou mais vértices (Kn , com n≥5) é não-planar. Isso significa que é impossível desenhá-lo no plano sem que pelo menos uma aresta cruze com outra.</li>
+                      </ul>
+                      <p>
+                        <strong>
+                          4) Qual a relação entre cruzamento de arestas e grafos homeomorfos?
+                        </strong>
+                      </p>
+                      <p>
+                        O termo "homeomorfo a" significa que um grafo pode ser obtido a partir de outro através de uma sequência de operações de subdivisão de arestas. A subdivisão de uma aresta é o processo de adicionar um novo vértice no meio de uma aresta, dividindo-a em duas. Se o grafo que os originou era planar, ele continuará sendo planar, e vice versa.
+                      </p>
+                      <p>
+                        <strong>
+                        5) Há como provar que um grafo sempre possuirá arestas que se cruzam, independente da forma com a qual ele é desenhado?
+                        </strong>
+                      </p>
+
+                      <p>
+                        R: Sim com o Teorema de Kuratowski. Para provar que um grafo é não-planar (ou seja, que ele sempre terá cruzamentos de arestas, não importa como seja desenhado), o método consiste em encontrar um subgrafo que seja estruturalmente "idêntico" ou homeomorfo a um dos dois grafos proibidos: K5  e K3,3.
+                      </p>
+
+                      <p>
+                        <strong>
+                          6) Prove que o grafo a seguir sempre possuirá arestas que se cruzam:
+                        </strong>
+                      </p>
+                      <img src="src/assets/images/imagem24.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        R: Usando o grafo homeomorfo K3,3.
+                      </p>
+                      <img src="src/assets/images/imagem25.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+
+                      <p>
+                        <strong>
+                          FALTANTE Metodologia Ativa 26/08/2025: Fechamento Transitivo e Melhor Caminho
+                        </strong>
+                      </p>
                 </div>
             </div>
 
