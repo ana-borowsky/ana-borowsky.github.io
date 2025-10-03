@@ -167,7 +167,11 @@
             <div class="text-left max-w-4xl mx-auto">
                 <h2>O que são Grafos?</h2>
                 <p>
-                    Um <strong>grafo</strong> é uma estrutura de dados fundamental usada para modelar relações entre objetos. Ele consiste em duas partes principais:
+                  Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
+                  nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
+                </p>
+                <p>
+                  Ele consiste em duas partes principais:
                 </p>
                 <ul>
                     <li><strong>Vértices (ou Nós):</strong> Representam os objetos ou entidades. Pense neles como cidades em um mapa, pessoas em uma rede social ou páginas na web.</li>
@@ -179,9 +183,15 @@
                 <ul>
                     <li><strong>Grafo Não-Direcionado:</strong> As arestas não têm uma direção. Se existe uma aresta entre A e B, a conexão é mútua (A está conectado a B e B está conectado a A). Ex: amizades no Facebook.</li>
                     <img src="src/assets/images/imagem1.png" class="w-1/2 block mx-auto">
-                    <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Ex: seguir alguém no Instagram.</li>
+                    <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Se um nó representa um par ordenado então o grafo é chamado de direcionado ou
+                    dígrafo. A Figura 2 ilustra um dígrafo. O conjunto de arcos da Figura 2 é {<A,B>, <A,C>, <A,D>, <C,D>, <F,C>, <E,G>, <A,A>}. São utilizados “()” para denotar
+                    ligações não direcionadas e “<>” para denotar ligações dirigidas. Ex: seguir alguém no Instagram.</li>
                     <img src="src/assets/images/imagem2.png" class="w-1/2 block mx-auto">
-                    <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
+                    <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Pode-se verificar que todas árvore é um grafo, mas o contrário nem sempre é
+                    verdadeiro, além disso, um nó pode não possuir nenhum arco ligado a ele. Um nó n é chamado incidente sobre um arco x se n é um dos nós que constituem o par
+                    ordenado x (também diz-se que x é incidente sobre n). O grau de um nó é o número de arcos que são incidentes sobre ele. O grau de entrada de um nó n é o número de arcos
+                    que chegam em n. O grau de saída de um nó é o número de arcos que partem de n. Um nó n é adjacente a um nó m se há um arco partindo de m para n. Se n é adjacente a m, n
+                    é chamado sucessor de m e m o predecessor de n. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
                     <img src="src/assets/images/imagem3.png" class="w-1/2 block mx-auto">
                     <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
                   </ul>
