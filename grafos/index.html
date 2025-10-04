@@ -494,6 +494,13 @@
                     </p>
 
                     <h3 id="dfs">Busca em Profundidade (DFS)</h3>
+                    <p>A Busca em Profundidade usa uma <strong>pilha</strong> para guardar os nós que foram descobertos mas cujos vizinhos ainda não foram totalmente explorados.</p>
+                    <ul>
+                      <li>Explora os vizinhos do nó atual, sempre que possível, seguindo um caminho até que não haja mais nós não visitados neste caminho.</li>
+                      <li>Quando um nó não tem mais vizinhos não visitados, o algoritmo retrocede para o nó anterior e continua a explorar outros ramos.</li>
+                    </ul>
+                    <img src="src/assets/images/imagem29.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+
                     <p>
                         Será considerado que a tarefa do procedimento de travessia consiste em a partir de um
                         determinado vértice (neste exemplo “0”) visitar (processar) todos os outros vértices. Considere a
@@ -541,6 +548,7 @@
                         utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
                     </p>
                     <h3 id="bfs">Busca em Largura (BFS)</h3>
+                    <p>A busca em largura utiliza internamente uma estrutura de <strong>fila</strong> para armazenar os nós já visitados.</p>
                     <p>1. Se a fila de vértices não está vazia então</p>
                     <ul>
                         <li>1.1. Remover o vértice i que está na fila // note-se que uma fila sempre remove o primeiro elemento</li>
@@ -548,6 +556,8 @@
                         <li>1.3. Adicionar os vértices adjacentes a i na fila // um nó só é adicionado se ele já não foi visitado</li>
                         <li>1.4. Executar o procedimento 1 sobre a fila atualizada</li>
                     </ul>
+                    <img src="src/assets/images/imagem30.png" class="block mx-auto my-4 rounded-md border border-slate-600">
+
                     <p>
                         É importante ressaltar que na primeira chamada do algoritmo a fila contém um único vértice que
                         é o vértice inicial.
