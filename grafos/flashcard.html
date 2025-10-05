@@ -2,422 +2,301 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcards de Teoria dos Grafos</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards de Teoria dos Grafos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0f172a;
-      /* Dark Blue/Slate Background (Slate-900) */
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            /* AJUSTE: Fundo igual ao da aplicação principal */
+            background-color: #111827;
+        }
 
-    /* Estilo para o KaTeX (fórmulas matemáticas) */
-    .katex-display {
-      margin: 0.5em 0 !important;
-    }
+        .katex-display { margin: 0.5em 0 !important; }
+        .katex { color: #f1f5f9; }
 
-    /* Cor dos elementos KaTeX no modo escuro */
-    .katex {
-      color: #f1f5f9;
-      /* Slate-100 */
-    }
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            margin: 0 auto;
+        }
 
-    /* Estilo para o efeito 3D do flashcard */
-    .card-container {
-      perspective: 1000px;
-      width: 100%;
-      max-width: 400px;
-      height: 250px;
-      margin: 0 auto;
-    }
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-radius: 1rem;
+        }
 
-    .flashcard {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      position: relative;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-      /* Darker shadow */
-      border-radius: 1rem;
-    }
+        .flashcard.flipped { transform: rotateY(180deg); }
 
-    .flashcard.flipped {
-      transform: rotateY(180deg);
-    }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-y: auto;
+        }
 
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      text-align: center;
-      word-wrap: break-word;
-      hyphens: auto;
-      overflow-y: auto;
-    }
+        .card-front {
+            background-color: #334155; /* Slate-700 */
+            color: #f1f5f9;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
 
-    .card-front {
-      background-color: #334155;
-      /* Dark Card Background (Slate-700) */
-      color: #f1f5f9;
-      /* Light text */
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
+        .card-back {
+            /* AJUSTE: Cor de destaque alterada para indigo */
+            background-color: #4f46e5; /* Indigo-600 */
+            color: #ffffff;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+            font-weight: 400;
+        }
 
-    .card-back {
-      background-color: #059669;
-      /* Emerald Green Accent (Emerald-600) */
-      color: #ffffff;
-      transform: rotateY(180deg);
-      font-size: 1rem;
-      font-weight: 400;
-    }
-
-    .card-back strong {
-      font-weight: 700;
-    }
-
-    /* Custom scrollbar for card content */
-    .card-face::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .card-face::-webkit-scrollbar-thumb {
-      background-color: rgba(255, 255, 255, 0.3);
-      /* Lighter scrollbar thumb */
-      border-radius: 3px;
-    }
-
-    /* Estilo para o wrapper que garante o fluxo de bloco e centralização */
-    .card-content-wrapper {
-      width: 100%;
-      /* Ocupa a largura total dentro do padding */
-      text-align: center;
-      /* Garante que o texto seja centralizado dentro do wrapper */
-    }
-  </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+        .card-back strong { font-weight: 700; }
+        .card-face::-webkit-scrollbar { width: 6px; }
+        .card-face::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+        .card-content-wrapper {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 </head>
 
 <body class="p-4 sm:p-8">
 
-  <div class="max-w-4xl mx-auto bg-gray-800 text-gray-100 p-6 sm:p-10 rounded-xl shadow-2xl">
-    <h1 class="text-3xl font-bold text-white text-center mb-6">Flashcards: Teoria dos Grafos</h1>
-    <p class="text-center text-gray-400 mb-8">Estude os conceitos fundamentais da Teoria dos Grafos.</p>
+    <div class="w-full max-w-7xl mx-auto bg-slate-800 text-slate-200 rounded-2xl shadow-lg p-6 sm:p-10">
 
-    <div class="mb-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-      <label for="topic-select" class="text-lg font-medium text-gray-300">Escolha o Tópico:</label>
-      <select id="topic-select"
-        class="p-3 bg-gray-700 text-white border border-gray-600 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500 w-full sm:w-auto">
-        </select>
-    </div>
+        <a href="https://ana-borowsky.github.io/grafos/" class="text-indigo-400 hover:text-indigo-300 mb-6 inline-block">&larr; Voltar para o Guia</a>
 
-    <div class="card-container mb-6">
-      <div id="flashcard" class="flashcard">
-        <div id="card-front" class="card-face card-front shadow-lg">
-          <p class="text-gray-400">Selecione um tópico para começar!</p>
+        <h1 class="text-3xl font-bold text-slate-100 text-center mb-6">Flashcards: Teoria dos Grafos</h1>
+        <p class="text-center text-slate-400 mb-8">Estude os conceitos fundamentais da Teoria dos Grafos.</p>
+
+        <div class="mb-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <label for="topic-select" class="text-lg font-medium text-slate-300">Escolha o Tópico:</label>
+            <select id="topic-select"
+                class="p-3 bg-slate-700 text-white border border-slate-600 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-auto">
+            </select>
         </div>
-        <div id="card-back" class="card-face card-back shadow-lg">
-          <p>Resposta</p>
+
+        <div class="card-container mb-6">
+            <div id="flashcard" class="flashcard">
+                <div id="card-front" class="card-face card-front shadow-lg">
+                    <p class="text-slate-400">Selecione um tópico para começar!</p>
+                </div>
+                <div id="card-back" class="card-face card-back shadow-lg">
+                    <p>Resposta</p>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="text-center mb-6 text-slate-400 font-medium" id="progress-indicator">
+            0/0
+        </div>
+
+        <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-center sm:space-x-4">
+            <button id="prev-button"
+                class="bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-all hover:bg-slate-700 disabled:opacity-50"
+                disabled>
+                Anterior
+            </button>
+            <button id="flip-button"
+                class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-all hover:bg-indigo-700 disabled:opacity-50"
+                disabled>
+                Virar Cartão
+            </button>
+            <button id="next-button"
+                class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition-all hover:bg-indigo-700 disabled:opacity-50"
+                disabled>
+                Próximo
+            </button>
+        </div>
     </div>
 
-    <div class="text-center mb-6 text-gray-400 font-medium" id="progress-indicator">
-      0/0
-    </div>
+    <script>
+        // O código JavaScript permanece o mesmo, sem necessidade de alterações
+        const flashcardData = {
+            "Conceitos Fundamentais": [
+                { q: "O que é um **Grafo**?", a: "É um conjunto de **nós** (ou vértices) e um conjunto de **arcos** (ou arestas) que conectam pares desses nós." },
+                { q: "Qual a diferença entre um grafo **direcionado** e um **não-direcionado**?", a: "Em um grafo **não-direcionado**, as arestas são mútuas (como amizade). Em um **direcionado**, as arestas têm um sentido (como seguir alguém)." },
+                { q: "O que caracteriza um **Grafo Ponderado**?", a: "É aquele em que cada aresta possui um valor numérico associado, como distância, custo ou tempo." },
+                { q: "O que é um **Grafo Simples**?", a: "É um tipo de grafo que **não possui laços** (arestas que conectam um vértice a si mesmo) nem arestas múltiplas." },
+                { q: "O que é um **Grafo Conexo**?", a: "É um grafo onde existe um caminho entre **qualquer par de vértices**. Se não existir, o grafo é desconexo." },
+                { q: "O que é o **grau de um vértice**?", a: "É a quantidade de arestas que estão ligadas a ele. Em grafos direcionados, divide-se em grau de **entrada** e de **saída**." },
+                { q: "O que é um **ciclo** em um grafo?", a: "É um caminho que começa e termina no mesmo nó. Um grafo com ciclos é **cíclico**; um sem ciclos é **acíclico**." }
+            ],
+            "Busca em Grafos": [
+                { q: "Quais as vantagens e desvantagens da **Busca em Largura (BFS)** vs. **Busca em Profundidade (DFS)**?", a: "BFS encontra o caminho mais curto (em arestas) e lida bem com ciclos, mas usa mais memória (fila). DFS é mais simples e usa menos memória (pilha/recursão), mas pode não encontrar o caminho mais curto e precisa de controle de 'visitados' para evitar loops." },
+                { q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?", a: "Uma **Pilha (Stack)**, geralmente implementada por meio de **recursão**." },
+                { q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?", a: "Uma **Fila (Queue)**, pois visita o grafo em camadas de distância (FIFO)." }
+            ],
+            "Coloração e Planaridade": [
+                { q: "O que é o problema da **coloração de grafos**?", a: "Consiste em atribuir cores aos vértices de modo que dois vértices adjacentes (vizinhos) **nunca tenham a mesma cor**." },
+                { q: "O que diz o **Teorema das Quatro Cores**?", a: "Afirma que qualquer mapa (representado como um grafo planar) pode ser colorido com no máximo **quatro cores**." },
+                { q: "O que é o **número cromático**?", a: "É o **menor número de cores** necessárias para colorir um grafo de acordo com as regras de coloração." },
+                { q: "O que é um **Grafo Planar**?", a: "É um grafo que pode ser desenhado em um plano **sem que nenhuma de suas arestas se cruze**." },
+                { q: "Qual teoria ajuda a verificar se um grafo possui cruzamentos?", a: "A Teoria dos Grafos Planos, especialmente o **Teorema de Kuratowski**, que usa os grafos $K_5$ e $K_{3,3}$ como base para a não-planaridade." },
+                { q: "Qual a relação entre grafos **completos** e **cruzamento de arestas**?", a: "Qualquer grafo completo com 5 ou mais vértices (ex: $K_5$, $K_6$) é **sempre não-planar**, sendo impossível desenhá-lo sem cruzar arestas." }
+            ],
+            "Caminhos e Ciclos Especiais": [
+                { q: "Quando um grafo possui um **Circuito Euleriano**?", a: "Quando o grafo é conexo e **todos os seus vértices têm grau par**. Um circuito euleriano passa por todas as arestas uma vez e volta ao início." },
+                { q: "O que é um **Ciclo Hamiltoniano**?", a: "É um ciclo que visita **todos os vértices** de um grafo exatamente uma vez, começando e terminando no mesmo vértice." },
+                { q: "O **Problema do Caixeiro-Viajante** está relacionado a qual conceito?", a: "Está relacionado à busca por um **ciclo hamiltoniano** que também **minimiza a distância total** percorrida." }
+            ],
+            "Isomorfismo e Aplicações": [
+                { q: "Como é possível identificar se dois grafos representam a **mesma estrutura**?", a: "Através da teoria do **isomorfismo**, que verifica se existe uma correspondência entre os vértices que preserva as conexões (arestas)." },
+                { q: "Existe um algoritmo eficiente (tempo polinomial) para determinar se dois grafos são **isomorfos**?", a: "Não, é um problema famoso para o qual **não se conhece um algoritmo determinístico de tempo polinomial** (problema GI)." },
+                { q: "Quando o algoritmo de **Huffman** funciona bem para compactação?", a: "Funciona bem quando a **frequência dos caracteres** em um conjunto de dados **varia bastante** entre si." },
+                { q: "Qual a relação entre a frequência de um caractere e o tamanho do seu código de **Huffman**?", a: "Quanto **mais frequente** é o caractere, **menor** será o código binário atribuído a ele, e vice-versa." }
+            ]
+        };
 
-    <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-center sm:space-x-4">
-      <button id="prev-button"
-        class="bg-gray-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all hover:bg-gray-700 disabled:opacity-50"
-        disabled>
-        <i class="fas fa-arrow-left"></i> Anterior
-      </button>
-      <button id="flip-button"
-        class="bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all hover:bg-emerald-600 disabled:opacity-50"
-        disabled>
-        Virar Cartão
-      </button>
-      <button id="next-button"
-        class="bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all hover:bg-emerald-600 disabled:opacity-50"
-        disabled>
-        Próximo <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
+        let currentCategory = null;
+        let currentCards = [];
+        let currentIndex = 0;
+        let isFlipped = false;
 
-  <script>
-    // Dados dos flashcards totalmente revisados e expandidos
-    const flashcardData = {
-        "Conceitos Fundamentais": [
-        {
-            q: "O que é um **Grafo**?",
-            a: "É um conjunto de **nós** (ou vértices) e um conjunto de **arcos** (ou arestas) que conectam pares desses nós."
-        },
-        {
-            q: "Qual a diferença entre um grafo **direcionado** e um **não-direcionado**?",
-            a: "Em um grafo **não-direcionado**, as arestas são mútuas (como amizade). Em um **direcionado**, as arestas têm um sentido (como seguir alguém)."
-        },
-        {
-            q: "O que caracteriza um **Grafo Ponderado**?",
-            a: "É aquele em que cada aresta possui um valor numérico associado, como distância, custo ou tempo."
-        },
-        {
-            q: "O que é um **Grafo Simples**?",
-            a: "É um tipo de grafo que **não possui laços** (arestas que conectam um vértice a si mesmo) nem arestas múltiplas."
-        },
-        {
-            q: "O que é um **Grafo Conexo**?",
-            a: "É um grafo onde existe um caminho entre **qualquer par de vértices**. Se não existir, o grafo é desconexo."
-        },
-        {
-            q: "O que é o **grau de um vértice**?",
-            a: "É a quantidade de arestas que estão ligadas a ele. Em grafos direcionados, divide-se em grau de **entrada** e de **saída**."
-        },
-        {
-            q: "O que é um **ciclo** em um grafo?",
-            a: "É um caminho que começa e termina no mesmo nó. Um grafo com ciclos é **cíclico**; um sem ciclos é **acíclico**."
+        const topicSelect = document.getElementById('topic-select');
+        const flashcardElement = document.getElementById('flashcard');
+        const cardFront = document.getElementById('card-front');
+        const cardBack = document.getElementById('card-back');
+        const flipButton = document.getElementById('flip-button');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const progressIndicator = document.getElementById('progress-indicator');
+
+        function renderKaTeX(element) {
+            const content = element.innerHTML;
+            const replacedContent = content.replace(/\$(.*?)\$/g, (match, expression) => {
+                try {
+                    return katex.renderToString(expression.trim(), {
+                        throwOnError: false,
+                        displayMode: false
+                    });
+                } catch (e) {
+                    console.error("KaTeX rendering error:", e);
+                    return match;
+                }
+            });
+            element.innerHTML = replacedContent;
         }
-        ],
-        "Busca em Grafos": [
-        {
-            q: "Quais as vantagens e desvantagens da **Busca em Largura (BFS)** vs. **Busca em Profundidade (DFS)**?",
-            a: "BFS encontra o caminho mais curto (em arestas) e lida bem com ciclos, mas usa mais memória (fila). DFS é mais simples e usa menos memória (pilha/recursão), mas pode não encontrar o caminho mais curto e precisa de controle de 'visitados' para evitar loops."
-        },
-        {
-            q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?",
-            a: "Uma **Pilha (Stack)**, geralmente implementada por meio de **recursão**."
-        },
-        {
-            q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?",
-            a: "Uma **Fila (Queue)**, pois visita o grafo em camadas de distância (FIFO)."
+
+        function updateCardContent() {
+            if (currentCards.length === 0) {
+                cardFront.innerHTML = '<p class="text-slate-400">Selecione um tópico para começar!</p>';
+                cardBack.innerHTML = '<p>Resposta</p>';
+                progressIndicator.textContent = '0/0';
+                return;
+            }
+
+            const card = currentCards[currentIndex];
+            const frontText = card.q.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            const backText = card.a.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            cardFront.innerHTML = `<div class="card-content-wrapper">${frontText}</div>`;
+            cardBack.innerHTML = `<div class="card-content-wrapper">${backText}</div>`;
+
+            if (typeof katex !== 'undefined') {
+                const frontWrapper = cardFront.querySelector('.card-content-wrapper');
+                const backWrapper = cardBack.querySelector('.card-content-wrapper');
+                if (frontWrapper) renderKaTeX(frontWrapper);
+                if (backWrapper) renderKaTeX(backWrapper);
+            }
+
+            progressIndicator.textContent = `${currentIndex + 1}/${currentCards.length}`;
+            flashcardElement.classList.remove('flipped');
+            isFlipped = false;
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex === currentCards.length - 1;
+            flipButton.disabled = false;
         }
-        ],
-        "Coloração e Planaridade": [
-        {
-            q: "O que é o problema da **coloração de grafos**?",
-            a: "Consiste em atribuir cores aos vértices de modo que dois vértices adjacentes (vizinhos) **nunca tenham a mesma cor**."
-        },
-        {
-            q: "O que diz o **Teorema das Quatro Cores**?",
-            a: "Afirma que qualquer mapa (representado como um grafo planar) pode ser colorido com no máximo **quatro cores**."
-        },
-        {
-            q: "O que é o **número cromático**?",
-            a: "É o **menor número de cores** necessárias para colorir um grafo de acordo com as regras de coloração."
-        },
-        {
-            q: "O que é um **Grafo Planar**?",
-            a: "É um grafo que pode ser desenhado em um plano **sem que nenhuma de suas arestas se cruze**."
-        },
-        {
-            q: "Qual teoria ajuda a verificar se um grafo possui cruzamentos?",
-            a: "A Teoria dos Grafos Planos, especialmente o **Teorema de Kuratowski**, que usa os grafos $K_5$ e $K_{3,3}$ como base para a não-planaridade."
-        },
-        {
-            q: "Qual a relação entre grafos **completos** e **cruzamento de arestas**?",
-            a: "Qualquer grafo completo com 5 ou mais vértices (ex: $K_5$, $K_6$) é **sempre não-planar**, sendo impossível desenhá-lo sem cruzar arestas."
+
+        function flipCard() {
+            if (currentCards.length === 0) return;
+            isFlipped = !isFlipped;
+            flashcardElement.classList.toggle('flipped', isFlipped);
         }
-        ],
-        "Caminhos e Ciclos Especiais": [
-        {
-            q: "Quando um grafo possui um **Circuito Euleriano**?",
-            a: "Quando o grafo é conexo e **todos os seus vértices têm grau par**. Um circuito euleriano passa por todas as arestas uma vez e volta ao início."
-        },
-        {
-            q: "O que é um **Ciclo Hamiltoniano**?",
-            a: "É um ciclo que visita **todos os vértices** de um grafo exatamente uma vez, começando e terminando no mesmo vértice."
-        },
-        {
-            q: "O **Problema do Caixeiro-Viajante** está relacionado a qual conceito?",
-            a: "Está relacionado à busca por um **ciclo hamiltoniano** que também **minimiza a distância total** percorrida."
+
+        function nextCard() {
+            if (currentIndex < currentCards.length - 1) {
+                currentIndex++;
+                updateCardContent();
+            }
         }
-        ],
-        "Isomorfismo e Aplicações": [
-        {
-            q: "Como é possível identificar se dois grafos representam a **mesma estrutura**?",
-            a: "Através da teoria do **isomorfismo**, que verifica se existe uma correspondência entre os vértices que preserva as conexões (arestas)."
-        },
-        {
-            q: "Existe um algoritmo eficiente (tempo polinomial) para determinar se dois grafos são **isomorfos**?",
-            a: "Não, é um problema famoso para o qual **não se conhece um algoritmo determinístico de tempo polinomial** (problema GI)."
-        },
-        {
-            q: "Quando o algoritmo de **Huffman** funciona bem para compactação?",
-            a: "Funciona bem quando a **frequência dos caracteres** em um conjunto de dados **varia bastante** entre si."
-        },
-        {
-            q: "Qual a relação entre a frequência de um caractere e o tamanho do seu código de **Huffman**?",
-            a: "Quanto **mais frequente** é o caractere, **menor** será o código binário atribuído a ele, e vice-versa."
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCardContent();
+            }
         }
-        ]
-    };
 
-
-    // Variáveis de estado global
-    let currentCategory = null;
-    let currentCards = [];
-    let currentIndex = 0;
-    let isFlipped = false;
-
-    // Elementos do DOM
-    const topicSelect = document.getElementById('topic-select');
-    const flashcardElement = document.getElementById('flashcard');
-    const cardFront = document.getElementById('card-front');
-    const cardBack = document.getElementById('card-back');
-    const flipButton = document.getElementById('flip-button');
-    const prevButton = document.getElementById('prev-button');
-    const nextButton = document.getElementById('next-button');
-    const progressIndicator = document.getElementById('progress-indicator');
-
-    // Função para renderizar o KaTeX
-    function renderKaTeX(element) {
-      // Encontra e renderiza qualquer conteúdo entre '$'
-      const content = element.innerHTML;
-      const replacedContent = content.replace(/\$(.*?)\$/g, (match, expression) => {
-        try {
-          return katex.renderToString(expression.trim(), {
-            throwOnError: false,
-            displayMode: false
-          });
-        } catch (e) {
-          console.error("KaTeX rendering error:", e);
-          return match; // Retorna o original em caso de erro
+        function loadCategory(categoryName) {
+            currentCategory = categoryName;
+            currentCards = flashcardData[categoryName] || [];
+            currentIndex = 0;
+            updateCardContent();
         }
-      });
-      element.innerHTML = replacedContent;
-    }
 
-    // Função para atualizar o conteúdo do cartão
-    function updateCardContent() {
-      if (currentCards.length === 0) {
-        // Conteúdo padrão é envolvido por <p>, o que funciona bem com flex
-        cardFront.innerHTML = '<p class="text-gray-400">Selecione um tópico para começar!</p>';
-        cardBack.innerHTML = '<p>Resposta</p>';
-        progressIndicator.textContent = '0/0';
-        return;
-      }
+        document.addEventListener('DOMContentLoaded', () => {
+            Object.keys(flashcardData).forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                topicSelect.appendChild(option);
+            });
 
-      const card = currentCards[currentIndex];
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "--- Selecione um Tópico ---";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            topicSelect.prepend(defaultOption);
 
-      // 1. Limpa e define o conteúdo, substituindo ** por <strong>
-      const frontText = card.q.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      const backText = card.a.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            topicSelect.addEventListener('change', (e) => {
+                loadCategory(e.target.value);
+            });
 
-      // 2. ENVOLVE O CONTEÚDO EM UMA ÚNICA DIV (card-content-wrapper)
-      // Isso garante que o Flexbox na .card-face trate TUDO como um único bloco centralizado.
-      cardFront.innerHTML = `<div class="card-content-wrapper">${frontText}</div>`;
-      cardBack.innerHTML = `<div class="card-content-wrapper">${backText}</div>`;
+            flipButton.addEventListener('click', flipCard);
+            nextButton.addEventListener('click', nextCard);
+            prevButton.addEventListener('click', prevCard);
 
-      // 3. Renderiza KaTeX na frente e no verso, mirando no novo wrapper
-      if (typeof katex !== 'undefined') {
-        const frontWrapper = cardFront.querySelector('.card-content-wrapper');
-        const backWrapper = cardBack.querySelector('.card-content-wrapper');
+            document.addEventListener('keydown', (e) => {
+                if (currentCards.length === 0) return;
+                if (e.key === 'ArrowRight') {
+                    nextCard();
+                } else if (e.key === 'ArrowLeft') {
+                    prevCard();
+                } else if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    flipCard();
+                }
+            });
 
-        if (frontWrapper) renderKaTeX(frontWrapper);
-        if (backWrapper) renderKaTeX(backWrapper);
-      }
-
-      progressIndicator.textContent = `${currentIndex + 1}/${currentCards.length}`;
-
-      // Resetar o estado da virada
-      flashcardElement.classList.remove('flipped');
-      isFlipped = false;
-
-      // Atualizar estado dos botões de navegação
-      prevButton.disabled = currentIndex === 0;
-      nextButton.disabled = currentIndex === currentCards.length - 1;
-      flipButton.disabled = false;
-    }
-
-    // Função para virar o cartão
-    function flipCard() {
-      if (currentCards.length === 0) return;
-      isFlipped = !isFlipped;
-      flashcardElement.classList.toggle('flipped', isFlipped);
-    }
-
-    // Função para carregar o próximo cartão
-    function nextCard() {
-      if (currentIndex < currentCards.length - 1) {
-        currentIndex++;
-        updateCardContent();
-      }
-    }
-
-    // Função para carregar o cartão anterior
-    function prevCard() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateCardContent();
-      }
-    }
-
-    // Função para carregar um novo tópico
-    function loadCategory(categoryName) {
-      currentCategory = categoryName;
-      currentCards = flashcardData[categoryName] || [];
-      currentIndex = 0;
-      updateCardContent();
-    }
-
-    // Inicialização
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Preencher o dropdown de tópicos
-      Object.keys(flashcardData).forEach(topic => {
-        const option = document.createElement('option');
-        option.value = topic;
-        option.textContent = topic;
-        topicSelect.appendChild(option);
-      });
-
-      // Adicionar opção inicial
-      const defaultOption = document.createElement('option');
-      defaultOption.value = "";
-      defaultOption.textContent = "--- Selecione um Tópico ---";
-      defaultOption.disabled = true;
-      defaultOption.selected = true;
-      topicSelect.prepend(defaultOption);
-
-      // 2. Adicionar ouvintes de eventos
-      topicSelect.addEventListener('change', (e) => {
-        loadCategory(e.target.value);
-      });
-
-      flipButton.addEventListener('click', flipCard);
-      nextButton.addEventListener('click', nextCard);
-      prevButton.addEventListener('click', prevCard);
-
-      // Adicionar suporte para navegação por teclado (setas)
-      document.addEventListener('keydown', (e) => {
-        if (currentCards.length === 0) return;
-
-        if (e.key === 'ArrowRight') {
-          nextCard();
-        } else if (e.key === 'ArrowLeft') {
-          prevCard();
-        } else if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault(); // Evita scroll da página com espaço
-          flipCard();
-        }
-      });
-
-      // Inicializa com o estado padrão
-      updateCardContent();
-    });
-  </script>
+            updateCardContent();
+        });
+    </script>
 </body>
 
 </html>
