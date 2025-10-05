@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flashcards de Teoria dos Grafos</title>
-  <!-- Carregamento do Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -108,7 +107,6 @@
       /* Garante que o texto seja centralizado dentro do wrapper */
     }
   </style>
-  <!-- Carregamento do KaTeX (para renderizar LaTeX) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 </head>
@@ -119,35 +117,28 @@
     <h1 class="text-3xl font-bold text-white text-center mb-6">Flashcards: Teoria dos Grafos</h1>
     <p class="text-center text-gray-400 mb-8">Estude os conceitos fundamentais da Teoria dos Grafos.</p>
 
-    <!-- Seleção de Tópico -->
     <div class="mb-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
       <label for="topic-select" class="text-lg font-medium text-gray-300">Escolha o Tópico:</label>
       <select id="topic-select"
         class="p-3 bg-gray-700 text-white border border-gray-600 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500 w-full sm:w-auto">
-        <!-- Opções serão preenchidas via JS -->
-      </select>
+        </select>
     </div>
 
-    <!-- Container do Flashcard -->
     <div class="card-container mb-6">
       <div id="flashcard" class="flashcard">
-        <!-- Frente do Card -->
         <div id="card-front" class="card-face card-front shadow-lg">
           <p class="text-gray-400">Selecione um tópico para começar!</p>
         </div>
-        <!-- Verso do Card -->
         <div id="card-back" class="card-face card-back shadow-lg">
           <p>Resposta</p>
         </div>
       </div>
     </div>
 
-    <!-- Indicador de Progresso -->
     <div class="text-center mb-6 text-gray-400 font-medium" id="progress-indicator">
       0/0
     </div>
 
-    <!-- Botões de Ação -->
     <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-center sm:space-x-4">
       <button id="prev-button"
         class="bg-gray-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all hover:bg-gray-700 disabled:opacity-50"
@@ -170,153 +161,110 @@
   <script>
     // Dados dos flashcards totalmente revisados e expandidos
     const flashcardData = {
-      "Conceitos Básicos de Grafos": [
+        "Conceitos Fundamentais": [
         {
-          q: "O que é um **Grafo**?",
-          a: "É uma estrutura matemática composta por um conjunto de **vértices (nós)** e um conjunto de **arestas (arcos)**, que representam as relações entre esses elementos."
+            q: "O que é um **Grafo**?",
+            a: "É um conjunto de **nós** (ou vértices) e um conjunto de **arcos** (ou arestas) que conectam pares desses nós."
         },
         {
-          q: "O que são **Vértices** (ou Nós)?",
-          a: "São os elementos fundamentais do grafo, que representam os objetos ou entidades do problema (ex: pessoas, cidades)."
+            q: "Qual a diferença entre um grafo **direcionado** e um **não-direcionado**?",
+            a: "Em um grafo **não-direcionado**, as arestas são mútuas (como amizade). Em um **direcionado**, as arestas têm um sentido (como seguir alguém)."
         },
         {
-          q: "O que são **Arestas** (ou Arcos)?",
-          a: "São as conexões ou ligações entre os vértices, indicando a existência de uma relação (ex: rota, amizade)."
+            q: "O que caracteriza um **Grafo Ponderado**?",
+            a: "É aquele em que cada aresta possui um valor numérico associado, como distância, custo ou tempo."
         },
         {
-          q: "O que é um **Grafo Ponderado**?",
-          a: "Um grafo onde cada aresta possui um valor numérico associado, conhecido como **peso** (ex: custo, distância, tempo)."
+            q: "O que é um **Grafo Simples**?",
+            a: "É um tipo de grafo que **não possui laços** (arestas que conectam um vértice a si mesmo) nem arestas múltiplas."
         },
         {
-          q: "Qual a diferença entre grafo **Cíclico** e **Acíclico**?",
-          a: "Um grafo **cíclico** possui pelo menos um caminho fechado (ciclo). Um grafo **acíclico** não possui ciclos."
-        },
-      ],
-      "Tipos e Propriedades de Grafos": [
-        {
-          q: "O que é um **Grafo Não-Direcionado**?",
-          a: "As arestas são bidirecionais (não têm direção). A relação entre os vértices é mútua."
+            q: "O que é um **Grafo Conexo**?",
+            a: "É um grafo onde existe um caminho entre **qualquer par de vértices**. Se não existir, o grafo é desconexo."
         },
         {
-          q: "O que é um **Grafo Direcionado** (Dígrafo)?",
-          a: "As arestas possuem direção (**arcos**). A conexão de um vértice para outro não implica, obrigatoriamente, a conexão inversa."
+            q: "O que é o **grau de um vértice**?",
+            a: "É a quantidade de arestas que estão ligadas a ele. Em grafos direcionados, divide-se em grau de **entrada** e de **saída**."
         },
         {
-          q: "O que é um **Grafo Simples**?",
-          a: "É um grafo sem **laços** (arestas que conectam um vértice a ele mesmo) e sem **arestas múltiplas** (mais de uma aresta ligando o mesmo par de vértices)."
-        },
-        {
-          q: "O que é um **Grafo Conexo**?",
-          a: "É um grafo onde existe um caminho entre qualquer par de seus vértices. Caso contrário, é um grafo **desconexo**."
-        },
-        {
-          q: "O que é um **Grafo Completo** ($K_n$)?",
-          a: "Um grafo simples em que cada par de vértices distintos está conectado por uma aresta única."
-        },
-        {
-          q: "O que é um **Grafo Planar**?",
-          a: "Um grafo que pode ser desenhado em um plano sem que nenhuma de suas arestas se cruze."
-        },
-        {
-          q: "O que é um **Grafo Bipartido**?",
-          a: "É um grafo cujos vértices podem ser divididos em dois conjuntos, $U$ e $V$, de forma que cada aresta conecta um vértice de $U$ a um vértice de $V$ (não há arestas dentro de $U$ ou dentro de $V$)."
-        },
-        {
-          q: "O que é um **Multigrafo**?",
-          a: "É um grafo que permite a existência de **arestas múltiplas** (mais de uma aresta entre o mesmo par de vértices) ou **laços** (arestas que ligam um vértice a si mesmo)."
-        },
-        {
-          q: "O que é uma **Árvore (Tree)**?",
-          a: "É um grafo não-direcionado **conexo** e **acíclico** (não possui ciclos). Tem exatamente $V-1$ arestas, onde $V$ é o número de vértices."
-        },
-        {
-          q: "O que é uma **Floresta (Forest)**?",
-          a: "É um grafo não-direcionado **acíclico** (sem ciclos) que pode ser desconexo. Cada componente conexa de uma floresta é uma **árvore**."
+            q: "O que é um **ciclo** em um grafo?",
+            a: "É um caminho que começa e termina no mesmo nó. Um grafo com ciclos é **cíclico**; um sem ciclos é **acíclico**."
         }
-      ],
-      "Graus e Conexões": [
+        ],
+        "Busca em Grafos": [
         {
-          q: "O que são **Vértices adjacentes**?",
-          a: "São vértices que estão conectados diretamente por uma aresta em comum."
+            q: "Quais as vantagens e desvantagens da **Busca em Largura (BFS)** vs. **Busca em Profundidade (DFS)**?",
+            a: "BFS encontra o caminho mais curto (em arestas) e lida bem com ciclos, mas usa mais memória (fila). DFS é mais simples e usa menos memória (pilha/recursão), mas pode não encontrar o caminho mais curto e precisa de controle de 'visitados' para evitar loops."
         },
         {
-          q: "O que é o **Grau de um vértice**?",
-          a: "O número total de arestas que incidem sobre ele (aplicável em grafos não-direcionados)."
+            q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?",
+            a: "Uma **Pilha (Stack)**, geralmente implementada por meio de **recursão**."
         },
         {
-          q: "O que é o **Grau de entrada** de um vértice?",
-          a: "O número de **arcos** que chegam ao vértice (usado em dígrafos)."
-        },
-        {
-          q: "O que é o **Grau de saída** de um vértice?",
-          a: "O número de **arcos** que partem do vértice (usado em dígrafos)."
-        },
-        {
-          q: "O que é o **Comprimento do caminho**?",
-          a: "É o número de arestas que compõem o caminho percorrido no grafo."
-        },
-      ],
-      "Ciclos e Traços Especiais": [
-        {
-          q: "O que é um **Caminho Euleriano**?",
-          a: "É um caminho que visita **todas as arestas** do grafo exatamente uma vez."
-        },
-        {
-          q: "O que é um **Circuito Euleriano**?",
-          a: "É um Caminho Euleriano que tem o mesmo vértice inicial e final. Um grafo que possui um circuito Euleriano é chamado de **Grafo Euleriano**."
-        },
-        {
-          q: "O que é um **Ciclo Hamiltoniano**?",
-          a: "É um ciclo que visita **todos os vértices** do grafo exatamente uma vez, exceto o vértice inicial/final."
+            q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?",
+            a: "Uma **Fila (Queue)**, pois visita o grafo em camadas de distância (FIFO)."
         }
-      ],
-      "Representação e Fechamento Transitivo": [
+        ],
+        "Coloração e Planaridade": [
         {
-          q: "Como a **Matriz de Adjacência** representa a existência de um arco de $i$ para $j$?",
-          a: "A posição $M[i][j]$ é $1$ (ou $true$) se o arco existir, e $0$ (ou $false$) se não existir."
+            q: "O que é o problema da **coloração de grafos**?",
+            a: "Consiste em atribuir cores aos vértices de modo que dois vértices adjacentes (vizinhos) **nunca tenham a mesma cor**."
         },
         {
-          q: "Qual o significado do valor $M^k[i][j]$ na **Matriz de Adjacência** elevada à potência $k$?",
-          a: "O valor representa o **número de caminhos** que existem entre o vértice $i$ e o vértice $j$ com um **comprimento exato de $k$** arestas/arcos."
+            q: "O que diz o **Teorema das Quatro Cores**?",
+            a: "Afirma que qualquer mapa (representado como um grafo planar) pode ser colorido com no máximo **quatro cores**."
         },
         {
-          q: "O que é o **Fechamento Transitivo** de um grafo?",
-          a: "É a matriz booleana que indica a existência de **qualquer caminho** (direto ou indireto) entre cada par de vértices do grafo."
+            q: "O que é o **número cromático**?",
+            a: "É o **menor número de cores** necessárias para colorir um grafo de acordo com as regras de coloração."
+        },
+        {
+            q: "O que é um **Grafo Planar**?",
+            a: "É um grafo que pode ser desenhado em um plano **sem que nenhuma de suas arestas se cruze**."
+        },
+        {
+            q: "Qual teoria ajuda a verificar se um grafo possui cruzamentos?",
+            a: "A Teoria dos Grafos Planos, especialmente o **Teorema de Kuratowski**, que usa os grafos $K_5$ e $K_{3,3}$ como base para a não-planaridade."
+        },
+        {
+            q: "Qual a relação entre grafos **completos** e **cruzamento de arestas**?",
+            a: "Qualquer grafo completo com 5 ou mais vértices (ex: $K_5$, $K_6$) é **sempre não-planar**, sendo impossível desenhá-lo sem cruzar arestas."
         }
-      ],
-      "Algoritmos de Caminho e Conectividade": [
+        ],
+        "Caminhos e Ciclos Especiais": [
         {
-          q: "Qual o objetivo principal do **Algoritmo de Warshall**?",
-          a: "Calcular o **Fechamento Transitivo** de um grafo de forma eficiente, usando uma abordagem de programação dinâmica."
+            q: "Quando um grafo possui um **Circuito Euleriano**?",
+            a: "Quando o grafo é conexo e **todos os seus vértices têm grau par**. Um circuito euleriano passa por todas as arestas uma vez e volta ao início."
         },
         {
-          q: "Qual a função do **Algoritmo de Dijkstra**?",
-          a: "Encontrar o **caminho mais curto** entre um nó de origem e todos os outros nós em um **grafo com pesos não-negativos**."
+            q: "O que é um **Ciclo Hamiltoniano**?",
+            a: "É um ciclo que visita **todos os vértices** de um grafo exatamente uma vez, começando e terminando no mesmo vértice."
         },
         {
-          q: "No Algoritmo de Dijkstra, o que representa o conjunto de vértices com distância **permanente**?",
-          a: "Representa os vértices para os quais a **distância mínima** a partir da origem já foi calculada e **finalizada** (permanente), garantindo que não será mais alterada."
+            q: "O **Problema do Caixeiro-Viajante** está relacionado a qual conceito?",
+            a: "Está relacionado à busca por um **ciclo hamiltoniano** que também **minimiza a distância total** percorrida."
         }
-      ],
-      "Travessia e Coloração": [
+        ],
+        "Isomorfismo e Aplicações": [
         {
-          q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?",
-          a: "Uma **Pilha (Stack)**, geralmente implementada por meio de **recursão**."
+            q: "Como é possível identificar se dois grafos representam a **mesma estrutura**?",
+            a: "Através da teoria do **isomorfismo**, que verifica se existe uma correspondência entre os vértices que preserva as conexões (arestas)."
         },
         {
-          q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?",
-          a: "Uma **Fila (Queue)**, pois visita o grafo em camadas de distância (FIFO)."
+            q: "Existe um algoritmo eficiente (tempo polinomial) para determinar se dois grafos são **isomorfos**?",
+            a: "Não, é um problema famoso para o qual **não se conhece um algoritmo determinístico de tempo polinomial** (problema GI)."
         },
         {
-          q: "Qual algoritmo (*DFS* ou *BFS*) garante encontrar o menor caminho em termos de número de arestas?",
-          a: "A **Busca em Largura (BFS)**, pois processa todos os vizinhos de um nível antes de avançar para o próximo, garantindo a menor profundidade."
+            q: "Quando o algoritmo de **Huffman** funciona bem para compactação?",
+            a: "Funciona bem quando a **frequência dos caracteres** em um conjunto de dados **varia bastante** entre si."
         },
         {
-          q: "O que afirma o **Teorema das Quatro Cores**?",
-          a: "Afirma que, para colorir qualquer **grafo planar** (como um mapa), bastam no máximo **quatro cores**, de forma que vértices adjacentes sempre tenham cores diferentes."
+            q: "Qual a relação entre a frequência de um caractere e o tamanho do seu código de **Huffman**?",
+            a: "Quanto **mais frequente** é o caractere, **menor** será o código binário atribuído a ele, e vice-versa."
         }
-      ]
+        ]
     };
+
 
     // Variáveis de estado global
     let currentCategory = null;
