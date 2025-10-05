@@ -62,6 +62,13 @@
             margin-bottom: 0.75rem;
             color: #d1d5db; /* gray-300 */
         }
+        #theory-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #d1d5db; /* gray-300 */
+        }
         #theory-content p, #theory-content ul {
             font-size: 1rem;
             line-height: 1.6;
@@ -499,9 +506,6 @@
                       <li>Explora os vizinhos do nó atual, sempre que possível, seguindo um caminho até que não haja mais nós não visitados neste caminho.</li>
                       <li>Quando um nó não tem mais vizinhos não visitados, o algoritmo retrocede para o nó anterior e continua a explorar outros ramos.</li>
                     </ul>
-                    <img src="src/assets/images/imagem29.png" class="block mx-auto my-4 rounded-md border border-slate-600">
-                    <img src="src/assets/images/imagem31.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-                    <P>Busca em profundidade no grafo da imagem acima: ABEFCGHDIJ</P>
                     <p>
                         Será considerado que a tarefa do procedimento de travessia consiste em a partir de um
                         determinado vértice (neste exemplo “0”) visitar (processar) todos os outros vértices. Considere a
@@ -548,8 +552,19 @@
                         É possível perceber que esse processo pode ser implementado de maneira muito simples
                         utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
                     </p>
+                    <h4>Exemplo</h4>
+                    <img src="src/assets/images/imagem31.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <P>Busca em profundidade no grafo da imagem acima: ABEFCGHDIJ</P>
+                    <h4>Algoritmo</h4>
+                    <img src="src/assets/images/imagem29.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
                     <h3 id="bfs">Busca em Largura (BFS)</h3>
                     <p>A busca em largura utiliza internamente uma estrutura de <strong>fila</strong> para armazenar os nós já visitados.</p>
+
+                    <h4>Exemplo</h4>
+                    <img src="src/assets/images/imagem31.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <P>Busca em largura no grafo da imagem acima: ABCDEFGHIJ</P>
+                    <h4>Algoritmo</h4>
+                    <img src="src/assets/images/imagem30.png" class="w-3/5 block mx-auto my-4 rounded-md border border-slate-600">
                     <p>1. Se a fila de vértices não está vazia então</p>
                     <ul>
                         <li>1.1. Remover o vértice i que está na fila // note-se que uma fila sempre remove o primeiro elemento</li>
@@ -557,9 +572,6 @@
                         <li>1.3. Adicionar os vértices adjacentes a i na fila // um nó só é adicionado se ele já não foi visitado</li>
                         <li>1.4. Executar o procedimento 1 sobre a fila atualizada</li>
                     </ul>
-                    <img src="src/assets/images/imagem30.png" class="block mx-auto my-4 rounded-md border border-slate-600">
-                    <img src="src/assets/images/imagem31.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-                    <P>Busca em largura no grafo da imagem acima: ABCDEFGHIJ</P>
                     <p>
                         É importante ressaltar que na primeira chamada do algoritmo a fila contém um único vértice que
                         é o vértice inicial.
@@ -588,10 +600,65 @@
 
                     <h3>Exercício</h3>
                     <p>
-                        A partir do Grafo a seguir mostrar a seqüência com que os vértices são visitados executando
+                        1) A partir do Grafo a seguir mostrar a seqüência com que os vértices são visitados executando
                         tanto busca em largura quanto busca em profundidade a partir do vértice A:
                     </p>
                     <img src="src/assets/images/imagem19.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p><strong>Profundidade: </strong>A → C → G → B → E → F → H → D</p>
+                    <p><strong>Largura: </strong>A → C → D → G → B → F → E → H</p>
+
+                    <p>
+                      <strong>
+                        2) As formas de busca Profundidade e Largura permitem navegação em um grafo de maneira não informada, ou seja, ignorando o custo que pode estar associado às arestas ou mesmo em grafos não ponderados. Escreva um parágrafo descrevendo o funcionamento de cada uma dessas estratégias de busca, quais estruturas de dados elas necessitam e como elas são utilizadas durante o processo de busca.
+                      </strong>
+                    </p>
+
+                    <p>
+                      A Busca em Largura (BFS) explora o grafo nível por nível, garantindo que todos os vizinhos de um nó sejam visitados antes de se mover para os vizinhos dos vizinhos. Para gerenciar essa ordem, a BFS utiliza uma estrutura de dados Fila, onde os nós são adicionados à parte traseira e removidos da frente, assegurando que o nó visitado há mais tempo, e, portanto, mais próximo da origem, seja o próximo a ser expandido. Por outro lado, a Busca em Profundidade (DFS) explora o grafo o mais profundamente possível em cada ramificação antes de retroceder. Ela prioriza ir o mais longe possível a partir do nó atual, e para gerenciar os nós a serem visitados, a DFS utiliza uma estrutura de dados Pilha. O nó é adicionado e removido do topo da pilha, o que faz com que o nó visitado mais recentemente seja o próximo a ser expandido, impulsionando a busca para uma profundidade maior. Ambas as estratégias utilizam um conjunto ou array de nós visitados para evitar o processamento de um nó múltiplas vezes e a formação de loops infinitos.
+                    </p>
+
+                    <p>
+                      <strong>
+                        3) Escreva um Pseudo-Código ou código em JAVA para cada uma dessas estratégias.
+                      </strong>
+                    </p>
+                    <img src="src/assets/images/imagem33.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                    <img src="src/assets/images/imagem34.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+
+                    <p>
+                      <strong>
+                        4) A partir dos Grafos abaixo, mostre a sequência gerada pelos caminhamentos de Profundidade e Largura considerando a ordem lexicográfica como escolha dos vértices adjacentes e iniciando as travessias no vértice 1.
+                      </strong>
+                    </p>
+                    <img src="src/assets/images/imagem35.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Profundidade: 1,2,3,4,8,7,5,6
+                    </p>
+                    <p>
+                      Largura: 1,2,5,3,4,7,8,6
+                    </p>
+                    <img src="src/assets/images/imagem36.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Profundidade: 1,2,3,5,4,6
+                    </p>
+                    <p>
+                      Largura: 1,2,3,4,5,6 (coincidência estar ordenado)
+                    </p>
+                    <img src="src/assets/images/imagem37.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Profundidade: 1,2,3,6,5,4,7
+                    </p>
+                    <p>
+                      Largura: 1,2,4,5,3,6,7
+                    </p>
+                    <img src="src/assets/images/imagem38.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <p>
+                      Profundidade: 1,4,2,5,3,6
+                    </p>
+                    <p>
+                      Largura: 1,4,5,2,3,6
+                    </p>
+
 
                     <h2>Coloracão em Grafos</h2>
                       <strong>1) O que é o problema da coloração?</strong>
@@ -629,7 +696,23 @@
                       O teorema das quatro cores estabelece que o número cromático de qualquer
                       grafo simples, conexo e planar é no máximo 4.
                       </p>
-
+                      <p>
+                        <strong>
+                          6)Como um mapa pode ser representado na forma de um Grafo e quais características esse grafo possui?
+                        </strong>
+                      </p>
+                      <p>
+                        R: Representando cada região como se fosse um nó, e uma aresta interligando elas caso façam fronteira.
+                      </p>
+                      <p>
+                        <strong>
+                          6)Como um mapa pode ser representado na forma de um Grafo e quais características esse grafo possui?
+                        </strong>
+                      </p>
+                      <p>
+                          7) Desenhe o grafo dual do mapa abaixo e encontre o seu número cromático.
+                      </p>
+                      <p>R: Número cromático = 4</p>
                       <h2>Aplicações de Grafos</h2>
 
                         <strong>1) Qual teoria da Teoria dos Grafos permite identificar que 2 grafos representam a mesma
@@ -752,13 +835,7 @@
                       <p>
                         R: Usando o grafo homeomorfo K3,3.
                       </p>
-                      <img src="src/assets/images/imagem25.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
-
-                      <p>
-                        <strong>
-                          FALTANTE Metodologia Ativa 26/08/2025: Fechamento Transitivo e Melhor Caminho
-                        </strong>
-                      </p>
+                      <img src="src/assets/images/imagem25.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                       <p>
                         <code><strong>Contexto:</strong> Uma empresa foi contratada para estabelecer conexão de fibra ótica
                         entre algumas cidades. A tubulação subterrânea já foi instalada anteriormente e
@@ -851,8 +928,81 @@
                       <p><strong>5) Qual problema da teoria dos Grafos possui aderência à rota que responde o item 3 e ainda minimiza a distância percorrida?</strong></p>
                       <p>R: Problema do Caixeiro-Viajante.</p>
 
+                      <h2>Algoritmo de Huffman</h2>
+                      <h3>Exercícios</h3>
+                      <p>
+                        <code>
+                          <strong>Contexto:</strong> Uma árvore é um tipo particular de grafo com as seguintes características: simples, conexo e acíclico. Essa atividade visa explorar uma aplicação de árvore conhecida como Árvore de Huffman.
+                          <strong>Problema:</strong> deseja-se desenvolver um programa compactador de arquivo baseado nos códigos de Huffman. Para isso, responda os ítens a seguir.
+                        </code>
+                      </p>
+                      <p>
+                        <strong>
+                          1) Crie um diagrama de blocos, atividades ou fluxograma que ilustre as etapas de execução necessárias para o desenvolvimento do programa compactador.
+                        </strong>
+                      </p>
+                      <P>
+                        R: Será demonstrado um compactador de texto.
+                      </P>
+                      <img src="src/assets/images/imagem40.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                      <p>
+                        <strong>
+                          2) Em quais situações espera-se que os códigos de Huffman funcionem bem e em quais situações se espera que ele não funcione bem?
+                        </strong>
+                      </p>
+                      <p>
+                        R: Espera-se que ele tenha bons resultados quando a frequência de caracteres (usando o exemplo da última questão) varie bastante de um para o outro. Se a frequência fosse igual ou muito próxima, o algoritmo de Huffman não surtiria efeito na compactação dos arquivos.
+                      </p>
+                      <p>
+                        <strong>
+                          3) Qual a relação entre o tamanho de um código e a frequência de um caracter correspondente?
+                        </strong>
+                      </p>
+                      <p>
+                        R: quanto mais frequente o caractere, menor o código, e vice versa.
+                      </p>
+                      <p>
+                        <strong>
+                          4) Descreva sucintamente a execução do Algoritmo de Huffman.
+                        </strong>
+                      </p>
+                      <ul>
+                          <li>R: Primeiro, o algoritmo analisa todo o conteúdo do arquivo para contar quantas vezes cada caractere (ou símbolo) aparece.</li>
 
+                          <li>Para cada caractere, é criado um "nó" de árvore contendo o próprio caractere e sua frequência.
+                          Utilizando uma fila de prioridade, o algoritmo repetidamente executa o seguinte processo:</li>
 
+                          <li>Pega os dois nós (ou sub-árvores) com as menores frequências.</li>
+
+                          <li>Junta os dois, criando um novo nó pai cuja frequência é a soma das frequências de seus filhos.</li>
+
+                          <li>Insere este novo nó de volta na fila.
+                          <li>Isso continua até que reste apenas um único nó, que é a raiz da Árvore de Huffman completa.</li>
+
+                          <li>Com a árvore montada, os códigos binários são definidos pelo caminho da raiz até cada caractere (folha). Convencionalmente, descer para a esquerda adiciona um '0' ao código, e descer para a direita adiciona um '1'.</li>
+                      </ul>
+                      <p>
+                        <strong>
+                          5) Assumindo que o algoritmo foi executado e a árvore gerada, descreva os processos de codificação de uma string e decodificação de uma sequência de bits
+                        </strong>
+                      </p>
+
+                      <ul>
+                          <li>Codificar (Texto → Bits):<br>
+                          Troca-se cada letra do texto pelo seu código binário (ex: A vira 01, B vira 110) e junta em uma única sequência de bits.</li>
+
+                          <li>Decodificar (Bits → Texto):<br>
+                          Utiliza-se os bits como um mapa para caminhar na árvore, começando do topo. Cada 0 significa "vá para a esquerda" e cada 1 "vá para a direita". Quando você chega em uma folha, encontra uma letra.</li>
+                      </ul>
+
+                      <p>
+                        <strong>
+                          6) A partir da tabela a seguir, encontre os códigos de Huffman correspondentes, a árvore de Huffman e faça a codificação da string “grafo” e a decodificação da sequência de bits gerada a partir dessa string
+                        </strong>
+                      </p>
+                      <p>Números em azul preenchidos após o procedimento.</p>
+                      <img src="src/assets/images/imagem41.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                      <img src="src/assets/images/imagem39.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
 
 
 
