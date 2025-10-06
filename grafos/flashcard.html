@@ -135,29 +135,28 @@
     </div>
 
     <script>
-        // O código JavaScript permanece o mesmo, sem necessidade de alterações
         const flashcardData = {
             "Conceitos Fundamentais": [
-                { q: "O que é um **Grafo**?", a: "É um conjunto de **nós** (ou vértices) e um conjunto de **arcos** (ou arestas) que conectam pares desses nós." },
-                { q: "Qual a diferença entre um grafo **direcionado** e um **não-direcionado**?", a: "Em um grafo **não-direcionado**, as arestas são mútuas (como amizade). Em um **direcionado**, as arestas têm um sentido (como seguir alguém)." },
-                { q: "O que caracteriza um **Grafo Ponderado**?", a: "É aquele em que cada aresta possui um valor numérico associado, como distância, custo ou tempo." },
+                { q: "O que é um **Grafo**?", a: "É um conjunto de **nós** (ou vértices) e um conjunto de **arestas** que conectam pares desses nós." },
+                { q: "Qual a diferença entre um grafo **direcionado** e um **não-direcionado**?", a: "Em um grafo **não-direcionado**, as arestas são mútuas. Em um **direcionado**, as arestas têm um sentido." },
+                { q: "O que caracteriza um **Grafo Ponderado**?", a: "As arestas possuem um valor numérico." },
                 { q: "O que é um **Grafo Simples**?", a: "É um tipo de grafo que **não possui laços** (arestas que conectam um vértice a si mesmo) nem arestas múltiplas." },
-                { q: "O que é um **Grafo Conexo**?", a: "É um grafo onde existe um caminho entre **qualquer par de vértices**. Se não existir, o grafo é desconexo." },
-                { q: "O que é o **grau de um vértice**?", a: "É a quantidade de arestas que estão ligadas a ele. Em grafos direcionados, divide-se em grau de **entrada** e de **saída**." },
-                { q: "O que é um **ciclo** em um grafo?", a: "É um caminho que começa e termina no mesmo nó. Um grafo com ciclos é **cíclico**; um sem ciclos é **acíclico**." }
+                { q: "O que é um **Grafo Conexo**?", a: "É um grafo onde existe um caminho entre **qualquer par de vértices**." },
+                { q: "O que é o **grau de um vértice**?", a: "Quantidade de arestas que estão ligadas a ele." },
+                { q: "O que é um **ciclo** em um grafo?", a: "É um caminho que começa e termina no mesmo nó." }
             ],
             "Busca em Grafos": [
                 { q: "Quais as vantagens e desvantagens da **Busca em Largura (BFS)** vs. **Busca em Profundidade (DFS)**?", a: "BFS encontra o caminho mais curto (em arestas) e lida bem com ciclos, mas usa mais memória (fila). DFS é mais simples e usa menos memória (pilha/recursão), mas pode não encontrar o caminho mais curto e precisa de controle de 'visitados' para evitar loops." },
-                { q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?", a: "Uma **Pilha (Stack)**, geralmente implementada por meio de **recursão**." },
-                { q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?", a: "Uma **Fila (Queue)**, pois visita o grafo em camadas de distância (FIFO)." }
+                { q: "Qual a estrutura de dados central na **Busca em Profundidade (DFS)**?", a: "Uma **Pilha**, geralmente implementada por meio de **recursão**." },
+                { q: "Qual a estrutura de dados central na **Busca em Largura (BFS)**?", a: "Uma **Fila**, pois visita o grafo em camadas de distância (FIFO)." }
             ],
             "Coloração e Planaridade": [
-                { q: "O que é o problema da **coloração de grafos**?", a: "Consiste em atribuir cores aos vértices de modo que dois vértices adjacentes (vizinhos) **nunca tenham a mesma cor**." },
-                { q: "O que diz o **Teorema das Quatro Cores**?", a: "Afirma que qualquer mapa (representado como um grafo planar) pode ser colorido com no máximo **quatro cores**." },
-                { q: "O que é o **número cromático**?", a: "É o **menor número de cores** necessárias para colorir um grafo de acordo com as regras de coloração." },
+                { q: "O que é o problema da **coloração de grafos**?", a: "Atribuir cores aos vértices de modo que dois vértices vizinhos **nunca tenham a mesma cor**." },
+                { q: "O que diz o **Teorema das Quatro Cores**?", a: "Qualquer mapa (grafo planar) pode ser colorido com no máximo **quatro cores**." },
+                { q: "O que é o **número cromático**?", a: "É o **menor número de cores** necessárias para colorir um grafo." },
                 { q: "O que é um **Grafo Planar**?", a: "É um grafo que pode ser desenhado em um plano **sem que nenhuma de suas arestas se cruze**." },
                 { q: "Qual teoria ajuda a verificar se um grafo possui cruzamentos?", a: "A Teoria dos Grafos Planos, especialmente o **Teorema de Kuratowski**, que usa os grafos $K_5$ e $K_{3,3}$ como base para a não-planaridade." },
-                { q: "Qual a relação entre grafos **completos** e **cruzamento de arestas**?", a: "Qualquer grafo completo com 5 ou mais vértices (ex: $K_5$, $K_6$) é **sempre não-planar**, sendo impossível desenhá-lo sem cruzar arestas." }
+                { q: "Qual a relação entre grafos **completos** e **cruzamento de arestas**?", a: "Qualquer grafo completo com 5 ou mais vértices (ex: $K_5$, $K_6$) é **sempre não-planar**." }
             ],
             "Caminhos e Ciclos Especiais": [
                 { q: "Quando um grafo possui um **Circuito Euleriano**?", a: "Quando o grafo é conexo e **todos os seus vértices têm grau par**. Um circuito euleriano passa por todas as arestas uma vez e volta ao início." },
@@ -166,8 +165,8 @@
             ],
             "Isomorfismo e Aplicações": [
                 { q: "Como é possível identificar se dois grafos representam a **mesma estrutura**?", a: "Através da teoria do **isomorfismo**, que verifica se existe uma correspondência entre os vértices que preserva as conexões (arestas)." },
-                { q: "Existe um algoritmo eficiente (tempo polinomial) para determinar se dois grafos são **isomorfos**?", a: "Não, é um problema famoso para o qual **não se conhece um algoritmo determinístico de tempo polinomial** (problema GI)." },
-                { q: "Quando o algoritmo de **Huffman** funciona bem para compactação?", a: "Funciona bem quando a **frequência dos caracteres** em um conjunto de dados **varia bastante** entre si." },
+                { q: "Existe um algoritmo eficiente (tempo polinomial) para determinar se dois grafos são **isomorfos**?", a: "Não, é um problema famoso para o qual **não se conhece um algoritmo determinístico de tempo polinomial**." },
+                { q: "Quando o algoritmo de **Huffman** funciona bem para compactação?", a: "Funciona bem quando a **frequência dos caracteres** varia bastante." },
                 { q: "Qual a relação entre a frequência de um caractere e o tamanho do seu código de **Huffman**?", a: "Quanto **mais frequente** é o caractere, **menor** será o código binário atribuído a ele, e vice-versa." }
             ]
         };
