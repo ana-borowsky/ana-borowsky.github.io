@@ -1326,18 +1326,40 @@
           <h2>Quiz sobre Grafos</h2>
           <p class="my-4">Teste seus conhecimentos. Escolha um dos quizzes abaixo para começar.</p>
           <div id="quiz-buttons-container" class="flex flex-col gap-4 mx-auto max-w-xs">
-            <!-- Buttons will be generated here -->
+            <button data-quiz-id="0"
+              class="quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Quiz
+              1: Conceitos Básicos</button>
+            <button data-quiz-id="1"
+              class="quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Quiz
+              2: Algoritmos</button>
+            <button data-quiz-id="2"
+              class="quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Quiz
+              3: Tipos e Representações</button>
+            <button data-quiz-id="3"
+              class="quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Quiz
+              4: Travessia e Coloração</button>
+            <button data-quiz-id="4"
+              class="quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105">Quiz
+              5: Aplicações Avançadas</button>
           </div>
         </div>
+
         <div id="quiz-container" class="hidden">
           <div id="quiz-progress" class="text-sm text-slate-400 mb-2 text-right"></div>
           <p id="quiz-question" class="text-xl font-semibold mb-4 text-left"></p>
           <div id="quiz-options" class="space-y-3"></div>
           <div id="quiz-explanation" class="hidden mt-4 p-3 bg-slate-700 rounded-lg text-left text-sm"></div>
-          <button id="next-question-btn"
-            class="hidden mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima
-            Pergunta</button>
+
+          <div class="flex justify-center gap-4 mt-6">
+            <button id="exit-quiz-btn"
+              class="bg-slate-600 hover:bg-slate-500 text-white font-bold py-2 px-6 rounded-lg">Sair do Quiz</button>
+
+            <button id="next-question-btn"
+              class="hidden bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">Próxima
+              Pergunta</button>
+          </div>
         </div>
+
         <div id="quiz-results-screen" class="hidden">
           <h2>Quiz Finalizado!</h2>
           <p class="my-4 text-lg">Sua pontuação foi:</p>
@@ -1352,6 +1374,9 @@
           </div>
         </div>
       </div>
+    </main>
+  </div>
+
     </main>
   </div>
 
@@ -1914,133 +1939,197 @@
 
 
     // --- Lógica do QUIZ ---
-    const quizQuestions = [
-      // Quiz 1: Conceitos Básicos
-      { type: 'theory', question: 'Em teoria dos grafos, o que um vértice representa?', options: ['Uma conexão', 'Uma entidade ou objeto', 'Uma direção', 'Um peso'], correctAnswer: 'Uma entidade ou objeto', explanation: 'Vértices (ou nós) são os elementos fundamentais que representam os objetos em um grafo.' },
-      { type: 'theory', question: 'O que é um grafo ponderado?', options: ['Um grafo com muitas arestas', 'Um grafo onde as arestas têm um valor (peso) associado', 'Um grafo onde os vértices têm cores', 'Um grafo sem ciclos'], correctAnswer: 'Um grafo onde as arestas têm um valor (peso) associado', explanation: 'O peso pode representar custo, distância, tempo, etc.' },
-      { type: 'theory', question: 'Qual a principal diferença entre um grafo direcionado e um não-direcionado?', options: ['O número de vértices', 'A presença de pesos', 'A direção das arestas', 'A cor dos nós'], correctAnswer: 'A direção das arestas', explanation: 'Em grafos direcionados, uma aresta A -> B não implica B -> A. Em não-direcionados, a conexão é mútua.' },
-      { type: 'theory', question: 'Qual algoritmo de busca explora o grafo em "camadas", visitando todos os vizinhos primeiro?', options: ['Busca em Profundidade (DFS)', 'Algoritmo de Dijkstra', 'Busca em Largura (BFS)', 'Algoritmo de Prim'], correctAnswer: 'Busca em Largura (BFS)', explanation: 'A BFS usa uma fila para garantir que os nós mais próximos do início sejam visitados primeiro.' },
-      { type: 'theory', question: 'Qual estrutura de dados é comumente associada à Busca em Profundidade (DFS)?', options: ['Fila', 'Pilha', 'Heap', 'Tabela Hash'], correctAnswer: 'Pilha', explanation: 'A DFS usa uma pilha (seja explícita ou via recursão) para seguir um caminho o mais fundo possível antes de retroceder.' },
-      { type: 'theory', question: 'O Algoritmo de Dijkstra é usado para resolver qual tipo de problema?', options: ['Encontrar todos os ciclos em um grafo', 'Encontrar a Árvore Geradora Mínima', 'Encontrar o caminho mais curto em um grafo ponderado', 'Verificar se um grafo é bipartido'], correctAnswer: 'Encontrar o caminho mais curto em um grafo ponderado', explanation: 'Dijkstra é o algoritmo clássico para caminhos mais curtos, desde que os pesos das arestas não sejam negativos.' },
 
-      // Quiz 2: Algoritmos
-      { type: 'theory', question: 'Para qual tipo de grafo a BFS garante encontrar o caminho mais curto?', options: ['Qualquer grafo ponderado', 'Apenas grafos direcionados', 'Grafos não-ponderados', 'Grafos com pesos negativos'], correctAnswer: 'Grafos não-ponderados', explanation: 'Como a BFS explora em camadas, o primeiro caminho que ela encontra para um nó é garantido ser o mais curto em termos de número de arestas.' },
-      { type: 'theory', question: 'Qual algoritmo usa uma fila de prioridade para funcionar eficientemente?', options: ['Busca em Largura (BFS)', 'Busca em Profundidade (DFS)', 'Detecção de Ciclos', 'Algoritmo de Dijkstra'], correctAnswer: 'Algoritmo de Dijkstra', explanation: 'Dijkstra usa uma fila de prioridade para sempre selecionar o nó não visitado com a menor distância acumulada do início.' },
-      { type: 'theory', question: 'Se você precisa verificar se existe um caminho entre dois nós, qual algoritmo seria uma escolha simples e eficiente?', options: ['Dijkstra', 'Floyd-Warshall', 'BFS ou DFS', 'Kruskal'], correctAnswer: 'BFS ou DFS', explanation: 'Tanto a BFS quanto a DFS podem determinar a conectividade entre nós. A BFS encontrará o caminho mais curto (em arestas), enquanto a DFS pode ser mais rápida em alguns casos.' },
-      { type: 'theory', question: 'O que acontece se você executar o Algoritmo de Dijkstra em um grafo com pesos de aresta negativos?', options: ['Ele funciona normalmente', 'Ele pode produzir uma resposta incorreta', 'Ele entra em um loop infinito', 'Ele se transforma em uma BFS'], correctAnswer: 'Ele pode produzir uma resposta incorreta', explanation: 'A premissa de Dijkstra é que, uma vez que um nó é finalizado, seu caminho mais curto foi encontrado. Pesos negativos podem violar essa premissa.' },
-      { type: 'theory', question: 'Em uma Busca em Largura (BFS) partindo de um nó A, quais nós são visitados imediatamente após A?', options: ['Todos os nós do grafo', 'Nenhum nó', 'Os vizinhos diretos de A', 'O nó mais distante de A'], correctAnswer: 'Os vizinhos diretos de A', explanation: 'A BFS visita primeiro todos os nós que estão a uma aresta de distância do nó inicial.' },
-      { type: 'theory', question: 'Qual a principal aplicação da Busca em Profundidade (DFS)?', options: ['Encontrar o caminho mais curto em grafos ponderados', 'Calcular a distância entre todos os pares de nós', 'Detecção de ciclos e ordenação topológica', 'Balanceamento de grafos'], correctAnswer: 'Detecção de ciclos e ordenação topológica', explanation: 'A natureza de "ir fundo" da DFS a torna excelente para explorar caminhos e detectar "back edges", que indicam ciclos.' },
-    ];
-    const quizStartScreen = document.getElementById('quiz-selection-screen');
-    const quizContainer = document.getElementById('quiz-container');
-    const quizResultsScreen = document.getElementById('quiz-results-screen');
-    const restartQuizBtn = document.getElementById('restart-quiz-btn');
-    const backToQuizzesBtn = document.getElementById('back-to-quizzes-btn');
-    const quizQuestionEl = document.getElementById('quiz-question');
-    const quizOptionsEl = document.getElementById('quiz-options');
-    const nextQuestionBtn = document.getElementById('next-question-btn');
-    const quizProgressEl = document.getElementById('quiz-progress');
-    const quizScoreEl = document.getElementById('quiz-score');
-    const quizExplanationEl = document.getElementById('quiz-explanation');
+    // AJUSTE 1: Envolvemos todo o código em 'DOMContentLoaded'
+    // Isso garante que o JavaScript só será executado depois que todo o HTML da página for carregado, evitando erros de "elemento não encontrado".
+    document.addEventListener('DOMContentLoaded', () => {
 
-    let shuffledQuestions, currentQuestionIndex, score, currentQuizNumber;
+      // --- Dados do Quiz ---
+      const quizQuestions = [
+        // ... (seu array completo de 30 questões continua aqui, sem alterações)
+        // Quiz 1: Conceitos Básicos (6 questões)
+        { type: 'theory', question: 'Em teoria dos grafos, o que um vértice representa?', options: ['Uma conexão', 'Uma entidade ou objeto', 'Uma direção', 'Um peso'], correctAnswer: 'Uma entidade ou objeto', explanation: 'Vértices (ou nós) são os elementos fundamentais que representam os objetos em um grafo.' },
+        { type: 'theory', question: 'O que é um grafo ponderado?', options: ['Um grafo com muitas arestas', 'Um grafo onde as arestas têm um valor (peso) associado', 'Um grafo onde os vértices têm cores', 'Um grafo sem ciclos'], correctAnswer: 'Um grafo onde as arestas têm um valor (peso) associado', explanation: 'O peso pode representar custo, distância, tempo, etc.' },
+        { type: 'theory', question: 'Qual a principal diferença entre um grafo direcionado e um não-direcionado?', options: ['O número de vértices', 'A presença de pesos', 'A direção das arestas', 'A cor dos nós'], correctAnswer: 'A direção das arestas', explanation: 'Em grafos direcionados, uma aresta A -> B não implica B -> A. Em não-direcionados, a conexão é mútua.' },
+        { type: 'theory', question: 'Qual algoritmo de busca explora o grafo em "camadas", visitando todos os vizinhos primeiro?', options: ['Busca em Profundidade (DFS)', 'Algoritmo de Dijkstra', 'Busca em Largura (BFS)', 'Algoritmo de Prim'], correctAnswer: 'Busca em Largura (BFS)', explanation: 'A BFS usa uma fila para garantir que os nós mais próximos do início sejam visitados primeiro.' },
+        { type: 'theory', question: 'Qual estrutura de dados é comumente associada à Busca em Profundidade (DFS)?', options: ['Fila', 'Pilha', 'Heap', 'Tabela Hash'], correctAnswer: 'Pilha', explanation: 'A DFS usa uma pilha (seja explícita ou via recursão) para seguir um caminho o mais fundo possível antes de retroceder.' },
+        { type: 'theory', question: 'O Algoritmo de Dijkstra é usado para resolver qual tipo de problema?', options: ['Encontrar todos os ciclos em um grafo', 'Encontrar a Árvore Geradora Mínima', 'Encontrar o caminho mais curto em um grafo ponderado', 'Verificar se um grafo é bipartido'], correctAnswer: 'Encontrar o caminho mais curto em um grafo ponderado', explanation: 'Dijkstra é o algoritmo clássico para caminhos mais curtos, desde que os pesos das arestas não sejam negativos.' },
 
-    function startQuiz(quizNum) {
-      currentQuizNumber = quizNum;
-      quizStartScreen.classList.add('hidden');
-      quizResultsScreen.classList.add('hidden');
-      quizContainer.classList.remove('hidden');
+        // Quiz 2: Algoritmos (6 questões)
+        { type: 'theory', question: 'Para qual tipo de grafo a BFS garante encontrar o caminho mais curto?', options: ['Qualquer grafo ponderado', 'Apenas grafos direcionados', 'Grafos não-ponderados', 'Grafos com pesos negativos'], correctAnswer: 'Grafos não-ponderados', explanation: 'Como a BFS explora em camadas, o primeiro caminho que ela encontra para um nó é garantido ser o mais curto em termos de número de arestas.' },
+        { type: 'theory', question: 'Qual algoritmo usa uma fila de prioridade para funcionar eficientemente?', options: ['Busca em Largura (BFS)', 'Busca em Profundidade (DFS)', 'Detecção de Ciclos', 'Algoritmo de Dijkstra'], correctAnswer: 'Algoritmo de Dijkstra', explanation: 'Dijkstra usa uma fila de prioridade para sempre selecionar o nó não visitado com a menor distância acumulada do início.' },
+        { type: 'theory', question: 'Se você precisa verificar se existe um caminho entre dois nós, qual algoritmo seria uma escolha simples e eficiente?', options: ['Dijkstra', 'Floyd-Warshall', 'BFS ou DFS', 'Kruskal'], correctAnswer: 'BFS ou DFS', explanation: 'Tanto a BFS quanto a DFS podem determinar a conectividade entre nós. A BFS encontrará o caminho mais curto (em arestas), enquanto a DFS pode ser mais rápida em alguns casos.' },
+        { type: 'theory', question: 'O que acontece se você executar o Algoritmo de Dijkstra em um grafo com pesos de aresta negativos?', options: ['Ele funciona normalmente', 'Ele pode produzir uma resposta incorreta', 'Ele entra em um loop infinito', 'Ele se transforma em uma BFS'], correctAnswer: 'Ele pode produzir uma resposta incorreta', explanation: 'A premissa de Dijkstra é que, uma vez que um nó é finalizado, seu caminho mais curto foi encontrado. Pesos negativos podem violar essa premissa.' },
+        { type: 'theory', question: 'Em uma Busca em Largura (BFS) partindo de um nó A, quais nós são visitados imediatamente após A?', options: ['Todos os nós do grafo', 'Nenhum nó', 'Os vizinhos diretos de A', 'O nó mais distante de A'], correctAnswer: 'Os vizinhos diretos de A', explanation: 'A BFS visita primeiro todos os nós que estão a uma aresta de distância do nó inicial.' },
+        { type: 'theory', question: 'Qual a principal aplicação da Busca em Profundidade (DFS)?', options: ['Encontrar o caminho mais curto em grafos ponderados', 'Calcular a distância entre todos os pares de nós', 'Detecção de ciclos e ordenação topológica', 'Balanceamento de grafos'], correctAnswer: 'Detecção de ciclos e ordenação topológica', explanation: 'A natureza de "ir fundo" da DFS a torna excelente para explorar caminhos e detectar "back edges", que indicam ciclos.' },
 
-      const questionsPerQuiz = 6;
-      const startIndex = (quizNum - 1) * questionsPerQuiz;
-      const endIndex = startIndex + questionsPerQuiz;
-      const questionSubset = quizQuestions.slice(startIndex, endIndex);
+        // Quiz 3: Tipos e Representações
+        { type: 'theory', question: 'O que caracteriza um grafo completo?', options: ['Não possui ciclos', 'Todos os vértices possuem o mesmo grau', 'Existe um caminho entre qualquer par de vértices', 'Cada par de vértices distintos é conectado por uma aresta'], correctAnswer: 'Cada par de vértices distintos é conectado por uma aresta', explanation: 'Em um grafo completo (Kn), todos os vértices estão conectados a todos os outros vértices, resultando no número máximo de arestas possível.' },
+        { type: 'theory', question: 'Em uma representação por Matriz de Adjacência de um grafo não-direcionado, qual propriedade a matriz sempre terá?', options: ['Será uma matriz identidade', 'Apenas a diagonal principal terá valores', 'Será simétrica', 'Todos os elementos serão 1'], correctAnswer: 'Será simétrica', explanation: 'Em um grafo não-direcionado, se existe uma aresta de A para B (m[A][B]=1), também existe de B para A (m[B][A]=1), tornando a matriz simétrica em relação à sua diagonal principal.' },
+        { type: 'theory', question: 'O que é um grafo planar?', options: ['Um grafo que não possui ciclos', 'Um grafo que pode ser desenhado em um plano sem que suas arestas se cruzem', 'Um grafo onde todos os vértices estão no mesmo plano cartesiano', 'Um grafo com um número par de vértices'], correctAnswer: 'Um grafo que pode ser desenhado em um plano sem que suas arestas se cruzem', explanation: 'A planaridade é uma propriedade topológica que permite a representação do grafo em 2D sem cruzamento de arestas, exceto nos vértices.' },
+        { type: 'theory', question: 'Em um dígrafo (grafo direcionado), o que é o "grau de entrada" de um vértice?', options: ['O número total de arestas conectadas ao vértice', 'O número de arestas que partem do vértice', 'O número de arestas que chegam ao vértice', 'O número de vértices adjacentes'], correctAnswer: 'O número de arestas que chegam ao vértice', explanation: 'O grau de um vértice é dividido em grau de entrada (arestas que chegam) e grau de saída (arestas que partem) em grafos direcionados.' },
+        { type: 'theory', question: 'O que o Fechamento Transitivo de um grafo representa?', options: ['Apenas os caminhos de tamanho 1', 'O caminho mais curto entre todos os pares de vértices', 'A existência de um caminho de qualquer tamanho entre todos os pares de vértices', 'O ciclo de menor custo no grafo'], correctAnswer: 'A existência de um caminho de qualquer tamanho entre todos os pares de vértices', explanation: 'O Fechamento Transitivo indica se um vértice \'j\' é alcançável a partir de um vértice \'i\' através de um ou mais passos (arestas).' },
+        { type: 'theory', question: 'Qual dos grafos a seguir é garantido como NÃO-PLANAR pelo Teorema de Kuratowski?', options: ['Qualquer grafo com 4 vértices', 'O grafo completo com 5 vértices (K5)', 'Um grafo cíclico com 6 vértices', 'Um grafo bipartido com 4 vértices em cada partição'], correctAnswer: 'O grafo completo com 5 vértices (K5)', explanation: 'O Teorema de Kuratowski afirma que um grafo é não-planar se, e somente se, ele contém um subgrafo que é um homeomorfo de K5 ou K3,3.' },
 
-      shuffledQuestions = questionSubset.sort(() => Math.random() - 0.5);
-      currentQuestionIndex = 0;
-      score = 0;
-      displayNextQuestion();
-    }
+        // Quiz 4: Travessia e Coloração
+        { type: 'theory', question: 'Qual é a principal vantagem da Busca em Largura (BFS) sobre a Busca em Profundidade (DFS) ao procurar um nó em um grafo não ponderado?', options: ['Usa menos memória', 'É sempre mais rápida', 'Garante encontrar o caminho mais curto em número de arestas', 'Funciona melhor com grafos cíclicos'], correctAnswer: 'Garante encontrar o caminho mais curto em número de arestas', explanation: 'Como a BFS explora o grafo em camadas, o primeiro caminho que ela encontra para um nó alvo é, por definição, o mais curto em termos de arestas percorridas.' },
+        { type: 'theory', question: 'Qual problema consiste em atribuir cores aos vértices de um grafo de forma que vértices adjacentes não tenham a mesma cor?', options: ['Problema do Isomorfismo', 'Problema do Caixeiro-Viajante', 'Problema da Coloração de Grafos', 'Problema do Caminho Euleriano'], correctAnswer: 'Problema da Coloração de Grafos', explanation: 'Este é o enunciado fundamental do problema da coloração de vértices, com aplicações em agendamento, alocação de registros e design de mapas.' },
+        { type: 'theory', question: 'O que é o "número cromático" de um grafo?', options: ['O número total de cores disponíveis', 'O maior número de cores usadas em uma coloração válida', 'O número de vértices do grafo', 'O menor número de cores necessárias para uma coloração válida'], correctAnswer: 'O menor número de cores necessárias para uma coloração válida', explanation: 'O número cromático é uma propriedade importante do grafo que indica o número mínimo de "recursos" (cores) necessários para evitar conflitos (adjacências).' },
+        { type: 'theory', question: 'O Teorema das Quatro Cores se aplica a qual tipo de grafo?', options: ['Grafos completos', 'Grafos bipartidos', 'Grafos planares', 'Qualquer tipo de grafo'], correctAnswer: 'Grafos planares', explanation: 'Este famoso teorema estabelece que o número cromático de qualquer grafo planar é, no máximo, 4, o que é diretamente relacionado a colorir mapas.' },
+        { type: 'theory', question: 'Qual algoritmo é uma escolha natural para resolver problemas como encontrar a saída de um labirinto, explorando um caminho até o fim antes de tentar outro?', options: ['Busca em Largura (BFS)', 'Algoritmo de Dijkstra', 'Busca em Profundidade (DFS)', 'Algoritmo de Prim'], correctAnswer: 'Busca em Profundidade (DFS)', explanation: 'A natureza "profunda" da DFS é ideal para problemas de busca em caminhos, como labirintos ou exploração de árvores de decisão.' },
+        { type: 'theory', question: 'Se a busca em largura (BFS) e a busca em profundidade (DFS) são executadas em uma árvore a partir da raiz, qual delas processaria todos os nós de um nível antes de passar para o próximo?', options: ['Apenas DFS', 'Apenas BFS', 'Ambas', 'Nenhuma das duas'], correctAnswer: 'Apenas BFS', explanation: 'A estrutura de fila usada na BFS garante que a travessia ocorra nível por nível, explorando todos os "irmãos" antes dos "sobrinhos".' },
 
-    function displayNextQuestion() {
-      resetQuizState();
-      if (currentQuestionIndex >= shuffledQuestions.length) {
-        showQuizResults();
-        return;
+        // Quiz 5: Aplicações Avançadas
+        { type: 'theory', question: 'O que significa dizer que dois grafos são "isomorfos"?', options: ['Eles têm o mesmo número de vértices', 'Eles possuem a mesma estrutura, apenas com rótulos de vértices diferentes', 'Eles são ambos grafos completos', 'Eles têm o mesmo número de arestas'], correctAnswer: 'Eles possuem a mesma estrutura, apenas com rótulos de vértices diferentes', explanation: 'O isomorfismo descreve uma equivalência estrutural; os grafos são essencialmente o mesmo, apenas "desenhados" ou "rotulados" de forma diferente.' },
+        { type: 'theory', question: 'Um grafo possui um "Caminho Euleriano" se:', options: ['Ele visita cada vértice exatamente uma vez', 'Ele possui no máximo dois vértices de grau ímpar e é conexo', 'Todos os seus vértices têm grau par', 'Ele não possui ciclos'], correctAnswer: 'Ele possui no máximo dois vértices de grau ímpar e é conexo', explanation: 'Um caminho euleriano (que passa por todas as arestas uma única vez) é possível se o grafo for conexo e tiver 0 ou 2 vértices de grau ímpar. Os vértices de grau ímpar serão o início e o fim.' },
+        { type: 'theory', question: 'Qual problema clássico busca encontrar um ciclo que visita cada vértice de um grafo exatamente uma vez?', options: ['Problema das Pontes de Königsberg (Caminho Euleriano)', 'Problema da Coloração de Grafos', 'Problema do Ciclo Hamiltoniano', 'Problema da Árvore Geradora Mínima'], correctAnswer: 'Problema do Ciclo Hamiltoniano', explanation: 'Diferente do Caminho Euleriano (que foca nas arestas), o Ciclo Hamiltoniano foca em visitar cada vértice uma única vez, sendo a base para o Problema do Caixeiro-Viajante.' },
+        { type: 'theory', question: 'O Problema do Caixeiro-Viajante é uma variação de qual outro problema, adicionando o critério de minimizar o custo total?', options: ['Caminho Euleriano', 'Ciclo Hamiltoniano', 'Fluxo Máximo', 'Busca em Largura'], correctAnswer: 'Ciclo Hamiltoniano', explanation: 'O Problema do Caixeiro-Viajante busca não apenas um ciclo que visite todos os vértices (um ciclo hamiltoniano), mas o ciclo que tenha o menor custo (peso) total.' },
+        { type: 'theory', question: 'No Algoritmo de Huffman, qual é a relação entre a frequência de um caractere e o comprimento do seu código binário?', options: ['Não há relação direta', 'Caracteres mais frequentes recebem códigos mais longos', 'Todos os caracteres recebem códigos de mesmo comprimento', 'Caracteres mais frequentes recebem códigos mais curtos'], correctAnswer: 'Caracteres mais frequentes recebem códigos mais curtos', explanation: 'A eficiência da compactação de Huffman vem de atribuir códigos de poucos bits aos símbolos que aparecem com mais frequência, e códigos mais longos aos mais raros.' },
+        { type: 'theory', question: 'Um grafo que possui um "Circuito Euleriano" (um caminho que começa e termina no mesmo vértice, passando por todas as arestas) deve ter qual propriedade?', options: ['Ser um grafo completo', 'Ser acíclico', 'Todos os seus vértices devem ter grau par', 'Ter exatamente dois vértices de grau ímpar'], correctAnswer: 'Todos os seus vértices devem ter grau par', explanation: 'Para que seja possível retornar ao ponto de partida após passar por todas as arestas, cada vértice deve ter um número par de conexões (uma para entrar e outra para sair).' }
+      ];
+
+      // --- Seleção de Elementos do DOM ---
+      const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+      const quizContainer = document.getElementById('quiz-container');
+      const quizResultsScreen = document.getElementById('quiz-results-screen');
+
+      const quizQuestionEl = document.getElementById('quiz-question');
+      const quizOptionsEl = document.getElementById('quiz-options');
+      const quizProgressEl = document.getElementById('quiz-progress');
+      const quizScoreEl = document.getElementById('quiz-score');
+      const quizExplanationEl = document.getElementById('quiz-explanation');
+
+      const nextQuestionBtn = document.getElementById('next-question-btn');
+      const restartQuizBtn = document.getElementById('restart-quiz-btn');
+      const backToQuizzesBtn = document.getElementById('back-to-quizzes-btn');
+      const exitQuizBtn = document.getElementById('exit-quiz-btn'); // Botão "Sair do Quiz"
+
+      // --- Estado do Quiz ---
+      let currentQuestions, currentQuestionIndex, score, currentQuizNumber;
+
+      // AJUSTE 2: Função centralizada para gerenciar a exibição das telas
+      const screens = [quizSelectionScreen, quizContainer, quizResultsScreen];
+      function showScreen(screenToShow) {
+        screens.forEach(screen => {
+          if (screen === screenToShow) {
+            screen.classList.remove('hidden');
+          } else {
+            screen.classList.add('hidden');
+          }
+        });
       }
-      quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
-      const questionData = shuffledQuestions[currentQuestionIndex];
-      quizQuestionEl.textContent = questionData.question;
 
-      questionData.options.forEach(optionText => {
-        const button = document.createElement('button');
-        button.textContent = optionText;
-        button.className = 'quiz-option';
-        button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
-        quizOptionsEl.appendChild(button);
-      });
-    }
+      // --- Funções Principais do Quiz ---
+      function startQuiz(quizNum) {
+        currentQuizNumber = quizNum;
+        showScreen(quizContainer); // Usa a função centralizada
 
-    function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
-      const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
-      allOptions.forEach(btn => {
-        btn.disabled = true;
-        if (btn.textContent === correctAnswer) {
-          btn.classList.add('correct');
+        const questionsPerQuiz = 6;
+        const startIndex = (quizNum - 1) * questionsPerQuiz;
+        const endIndex = startIndex + questionsPerQuiz;
+        const questionSubset = quizQuestions.slice(startIndex, endIndex);
+
+        currentQuestions = questionSubset.sort(() => Math.random() - 0.5);
+        currentQuestionIndex = 0;
+        score = 0;
+        displayNextQuestion();
+      }
+
+      function displayNextQuestion() {
+        resetQuestionUI();
+        if (currentQuestionIndex >= currentQuestions.length) {
+          showQuizResults();
+          return;
         }
+        quizProgressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${currentQuestions.length}`;
+        const questionData = currentQuestions[currentQuestionIndex];
+        quizQuestionEl.textContent = questionData.question;
+
+        questionData.options.forEach(optionText => {
+          const button = document.createElement('button');
+          button.textContent = optionText;
+          button.className = 'quiz-option';
+          button.onclick = () => selectAnswer(button, optionText, questionData.correctAnswer);
+          quizOptionsEl.appendChild(button);
+        });
+      }
+
+      function selectAnswer(buttonEl, selectedAnswer, correctAnswer) {
+        const allOptions = quizOptionsEl.querySelectorAll('.quiz-option');
+        allOptions.forEach(btn => {
+          btn.disabled = true;
+          if (btn.textContent === correctAnswer) {
+            btn.classList.add('correct');
+          }
+        });
+
+        if (selectedAnswer === correctAnswer) {
+          score++;
+        } else {
+          buttonEl.classList.add('incorrect');
+        }
+
+        const questionData = currentQuestions[currentQuestionIndex];
+        if (questionData.explanation) {
+          quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${questionData.explanation}`;
+          quizExplanationEl.classList.remove('hidden');
+        }
+
+        nextQuestionBtn.classList.remove('hidden');
+      }
+
+      function resetQuestionUI() {
+        quizOptionsEl.innerHTML = '';
+        quizExplanationEl.classList.add('hidden');
+        nextQuestionBtn.classList.add('hidden');
+      }
+
+      function showQuizResults() {
+        showScreen(quizResultsScreen); // Usa a função centralizada
+        quizScoreEl.textContent = `${score} / ${currentQuestions.length}`;
+      }
+
+      // --- Lógica dos Botões e Eventos ---
+      nextQuestionBtn.addEventListener('click', () => {
+        currentQuestionIndex++;
+        displayNextQuestion();
       });
 
-      if (selectedAnswer === correctAnswer) {
-        score++;
-      } else {
-        buttonEl.classList.add('incorrect');
+      restartQuizBtn.addEventListener('click', () => startQuiz(currentQuizNumber));
+
+      // AJUSTE 3: Eventos de "Voltar" agora usam a função showScreen
+      backToQuizzesBtn.addEventListener('click', () => showScreen(quizSelectionScreen));
+      exitQuizBtn.addEventListener('click', () => showScreen(quizSelectionScreen));
+
+      // --- Configuração Inicial ---
+      function setupQuizSelection() {
+        const container = document.getElementById('quiz-buttons-container');
+        container.innerHTML = '';
+        const numQuizzes = Math.ceil(quizQuestions.length / 6);
+
+        const quizNames = [
+          "Conceitos Básicos",
+          "Algoritmos",
+          "Tipos e Representações",
+          "Travessia e Coloração",
+          "Aplicações Avançadas"
+        ];
+
+        for (let i = 1; i <= numQuizzes; i++) {
+          const button = document.createElement('button');
+          button.textContent = `Quiz ${i}: ${quizNames[i - 1] || ''}`;
+          // AJUSTE 4: Classes de estilo consistentes com o seu HTML
+          button.className = 'quiz-select-btn w-full bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-4 rounded-lg transition-transform duration-200 transform hover:scale-105';
+          button.onclick = () => startQuiz(i);
+          container.appendChild(button);
+        }
       }
 
-      const questionData = shuffledQuestions[currentQuestionIndex];
-      if (questionData.explanation) {
-        quizExplanationEl.innerHTML = `<strong>Explicação:</strong> ${questionData.explanation}`;
-        quizExplanationEl.classList.remove('hidden');
-      }
+      // Inicia a configuração da tela de seleção
+      setupQuizSelection();
+      showScreen(quizSelectionScreen); // Garante que a tela inicial seja a de seleção
 
-      nextQuestionBtn.classList.remove('hidden');
-    }
-
-    function resetQuizState() {
-      quizOptionsEl.innerHTML = '';
-      quizExplanationEl.classList.add('hidden');
-      nextQuestionBtn.classList.add('hidden');
-    }
-
-    function showQuizResults() {
-      quizContainer.classList.add('hidden');
-      quizResultsScreen.classList.remove('hidden');
-      quizScoreEl.textContent = `${score} / ${shuffledQuestions.length}`;
-    }
-
-    nextQuestionBtn.addEventListener('click', () => {
-      currentQuestionIndex++;
-      displayNextQuestion();
-    });
-    restartQuizBtn.addEventListener('click', () => startQuiz(currentQuizNumber));
-    backToQuizzesBtn.addEventListener('click', () => {
-      quizResultsScreen.classList.add('hidden');
-      document.getElementById('quiz-selection-screen').classList.remove('hidden');
-    });
-
-    function setupQuizSelection() {
-      const container = document.getElementById('quiz-buttons-container');
-      container.innerHTML = '';
-      const numQuizzes = Math.ceil(quizQuestions.length / 6);
-      const quizNames = ["Conceitos Básicos", "Algoritmos"];
-      for (let i = 1; i <= numQuizzes; i++) {
-        const button = document.createElement('button');
-        button.textContent = `Quiz ${i}: ${quizNames[i - 1] || ''}`;
-        button.className = 'bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105';
-        button.onclick = () => startQuiz(i);
-        container.appendChild(button);
-      }
-    }
-
+    }); // Fim do 'DOMContentLoaded'
 
     // --- Inicialização ---
     updateEmptyMessage();
