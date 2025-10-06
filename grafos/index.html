@@ -477,6 +477,23 @@
               transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
             independente de tamanho.
           </p>
+          <h3>Exercícios</h3>
+          <p>
+            A partir dos grafos a seguir, encontre as respectivas matrizes de alcançabilidade.
+          </p>
+          <img src="src/assets/images/imagem43.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem44.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem45.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem46.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem47.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem48.png"
+            class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
           <h2 id="algoritmos-fundamentais">Algoritmos Fundamentais</h2>
           <h3 id="warshall">Algoritmo de Warshall</h3>
           <p>
@@ -492,39 +509,7 @@
 
           <h3 id="dijkstra">Algoritmo de Dijkstra</h3>
           <p>
-            Em um grafo com peso, uma operação muito comum consiste em encontrar o menor
-            caminho entre dois nós. O caminho mais curto entre dois nós s e t é o caminho cuja
-            soma dos arcos é minimizado. Será assumido a existência de uma função peso(i,j) que
-            retorna o peso do arco que sai de i e chega em j. Caso este arco não exista, a função
-            retornará um valor bastante grande chamado infinito que denota a situação de
-            impossibilidade de se alcançar o nó j a partir de i em um único passo.
-          </p>
-          <p>
-            O algoritmo funciona da seguinte forma:
-            distancia[i] armazena o custo do menor caminho do nó s até i. Inicialmente distancia[s]
-            = 0 e distancia[i] = infinito para todo i != s. Um conjunto perm contém todos os nós
-            cuja distância mínima de s é conhecida, ou seja, aqueles nós cujo valor da distância é
-            fixa e não mudará. Se um nó i é um membro de perm, distancia[i] é a distância mínima
-            de s até i. Inicialmente, o único membro de perm é s. Uma vez que t torna-se um
-            membro de perm, sabe-se que distancia[t] é a menor distância de s até t e o algoritmo
-            termina.
-          </p>
-          <p>
-            O algoritmo mantém uma variável chamada corrente, que é o último nó adicionado a
-            perm. Inicialmente corrente = s. Quando um nó corrente é adicionado a perm a
-            distância deve ser recalculada para todos os sucessores de corrente. Para qualquer
-            sucessor i de corrente, se distancia[corrente] + peso(corrente,i) é menor que
-            distancia[i], a distância de s até i passando por corrente é menor que qualquer outra
-            distância de s até i encontrada até esse momento. Portanto, distancia[i] deve ser
-            atualizada com esse menor valor.
-          </p>
-          <p>
-            Uma vez que distancia foi recalculada para todo sucessor de corrente, distancia[j] (para
-            qualquer j) representa o caminho mais curto de s até j que inclui somente membros de
-            perm (exceto o próprio j). Isto significa que para todo k que não pertence a perm, para
-            qual distancia[k] é o menor, não há caminho de s até k cujo tamanho é mais curto que
-            distancia[k]. Desta forma k pode ser adicionado a perm. corrente é então reiniciado com
-            k e o processo é repetido.
+            Conhecido popularmente por ser o algoritmo para encontrar o menor caminho em um grafo, mas na verdade, ele encontra o caminho de menor custo (menor soma dos pesos das arestas).
           </p>
           <p>
             O método a seguir implementa o algoritmo do menor caminho. O método utiliza um
@@ -541,7 +526,70 @@
           <img src="src/assets/images/imagem13.png"
             class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
 
-          <h4>Exercícios</h4>
+          <h3>Exercícios</h3>
+          <p>
+            <strong>
+              1) A partir dos grafos a seguir, encontre o melhor caminho entre os vértices 1 e 8 com o algoritmo de Dijkstra, mostrando os valores das estruturas internas Permitidos, Distância e Caminho.
+            </strong>
+          </p>
+          <p>
+            <strong>
+              a) 1 a 8
+            </strong>
+          </p>
+          <img src="src/assets/images/imagem35.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem49.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem50.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem51.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+          <p>
+            <strong>
+              b) x (0) a y (4)
+            </strong>
+          </p>
+          <img src="src/assets/images/imagem52.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem53.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem54.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem55.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+          <p>
+            <strong>
+              c) 1 a 4
+            </strong>
+          </p>
+          <img src="src/assets/images/imagem56.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem57.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem58.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem59.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+          <p>
+            <strong>
+              d) 1 a 3
+            </strong>
+          </p>
+          <img src="src/assets/images/imagem60.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem61.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem62.png"
+            class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600"><br>
+          <img src="src/assets/images/imagem63.png"
+            class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+
+          <h2>Exercícios</h2>
+
           <p>1. A partir do grafo representado na Figura 1:</p>
           <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
           <ul>
@@ -638,7 +686,7 @@
             É possível perceber que esse processo pode ser implementado de maneira muito simples
             utilizando um algoritmo recursivo. A pilha de chamadas recursivas é ilustrada na Figura 8.
           </p>
-          <h4>Exemplo</h4>
+          <h3>Exemplo</h4>
           <img src="src/assets/images/imagem31.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
           <P>Busca em profundidade no grafo da imagem acima: ABEFCGHDIJ</P>
           <h4>Algoritmo</h4>
@@ -761,6 +809,7 @@
           <p>
             Largura: 1,4,5,2,3,6
           </p>
+
 
 
           <h2 id="coloring">Coloracão em Grafos</h2>
@@ -981,14 +1030,15 @@
             R: Usando o grafo homeomorfo K3,3.
           </p>
           <img src="src/assets/images/imagem25.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-          <p>
-            <code><strong>Contexto:</strong> Uma empresa foi contratada para estabelecer conexão de fibra ótica
+          <hr class="border-0 border-t border-slate-700"><br>
+          <div class="bg-gray-200 text-gray-800 font-mono p-3 rounded-md">
+            Contexto:Uma empresa foi contratada para estabelecer conexão de fibra ótica
                         entre algumas cidades. A tubulação subterrânea já foi instalada anteriormente e
                         nela só é possível passar um cabo por vez. Toda a tubulação deve ser utilizada, ou
                         seja, nenhuma tubulação deve ficar sem fibra e, para evitar emendas, um único
                         cabo deve passar por toda a tubulação. O grafo que a tubulação forma é o G1,
-                        sendo os vértices as cidades.</code>
-          </p>
+                        sendo os vértices as cidades.
+          </div><br>
 
           <p>
             Sobre esse problema, responda os itens a seguir.
@@ -1003,15 +1053,18 @@
             </strong>
           </p>
           <img src="src/assets/images/imagem26.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
-          <p>
+
+         <div class="bg-gray-300 text-gray-800 font-mono p-3 rounded-md">
             Grafo euleriano é um grafo que possui caminho que usa todas as arestas uma
             única vez.
-          </p>
-          <p>
-            R: Para ter um caminho euleriano: Um grafo deve ser conectado e ter no
+          </div><br>
+
+          <div class="bg-gray-300 text-gray-800 font-mono p-3 rounded-md">
+            Para ter um caminho euleriano: Um grafo deve ser conectado e ter no
             máximo dois vértices com grau ímpar (ou seja, com um número ímpar de
             arestas que se conectam a eles). Ou zero, ou dois vértices com grau ímpar.
-          </p>
+          </div><br>
+
           <ul>
             <li>O grafo em questão é conectado? Sim.</li>
             <li>O grafo em questão tem no máximo dois vértices com grau ímpar? Não.
@@ -1042,7 +1095,7 @@
           <p>
             Grafo euleriano: Se o grafo possui um circuito euleriano (ou seja, um caminho
             que começa e termina no mesmo vértice e passa por todas as arestas), ele é
-            chamado de grafo euleriano. Isso ocorre quando todos os vértices têm grau par.
+            chamado de grafo euleriano.
           </p>
           <p>
             <strong>
@@ -1054,13 +1107,13 @@
             Do livro:
           </p>
           <img src="src/assets/images/imagem28.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-          <p>
-            <code>
-                          <strong>Contexto:</strong> Considere que o grafo G1 agora representa infraestrutura rodoviária,
+          <hr class="border-0 border-t border-slate-700"><br>
+          <div class="bg-gray-200 text-gray-800 font-mono p-3 rounded-md">
+            Contexto: Considere que o grafo G1 agora representa infraestrutura rodoviária,
                           que conecta cidades. Uma empresa de Logística precisa fazer entregas de
                           produtos em todas essas cidades, mas para isso precisa estabelecer uma rota
-                        </code>
-          </p>
+          </div><br>
+
           <p>Sobre esse problema, responda os itens a seguir.</p>
           <p><strong>1) Qual teoria da Teoria dos Grafos poderia ser utilizada para auxiliar na determinação dessa
               rota?</strong></p>
@@ -1071,6 +1124,9 @@
           <p><strong>3) Como pode ser denominado o caminho que inicia e termina na mesma cidade e passa por todas as
               cidades uma única vez?</strong></p>
           <p>R: Ciclo hamiltoniano.</p>
+          <div class="bg-gray-300 text-gray-800 font-mono p-3 rounded-md">
+            Cliclo Hamiltoniano: é quando se pode passar por todos os pontos do grafo exatamente uma vez.
+          </div><br>
           <p><strong>4) Há algoritmo determinístico de tempo polinomial que permite encontrar essa rota?</strong></p>
           <p>R: Não.</p>
           <p><strong>5) Qual problema da teoria dos Grafos possui aderência à rota que responde o item 3 e ainda
@@ -1079,12 +1135,12 @@
 
           <h2 id="huffman">Algoritmo de Huffman</h2>
           <h3>Exercícios</h3>
-          <p>
-            <code>
-                          <strong>Contexto:</strong> Uma árvore é um tipo particular de grafo com as seguintes características: simples, conexo e acíclico. Essa atividade visa explorar uma aplicação de árvore conhecida como Árvore de Huffman.
-                          <strong>Problema:</strong> deseja-se desenvolver um programa compactador de arquivo baseado nos códigos de Huffman. Para isso, responda os ítens a seguir.
-                        </code>
-          </p>
+
+          <div class="bg-gray-200 text-gray-800 font-mono p-3 rounded-md">
+            Contexto:Uma árvore é um tipo particular de grafo com as seguintes características: simples, conexo e acíclico. Essa atividade visa explorar uma aplicação de árvore conhecida como Árvore de Huffman.
+            Problema: deseja-se desenvolver um programa compactador de arquivo baseado nos códigos de Huffman. Para isso, responda os ítens a seguir.
+          </div><br>
+
           <p>
             <strong>
               1) Crie um diagrama de blocos, atividades ou fluxograma que ilustre as etapas de execução necessárias para
@@ -1163,9 +1219,6 @@
           <p>Números em azul preenchidos após o procedimento.</p>
           <img src="src/assets/images/imagem41.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
           <img src="src/assets/images/imagem39.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600">
-
-
-
         </div>
       </div>
 
