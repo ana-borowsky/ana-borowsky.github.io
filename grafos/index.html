@@ -204,6 +204,11 @@
                         <li><a href="#huffman" class="text-indigo-400 hover:text-indigo-300 hover:underline">Algoritmo de Huffman</a></li>
                         </li>
                     </ul>
+                    <br>
+                    <a href="https://ana-borowsky.github.io/grafos/flashcard" target="_blank"
+                      class="block bg-indigo-600 text-white text-center font-bold py-2 mb-4 rounded-lg hover:bg-indigo-700 transition-colors no-underline">
+                      Flashcards
+                    </a>
                 </div>
             </aside>
         </div>
@@ -228,7 +233,8 @@
                 <div class="text-left max-w-4xl mx-auto">
                     <h2 id="o-que-sao-grafos">O que são Grafos?</h2>
                     <p>
-                        Um grafo consiste de um conjunto de nós e um conjunto de arcos. Cada arco em um grafo é especificado como um par de nós. A Figura 1 ilustra um grafo. O conjunto de
+                        Um grafo consiste de um conjunto de nós e um conjunto de arestas. Cada aresta em um grafo é especificado como um
+                        par de nós. A Figura 1 ilustra um grafo. O conjunto de
                         nós é {A,B,C,D,E,F,G,H} e o conjunto de arcos é {(A,B), (A,D), (A,C), (C,D), (C,F), (E,G), (A,A)}.
                     </p>
                     <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
@@ -253,15 +259,10 @@
                     <ul>
                         <li><strong>Grafo Não-Direcionado:</strong> As arestas não têm uma direção. Se existe uma aresta entre A e B, a conexão é mútua (A está conectado a B e B está conectado a A). Ex: amizades no Facebook.</li>
                         <img src="src/assets/images/imagem1.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-                        <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. Uma aresta de A para B não implica necessariamente uma aresta de B para A. Se um nó representa um par ordenado então o grafo é chamado de direcionado ou
-                        dígrafo. A Figura 2 ilustra um dígrafo. O conjunto de arcos da Figura 2 é {<A,B>, <A,C>, <A,D>, <C,D>, <F,C>, <E,G>, <A,A>}. São utilizados “()” para denotar
-                        ligações não direcionadas e “<>” para denotar ligações dirigidas. Ex: seguir alguém no Instagram.</li>
+                       <li><strong>Grafo Direcionado (Dígrafo):</strong> As arestas têm uma direção, indicadas por setas. </li>
                         <img src="src/assets/images/imagem2.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
-                        <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. Pode-se verificar que todas árvore é um grafo, mas o contrário nem sempre é
-                        verdadeiro, além disso, um nó pode não possuir nenhum arco ligado a ele. Um nó n é chamado incidente sobre um arco x se n é um dos nós que constituem o par
-                        ordenado x (também diz-se que x é incidente sobre n). O grau de um nó é o número de arcos que são incidentes sobre ele. O grau de entrada de um nó n é o número de arcos
-                        que chegam em n. O grau de saída de um nó é o número de arcos que partem de n. Um nó n é adjacente a um nó m se há um arco partindo de m para n. Se n é adjacente a m, n
-                        é chamado sucessor de m e m o predecessor de n. Ex: um mapa de estradas onde o peso é a distância entre cidades.</li>
+                        <li><strong>Grafo Ponderado:</strong> Cada aresta tem um valor numérico associado, chamado de
+                        <strong>peso</strong>. Esse peso pode representar distância, custo, tempo, etc. </li>
                         <img src="src/assets/images/imagem3.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                         <li><strong>Grafo Não-Ponderado:</strong> As arestas não têm pesos. Assume-se que todas as conexões têm o mesmo "custo" (geralmente 1).</li>
                         <li><strong>Grafo simples:</strong> um tipo de grafo que não possui laços (arestas que conectam
@@ -282,8 +283,8 @@
                           vértice de um conjunto é conectado a todos os vértices do outro conjunto.</li>
                         <li><strong>Grafo planar:</strong> um grafo que pode ser representado no plano sem que suas
                           arestas se cruzem.</li>
-                        <li><strong>Grafo cíclico</strong>Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado cíclico.
-                        <li><strong>Grafo acíclico</strong>um grafo que não possui ciclos.</li>
+                        <li><strong>Grafo cíclico: </strong>Um caminho de um nó n até ele mesmo é chamado um ciclo. Um grafo que possui ciclos é chamado cíclico.
+                        <li><strong>Grafo acíclico: </strong>um grafo que não possui ciclos.</li>
                         <li><strong>Grafo isomorfo:</strong> Dois grafos podem ser considerados isomorfos se eles têm os mesmos vértices,
                         as mesmas arestas e a mesma função de associação de arestas e seus extremos. Olhando uma figura podemos perceber se são isomorfos ou não também se:</li>
                         <ul>
@@ -338,7 +339,7 @@
                     <p>
                         A representação de um grafo sem peso, sem informação associada e número constante de nós pode ser obtida simplesmente com a declaração:
                     </p>
-                    <img src="src/assets/images/imagem10.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                    <img src="src/assets/images/imagem10.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
                     <h3 id="representacao-com-peso">Representação de Grafos com Peso e Informação nos Nós</h3>
                     <p>
                         Como comentado anteriormente, um grafo pode necessitar armazenar pesos em seus
@@ -390,11 +391,11 @@
                         somatório (disjunção):
                     </p>
 
-                    <img src="src/assets/images/imagem8.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <img src="src/assets/images/imagem8.png" class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
                     <p>
                         o que é equivalente a:
                     </p>
-                    <img src="src/assets/images/imagem9.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <img src="src/assets/images/imagem9.png" class="w-1/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
                     <p>
                         A matriz obtida pelo somatório (disjunção) anterior é chamada de <strong>fechamento
                         transitivo</strong> da matriz m e representa todos os caminhos existentes dentro do grafo
@@ -415,7 +416,7 @@
                         O algoritmo de Warshall está colocado a seguir.
                     </p>
 
-                    <img src="src/assets/images/imagem11.png" class="block mx-auto my-4 rounded-md border border-slate-600"><br>
+                    <img src="src/assets/images/imagem11.png" class="w-3/4 block mx-auto my-4 rounded-md border border-slate-600"><br>
 
                     <h3 id="dijkstra">Algoritmo de Dijkstra</h3>
                     <p>
@@ -483,9 +484,7 @@
 
                     <h2 id="travessia">Travessia em Grafos</h2>
                     <p>
-                    Muitos problemas com grafos envolvem a travessia e acesso a todos os vértices de um grafo.
-                    Durante aulas anteriores já foram estudados métodos de travessia em árvore binária (inordem,
-                    pré-ordem e pós-ordem) e lista encadeada (seqüencial). Porém, quando tratamos de travessia em
+                    Quando tratamos de travessia em
                     grafos não existe uma ordenação natural entre os vértices, diferentemente de árvores ou listas.
                     Portanto algumas questões tornam a travessia em grafo mais complexa:
                     </p>
@@ -504,9 +503,9 @@
                         predecessor.</li>
                     </ul>
                     <p>
-                        Existem duas formas tradicionais de travessia em grafos: busca em largura e profundidade. A
-                        busca em largura utiliza uma lista para armazenar os vértices visitados. A busca em
-                        profundidade utiliza uma pilha que não precisa ser explicitamente implementada quando se
+                        Existem duas formas tradicionais de travessia em grafos: <strong>busca em largura e profundidade</strong>. A
+                        busca em largura utiliza uma <strong>lista</strong> para armazenar os vértices visitados. A busca em
+                        profundidade utiliza uma <strong>pilha</strong> que não precisa ser explicitamente implementada quando se
                         utiliza recursão.
                     </p>
 
@@ -633,8 +632,8 @@
                         3) Escreva um Pseudo-Código ou código em JAVA para cada uma dessas estratégias.
                       </strong>
                     </p>
-                    <img src="src/assets/images/imagem33.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
-                    <img src="src/assets/images/imagem34.png" class="w-1/2 block mx-auto my-4 rounded-md border border-slate-600">
+                    <img src="src/assets/images/imagem33.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
+                    <img src="src/assets/images/imagem34.png" class="w-1/3 block mx-auto my-4 rounded-md border border-slate-600">
 
                     <p>
                       <strong>
