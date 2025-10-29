@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritmos de Ordenação</title>
+  <!-- Incluindo o Tailwind CSS para estilização -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Incluindo a fonte Roboto Mono do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Aplicando a fonte Roboto Mono como padrão */
+    body {
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    /* REMOVIDO: box-shadow de #tab-content conforme solicitado */
+    #tab-content {
+      /* box-shadow: Removido */
+    }
+
+    /* Estilo customizado para o botão ativo (será sobrescrito pelo JS) */
+    .tab-button.active {
+      border-bottom-color: transparent !important;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
+
+  <!-- Card principal que centraliza o conteúdo -->
+  <main class="bg-white rounded-2xl shadow-2xl p-4 md:p-8 max-w-7xl w-full text-center transform transition-all">
+
+    <!-- Título principal -->
+    <h1 class="text-3xl md:text-4xl font-light text-gray-800 mb-6">
+      Dominando Algoritmos de Ordenação
+    </h1>
+
+    <!-- Parágrafo descritivo -->
+    <p class="text-base text-gray-600 font-light max-w-3xl mx-auto mb-8 text-justify">
+      Explore a teoria, complexidade e funcionamento dos principais algoritmos de ordenação utilizados em Ciência da
+      Computação.
+    </p>
+
+    <!-- Navegação por Abas -->
+    <div class="border-b-2 border-gray-200">
+      <div id="tab-nav" class="flex flex-nowrap justify-start md:justify-around -mb-0.5">
+        <button data-tab="bubbleSort" class="tab-button" aria-controls="bubbleSort-content">Bubble Sort</button>
+        <button data-tab="quickSort" class="tab-button" aria-controls="quickSort-content">Quick Sort</button>
+        <button data-tab="cocktailSort" class="tab-button" aria-controls="cocktailSort-content">Cocktail Sort</button>
+        <button data-tab="selectionSort" class="tab-button" aria-controls="selectionSort-content">Selection
+          Sort</button>
+        <button data-tab="insertionSort" class="tab-button" aria-controls="insertionSort-content">Insertion
+          Sort</button>
+        <button data-tab="mergeSort" class="tab-button" aria-controls="mergeSort-content">Merge Sort</button>
+        <button data-tab="combSort" class="tab-button" aria-controls="combSort-content">Comb Sort</button>
+        <button data-tab="gnomeSort" class="tab-button" aria-controls="gnomeSort-content">Gnome Sort</button>
+        <button data-tab="bucketSort" class="tab-button" aria-controls="bucketSort-content">Bucket Sort</button>
+        <button data-tab="quiz" class="tab-button" aria-controls="quiz-content">Quiz</button>
+      </div>
+    </div>
+
+    <!-- Conteúdo das Abas -->
+    <div id="tab-content" class="text-left p-6 md:p-8 bg-white rounded-b-2xl rounded-tr-2xl">
+      <!-- 1. Bubble Sort -->
+      <div data-tab-content="bubbleSort" class="tab-content" id="bubbleSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">1. Bubble Sort (Ordenação por Bolha)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/bubblesort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Bubble Sort é um algoritmo simples que percorre repetidamente a lista, compara elementos adjacentes e os
+          troca se estiverem na ordem errada. O nome "bolha" vem do fato de que os elementos maiores "flutuam" para o
+          topo (fim) da lista a cada passagem. É considerado ineficiente para grandes conjuntos de dados.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n^2)$</li>
+          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada e há uma otimização de parada)</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Principalmente para fins educacionais ou para listas muito pequenas.</p>
+      </div>
+
+      <!-- 2. Quick Sort -->
+      <div data-tab-content="quickSort" class="tab-content hidden" id="quickSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">2. Quick Sort (Ordenação Rápida)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/quicksort.gif"
+          alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Quick Sort é um algoritmo de divisão e conquista altamente eficiente. Ele funciona escolhendo um elemento
+          como 'pivô' e particionando o array em torno desse pivô. Os elementos menores que o pivô são colocados à sua
+          esquerda, e os maiores à sua direita. O processo é aplicado recursivamente às sublistas.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$ (ocorre com pivôs ruins, como escolher sempre o menor ou maior elemento)</li>
+          <li>Caso Médio: $O(n \log n)$</li>
+          <li>Melhor Caso: $O(n \log n)$</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Um dos algoritmos de ordenação mais rápidos e mais usados na prática. É preferido para
+          arrays na memória principal.</p>
+      </div>
+
+      <!-- 3. Cocktail Sort -->
+      <div data-tab-content="cocktailSort" class="tab-content hidden" id="cocktailSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">3. Cocktail Sort</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/cocktailsort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          Também conhecido como Shaker Sort ou Bidirectional Bubble Sort, é uma variação do Bubble Sort. Ele melhora a
+          eficiência do Bubble Sort ao ordenar em ambas as direções (frente e verso) em cada passagem. Isso permite que
+          os elementos pequenos no final da lista se movam mais rapidamente para o início.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n^2)$</li>
+          <li>Melhor Caso: $O(n)$ (quando a lista já está quase ordenada)</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Raramente usado na prática, mas pode ser ligeiramente mais rápido que o Bubble Sort em
+          listas onde os elementos estão "presos" nas extremidades opostas.</p>
+      </div>
+
+      <!-- 4. Selection Sort -->
+      <div data-tab-content="selectionSort" class="tab-content hidden" id="selectionSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">4. Selection Sort (Ordenação por Seleção)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/selectionsort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Selection Sort divide a lista em duas sublistas: a ordenada (à esquerda, inicialmente vazia) e a não
+          ordenada (à direita, com todos os elementos). O algoritmo encontra o menor elemento na sublista não ordenada e
+          o troca com o primeiro elemento da sublista não ordenada.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n^2)$</li>
+          <li>Melhor Caso: $O(n^2)$</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Não é eficiente para grandes listas, mas é útil em situações onde a escrita (trocas) na
+          memória é custosa, pois ele minimiza o número de trocas (apenas uma troca por iteração completa).</p>
+      </div>
+
+      <!-- 5. Insertion Sort -->
+      <div data-tab-content="insertionSort" class="tab-content hidden" id="insertionSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">5. Insertion Sort (Ordenação por Inserção)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/insertionsort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Insertion Sort constrói a lista final ordenada um item de cada vez. Ele itera sobre os elementos de entrada
+          e insere cada um em sua posição correta dentro da sublista que já está ordenada, deslocando os elementos
+          maiores para a direita.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n^2)$</li>
+          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada)</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Extremamente eficiente para listas pequenas e para listas que já estão quase ordenadas.
+          É comumente usado como parte de outros algoritmos mais avançados (como o TimSort, que combina Merge Sort e
+          Insertion Sort).</p>
+      </div>
+
+      <!-- 6. Merge Sort -->
+      <div data-tab-content="mergeSort" class="tab-content hidden" id="mergeSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">6. Merge Sort (Ordenação por Mesclagem)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/mergesort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Merge Sort é um algoritmo de divisão e conquista que garante uma complexidade $O(n \log n)$ em todos os
+          casos. Ele divide o array recursivamente em metades até que cada sublista contenha apenas um elemento (que é,
+          por definição, ordenado). Em seguida, ele mescla as sublistas de volta de forma ordenada.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n \log n)$</li>
+          <li>Caso Médio: $O(n \log n)$</li>
+          <li>Melhor Caso: $O(n \log n)$</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Garante desempenho consistente em qualquer cenário. É usado para ordenar listas
+          encadeadas de forma eficiente e é um dos principais algoritmos de ordenação externa.</p>
+      </div>
+
+      <!-- 7. Comb Sort -->
+      <div data-tab-content="combSort" class="tab-content hidden" id="combSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">7. Comb Sort (Ordenação Pente)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/combsort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Comb Sort é um algoritmo de comparação que melhora o Bubble Sort eliminando os valores pequenos perto do fim
+          da lista (as "tartarugas"). Ele faz isso usando um 'gap' (intervalo) maior do que 1 entre os elementos
+          comparados. O gap é reduzido por um fator (geralmente 1.3) a cada iteração até se tornar 1.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n \log n)$ (rápido na prática)</li>
+          <li>Melhor Caso: $O(n \log n)$</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Pode ser considerado um substituto mais eficiente para o Bubble Sort e é frequentemente
+          usado em conjunto com o Quick Sort para ordenar pequenas partições.</p>
+      </div>
+
+      <!-- 8. Gnome Sort -->
+      <div data-tab-content="gnomeSort" class="tab-content hidden" id="gnomeSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">8. Gnome Sort (Ordenação Gnomo)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="src/assets/images/gnomesort.gif" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Gnome Sort é um algoritmo simples de comparação, semelhante ao Insertion Sort, mas que evita loops aninhados
+          explícitos. Ele funciona garantindo que o par de elementos adjacentes na posição atual esteja em ordem. Se não
+          estiver, ele os troca e recua para verificar a ordem anterior; se estiver, ele avança.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$</li>
+          <li>Caso Médio: $O(n^2)$</li>
+          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada)</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Principalmente valorizado por ser muito fácil de implementar (tem a linha de código
+          mais curta de todos os $O(n^2)$ quadráticos) e por sua estabilidade.</p>
+      </div>
+
+      <!-- 9. Bucket Sort -->
+      <div data-tab-content="bucketSort" class="tab-content hidden" id="bucketSort-content">
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">9. Bucket Sort (Ordenação por Balde)</h2>
+        <!-- Placeholder GIF INSERIDO AQUI -->
+        <img src="https://placehold.co/600x300/1e293b/f8fafc?text=Bucket+Sort+GIF"
+          alt="Animação GIF do algoritmo Bucket Sort"
+          class="w-full max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <!-- FIM Placeholder GIF -->
+        <p class="mb-4 text-gray-700">
+          O Bucket Sort, ou Ordenação por Balde, é um algoritmo de ordenação não-comparativa. Ele divide o array de
+          entrada em um número finito de "baldes" (buckets). Cada balde é então ordenado individualmente (geralmente
+          usando Insertion Sort) e, por fim, todos os baldes são concatenados para formar o resultado ordenado.
+        </p>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Pior Caso: $O(n^2)$ (se a distribuição for muito desigual)</li>
+          <li>Caso Médio: $O(n + k)$ (onde k é o número de baldes, idealmente próximo de n)</li>
+          <li>Melhor Caso: $O(n + k)$</li>
+        </ul>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
+        <p class="text-gray-600">Mais eficaz para arrays onde os elementos de entrada estão uniformemente distribuídos
+          em um intervalo. É comum em processamento de dados onde a distribuição dos valores é conhecida.</p>
+      </div>
+
+      <!-- 10. Quiz -->
+      <div data-tab-content="quiz" class="tab-content hidden" id="quiz-content">
+        <h2 class="text-2xl font-bold text-orange-600 mb-4">10. Quiz de Ordenação</h2>
+        <p class="mb-6 text-gray-700">Teste seus conhecimentos sobre a complexidade e características dos algoritmos de
+          ordenação!</p>
+
+        <div id="quiz-container">
+          <!-- As perguntas do quiz serão injetadas aqui pelo JS -->
+        </div>
+
+        <div class="mt-6">
+          <button id="submit-quiz"
+            class="bg-orange-500 text-white font-light py-3 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300">
+            Verificar Respostas
+          </button>
+        </div>
+
+        <div id="quiz-result" class="mt-6 p-4 rounded-lg text-lg font-semibold hidden">
+          <!-- O resultado do quiz será exibido aqui -->
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      const quizContainer = document.getElementById('quiz-container');
+      const submitQuizButton = document.getElementById('submit-quiz');
+      const quizResult = document.getElementById('quiz-result');
+
+      // Classes base para os estilos de aba
+      const INACTIVE_CLASSES = 'text-gray-600 py-3 px-4 transition-colors border-transparent border-b-2 hover:text-purple-700 hover:border-purple-300 whitespace-nowrap cursor-pointer text-sm font-light';
+      const ALGORITHM_ACTIVE_CLASSES = 'text-purple-700 font-semibold border-b-2 border-purple-600 bg-white rounded-t-lg shadow-t-lg -mt-1 pt-4 pb-3 px-4';
+      const QUIZ_ACTIVE_CLASSES = 'text-orange-700 font-semibold border-b-2 border-orange-600 bg-white rounded-t-lg shadow-t-lg -mt-1 pt-4 pb-3 px-4';
+
+      function activateTab(tabName) {
+        // 1. Desativar todos os botões e conteúdos
+        tabButtons.forEach(button => {
+          // Reseta para as classes inativas base
+          button.className = 'tab-button ' + INACTIVE_CLASSES;
+        });
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+
+        // 2. Ativar o botão e conteúdo corretos
+        const activeButton = document.querySelector(`[data-tab="${tabName}"]`);
+        const activeContent = document.querySelector(`[data-tab-content="${tabName}"]`);
+
+        if (activeButton) {
+          activeButton.classList.add('active');
+          // Aplica estilos ativos
+          if (tabName === 'quiz') {
+            // Remove classes de hover padrão de algoritmo e adiciona as de quiz
+            activeButton.classList.remove('hover:text-purple-700', 'hover:border-purple-300');
+            activeButton.classList.add('hover:text-orange-700', 'hover:border-orange-300');
+            activeButton.className = 'tab-button active ' + QUIZ_ACTIVE_CLASSES;
+          } else {
+            activeButton.className = 'tab-button active ' + ALGORITHM_ACTIVE_CLASSES;
+          }
+        }
+
+        // 3. Exibir conteúdo
+        if (activeContent) {
+          activeContent.classList.remove('hidden');
+        }
+      }
+
+      // Inicialização dos estilos de aba
+      tabButtons.forEach(button => {
+        button.className = 'tab-button ' + INACTIVE_CLASSES;
+        button.addEventListener('click', (e) => {
+          const tabName = e.currentTarget.getAttribute('data-tab');
+          activateTab(tabName);
+        });
+      });
+
+      // Ativar a aba padrão (Bubble Sort) ao carregar
+      activateTab('bubbleSort');
+
+
+      // ------------------
+      // Lógica do Quiz 
+      // ------------------
+
+      // Adicionei novas perguntas para manter o Quiz relevante com os novos algoritmos.
+      const quizQuestions = [
+        {
+          question: "Qual algoritmo de ordenação tem a complexidade de pior caso de $O(n \log n)$ e é um algoritmo de divisão e conquista?",
+          options: ["Bubble Sort", "Quick Sort", "Insertion Sort", "Merge Sort"],
+          answer: "Merge Sort"
+        },
+        {
+          question: "Qual algoritmo de ordenação é mais eficiente para listas *quase* ordenadas?",
+          options: ["Selection Sort", "Insertion Sort", "Cocktail Sort", "Quick Sort"],
+          answer: "Insertion Sort"
+        },
+        {
+          question: "Qual algoritmo de ordenação é uma variação do Bubble Sort que usa um 'gap' para acelerar a movimentação de elementos 'presos'?",
+          options: ["Gnome Sort", "Comb Sort", "Selection Sort", "Bucket Sort"],
+          answer: "Comb Sort"
+        },
+        {
+          question: "O Bucket Sort é considerado um algoritmo de ordenação...",
+          options: ["Baseado em comparação", "Quadrático", "Não-comparativo", "Recursivo"],
+          answer: "Não-comparativo"
+        },
+        {
+          question: "Qual algoritmo de ordenação tem a complexidade de tempo de $O(n^2)$ em todos os casos (Melhor, Médio e Pior)?",
+          options: ["Merge Sort", "Quick Sort", "Selection Sort", "Bubble Sort"],
+          answer: "Selection Sort"
+        },
+        {
+          question: "Qual algoritmo de ordenação é famoso por ser rápido na prática, mas pode cair para $O(n^2)$ no pior caso?",
+          options: ["Merge Sort", "Quick Sort", "Insertion Sort", "Heap Sort"],
+          answer: "Quick Sort"
+        }
+      ];
+
+      function renderQuiz() {
+        quizContainer.innerHTML = quizQuestions.map((q, index) => `
+                    <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50 shadow-md">
+                        <p class="font-bold text-gray-800 mb-3">${index + 1}. ${q.question}</p>
+                        <div class="space-y-2">
+                            ${q.options.map((option, optIndex) => `
+                                <label class="flex items-center text-gray-600 cursor-pointer hover:text-purple-600 transition-colors">
+                                    <input type="radio" name="question-${index}" value="${option}" class="text-purple-600 focus:ring-purple-500 mr-2">
+                                    ${option}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+      }
+
+      function checkQuiz() {
+        let score = 0;
+        let totalQuestions = quizQuestions.length;
+        quizQuestions.forEach((q, index) => {
+          const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+          const questionDiv = document.querySelector(`input[name="question-${index}"]`).closest('.mb-6');
+
+          // Reset styling
+          questionDiv.classList.remove('border-green-500', 'border-red-500', 'bg-green-50', 'bg-red-50');
+          questionDiv.classList.add('border-gray-200', 'bg-gray-50');
+
+
+          if (selected) {
+            if (selected.value === q.answer) {
+              score++;
+              questionDiv.classList.remove('border-gray-200', 'bg-gray-50');
+              questionDiv.classList.add('border-green-500', 'bg-green-50');
+            } else {
+              questionDiv.classList.remove('border-gray-200', 'bg-gray-50');
+              questionDiv.classList.add('border-red-500', 'bg-red-50');
+            }
+          } else {
+            // Se não for selecionado, trata como errado e aplica borda vermelha
+            questionDiv.classList.remove('border-gray-200', 'bg-gray-50');
+            questionDiv.classList.add('border-red-500', 'bg-red-50');
+          }
+        });
+
+        // Exibir resultado
+        const percentage = (score / totalQuestions) * 100;
+        quizResult.classList.remove('hidden');
+
+        let resultMessage = `Sua pontuação: ${score} de ${totalQuestions} (${percentage.toFixed(0)}%).`;
+
+        if (percentage === 100) {
+          quizResult.classList.remove('bg-yellow-100', 'text-yellow-800', 'bg-red-100', 'text-red-800');
+          quizResult.classList.add('bg-green-100', 'text-green-800');
+          resultMessage += ' Parabéns! Excelente domínio dos algoritmos.';
+        } else if (percentage >= 60) {
+          quizResult.classList.remove('bg-red-100', 'text-red-800');
+          quizResult.classList.add('bg-yellow-100', 'text-yellow-800');
+          resultMessage += ' Bom trabalho! Revise a complexidade dos que você errou.';
+        } else {
+          quizResult.classList.remove('bg-yellow-100', 'text-yellow-800');
+          quizResult.classList.add('bg-red-100', 'text-red-800');
+          resultMessage += ' Continue estudando! Foque nos casos de complexidade e nas características de cada um.';
+        }
+
+        quizResult.innerHTML = resultMessage;
+      }
+
+      // Renderizar o quiz e adicionar listener
+      renderQuiz();
+      submitQuizButton.addEventListener('click', checkQuiz);
+    });
+  </script>
+
+</body>
+
+</html>
