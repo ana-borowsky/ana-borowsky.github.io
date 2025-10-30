@@ -17,7 +17,6 @@
       font-family: 'Roboto Mono', monospace;
     }
 
-    /* REMOVIDO: box-shadow de #tab-content conforme solicitado */
     #tab-content {
       /* box-shadow: Removido */
     }
@@ -38,14 +37,8 @@
 
     <!-- Título principal -->
     <h1 class="text-3xl md:text-4xl font-light text-gray-800 mb-6">
-      Dominando Algoritmos de Ordenação
+      Algoritmos de Ordenação
     </h1>
-
-    <!-- Parágrafo descritivo -->
-    <p class="text-base text-gray-600 font-light max-w-3xl mx-auto mb-8 text-justify">
-      Explore a teoria, complexidade e funcionamento dos principais algoritmos de ordenação utilizados em Ciência da
-      Computação.
-    </p>
 
     <!-- Navegação por Abas -->
     <div class="border-b-2 border-gray-200">
@@ -75,20 +68,48 @@
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <!-- FIM Placeholder GIF -->
         <p class="mb-4 text-gray-700">
-          O Bubble Sort é um algoritmo simples que percorre repetidamente a lista, compara elementos adjacentes e os
-          troca se estiverem na ordem errada. O nome "bolha" vem do fato de que os elementos maiores "flutuam" para o
-          topo (fim) da lista a cada passagem. É considerado ineficiente para grandes conjuntos de dados.
+          O Bubble Sort é o mais simples e conhecido algoritmo de ordenação. Ele percorre repetidamente a lista. Em
+          cada passo, todo elemento i é comparado com o
+          seu sucessor i + 1. Se o sucessor é menor do que
+          i então os elementos são trocados. O conjunto de dados é percorrido n-1 vezes. O nome "bolha" 
+          vem do fato de que os elementos maiores "flutuam" para o
+          topo (fim) da lista a cada passagem. É considerado ineficiente para grandes conjuntos de dados.  
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$</li>
-          <li>Caso Médio: $O(n^2)$</li>
-          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada e há uma otimização de parada)</li>
+          <li>Pior Caso: O(n²)</li>
+          <li>Caso Médio: O(n²)</li>
+          <li>Melhor Caso: O(n) (quando a lista já está ordenada e há uma otimização de parada)</li>
         </ul>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Principalmente para fins educacionais ou para listas muito pequenas.</p>
+      
+      <br><h3 class="text-xl font-semibold text-gray-800 mb-2">Código:</h3>
+      <img src="src/assets/images/bubblesort_codigo.png" 
+        class="w-3/4 mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+      <br><h3 class="text-xl font-semibold text-gray-800 mb-2">Exemplo:</h3>
+      <img src="src/assets/images/bubblesort1.png"
+        class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+      <br>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Atividade:</h3>
+      <p>Melhore o desempenho do bubblesort implementado
+      analisando critérios de parada.</p>
+      <ul>
+        <li>- Conte o número de trocas do original e da nova
+        implementação e imprima ao final.</li>
+        <li>- Conte o numero de iterações e imprima ao final.</li>
+      </ul><br>
+      <div class="flex justify-center items-center flex-col">
+      <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+        class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+        Site para visualizar algoritmos de ordenação
+      </a><br>
+      <a href="https://www.youtube.com/watch?v=xli_FI7CuzA" target="_blank" rel="noopener noreferrer"
+        class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+        Vídeo Bubble Sort
+      </a><br>      
       </div>
-
+      </div>
       <!-- 2. Quick Sort -->
       <div data-tab-content="quickSort" class="tab-content hidden" id="quickSort-content">
         <h2 class="text-2xl font-bold text-purple-600 mb-4">2. Quick Sort (Ordenação Rápida)</h2>
@@ -98,10 +119,17 @@
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <!-- FIM Placeholder GIF -->
         <p class="mb-4 text-gray-700">
-          O Quick Sort é um algoritmo de divisão e conquista altamente eficiente. Ele funciona escolhendo um elemento
+          O Quicksort é um dos algoritmos
+          de ordenação mais eficientes para
+          listas grandes e desordenadas.
+          Usa o conceito de “dividir para
+          conquistar”. Ele funciona escolhendo um elemento
           como 'pivô' e particionando o array em torno desse pivô. Os elementos menores que o pivô são colocados à sua
-          esquerda, e os maiores à sua direita. O processo é aplicado recursivamente às sublistas.
+          esquerda, e os maiores à sua direita, e chama a si
+          mesmo recursivamente para
+          ordenar as subpartes.
         </p>
+
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
           <li>Pior Caso: $O(n^2)$ (ocorre com pivôs ruins, como escolher sempre o menor ou maior elemento)</li>
@@ -111,6 +139,45 @@
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Um dos algoritmos de ordenação mais rápidos e mais usados na prática. É preferido para
           arrays na memória principal.</p>
+        <img src="src/assets/images/quicksort1.png" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+      
+      <br>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Passo a passo:</h3>
+      <p class="text-gray-600">
+        O quicksort escolhe um pivô (geralmente o primeiro elemento,
+        mas pode ser qualquer elemento).
+      </p>
+      <ul class="list-disc list-inside ml-4 text-gray-600">
+        <li>Reorganiza o vetor: todos menores que o pivô vão para a esquerda
+          e todos maiores para a direita.</li>
+        <li>O pivô é colocado em sua posição correta.</li>
+        <li>O algoritmo é chamado recursivamente para a parte à esquerda
+          do pivô e a parte à direita, até dividir o vetor todo.
+        </li>
+      </ul>
+      <br>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Código:</h3>
+      <img src="src/assets/images/quicksort_codigo.png"
+        class="w-3/4 mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+      <img src="src/assets/images/quicksort_codigo2.png"
+        class="w-full mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md"><br>
+        <br>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">Atividade:</h3>
+      <ul class="list-disc list-inside ml-4 text-gray-600">
+        <li>Tente rodar “na mão” a seguinte sequência: {3,2,8,1,5}</li>
+        <li>Qual a saída na terceira rodada?</li>
+      </ul>
+      <div class="flex justify-center items-center flex-col">
+        <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+          class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+          Site para visualizar algoritmos de ordenação
+        </a><br>
+        <a href="https://www.youtube.com/watch?v=MZaf_9IZCrc" target="_blank" rel="noopener noreferrer"
+          class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+          Vídeo Quicksort Sort
+        </a><br>
+      </div>
       </div>
 
       <!-- 3. Cocktail Sort -->
@@ -121,19 +188,49 @@
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <!-- FIM Placeholder GIF -->
         <p class="mb-4 text-gray-700">
-          Também conhecido como Shaker Sort ou Bidirectional Bubble Sort, é uma variação do Bubble Sort. Ele melhora a
+          É uma variação do Bubble Sort. Ele melhora a
           eficiência do Bubble Sort ao ordenar em ambas as direções (frente e verso) em cada passagem. Isso permite que
           os elementos pequenos no final da lista se movam mais rapidamente para o início.
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$</li>
-          <li>Caso Médio: $O(n^2)$</li>
-          <li>Melhor Caso: $O(n)$ (quando a lista já está quase ordenada)</li>
+          <li>Pior Caso: O(n²)</li>
+          <li>Caso Médio: O(n²)</li>
+          <li>Melhor Caso: O(n) (quando a lista já está quase ordenada)</li>
+        </ul><br>
+        <p class="mb-4 text-gray-700">Melhor desempenho para certos casos:</p>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>O Cocktail Sort pode ser mais rápido quando a maioria dos
+          elementos já está no lugar e há apenas um pequeno número de
+          elementos "fora de lugar" no final da lista. A passada bidirecional
+          ajuda a mover esses elementos rapidamente para suas posições
+          finais.</li>
+        </ul><br>
+        <p class="mb-4 text-gray-700">Mais eficiente na movimentação de elementos:</p>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Por mover para frente e para trás, o Cocktail Sort é mais rápido
+          para trazer elementos que estão no final da lista para o início e
+          vice-versa</li>
         </ul>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Raramente usado na prática, mas pode ser ligeiramente mais rápido que o Bubble Sort em
           listas onde os elementos estão "presos" nas extremidades opostas.</p>
+        <br>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Código:</h3>
+        <img src="src/assets/images/cocktailsort_codigo.png"
+          class="w-full mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <br>
+        <br>
+        <div class="flex justify-center items-center flex-col">
+          <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+            class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Site para visualizar algoritmos de ordenação
+          </a><br>
+          <a href="https://www.youtube.com/watch?v=gz8BIiVZdg0" target="_blank" rel="noopener noreferrer"
+            class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Vídeo Cocktail Sort
+          </a><br>
+        </div>
       </div>
 
       <!-- 4. Selection Sort -->
@@ -150,14 +247,32 @@
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$</li>
-          <li>Caso Médio: $O(n^2)$</li>
-          <li>Melhor Caso: $O(n^2)$</li>
+          <li>Pior Caso: O(n²)</li>
+          <li>Caso Médio: O(n²)</li>
+          <li>Melhor Caso: O(n²)</li>
         </ul>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Não é eficiente para grandes listas, mas é útil em situações onde a escrita (trocas) na
           memória é custosa, pois ele minimiza o número de trocas (apenas uma troca por iteração completa).</p>
-      </div>
+        <br><h3 class="text-xl font-semibold text-gray-800 mb-2">Código:</h3>
+        <img src="src/assets/images/selectionsort_codigo.png"
+          class="w-3/4 mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <br>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Atividade:</h3>
+        <p>Compare com o algoritmo anterior e verifique quem faz mais
+        trocas e quantas iterações foram necessárias.</p>
+        <br>
+        <div class="flex justify-center items-center flex-col">
+          <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+            class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Site para visualizar algoritmos de ordenação
+          </a><br>
+          <a href="https://www.youtube.com/watch?v=g-PGLbMth_g" target="_blank" rel="noopener noreferrer"
+            class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Vídeo Selection Sort
+          </a><br>
+        </div>
+      </div>      
 
       <!-- 5. Insertion Sort -->
       <div data-tab-content="insertionSort" class="tab-content hidden" id="insertionSort-content">
@@ -173,14 +288,49 @@
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$</li>
-          <li>Caso Médio: $O(n^2)$</li>
-          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada)</li>
-        </ul>
+          <li>Pior Caso: O(n²)</li>
+          <li>Caso Médio: O(n²)</li>
+          <li>Melhor Caso: O(n) (quando a lista já está ordenada)</li>
+        </ul><br>
+        <p class="text-gray-600">
+          O insertion sort geralmente é considerado melhor do que o
+          bubble sort e o selection sort para a maioria dos cenários
+          simples, especialmente vetores pequenos ou quase ordenados.
+        </p><br>
+        <p class="text-gray-600">
+          Desempenho prático: Embora os três algoritmos tenham
+          desempenhos teóricos parecidos ,o insertion sort é mais rápido
+          na prática, pois realiza menos movimentações e comparações,
+          especialmente se o vetor já está quase ordenado.
+        </p><br>
+        <p class="text-gray-600">
+          O melhor caso do insertion sort é quando o vetor já está
+          ordenado, enquanto bubble e selection continuam realizando
+          várias comparações mesmo neste cenário.
+        </p><br>
+        <p class="text-gray-600">
+          Movimentação de dados: O selection sort faz o menor número de
+          trocas, mas mais comparações; já o bubble sort faz muitas
+          trocas, sendo geralmente o mais lento.
+        </p><br>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Extremamente eficiente para listas pequenas e para listas que já estão quase ordenadas.
           É comumente usado como parte de outros algoritmos mais avançados (como o TimSort, que combina Merge Sort e
           Insertion Sort).</p>
+        <img src="src/assets/images/insertionsort_codigo.png"
+          class="w-3/4 mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <br>   
+        <div class="flex justify-center items-center flex-col">
+          <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+            class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Site para visualizar algoritmos de ordenação
+          </a><br>
+          <a href="https://www.youtube.com/watch?v=JU767SDMDvA" target="_blank" rel="noopener noreferrer"
+            class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Vídeo Insertion Sort
+          </a><br>
+        </div>
+
       </div>
 
       <!-- 6. Merge Sort -->
@@ -360,17 +510,11 @@
       // Ativar a aba padrão (Bubble Sort) ao carregar
       activateTab('bubbleSort');
 
-
-      // ------------------
-      // Lógica do Quiz 
-      // ------------------
-
-      // Adicionei novas perguntas para manter o Quiz relevante com os novos algoritmos.
       const quizQuestions = [
         {
-          question: "Qual algoritmo de ordenação tem a complexidade de pior caso de $O(n \log n)$ e é um algoritmo de divisão e conquista?",
-          options: ["Bubble Sort", "Quick Sort", "Insertion Sort", "Merge Sort"],
-          answer: "Merge Sort"
+          question: "O que não influência a performance de um algoritmo de ordenação?",
+          options: ["o tipo de dado armazenado na memória.","A estratégia", "A implementação", "O tamanho da entrada", "A disposição da entrada(Desordenado, parcialmente ordenado, ordenado decrescente", "Os recursos computacionais"],
+          answer: "o tipo de dado armazenado na memória."
         },
         {
           question: "Qual algoritmo de ordenação é mais eficiente para listas *quase* ordenadas?",
