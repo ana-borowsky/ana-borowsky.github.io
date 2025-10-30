@@ -524,6 +524,11 @@
           answer: "O tipo da entrada de dados"
         },
         {
+          question: "Qual dessas alternativas é o calcanhar de Aquiles do Bubble Sort?",
+          options: ["Quando a entrada já está ordenada", "Números pequenos no final do array", "Números grandes no final do array", "Quando a lista de entrada é aleatória"],
+          answer: "Números pequenos no final do array"
+        },
+        {
           question: "Qual algoritmo de ordenação é mais eficiente para listas *quase* ordenadas?",
           options: ["Selection Sort", "Insertion Sort", "Cocktail Sort", "Quick Sort"],
           answer: "Insertion Sort"
@@ -544,9 +549,96 @@
           answer: "Sim"
         },
         {
-          question: "Qual algoritmo é uma variação do bubble sort, mas melhora ao ordenar em ambas as direções?",
+          question: "Qual dessas alternativas é o 'calcanhar de Aquiles' do Insertion Sort?",
+          options: [
+            "Quando a lista de entrada é pequena (menos de 10 elementos)",
+            "Quando o array está em ordem decrescente (invertida)",
+            "Quando o pivô é sempre o maior ou menor elemento",
+            "Quando a lista possui muitos valores iguais"
+          ],
+          answer: "Quando o array está em ordem decrescente (invertida)"
+        },
+        {
+          question: "Qual algoritmo é uma variação do bubble sort, mas melhora a performance ao ordenar em ambas as direções?",
           options: ["Comb Sort", "Insertion Sort", "Merge Sort", "Cocktail Sort","Selection Sort"],
           answer: "Cocktail Sort"
+        },
+        {
+          question: "Qual é o pior caso para o bubble sort?",
+          options: ["Quando a entrada já está ordenada", "Quando a entrada é ordenada ao contrário", "Quando a entrada é aleatória"],
+          answer: "Quando a entrada é ordenada ao contrário"
+        },
+
+        {
+          question: "Qual dessas alternativas é o 'calcanhar de Aquiles' do Quick Sort?",
+          options: [
+            "Quando o array contém muitos valores duplicados, forçando a instabilidade",
+            "Quando a lista de entrada é totalmente ordenada ou ordenada em ordem inversa",
+            "Quando a lista é dividida consistentemente em duas metades quase iguais",
+            "O alto consumo de memória para manter a pilha de chamadas recursivas"
+          ],
+          answer: "Quando a lista de entrada é totalmente ordenada ou ordenada em ordem inversa"
+        },
+
+        {
+          question: "Dentre os algoritmos de ordenação por comparação listados abaixo, qual alternativa apresenta a ordem CORRETA de desempenho, do melhor para o pior, considerando a complexidade de tempo assintótica no caso médio?",
+          options: [
+            "Selection Sort, Insertion Sort, Quick Sort, Bubble Sort",
+            "Quick Sort, Insertion Sort, Selection Sort, Bubble Sort",
+            "Bubble Sort, Quick Sort, Insertion Sort, Selection Sort",
+            "Insertion Sort, Quick Sort, Bubble Sort, Selection Sort"
+          ],
+          answer: "Quick Sort, Insertion Sort, Selection Sort, Bubble Sort"
+        },
+          {
+          question: "Qual é a principal diferença entre o Selection Sort e o Insertion Sort?",
+          options: [
+            "O Selection Sort faz mais trocas e menos comparações",
+            "O Insertion Sort é estável e o Selection Sort não",
+            "O Insertion Sort sempre é mais rápido",
+            "O Selection Sort utiliza recursão internamente"
+          ],
+          answer: "O Insertion Sort é estável e o Selection Sort não"
+        },
+        {
+          question: "O que caracteriza o Gnome Sort?",
+          options: [
+            "Baseia-se em partições e pivôs",
+            "Usa lacunas (gaps) para movimentar elementos",
+            "Compara elementos adjacentes e 'retrocede' quando necessário",
+            "Divide a lista em baldes (buckets)"
+          ],
+          answer: "Compara elementos adjacentes e 'retrocede' quando necessário"
+        },
+        {
+          question: "O que significa dizer que um algoritmo de ordenação é 'estável'?",
+          options: [
+            "Ele mantém a posição relativa de elementos iguais",
+            "Ele usa menos memória auxiliar",
+            "Ele sempre tem complexidade O(n log n)",
+            "Ele pode ordenar qualquer tipo de dado"
+          ],
+          answer: "Ele mantém a posição relativa de elementos iguais"
+        },
+        {
+          question: "Qual algoritmo de ordenação tem desempenho O(n²) em todos os casos e nunca melhora mesmo com listas quase ordenadas?",
+          options: ["Selection Sort", "Insertion Sort", "Bubble Sort", "Gnome Sort"],
+          answer: "Selection Sort"
+        },
+        {
+          question: "Qual das seguintes alternativas descreve corretamente o funcionamento do Comb Sort?",
+          options: [
+            "Divide a lista em partes iguais e as ordena recursivamente",
+            "Compara elementos com um 'gap' inicial e o reduz a cada iteração",
+            "Seleciona o menor elemento e o coloca na primeira posição",
+            "Compara e troca apenas elementos adjacentes"
+          ],
+          answer: "Compara elementos com um 'gap' inicial e o reduz a cada iteração"
+        },
+        {
+          question: "Qual desses algoritmos de ordenação é mais indicado para grandes volumes de dados devido à sua eficiência média?",
+          options: ["Quick Sort", "Bubble Sort", "Insertion Sort", "Selection Sort"],
+          answer: "Quick Sort"
         }
       ];
 
