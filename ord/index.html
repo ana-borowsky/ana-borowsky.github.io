@@ -433,28 +433,34 @@
 
       <!-- 9. Bucket Sort -->
       <div data-tab-content="bucketSort" class="tab-content hidden" id="bucketSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">9. Bucket Sort (Ordenação por Balde)</h2>
-        <img src="src/assets/images/em_obras.png"
-          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
-        <!-- Placeholder GIF INSERIDO AQUI -->
-        <img src="https://placehold.co/600x300/1e293b/f8fafc?text=Bucket+Sort+GIF"
-          alt="Animação GIF do algoritmo Bucket Sort"
-          class="w-full max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
-        <!-- FIM Placeholder GIF -->
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">9. Bucket Sort</h2>
         <p class="mb-4 text-gray-700">
-          O Bucket Sort, ou Ordenação por Balde, é um algoritmo de ordenação não-comparativa. Ele divide o array de
+          O Bucket Sort, é um algoritmo de ordenação não-comparativa. Ele divide o array de
           entrada em um número finito de "baldes" (buckets). Cada balde é então ordenado individualmente (geralmente
           usando Insertion Sort) e, por fim, todos os baldes são concatenados para formar o resultado ordenado.
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$ (se a distribuição for muito desigual)</li>
-          <li>Caso Médio: $O(n + k)$ (onde k é o número de baldes, idealmente próximo de n)</li>
-          <li>Melhor Caso: $O(n + k)$</li>
+          <li>Pior Caso: O(n²) (se a distribuição for muito desigual)</li>
+          <li>Caso Médio: O(n + k) (onde k é o número de baldes, idealmente próximo de n)</li>
+          <li>Melhor Caso: O(n + k)</li>
         </ul>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Mais eficaz para arrays onde os elementos de entrada estão uniformemente distribuídos
-          em um intervalo. É comum em processamento de dados onde a distribuição dos valores é conhecida.</p>
+          em um intervalo. É comum em processamento de dados onde a distribuição dos valores é conhecida.</p><br>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Exemplo:</h3>
+        <img src="src/assets/images/bucketsort_codigo.png" alt="Animação GIF do algoritmo Quick Sort"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <div class="flex justify-center items-center flex-col">
+          <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+            class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Site para visualizar algoritmos de ordenação
+          </a><br>
+          <a href="https://www.youtube.com/watch?v=VuXbEb5ywrU" target="_blank" rel="noopener noreferrer"
+            class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Vídeo Insertion Sort
+          </a><br>
+        </div>
       </div>
 
       <!-- 10. Quiz -->
