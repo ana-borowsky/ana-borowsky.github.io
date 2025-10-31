@@ -43,6 +43,7 @@
     <!-- Navegação por Abas -->
     <div class="border-b-2 border-gray-200">
       <div id="tab-nav" class="flex flex-nowrap justify-start md:justify-around -mb-0.5">
+        <button data-tab="mergeSort" class="tab-button" aria-controls="mergeSort-content">Home</button>
         <button data-tab="bubbleSort" class="tab-button" aria-controls="bubbleSort-content">Bubble Sort</button>
         <button data-tab="quickSort" class="tab-button" aria-controls="quickSort-content">Quick Sort</button>
         <button data-tab="cocktailSort" class="tab-button" aria-controls="cocktailSort-content">Cocktail Sort</button>
@@ -50,7 +51,6 @@
           Sort</button>
         <button data-tab="insertionSort" class="tab-button" aria-controls="insertionSort-content">Insertion
           Sort</button>
-        <button data-tab="mergeSort" class="tab-button" aria-controls="mergeSort-content">Merge Sort</button>
         <button data-tab="combSort" class="tab-button" aria-controls="combSort-content">Comb Sort</button>
         <button data-tab="gnomeSort" class="tab-button" aria-controls="gnomeSort-content">Gnome Sort</button>
         <button data-tab="bucketSort" class="tab-button" aria-controls="bucketSort-content">Bucket Sort</button>
@@ -336,32 +336,119 @@
 
       <!-- 6. Merge Sort -->
       <div data-tab-content="mergeSort" class="tab-content hidden" id="mergeSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">6. Merge Sort (Não cai na prova)</h2>
-        <img src="src/assets/images/em_obras.png"
-          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
-        <!-- Placeholder GIF INSERIDO AQUI -->
-        <img src="src/assets/images/mergesort.gif" alt="Animação GIF do algoritmo Quick Sort"
-          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
-        <!-- FIM Placeholder GIF -->
-        <p class="mb-4 text-gray-700">
-          O Merge Sort é um algoritmo de divisão e conquista que garante uma complexidade $O(n \log n)$ em todos os
-          casos. Ele divide o array recursivamente em metades até que cada sublista contenha apenas um elemento (que é,
-          por definição, ordenado). Em seguida, ele mescla as sublistas de volta de forma ordenada.
-        </p>
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">Como comparar algoritmos?</h2>
+        <p class="text-gray-600">Como você compararia a performance de algoritmos? A princípio, a primeira ideia seria:</p>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n \log n)$</li>
-          <li>Caso Médio: $O(n \log n)$</li>
-          <li>Melhor Caso: $O(n \log n)$</li>
+          <li>Medir o tempo de execução do algoritmo A,
+          subtraindo o tempo final pelo tempo inicial</li>
+          <li>Medir o tempo de execução do algoritmo B,
+          subtraindo o tempo final pelo tempo inicial</li>
+          <li>Verificar qual foi o mais rápido</li><br>
+          <p class="text-gray-600">Mas há um grande problema com essa abordagem. A dependência de hardware</p>
+          <ul class="list-disc list-inside ml-4 text-gray-600">
+            <li>Se executar o mesmo algoritmo em um core i3,
+            i5 e i7, o tempo de resposta será diferente</li>
+            <li>Se executar um algoritmo ineficiente em um
+            super computador, será muito rápido</li><br>
+          </ul>
         </ul>
-        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
-        <p class="text-gray-600">Garante desempenho consistente em qualquer cenário. É usado para ordenar listas
-          encadeadas de forma eficiente e é um dos principais algoritmos de ordenação externa.</p>
+        <p class="text-gray-600">Qual é a alternativa?</p>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Analisar o código fonte:</h3>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>Avaliar a quantidade de passos que o algoritmo
+          possui</li>
+          <li>Sempre considerar o pior cenário do algoritmo</li>
+        </ul>       
+        <br><strong><p class="text-gray-600">Exemplo: Adoçar um café</p></strong>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>1. Abrir o pote de açúcar</li>
+          <li>2. Pegar uma colher</li>
+          <li>3. Encher a colher de açúcar</li>
+          <li>4. Despejar o açúcar no café</li>
+          <li>5. Repetir o passo 3 e 4 até a quantidade
+          desejada.</li>
+        </ul>
+        <img src="src/assets/images/exemplocafe.png"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Notação O (Big O):</h3>
+          <p class="text-gray-600">A notação O é um método que determina a
+          complexidade de um determinado algoritmo.</p>
+          <br><strong>
+            <p class="text-gray-600">Exemplos:</p>
+          </strong>
+          <ul class="list-disc list-inside ml-4 text-gray-600">
+            <li>O(1) – Complexidade de tempo constante</li>
+            <li>O(n) - Complexidade de tempo linear
+            <li>O(log n) - Complexidade de tempo logarítmica
+            <li>O(n²) - Complexidade de tempo quadrática
+          </ul>
+        <img src="src/assets/images/bigo.png"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <p class="text-gray-600">Olhando a figura acima: <strong>Qual é o algoritmo com a melhor performance? Qual o com a pior?</strong> Você deverá saber essa resposta.</p>
+        <br><strong><p>O(1) – Complexidade de tempo constante</p></strong>
+        <p class="text-gray-600">Exemplos:</p>
+        <p class="text-gray-600">1. acesso de um elemento de um vetor pelo
+        índice.</p>
+        <p class="text-gray-600">2. Operações de empilhar/desempilhar.</p><br>
+
+        <p><strong>O(n) - Complexidade de tempo
+        linear</strong></p>
+        <p class="text-gray-600">Um algoritmo de complexidade linear tem o
+        tempo de execução diretamente proporcional
+        ao tamanho da entrada. Ou seja, o tempo de
+        execução aumenta proporcionalmente com o
+        tamanho da entrada.</p><br>
+
+        <p class="text-gray-600">Exemplos:</p>
+        <p class="text-gray-600">1. Imprimir todos elementos de um vetor</p>
+        <p class="text-gray-600">2. Procurar um elemento em uma lista
+        encadeada</p><br>
+
+        <p><strong>O(log n) - Complexidade de
+        tempo logarítmica</strong></p>
+
+        <p class="text-gray-600">Um algoritmo de complexidade logarítmica tem
+        o tempo de execução proporcional ao
+        logarítmico do tamanho da entrada.</p><br>
+        <p class="text-gray-600">Exemplos:</p>
+        <p class="text-gray-600">Busca em uma árvore binária</p><br>
+
+        <p><strong>O(n²) - Complexidade de tempo
+        quadrática</strong></p>
+        <p class="text-gray-600">Um algoritmo de complexidade quadrática tem
+        o tempo de execução proporcional ao quadrado
+        do tamanho da entrada.</p><br>
+
+        <p class="text-gray-600">Exemplo:</p>
+        <p class="text-gray-600">Checar se existe elementos duplicados em um
+        vetor</p><br>
+
+        <p><strong>Voltando ao nosso exemplo, vamos verificar a complexidade do algoritmo de adoçar café:</strong>
+        <ul class="list-disc list-inside ml-4 text-gray-600">
+          <li>n = número de colheres de açúcar</li>
+          <li>Total de passos = 2n + 2</li>
+          <li>Conforme n aumenta, o número de passos
+          aumenta</li>
+          <li>O “2” é constante, não influencia a
+          complexidade</li>
+          <li>Assim, a complexidade é O(n), ou seja, linear</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Análise de casos:</h3>
+        <p class="text-gray-600">Ao estudar algoritmos de ordenação, é importante entender como eles se comportam em diferentes cenários de entrada.
+        O desempenho de um algoritmo pode variar bastante dependendo da disposição inicial dos dados (ordenados, parcialmente
+        ordenados, desordenados (aleatório), ou ordenado de trás para frente) e da estratégia de comparação e troca utilizada.</p><br>
+        <p class="text-gray-600">Por isso, a análise é dividida em três situações principais: melhor caso, caso médio e pior caso.</p><br>
+        
+        <p class="text-gray-600"><strong>Melhor caso: </strong>É a situação em que o algoritmo precisa realizar o menor número possível de comparações e trocas.</p>
+        <p class="text-gray-600"><strong>Caso médio: </strong>Representa o comportamento esperado do algoritmo para uma entrada aleatória.</p>
+        <p class="text-gray-600"><strong>Pior caso: </strong>ção em que o algoritmo realiza o máximo possível de comparações e trocas.</p><br>
+        <p class="text-gray-600">Sempre que ler sobre um dos algoritmos dessa aplicação, pense sobre qual seria, principalmente, o pior caso. Observe também que em alguns casos a ordenação da entrada não afeta o desempenho do algoritmo.</p>
       </div>
 
       <!-- 7. Comb Sort -->
       <div data-tab-content="combSort" class="tab-content hidden" id="combSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">7. Comb Sort</h2>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">6. Comb Sort</h2>
         <!-- Placeholder GIF INSERIDO AQUI -->
         <img src="src/assets/images/combsort.gif" alt="Animação GIF do algoritmo Quick Sort"
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
@@ -397,7 +484,7 @@
 
       <!-- 8. Gnome Sort -->
       <div data-tab-content="gnomeSort" class="tab-content hidden" id="gnomeSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">8. Gnome Sort</h2>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">7. Gnome Sort</h2>
         <!-- Placeholder GIF INSERIDO AQUI -->
         <img src="src/assets/images/gnomesort.gif" alt="Animação GIF do algoritmo Quick Sort"
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
@@ -433,7 +520,7 @@
 
       <!-- 9. Bucket Sort -->
       <div data-tab-content="bucketSort" class="tab-content hidden" id="bucketSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">9. Bucket Sort</h2>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">8. Bucket Sort</h2>
         <p class="mb-4 text-gray-700">
           O Bucket Sort, é um algoritmo de ordenação não-comparativa. Ele divide o array de
           entrada em um número finito de "baldes" (buckets). Cada balde é então ordenado individualmente (geralmente
@@ -542,8 +629,7 @@
         });
       });
 
-      // Ativar a aba padrão (Bubble Sort) ao carregar
-      activateTab('bubbleSort');
+      activateTab('mergeSort');
 
       const quizQuestions = [
         {
