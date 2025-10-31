@@ -397,10 +397,8 @@
 
       <!-- 8. Gnome Sort -->
       <div data-tab-content="gnomeSort" class="tab-content hidden" id="gnomeSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">8. Gnome Sort (Ordenação Gnomo)</h2>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">8. Gnome Sort</h2>
         <!-- Placeholder GIF INSERIDO AQUI -->
-        <img src="src/assets/images/em_obras.png"
-          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <img src="src/assets/images/gnomesort.gif" alt="Animação GIF do algoritmo Quick Sort"
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <!-- FIM Placeholder GIF -->
@@ -411,13 +409,26 @@
         </p>
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Complexidade:</h3>
         <ul class="list-disc list-inside ml-4 text-gray-600">
-          <li>Pior Caso: $O(n^2)$</li>
-          <li>Caso Médio: $O(n^2)$</li>
-          <li>Melhor Caso: $O(n)$ (quando a lista já está ordenada)</li>
+          <li>Pior Caso: O(n²)</li>
+          <li>Caso Médio: O(n²)</li>
+          <li>Melhor Caso: O(n) (quando a lista já está ordenada)</li>
         </ul>
         <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Uso:</h3>
         <p class="text-gray-600">Principalmente valorizado por ser muito fácil de implementar (tem a linha de código
-          mais curta de todos os $O(n^2)$ quadráticos) e por sua estabilidade.</p>
+          mais curta de todos os O(n²) quadráticos) e por sua estabilidade.</p><br>
+        <h3 class="text-xl font-semibold text-gray-800 mt-4 mb-2">Exemplo:</h3>
+        <img src="src/assets/images/gnomesort_codigo.png"
+          class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
+        <div class="flex justify-center items-center flex-col">
+          <a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener noreferrer"
+            class="w-1/2 text-center block bg-purple-500 text-white font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Site para visualizar algoritmos de ordenação
+          </a><br>
+          <a href="https://www.youtube.com/watch?v=pMjAllOR3eY" target="_blank" rel="noopener noreferrer"
+            class=" w-1/2 block bg-blue-500 text-white text-center font-light py-4 px-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-sky-300">
+            Vídeo Insertion Sort
+          </a><br>
+        </div>
       </div>
 
       <!-- 9. Bucket Sort -->
