@@ -336,7 +336,7 @@
 
       <!-- 6. Merge Sort -->
       <div data-tab-content="mergeSort" class="tab-content hidden" id="mergeSort-content">
-        <h2 class="text-2xl font-bold text-purple-600 mb-4">6. Merge Sort (Ordenação por Mesclagem)</h2>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">6. Merge Sort (Não cai na prova)</h2>
         <img src="src/assets/images/em_obras.png"
           class="max-w-lg mx-auto my-6 rounded-lg border border-gray-300 object-cover shadow-md">
         <!-- Placeholder GIF INSERIDO AQUI -->
@@ -525,7 +525,7 @@
         },
         {
           question: "Qual dessas alternativas é o calcanhar de Aquiles do Bubble Sort?",
-          options: ["Quando a entrada já está ordenada", "Números pequenos no final do array", "Números grandes no final do array", "Quando a lista de entrada é aleatória"],
+          options: ["Números pequenos no final do array", "Números grandes no final do array", "Quando a lista de entrada é aleatória"],
           answer: "Números pequenos no final do array"
         },
         {
@@ -549,6 +549,11 @@
           answer: "Sim"
         },
         {
+          question: "Inicialmente, tem-se o vetor [23,12,4,21]. Após a primeira iteração de um determinado algoritmo de ordenação, o vetor é [12,4,21,23]. Qual foi o algoritmo de ordenação utilizado?",
+          options: ["Quick Sort", "Cocktail Sort", "Bubble Sort", "Insertion Sort", "Selection Sort"],
+          answer: "Bubble Sort"
+        },
+        {
           question: "Qual dessas alternativas é o 'calcanhar de Aquiles' do Insertion Sort?",
           options: [
             "Quando a lista de entrada é pequena (menos de 10 elementos)",
@@ -565,7 +570,7 @@
         },
         {
           question: "Qual é o pior caso para o bubble sort?",
-          options: ["Quando a entrada já está ordenada", "Quando a entrada é ordenada ao contrário", "Quando a entrada é aleatória"],
+          options: ["Quando a entrada já está ordenada", "Quando a entrada é ordenada ao contrário", "Quando a entrada é aleatória", "Nenhuma das anteriores"],
           answer: "Quando a entrada é ordenada ao contrário"
         },
 
@@ -575,30 +580,30 @@
             "Quando o array contém muitos valores duplicados, forçando a instabilidade",
             "Quando a lista de entrada é totalmente ordenada ou ordenada em ordem inversa",
             "Quando a lista é dividida consistentemente em duas metades quase iguais",
-            "O alto consumo de memória para manter a pilha de chamadas recursivas"
+            "O alto consumo de memória para manter a pilha de chamadas recursivas",
+            "Nenhuma das anteriores"
           ],
           answer: "Quando a lista de entrada é totalmente ordenada ou ordenada em ordem inversa"
         },
-
+        {
+          question: "Dado o vetor [53, 31, 4, 1, 29], após a primeira passagem completa (ida e volta) do algoritmo, o resultado foi [1, 31, 4, 29, 53]. Qual é o algoritmo utilizado?",
+          options: ["Bubble Sort", "Cocktail Sort", "Insertion Sort", "Selection Sort", "Quick Sort"],
+          answer: "Cocktail Sort"
+        },
         {
           question: "Dentre os algoritmos de ordenação por comparação listados abaixo, qual alternativa apresenta a ordem CORRETA de desempenho, do melhor para o pior, considerando a complexidade de tempo assintótica no caso médio?",
           options: [
             "Selection Sort, Insertion Sort, Quick Sort, Bubble Sort",
             "Quick Sort, Insertion Sort, Selection Sort, Bubble Sort",
             "Bubble Sort, Quick Sort, Insertion Sort, Selection Sort",
-            "Insertion Sort, Quick Sort, Bubble Sort, Selection Sort"
+            "Quick Sort, Insertion Sort, Bubble Sort, Selection Sort"
           ],
           answer: "Quick Sort, Insertion Sort, Selection Sort, Bubble Sort"
         },
-          {
-          question: "Qual é a principal diferença entre o Selection Sort e o Insertion Sort?",
-          options: [
-            "O Selection Sort faz mais trocas e menos comparações",
-            "O Insertion Sort é estável e o Selection Sort não",
-            "O Insertion Sort sempre é mais rápido",
-            "O Selection Sort utiliza recursão internamente"
-          ],
-          answer: "O Insertion Sort é estável e o Selection Sort não"
+        {
+          question: "No algoritmo de ordenação, o segundo elemento de [8, 4, 6, 10] é inserido na posição correta em relação ao primeiro, resultando em [4, 8, 6, 10]. Qual foi o algoritmo utilizado?",
+          options: ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quick Sort", "Comb Sort"],
+          answer: "Insertion Sort"
         },
         {
           question: "O que caracteriza o Gnome Sort?",
@@ -639,7 +644,12 @@
           question: "Qual desses algoritmos de ordenação é mais indicado para grandes volumes de dados devido à sua eficiência média?",
           options: ["Quick Sort", "Bubble Sort", "Insertion Sort", "Selection Sort"],
           answer: "Quick Sort"
-        }
+        },
+        {
+          question: "Inicialmente, tem-se o vetor [10, 3, 5, 8]. Após a primeira iteração, o resultado é [3, 10, 5, 8]. Qual foi o algoritmo de ordenação utilizado?",
+          options: ["Insertion Sort", "Selection Sort", "Bubble Sort", "Quick Sort", "Comb Sort"],
+          answer: "Selection Sort"
+        },
       ];
 
       function renderQuiz() {
