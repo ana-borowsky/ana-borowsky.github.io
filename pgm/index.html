@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Imagem para PGM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .dark-placeholder::placeholder {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-lg">
+        <h1 class="text-3xl font-bold text-center text-indigo-400 mb-6">
+            Conversor para PGM
+        </h1>
+        <p class="text-center text-gray-400 mb-8">
+            Converta suas imagens para o formato PGM (P5, binário) e baixe-as como .zip.
+        </p>
+
+        <form id="converter-form" class="space-y-6">
+            <div>
+                <label for="image-upload" class="block text-sm font-medium text-gray-300 mb-2">
+                    1. Escolha as imagens
+                </label>
+                <input id="image-upload" type="file" multiple accept="image/*"
+                       class="block w-full text-sm text-gray-400
+                              file:mr-4 file:py-2 file:px-4
+                              file:rounded-lg file:border-0
+                              file:text-sm file:font-semibold
+                              file:bg-indigo-500 file:text-white
+                              hover:file:bg-indigo-600 transition duration-150
+                              cursor-pointer">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">
+                    2. Defina as dimensões (opcional)
+                </label>
+                <div class="flex gap-4">
+                    <input id="width-input" type="number" placeholder="Largura (px)"
+                           class="w-1/2 bg-gray-700 border border-gray-600 rounded-lg p-3 text-white dark-placeholder focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                    <input id="height-input" type="number" placeholder="Altura (px)"
+                           class="w-1/2 bg-gray-700 border border-gray-600 rounded-lg p-3 text-white dark-placeholder focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Deixe em branco para manter as dimensões originais.</p>
+            </div>
+
+            <div class="flex items-center">
+                <input id="grayscale-check" type="checkbox" checked
+                       class="h-5 w-5 text-indigo-500 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500 focus:ring-2">
+                <label for="grayscale-check" class="ml-3 text-sm font-medium text-gray-300">
+                    Converter para preto e branco (Luma)
+                </label>
+            </div>
+
+            <button type="submit" id="convert-button"
+                    class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg
+                           hover:bg-indigo-700 transition duration-300 ease-in-out
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800
+                           disabled:bg-gray-500 disabled:cursor-not-allowed">
+                Converter e Baixar
+            </button>
+        </form>
+
+        <div id="status-message" class="text-center text-green-400 mt-6 font-medium"></div>
+    </div>
+
+    <script type="module">
+        const form = document.getElementById('converter-form');
+        const fileInput = document.getElementById('image-upload');
+        const widthInput = document.getElementById('width-input');
+        const heightInput = document.getElementById('height-input');
+        const grayscaleCheck = document.getElementById('grayscale-check');
+        const convertButton = document.getElementById('convert-button');
+        const statusMessage = document.getElementById('status-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const files = fileInput.files;
+            if (files.length === 0) {
+                showStatus("Por favor, selecione pelo menos uma imagem.", true);
+                return;
+            }
+
+            setLoading(true, `Processando ${files.length} imagem(ns)...`);
+
+            try {
+                const zip = new JSZip();
+
+                const processingPromises = Array.from(files).map(file => {
+                    return processImage(
+                        file,
+                        widthInput.value,
+                        heightInput.value,
+                        grayscaleCheck.checked
+                    );
+                });
+
+                const processedImages = await Promise.all(processingPromises);
+
+                let addedCount = 0;
+                processedImages.forEach(imgData => {
+                    if (imgData) {
+                        zip.file(imgData.filename, imgData.blob);
+                        addedCount++;
+                    }
+                });
+
+                if (addedCount === 0) {
+                    throw new Error("Nenhuma imagem pôde ser processada.");
+                }
+
+                showStatus("Compactando arquivos...", false);
+                const zipBlob = await zip.generateAsync({ type: "blob" });
+
+                downloadZip(zipBlob, 'convertidas.zip');
+
+                setLoading(false, `Sucesso! ${addedCount} imagem(ns) convertida(s).`);
+                form.reset();
+
+            } catch (error) {
+                console.error("Erro no processamento:", error);
+                setLoading(false, `Erro: ${error.message}`, true);
+            }
+        });
+
+        function processImage(file, targetWidth, targetHeight, useLuma) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const img = new Image();
+
+                    img.onload = () => {
+                        try {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+
+                            const w = targetWidth ? parseInt(targetWidth, 10) : img.width;
+                            const h = targetHeight ? parseInt(targetHeight, 10) : img.height;
+                            canvas.width = w;
+                            canvas.height = h;
+
+                            ctx.drawImage(img, 0, 0, w, h);
+
+                            const imageData = ctx.getImageData(0, 0, w, h);
+                            const data = imageData.data;
+
+                            const pgmHeader = `P5\n${w} ${h}\n255\n`;
+                            const headerBytes = new TextEncoder().encode(pgmHeader);
+
+                            const pgmPixels = new Uint8Array(w * h);
+
+                            for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+                                const r = data[i];
+                                const g = data[i + 1];
+                                const b = data[i + 2];
+
+                                let gray;
+                                if (useLuma) {
+                                    gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                                } else {
+                                    gray = (r + g + b) / 3;
+                                }
+                                pgmPixels[j] = Math.round(gray);
+                            }
+
+                            const pgmBlobData = new Uint8Array(headerBytes.length + pgmPixels.length);
+                            pgmBlobData.set(headerBytes, 0);
+                            pgmBlobData.set(pgmPixels, headerBytes.length);
+
+                            const pgmBlob = new Blob([pgmBlobData], { type: 'image/x-portable-graymap' });
+
+                            const originalFilename = file.name.split('.').slice(0, -1).join('.');
+                            const newFilename = `${originalFilename || 'imagem'}.pgm`;
+
+                            resolve({ filename: newFilename, blob: pgmBlob });
+
+                        } catch (err) {
+                            console.error("Erro no processamento do canvas:", err);
+                            reject(new Error(`Falha ao processar ${file.name} no canvas.`));
+                        }
+                    };
+
+                    img.onerror = () => {
+                        console.error(`Não foi possível carregar a imagem: ${file.name}`);
+                        resolve(null);
+                    };
+
+                    img.src = e.target.result;
+                };
+
+                reader.onerror = () => {
+                    console.error(`Falha ao ler o arquivo: ${file.name}`);
+                    reject(new Error(`Falha ao ler ${file.name}.`));
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function downloadZip(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function setLoading(isLoading, message, isError = false) {
+            convertButton.disabled = isLoading;
+            if (isLoading) {
+                convertButton.textContent = "Processando...";
+                showStatus(message, false);
+            } else {
+                convertButton.textContent = "Converter e Baixar";
+                showStatus(message, isError);
+            }
+        }
+
+        function showStatus(message, isError = false) {
+            statusMessage.textContent = message;
+            if (isError) {
+                statusMessage.className = "text-center text-red-400 mt-6 font-medium";
+            } else {
+                statusMessage.className = "text-center text-green-400 mt-6 font-medium";
+            }
+        }
+
+    </script>
+</body>
+</html>
