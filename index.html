@@ -34,21 +34,19 @@
             }
         }
 
-        /* Oculta a barra de rolagem do carrossel */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* Estilos para os carrosseis de imagens dentro dos cards */
         .image-carousel .image-carousel-prev,
         .image-carousel .image-carousel-next {
             opacity: 0;
             transition: opacity 0.2s ease-in-out;
-            background-color: rgba(0, 87, 188, 0.6); /* Azul do gradiente com transparência */
+            background-color: rgba(0, 87, 188, 0.6);
         }
 
         .image-carousel .image-carousel-prev:hover,
@@ -61,12 +59,11 @@
             opacity: 1;
         }
 
-        /* Estiliza os ícones da Devicon */
         .devicon-style {
-            font-size: 2.5rem; /* 40px */
+            font-size: 2.5rem;
             line-height: 1;
-            margin-bottom: 0.5rem; /* 8px */
-            color: #67e8f9; /* Cor ciano, a mesma dos ícones de check */
+            margin-bottom: 0.5rem;
+            color: #67e8f9;
         }
 
     </style>
@@ -83,53 +80,43 @@
             Eu sou a Ana :)
         </p>
 
-        <!-- SEÇÃO: Minha Stack -->
         <div class="flex justify-center items-center gap-3 mt-12">
             <h2 class="text-2xl font-bold">
                 Minha Stack
             </h2>
         </div>
         <div class="flex flex-wrap justify-center items-center gap-4 mt-6">
-            <!-- Ícones da Stack -->
             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Python">
                 <i class="devicon-python-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">Python</p>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Rust">
-                <i class="devicon-rust-plain devicon-style"></i>
-                <p class="text-xs font-light text-center">Rust</p>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Ruby">
-                 <i class="devicon-ruby-plain devicon-style"></i>
-                <p class="text-xs font-light text-center">Ruby</p>
-            </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Rails">
-                <i class="devicon-rails-plain devicon-style"></i>
-                <p class="text-xs font-light text-center">Rails</p>
-            </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Flask">
-                <i class="devicon-flask-original devicon-style"></i>
-                <p class="text-xs font-light text-center">Flask</p>
-            </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="JavaScript">
-                <i class="devicon-javascript-plain devicon-style"></i>
-                <p class="text-xs font-light text-center">JavaScript</p>
-            </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="SQL">
-                <i class="devicon-mysql-plain devicon-style"></i>
-                <p class="text-xs font-light text-center">SQL</p>
             </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="C">
                 <i class="devicon-c-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">C</p>
             </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="C#">
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="C">
+                <i class="devicon-cplusplus-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">C++</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="C#">
                 <i class="devicon-csharp-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">C#</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Rust">
+                <i class="devicon-rust-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">Rust</p>
             </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Java">
                 <i class="devicon-java-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">Java</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Ruby">
+                 <i class="devicon-ruby-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">Ruby</p>
+            </div>
+                        <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Ruby">
+                 <i class="devicon-haskell-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">Haskell</p>
             </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="HTML">
                 <i class="devicon-html5-plain devicon-style"></i>
@@ -139,17 +126,41 @@
                 <i class="devicon-css3-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">CSS</p>
             </div>
-             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="PHP">
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="PHP">
                 <i class="devicon-php-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">PHP</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="JavaScript">
+                <i class="devicon-javascript-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">JavaScript</p>
             </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="React">
                 <i class="devicon-react-original devicon-style"></i>
                 <p class="text-xs font-light text-center">React</p>
             </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Node.js">
+                <i class="devicon-typescript-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">Typescript</p>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Node.js">
+                <i class="devicon-dotnetcore-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">.NET</p>
+            </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Node.js">
                 <i class="devicon-nodejs-plain devicon-style"></i>
                 <p class="text-xs font-light text-center">Node.js</p>
+            </div>
+             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Rails">
+                <i class="devicon-rails-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">Rails</p>
+            </div>
+                         <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Flask">
+                <i class="devicon-flask-original devicon-style"></i>
+                <p class="text-xs font-light text-center">Flask</p>
+            </div>
+             <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="SQL">
+                <i class="devicon-mysql-plain devicon-style"></i>
+                <p class="text-xs font-light text-center">SQL</p>
             </div>
              <div class="flex flex-col items-center justify-center p-2 backdrop-blur-md rounded-2xl border border-white/20 w-24 h-24" title="Git">
                 <i class="devicon-git-plain devicon-style"></i>
@@ -157,7 +168,6 @@
             </div>
         </div>
 
-        <!-- SEÇÃO: Qualificações -->
         <div class="flex justify-center items-center gap-3 mt-12">
             <h2 class="text-2xl font-bold">
                 Qualificações
@@ -167,7 +177,7 @@
             <ul class="space-y-4">
                 <li class="flex items-start">
                     <svg class="w-5 h-5 mr-3 text-cyan-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="opacity-90">Estudante do 5º período de Ciência da Computação - PUCPR</span>
+                    <span class="opacity-90">Estudante do 6º período de Ciência da Computação - PUCPR</span>
                 </li>
                  <li class="flex items-start">
                     <svg class="w-5 h-5 mr-3 text-cyan-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -180,7 +190,6 @@
             </ul>
         </div>
 
-        <!-- Seção de Projetos Pessoais -->
         <div class="flex justify-center items-center gap-3 mt-12">
             <h2 class="text-2xl font-bold">
                 Projetos
@@ -188,7 +197,6 @@
         </div>
         <div class="w-full">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-
 
                 <!-- Card Mathmagik -->
                 <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left flex flex-col">
@@ -220,7 +228,34 @@
                     </div>
                 </div>
 
-                <!-- Card Urban Weather -->
+                <!-- Card Volvo -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem15.png" alt="[Imagem 1 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem16.png" alt="[Imagem 2 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">TechStore</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">C#</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Entity</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">SQL Server</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Swagger</span>
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">LINQ</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">API RESTful desenvolvida em ASP.NET Core para gerenciamento de um sistema de vendas (e-commerce), permitindo controle de produtos, categorias, clientes e pedidos.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/projeto-final-volvo" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                     <div class="relative w-full h-[276px] overflow-hidden image-carousel">
                         <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
@@ -337,6 +372,30 @@
                     </div>
                 </div>
 
+                <!-- Card numerologista -->
+                <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left flex flex-col">
+                    <div class="relative w-full h-[276px] overflow-hidden image-carousel">
+                        <div class="flex h-full transition-transform duration-300 ease-in-out image-carousel-track">
+                            <img src="src/assets/images/imagem18.png" alt="[Imagem 1 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                            <img src="src/assets/images/imagem17.png" alt="[Imagem 2 do projeto Urban Weather]" class="w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <button class="image-carousel-prev absolute top-1/2 left-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+                        <button class="image-carousel-next absolute top-1/2 right-2 transform -translate-y-1/2 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors duration-200"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">TechStore</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Haskell</span>
+                        </div>
+                        <p class="text-sm opacity-80 mb-4 flex-grow">Sistema especialista em Haskell (escolhemos fazer um numerólogo), no qual os alunos deveriam explorar novas formas de usar os sistemas de inteligência artificial, de forma a utilizá-los para aprender de forma mais eficiente.</p>
+                        <div class="flex flex-col gap-3 mt-auto">
+                            <a href="https://github.com/ana-borowsky/haskell_numerologist" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/10 hover:bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                                Ver no GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Card As aventuras de Lysa -->
                 <div class="backdrop-blur-md rounded-b-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                     <div class="relative w-full h-[276px] overflow-hidden image-carousel">
@@ -363,7 +422,6 @@
             </div>
         </div>
 
-        <!-- Seção de Aplicações Gemini -->
         <div class="flex justify-center items-center gap-3 mt-12">
             <h2 class="text-2xl font-bold">
                 Vibe-coding para estudar/ ensinar conteúdos
@@ -388,7 +446,7 @@
                 </div>
             </div>
 
-            <!-- Card Árvores AVL -->
+            <!-- Card RPEC -->
             <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left flex flex-col">
                 <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold mb-2">Resolução de Problemas Estruturados em Computação</h3>
@@ -399,6 +457,23 @@
                     <p class="text-sm opacity-80 mb-4 flex-grow">Uma série de aplicações para estudo da disciplina Resolução de Problemas Estruturados em Computação</p>
                     <div class="flex flex-col gap-3 mt-auto">
                         <a href="https://ana-borowsky.github.io/rpec/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
+                            Acessar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Grafos -->
+            <div class="backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 text-left flex flex-col">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold mb-2">Grafos</h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                         <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Estrutura de Dados</span>
+                         <span class="bg-white/10 text-white text-xs font-light px-2.5 py-0.5 rounded-full">Computação</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4 flex-grow">Aplicação web para estudo da disciplina de Grafos.</p>
+                    <div class="flex flex-col gap-3 mt-auto">
+                        <a href="https://ana-borowsky.github.io/grafos/" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-white/20 text-white py-2 px-6 rounded-full transform transition-all duration-300 hover:scale-105 text-sm font-light no-underline">
                             Acessar
                         </a>
                     </div>
@@ -434,7 +509,6 @@
 
     </main>
 <script>
-    // Script para os carrosseis de imagens dentro dos cards
     const innerCarousels = document.querySelectorAll('.image-carousel');
     innerCarousels.forEach(carousel => {
         const track = carousel.querySelector('.image-carousel-track');
@@ -467,7 +541,7 @@
             }
         });
 
-        updateInnerCarousel(); // Inicializa o estado dos botões
+        updateInnerCarousel();
     });
 </script>
 </body>
