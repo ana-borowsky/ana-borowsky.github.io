@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guidelines – Diretrizes de Desenvolvimento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons para ícones modernos -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        /* Personalização da barra de rolagem */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Estilo base para blocos de código markdown */
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .prose a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .prose a:hover {
+            text-decoration: underline;
+        }
+        .active-nav-link {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border-right: 3px solid #1d4ed8;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+
+    <!-- Navegação Mobile -->
+    <div class="lg:hidden bg-white shadow-sm p-4 sticky top-0 z-50 flex justify-between items-center border-b border-slate-200">
+        <h1 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <i class="ph ph-book-bookmark text-blue-600 text-xl"></i>
+            Guidelines
+        </h1>
+        <button id="mobile-menu-btn" class="p-2 text-slate-600 hover:bg-slate-100 rounded-md">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
+    </div>
+
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row min-h-screen">
+
+
+        <!-- Sidebar / Índice -->
+        <aside id="sidebar" class="hidden lg:block w-full lg:w-72 flex-shrink-0 bg-white border-r border-slate-200 h-screen sticky top-0 overflow-y-auto transition-all duration-300 z-40 fixed lg:relative shadow-lg lg:shadow-none">
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
+                    <i class="ph ph-list-dashes text-blue-600"></i>
+                    Índice
+                </h2>
+                <nav class="space-y-1 text-sm text-slate-600" id="nav-menu">
+                    <a href="#inicio" class="block px-3 py-2 rounded-l-md hover:bg-slate-50 transition-colors">Início</a>
+                    <a href="#lingua" class="block px-3 py-2 rounded-l-md hover:bg-slate-50 transition-colors">1. Língua</a>
+
+
+                    <!-- Sub-menu GitHub -->
+                    <div class="pt-2">
+                        <a href="#github" class="block px-3 py-2 font-medium text-slate-800 hover:bg-slate-50 rounded-l-md transition-colors">2. GitHub</a>
+                        <div class="pl-4 border-l border-slate-200 ml-3 space-y-1 mt-1">
+                            <a href="#gh-projects" class="block px-3 py-1.5 text-xs hover:text-blue-600 transition-colors">Projects e Labels</a>
+                            <a href="#gh-issues" class="block px-3 py-1.5 text-xs hover:text-blue-600 transition-colors">Issues</a>
+                            <a href="#gh-branches" class="block px-3 py-1.5 text-xs hover:text-blue-600 transition-colors">Branches</a>
+                            <a href="#gh-commits" class="block px-3 py-1.5 text-xs hover:text-blue-600 transition-colors">Commits</a>
+                            <a href="#gh-prs" class="block px-3 py-1.5 text-xs hover:text-blue-600 transition-colors">Pull Requests</a>
+                        </div>
+                    </div>
+
+
+                    <a href="#padroes-codigo" class="block px-3 py-2 mt-2 rounded-l-md hover:bg-slate-50 transition-colors">3. Padrões de Código</a>
+                </nav>
+            </div>
+        </aside>
+
+
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-30 hidden lg:hidden backdrop-blur-sm"></div>
+
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 px-4 py-8 sm:px-8 lg:py-12 bg-white lg:rounded-l-2xl shadow-sm min-h-screen content-section">
+
+
+            <!-- Hero / Início -->
+            <section id="inicio" class="mb-16 scroll-mt-24">
+                <div class="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-8 shadow-md">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80" alt="" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-slate-900/30 flex flex-col justify-end p-6 md:p-10">
+                        <h1 class="text-3xl md:text-5xl font-bold text-white mb-2 leading-tight">Guideline de Desenvolvimento</h1>
+                        <p class="text-slate-300 max-w-2xl text-sm md:text-base">Regras e práticas para guiar o desenvolvimento, padronizar o fluxo de trabalho e facilitar a colaboração.</p>
+                    </div>
+                </div>
+
+
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="p-3 bg-blue-100 text-blue-700 rounded-lg">
+                            <i class="ph ph-target text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Objetivo</h3>
+                            <p class="text-slate-600 leading-relaxed">
+                                Este documento descreve regras e práticas definidas para guiar o desenvolvimento de projetos. O objetivo é registrar decisões, padronizar o fluxo de trabalho e facilitar a colaboração e a qualidade técnica.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 1. Língua -->
+            <section id="lingua" class="mb-16 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                    <i class="ph ph-translate text-blue-600"></i>
+                    1. Língua
+                </h2>
+                <ul class="space-y-4">
+                    <li class="flex gap-3">
+                        <i class="ph ph-check-circle text-emerald-500 text-xl flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="font-semibold text-slate-800">Padrão:</span>
+                            <span class="text-slate-600">Seja qual for a língua escolhida, regras gramaticais deverão ser seguidas à risca, e será solicitada correção em caso de erros. A equipe deverá decidir se usará português ou inglês para documentação, mensagens de commit, issues e PRs.</span>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+
+            <!-- 3. GitHub -->
+            <section id="github" class="mb-16 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                    <i class="ph ph-github-logo text-blue-600"></i>
+                    2. Fluxo de Trabalho GitHub
+                </h2>
+
+
+                <div class="mb-8 rounded-xl overflow-hidden shadow-sm border border-slate-200 h-48 md:h-64">
+                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1000&q=80" alt="" class="w-full h-full object-cover">
+                </div>
+
+
+                <div class="space-y-10">
+                    <!-- Projects -->
+                    <div id="gh-projects" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="ph ph-kanban text-slate-500"></i> GitHub Projects
+                        </h3>
+                        <p class="text-slate-600 mb-4">Utilizar o GitHub Projects para planeamento e acompanhamento do projeto.</p>
+
+
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                            <h4 class="font-semibold text-sm text-slate-500 uppercase tracking-wider mb-4">Labels Customizadas</h4>
+                            <div class="grid sm:grid-cols-3 gap-4">
+                                <div class="flex flex-col gap-2 p-3 bg-red-50 rounded border border-red-100">
+                                    <span class="inline-flex items-center gap-1 text-xs font-medium px-2 py-1 bg-red-100 text-red-700 rounded-full w-max">
+                                        <div class="w-2 h-2 rounded-full bg-red-500"></div> Urgente
+                                    </span>
+                                    <span class="text-sm text-slate-600">Usar quando a tarefa precisa de ser entregue muito brevemente.</span>
+                                </div>
+                                <div class="flex flex-col gap-2 p-3 bg-blue-50 rounded border border-blue-100">
+                                    <span class="inline-flex items-center gap-1 text-xs font-medium px-2 py-1 bg-blue-100 text-blue-700 rounded-full w-max">
+                                        <div class="w-2 h-2 rounded-full bg-blue-500"></div> Priorizada
+                                    </span>
+                                    <span class="text-sm text-slate-600">Deve ser entregue até à data final estipulada.</span>
+                                </div>
+                                <div class="flex flex-col gap-2 p-3 bg-purple-50 rounded border border-purple-100">
+                                    <span class="inline-flex items-center gap-1 text-xs font-medium px-2 py-1 bg-purple-100 text-purple-700 rounded-full w-max">
+                                        <div class="w-2 h-2 rounded-full bg-purple-500"></div> Bônus
+                                    </span>
+                                    <span class="text-sm text-slate-600">Não é obrigatório entregar.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Issues -->
+                    <div id="gh-issues" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="ph ph-warning-octagon text-slate-500"></i> Issues
+                        </h3>
+
+
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-2">Padrão de Título</h4>
+                                <p class="text-slate-600 mb-2 text-sm">O título da issue deve incluir uma ou duas tags. A primeira tag deve ser uma das principais, e a segunda deve ser referente à funcionalidade ou ficheiro.</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">documentação</span>
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">refatoração</span>
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">análise</span>
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">implementação</span>
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">teste</span>
+                                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded">ajuste</span>
+                                </div>
+                                <div class="code-block text-sm border-l-4 border-blue-500">
+                                    Exemplo: [Implementação][Categoria] Implementação de endpoints de categoria.
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-2">Corpo da Issue</h4>
+                                <p class="text-slate-600 mb-3 text-sm">Toda issue deve incluir a estrutura abaixo para garantir clareza. Não é obrigatório incluir todas.</p>
+                                <ul class="list-disc list-inside text-sm text-slate-600 mb-4 ml-2 space-y-1">
+                                    <li><strong>Motivação:</strong> Porquê isso é necessário?</li>
+                                    <li><strong>Objetivo:</strong> O que deve ser entregue?</li>
+                                    <li><strong>Cenário:</strong> Passos ou contexto de uso.</li>
+                                    <li><strong>Considerações:</strong> Restrições, escopo, decisões.</li>
+                                    <li><strong>Testes:</strong> Ideias para testes unitários, critérios de aceitação e validação.</li>
+                                </ul>
+                                <p class="text-slate-600 mb-3 text-sm">É possível e boa prática abrir também subissues.</p>
+                                <p class="text-slate-600 mb-3 text-sm">Toda issue deve dar assign em quem for o responsável por ela.</p>
+                                <div class="bg-slate-800 text-slate-300 p-4 rounded-lg font-mono text-xs overflow-x-auto">
+  <pre><code>[Documentação] Buscar por referências e templates para arquivos de documentação
+
+
+  Motivação
+  - Possuir todo o projeto bem documentado para o desenvolvimento, apresentação e posterioridade;
+
+
+  Objetivo
+  - Buscar por referências de:
+    - Como documentar APIs
+    - Como estruturar issues e PR (done, documentar)
+    - README files
+    - Guidelines de desenvolvimento
+
+
+  Considerações
+  - Nem tudo que será documentado deve ser mostrado na apresentação
+  - Filtrar tópicos relevantes para apresentar ou dados que podem ser extraídos</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Branches -->
+                    <div id="gh-branches" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="ph ph-git-branch text-slate-500"></i> Branches
+                        </h3>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-emerald-500"></i> Abrir diretamente na issue, através da webapp do GitHub. O nome é criado automaticamente.</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-x text-red-500"></i> Evitar abrir branch sem issue vinculada.</li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Commits -->
+                    <div id="gh-commits" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="ph ph-git-commit text-slate-500"></i> Commits
+                        </h3>
+                        <p class="text-slate-600 mb-4"><strong>Regra:</strong> Commits curtos, focados num único assunto.</p>
+                        <p class="text-sm text-slate-600 mb-4">Formato recomendado com tag entre colchetes, seguindo o padrão <a href="https://www.conventionalcommits.org/en/v1.0.0/" target="_blank" class="text-blue-600 hover:underline">Conventional Commits</a>. O título do commit deve incluir uma ou duas tags (ex: <code>impl</code>, <code>ajuste</code>, <code>documentacao</code>, <code>teste</code>, <code>refatoracao</code>).</p>
+
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="border border-emerald-200 bg-emerald-50 rounded-lg p-4">
+                                <h4 class="text-emerald-800 font-bold mb-2 flex items-center gap-2"><i class="ph ph-thumbs-up"></i> FAÇA</h4>
+                                <code class="block bg-white text-emerald-900 border border-emerald-100 p-2 rounded text-xs">
+                                    [impl][categoria] endpoints e organizacao de pastas
+                                </code>
+                            </div>
+                            <div class="border border-red-200 bg-red-50 rounded-lg p-4">
+                                <h4 class="text-red-800 font-bold mb-2 flex items-center gap-2"><i class="ph ph-thumbs-down"></i> NÃO FAÇA</h4>
+                                <code class="block bg-white text-red-900 border border-red-100 p-2 rounded text-xs">
+                                    mudanca readme
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Pull Requests -->
+                    <div id="gh-prs" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="ph ph-git-pull-request text-slate-500"></i> Pull Requests
+                        </h3>
+                        <p class="text-slate-600 mb-3"><strong>Exigência:</strong> É necessário <em>Code Review</em> antes do merge. Tanto nos comentários de review quanto nas respostas, a gramática e a clareza devem ser aplicadas.</p>
+
+
+                        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+                            <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 font-semibold text-slate-700 text-sm">
+                                Estrutura do Corpo do PR
+                            </div>
+                            <div class="p-4">
+                                <ul class="list-disc list-inside text-sm text-slate-600 mb-4 space-y-1">
+                                    <li><strong>Release Notes (RN):</strong> resumo objetivo do que passou a existir.</li>
+                                    <li><strong>Testing Notes (TN):</strong> instruções claras de como validar.</li>
+                                </ul>
+                                <div class="bg-slate-800 text-slate-300 p-4 rounded-lg font-mono text-xs overflow-x-auto">
+  <pre><code>Título: [nome da branch]
+
+
+  RN:
+  - Agora o sistema é capaz de ...
+
+
+  TN:
+  1) Seguir o cenário da issue
+  2) Verificar que a feature ...</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- 4. Padrões de Código -->
+            <section id="padroes-codigo" class="mb-16 scroll-mt-24">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                    <i class="ph ph-code text-blue-600"></i>
+                    3. Padrões de Código
+                </h2>
+
+
+                <div class="bg-white border border-slate-200 shadow-sm rounded-xl p-6">
+                    <div class="mb-4">
+                        <span class="inline-flex items-center gap-1 text-sm font-medium px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
+                            <i class="ph ph-keyboard"></i> Indentação: 4 espaços
+                        </span>
+                    </div>
+
+
+                    <div class="gap-8 mt-6">
+                        <!-- C# -->
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="bg-slate-50 p-3 rounded border border-slate-100 flex flex-col gap-1">
+                                    <span class="text-sm font-semibold text-slate-700">Variáveis</span>
+                                    <span class="text-xs text-slate-600">Definir se será usado camelCase, PascalCase ou snake_case</span>
+                                </li>
+                                <li class="bg-slate-50 p-3 rounded border border-slate-100 flex flex-col gap-1">
+                                    <span class="text-sm font-semibold text-slate-700">Métodos</span>
+                                    <span class="text-xs text-slate-600">Definir se será usado camelCase, PascalCase ou snake_case</span>
+                                </li>
+                                <li class="bg-slate-50 p-3 rounded border border-slate-100 flex flex-col gap-1">
+                                    <span class="text-sm font-semibold text-slate-700">Constantes</span>
+                                    <span class="text-xs text-slate-600">Geralmente tudo em MAIÚSCULO.</span>
+                                </li>
+                                <li class="bg-slate-50 p-3 rounded border border-slate-100 flex flex-col gap-1">
+                                    <span class="text-sm font-semibold text-slate-700">Nomenclatura</span>
+                                    <span class="text-xs text-slate-600">Preferir sempre nomes descritivos.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="mt-20 pt-8 border-t border-slate-200 text-center text-slate-500 text-sm pb-8">
+                <p>Guideline de Desenvolvimento. Atualizado para as práticas atuais da equipe.</p>
+            </footer>
+
+
+        </main>
+    </div>
+
+
+    <!-- Script para controle de navegação e menu mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#nav-menu a');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+
+
+            // Scrollspy lógico: atualiza a barra lateral dependendo da secção visível
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px', // Ajustado para ativar no terço superior
+                threshold: 0
+            };
+
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // Remover classe ativa de todos
+                        navLinks.forEach(link => {
+                            link.classList.remove('active-nav-link');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active-nav-link');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+
+            sections.forEach(section => observer.observe(section));
+
+
+            // Controle do Menu Mobile
+            function toggleMenu() {
+                const isClosed = sidebar.classList.contains('hidden');
+                if (isClosed) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('fixed', 'left-0', 'w-3/4', 'max-w-sm', 'z-50');
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('fixed', 'left-0', 'w-3/4', 'max-w-sm', 'z-50');
+                    overlay.classList.add('hidden');
+                }
+            }
+
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+
+            // Fechar menu mobile ao clicar num link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) { // 1024px is 'lg' breakpoint in Tailwind
+                        toggleMenu();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
