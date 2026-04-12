@@ -78,7 +78,7 @@ code, .code-font, .nav-item, .btn-check, .btn-action, .flashcard-front {
 
 /* --- SIDEBAR --- */
 .sidebar {
-    width: 280px;
+    width: 320px;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border);
     display: flex;

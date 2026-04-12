@@ -11,7 +11,7 @@ const DATA = [
     category: "Quizzes",
     subitems: [
               {
-                  title: "Introdução à AM",
+                  title: "RA1/Introdução à AM",
                   id: "q-intro-ml",
                   questions: [
                       {
@@ -215,90 +215,90 @@ const DATA = [
                   ],
               },
               {
-    title: "Conceitos Básicos de ML",
-    id: "q-ml-basics",
-    questions: [
-                    {
-                        q: "O que caracteriza um sistema de Aprendizado de Máquina?",
-                        options: [
-                            "Executa apenas instruções programadas manualmente",
-                            "Aprende padrões a partir de dados",
-                            "Não necessita de dados para funcionar",
-                            "Substitui completamente a programação tradicional"
-                        ],
-                        correct: 1,
-                        explanation: "Machine Learning baseia-se em aprender padrões a partir de dados, sem programação explícita para cada regra."
-                    },
-                    {
-                        q: "Qual é o principal objetivo de um modelo supervisionado?",
-                        options: [
-                            "Agrupar dados sem rótulos",
-                            "Tomar decisões aleatórias",
-                            "Aprender a partir de dados rotulados",
-                            "Maximizar o uso de hardware"
-                        ],
-                        correct: 2,
-                        explanation: "Aprendizado supervisionado utiliza dados rotulados para aprender uma função de mapeamento entrada → saída."
-                    },
-                    {
-                        q: "O que são dados de treinamento?",
-                        options: [
-                            "Dados usados apenas para teste final",
-                            "Dados utilizados para ensinar o modelo",
-                            "Dados descartados durante o processo",
-                            "Dados gerados aleatoriamente pelo sistema"
-                        ],
-                        correct: 1,
-                        explanation: "Os dados de treinamento são usados para ajustar os parâmetros do modelo."
-                    },
-                    {
-                        q: "Qual problema está associado à falta de generalização?",
-                        options: [
-                            "Underfitting",
-                            "Overfitting",
-                            "Classificação",
-                            "Clusterização"
-                        ],
-                        correct: 1,
-                        explanation: "Overfitting ocorre quando o modelo aprende demais os dados de treino e perde capacidade de generalizar."
-                    },
-                    {
-                        q: "O que significa 'feature' em Machine Learning?",
-                        options: [
-                            "O algoritmo utilizado",
-                            "Um parâmetro fixo do modelo",
-                            "Uma característica dos dados de entrada",
-                            "Um tipo de erro"
-                        ],
-                        correct: 2,
-                        explanation: "Features são atributos ou variáveis que representam os dados de entrada."
-                    },
-                    {
-                        q: "Qual das opções representa um problema de regressão?",
-                        options: [
-                            "Classificar e-mails como spam ou não",
-                            "Prever o preço de uma casa",
-                            "Agrupar clientes por comportamento",
-                            "Detectar comunidades em redes sociais"
-                        ],
-                        correct: 1,
-                        explanation: "Regressão envolve prever valores contínuos, como preços."
-                    },
-                    {
-                        q: "Qual é o papel do conjunto de teste?",
-                        options: [
-                            "Treinar o modelo",
-                            "Ajustar hiperparâmetros",
-                            "Avaliar o desempenho do modelo",
-                            "Gerar novos dados"
-                        ],
-                        correct: 2,
-                        explanation: "O conjunto de teste é usado para avaliar o modelo em dados não vistos."
-                    }
+                  title: "RA1/Conceitos Básicos de ML",
+                  id: "q-ml-basics",
+                  questions: [
+                      {
+                          q: "O que caracteriza um sistema de Aprendizado de Máquina?",
+                          options: [
+                              "Executa apenas instruções programadas manualmente",
+                              "Aprende padrões a partir de dados",
+                              "Não necessita de dados para funcionar",
+                              "Substitui completamente a programação tradicional"
+                          ],
+                          correct: 1,
+                          explanation: "Machine Learning baseia-se em aprender padrões a partir de dados, sem programação explícita para cada regra."
+                      },
+                      {
+                          q: "Qual é o principal objetivo de um modelo supervisionado?",
+                          options: [
+                              "Agrupar dados sem rótulos",
+                              "Tomar decisões aleatórias",
+                              "Aprender a partir de dados rotulados",
+                              "Maximizar o uso de hardware"
+                          ],
+                          correct: 2,
+                          explanation: "Aprendizado supervisionado utiliza dados rotulados para aprender uma função de mapeamento entrada → saída."
+                      },
+                      {
+                          q: "O que são dados de treinamento?",
+                          options: [
+                              "Dados usados apenas para teste final",
+                              "Dados utilizados para ensinar o modelo",
+                              "Dados descartados durante o processo",
+                              "Dados gerados aleatoriamente pelo sistema"
+                          ],
+                          correct: 1,
+                          explanation: "Os dados de treinamento são usados para ajustar os parâmetros do modelo."
+                      },
+                      {
+                          q: "Qual problema está associado à falta de generalização?",
+                          options: [
+                              "Underfitting",
+                              "Overfitting",
+                              "Classificação",
+                              "Clusterização"
+                          ],
+                          correct: 1,
+                          explanation: "Overfitting ocorre quando o modelo aprende demais os dados de treino e perde capacidade de generalizar."
+                      },
+                      {
+                          q: "O que significa 'feature' em Machine Learning?",
+                          options: [
+                              "O algoritmo utilizado",
+                              "Um parâmetro fixo do modelo",
+                              "Uma característica dos dados de entrada",
+                              "Um tipo de erro"
+                          ],
+                          correct: 2,
+                          explanation: "Features são atributos ou variáveis que representam os dados de entrada."
+                      },
+                      {
+                          q: "Qual das opções representa um problema de regressão?",
+                          options: [
+                              "Classificar e-mails como spam ou não",
+                              "Prever o preço de uma casa",
+                              "Agrupar clientes por comportamento",
+                              "Detectar comunidades em redes sociais"
+                          ],
+                          correct: 1,
+                          explanation: "Regressão envolve prever valores contínuos, como preços."
+                      },
+                      {
+                          q: "Qual é o papel do conjunto de teste?",
+                          options: [
+                              "Treinar o modelo",
+                              "Ajustar hiperparâmetros",
+                              "Avaliar o desempenho do modelo",
+                              "Gerar novos dados"
+                          ],
+                          correct: 2,
+                          explanation: "O conjunto de teste é usado para avaliar o modelo em dados não vistos."
+                      }
                 ]
             }
-          ]
-      },
+        ]
+    },
 
     {
         category: "Flashcards",
@@ -311,6 +311,77 @@ const DATA = [
                     { q: "Supervisionada", a: "Requer dados rotulados" },
                     { q: "Semi-supervisionada", a: "Alternativa quando não temos dados rotulados em quantidade suficiente" },
                     { q: "Por reforço", a: "Não precisa de dados de treinamento." }
+                ]
+            },
+            {
+                title: "RA1/Introdução/Conceitos e Avaliação em ML",
+                id: "f-ml-conceitos",
+                cards: [
+                    { q: "O que é Inteligência Artificial?", a: "Área da computação que busca simular o raciocínio humano por meio de soluções tecnológicas." },
+                    { q: "Quando a IA passou a ser considerada ciência?", a: "Em 1956, no Dartmouth College." },
+                    { q: "O que é Machine Learning?", a: "Ramo da IA que aprende padrões a partir de dados com mínima intervenção humana." },
+                    { q: "O que são modelos cognitivos?", a: "Modelos que transformam dados em conhecimento." },
+                    { q: "O que é necessário para aplicar ML com sucesso?", a: "Boa representação do problema, dados de qualidade, profissionais capacitados e hardware adequado." },
+                    { q: "O que são dados rotulados?", a: "Dados que possuem uma saída conhecida (classe ou valor esperado)." },
+                    { q: "O que é classificação?", a: "Tarefa de prever categorias ou classes." },
+                    { q: "O que é regressão?", a: "Tarefa de prever valores numéricos contínuos." },
+                    { q: "O que é agrupamento (clustering)?", a: "Técnica de agrupar dados semelhantes sem rótulos." },
+                    { q: "O que é overfitting?", a: "Quando o modelo aprende demais os dados de treino e perde capacidade de generalização." },
+                    { q: "O que é generalização?", a: "Capacidade do modelo de performar bem em dados não vistos." },
+                    { q: "O que é acurácia?", a: "Proporção de acertos do modelo em relação ao total de exemplos." },
+                    { q: "O que é precisão?", a: "Proporção de previsões positivas corretas." },
+                    { q: "O que é revocação (recall)?", a: "Proporção de exemplos positivos corretamente identificados." },
+                    { q: "O que é F1-score?", a: "Média harmônica entre precisão e revocação." },
+                    { q: "O que é matriz de confusão?", a: "Tabela que mostra acertos e erros de um modelo de classificação." },
+                    { q: "O que são dados de treino, validação e teste?", a: "Divisões do dataset usadas para treinar, ajustar e avaliar o modelo." },
+                    { q: "O que é KNN?", a: "Algoritmo baseado na similaridade entre instâncias." },
+                    { q: "O que é Naive Bayes?", a: "Classificador probabilístico baseado no Teorema de Bayes." },
+                    { q: "O que é SVM?", a: "Modelo que separa classes usando um hiperplano de máxima margem." },
+                    { q: "O que são Redes Neurais?", a: "Modelos inspirados no cérebro que aprendem ajustando pesos entre neurônios." }
+              ]
+          },
+          {
+                title: "RA1/Avaliação de Modelos/Validação Cruzada e Holdout",
+                id: "f-ml-validacao",
+                cards: [
+                    { "q": "O que é validação cruzada (cross-validation)?", "a": "Divide a base em N folds (normalmente estratificada). Seleciona um fold para teste e treina com os N-1 restantes. Repete N vezes com cada fold sendo usado como teste." },
+                    { "q": "O que significa validação estratificada?", "a": "Manter a distribuição original das classes na base de dados ao dividir os folds." },
+                    { "q": "O que é Holdout (percentage split)?", "a": "Dividir a base em treinamento (X%) e teste (Y%) de forma estratificada. Exemplo comum: 60% treino e 40% teste ou 70% treino e 30% teste." },
+                    { "q": "Como evitar viés na definição do teste no Holdout?", "a": "Utilizar seleção aleatória de exemplos e replicação (repetir o processo N vezes, calculando a acurácia média)." },
+                    { "q": "O que significa 'problema linearmente separável'?", "a": "Problema de classificação onde é possível traçar uma linha reta (ou hiperplano) separando completamente as classes." },
+                    { "q": "O que significa 'fronteira não linear'?", "a": "Problema de classificação onde a separação entre classes exige curvas ou superfícies mais complexas." }
+                ]
+            },
+            {
+                title: "RA1/Métricas de Avaliação/Classificação",
+                id: "f-ml-metricas-classificacao",
+                cards: [
+                    { "q": "O que é VP (Verdadeiro Positivo)?", "a": "Exemplos positivos corretamente classificados." },
+                    { "q": "O que é VN (Verdadeiro Negativo)?", "a": "Exemplos negativos corretamente classificados." },
+                    { "q": "O que é FP (Falso Positivo)?", "a": "Exemplos erroneamente classificados como positivos (erro tipo I)." },
+                    { "q": "O que é FN (Falso Negativo)?", "a": "Exemplos erroneamente classificados como negativos (erro tipo II)." },
+                    { "q": "Qual a fórmula da acurácia (accuracy)?", "a": "(VP + VN) / (VP + VN + FP + FN)" },
+                    { "q": "Qual a fórmula da precisão (precision)?", "a": "P = VP / (VP + FP)" },
+                    { "q": "Qual a fórmula da revocação (recall)?", "a": "R = VP / (VP + FN)" },
+                    { "q": "Qual a fórmula do F1-score (F-measure)?", "a": "2 / (1/P + 1/R) ou média harmônica entre precisão e revocação." },
+                    { "q": "Quando devemos usar precisão, revocação e F1-score em vez de acurácia?", "a": "Para problemas desbalanceados (exemplo: diagnóstico de câncer com poucos casos positivos)." },
+                    { "q": "O que a precisão tenta responder?", "a": "'Qual a proporção de classificações positivas estão corretas?'" },
+                    { "q": "O que a revocação (recall) tenta responder?", "a": "'Qual a proporção das amostras positivas foram classificadas corretamente?'" },
+                    { "q": "Um modelo que não produz falso positivo (FP) tem precisão igual a quanto?", "a": "1 (100%)." },
+                    { "q": "Um modelo que não produz falso negativo (FN) tem revocação igual a quanto?", "a": "1 (100%)." },
+                    { "q": "Como calcular acurácia global em uma matriz de confusão multiclasses?", "a": "Soma da diagonal principal dividida pelo total de exemplos." }
+                ]
+            },
+            {
+                title: "RA1/Métricas de Avaliação/Regressão e Agrupamento",
+                id: "f-ml-metricas-regressao-clustering",
+                cards: [
+                    { "q": "O que é coeficiente de correlação (r) em regressão?", "a": "Medida que varia de -1 a 1. -1: forte correlação negativa; 0: sem correlação; 1: forte correlação positiva." },
+                    { "q": "O que é coeficiente de determinação (r²) em regressão?", "a": "Varia entre 0 e 1. Indica o quanto o modelo explica os valores observados. Quanto maior, mais explicativo." },
+                    { "q": "Quais as principais métricas para avaliar agrupamento (clustering)?", "a": "Variância intra-grupos, variância inter-grupos e medida da silhueta." },
+                    { "q": "O que significa silhueta = 1?", "a": "Indica ponto interno ao cluster e longe da borda (fronteira) entre grupos." },
+                    { "q": "O que significa silhueta = 0?", "a": "Indica ponto na fronteira entre grupos ou bem próximo dela." },
+                    { "q": "O que significa silhueta = -1?", "a": "Indica ponto associado ao cluster errado." }
                 ]
             }
         ]
