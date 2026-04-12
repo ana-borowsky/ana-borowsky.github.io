@@ -101,49 +101,42 @@ function startQuiz() {
 }
 
 function renderQuizStep() {
-    const q = currentItem.questions[quizIndex];
+            const area = document.getElementById('content-area');
+            const q = currentItem.questions[quizIndex];
+            selectedIdx = null; answered = false;
+            area.innerHTML = `
+                <div class="quiz-header"><span>Questão ${quizIndex + 1}/${currentItem.questions.length}</span></div>
+                <h1>${currentItem.title}</h1>
+                <div class="card">
+                    <p style="color:var(--syntax-const); font-family:'Fira Code'; margin-bottom:20px">// ${q.q}</p>
+                    <div id="quiz-options">${q.options.map((o, i) => `<div class="quiz-option" onclick="selectOpt(this, ${i})">0${i+1}. ${o}</div>`).join('')}</div>
+                    <div id="feedback" class="feedback-box"></div>
+                    <div class="quiz-footer" style="display:flex; gap:10px; margin-top:20px;">
+                        <button class="btn-check" id="check-btn" onclick="handleCheck()">Run_Test()</button>
+                        <button class="btn-nav" id="next-btn" onclick="handleNext()" style="display:none">
+                            ${quizIndex === currentItem.questions.length - 1 ? 'Show_Results()' : 'Next_Step()'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
 
-    document.getElementById('content-area').innerHTML = `
-        <h1>${currentItem.title}</h1>
+        function selectOpt(el, idx) { if(answered) return; document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected')); el.classList.add('selected'); selectedIdx = idx; }
 
-        <div class="card">
-            <p>// ${q.q}</p>
+        function handleCheck() {
+            if (selectedIdx === null || answered) return;
+            answered = true; const q = currentItem.questions[quizIndex];
+            const f = document.getElementById('feedback'); f.style.display = 'block';
+            if(selectedIdx === q.correct) { score++; f.style.background = "#23863622"; f.style.color = "#3fb950"; f.style.borderColor = "#238636"; f.innerHTML = "<strong>[PASS]</strong>"; }
+            else { f.style.background = "#da363322"; f.style.color = "#f85149"; f.style.borderColor = "#da3633"; f.innerHTML = `<strong>[FAIL]:</strong> ${q.explanation}`; }
+            document.getElementById('check-btn').style.display = 'none'; document.getElementById('next-btn').style.display = 'block';
+        }
 
-            ${q.options.map((o, i) =>
-                `<div class="quiz-option" onclick="selectOpt(${i})">${o}</div>`
-            ).join('')}
+        function handleNext() { (quizIndex < currentItem.questions.length - 1) ? (quizIndex++, renderQuizStep()) : renderResult(); }
 
-            <button class="btn-check" onclick="handleCheck()">Run_Test()</button>
-        </div>
-    `;
-}
-
-function selectOpt(i) {
-    selectedIdx = i;
-}
-
-function handleCheck() {
-    if (selectedIdx === currentItem.questions[quizIndex].correct) {
-        score++;
-    }
-
-    quizIndex++;
-
-    if (quizIndex < currentItem.questions.length) {
-        renderQuizStep();
-    } else {
-        renderResult();
-    }
-}
-
-function renderResult() {
-    document.getElementById('content-area').innerHTML = `
-        <h1>Resultado</h1>
-        <div class="card">
-            <p>${score}/${currentItem.questions.length}</p>
-        </div>
-    `;
-}
+        function renderResult() {
+            document.getElementById('content-area').innerHTML = `<h1>Resultados</h1><div class="card" style="text-align:center"><h2 style="color:var(--syntax-func); font-size:3rem">${Math.round((score/currentItem.questions.length)*100)}%</h2><p>Acertos: ${score}/${currentItem.questions.length}</p><button class="btn-action" onclick="show('${currentItem.id}')" style="margin-top:20px">Retry</button></div>`;
+        }
 
 // FLASHCARDS
 function renderFlashcards(item) {

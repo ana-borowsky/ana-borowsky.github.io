@@ -1,26 +1,79 @@
 <h1>Introdução</h1>
-
-<p>Uma breve introdução ao tema.</p>
+<p>Uma breve introdução ao tema que iremos estudar ao longo desta aplicação.</p>
 
 <div class="card">
-    <h3 style="color:var(--syntax-func); margin-bottom:15px">
-        # PDF das aulas introdutórias
-    </h3>
-
-    <button class="btn-action"
-        onclick="window.location.href='https://pucpr.instructure.com/courses/63781/pages/introducao-conceitos-e-definicoes-basicas?module_item_id=1515421'">
-        <span>aula_introducao.pdf</span>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># PDF das aulas introdutórias</h3>
+    <button class="btn-action" onclick="window.location.href='https://pucpr.instructure.com/courses/63781/pages/introducao-conceitos-e-definicoes-basicas?module_item_id=1515421'">
+        <span>aula_indroducao.pdf</span>
     </button>
 </div>
 
+<br>
 <div>
-    <h3 style="color:var(--syntax-func); margin-bottom:15px">
-        # Do que se trata AM?
-    </h3>
-
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Do que se trata a aprendizagem de máquina(AM)?</h3>
     <ul>
-        <li>Ramo da IA</li>
-        <li>Aprendizado a partir de dados</li>
-        <li>Mínima intervenção humana</li>
+      <li>Ramo da Inteligência Artificial</li>
+      <li>Solução de um problema aprendida a partir de dados (amostras ou exemplos).</li>
+      <li>Mínimo de intervenção humana.</li>
+      <li>Uso de técnicas de indução</li>
+      <li>Modelos cognitivos - Dados (commodity do século XXI) transformados em conhecimento.</li>
     </ul>
+</div>
+
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Quando deve ser utilizada?</h3>
+    <ul>
+      <li>O problema está bem claro? Representação adequada é crucial para o sucesso de um projeto.</li>
+      <li>O problema não tem uma solução convencional (determinística)? Treinar e avaliar modelos cognitivos NÃO é uma tarefa trivial.</li>
+      <li>Há dados suficientes em quantidade e qualidade? Representatividade das amostras de treinamento é primordial.</li>
+      <li>Há profissionais de AM disponíveis? Experiência no preparo dos dados, seleção da técnica adequada e definição de protocolo experimental robusto.</li>
+      <li>Há hardware adequado para uso das técnicas de aprendizado de máquina? Algumas técnicas demandam processamento paralelo.</li>
+    </ul>
+</div>
+<br>
+<div>
+  <h3 style="color:var(--syntax-func); margin-bottom:15px"># Quais as abordagens?</h3>
+  <div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Não supervisionada</span>
+    </div>
+
+    <div class="exp-content">
+        <p class="highlight">Não requer dados rotulados.</p>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Supervisionada</span>
+    </div>
+
+    <div class="exp-content">
+        <p class="highlight">Requer dados rotulados.</p>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Semi-supervisionada</span>
+    </div>
+
+    <div class="exp-content">
+        <p class="highlight">Alternativa quando não temos dados rotulados em quantidade suficiente.</p>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Por reforço</span>
+    </div>
+
+    <div class="exp-content">
+        <p class="highlight">Não precisa de dados de treinamento.</p>
+    </div>
+  </div>
 </div>
