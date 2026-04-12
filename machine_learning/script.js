@@ -3,7 +3,8 @@ const DATA = [
         category: "RA1",
         items: [
             { title: "Home", id: "home", template: "templates/home.html" },
-            { title: "Introdução", id: "introducao", template: "templates/introducao.html" }
+            { title: "Introdução", id: "introducao", template: "templates/introducao.html" },
+            { title: "Conceitos básicos", id: "conceitos-basicos", template: "templates/conceitos_basicos.html" }
         ]
     },
     {

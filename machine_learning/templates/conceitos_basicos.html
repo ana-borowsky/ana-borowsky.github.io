@@ -1,0 +1,152 @@
+<h1>Conceitos Básicos</h1>
+<p>Fundamentos essenciais para compreender o funcionamento dos algoritmos de aprendizagem de máquina.</p>
+
+<!-- DEFINIÇÃO -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># O que é Machine Learning?</h3>
+    <ul>
+        <li>Campo da Inteligência Artificial focado em aprendizado a partir de dados</li>
+        <li>Modelos aprendem padrões sem serem explicitamente programados</li>
+        <li>Baseado em estatística, otimização e teoria da computação</li>
+        <li>Permite previsões, classificações e tomadas de decisão</li>
+    </ul>
+</div>
+
+<!-- ELEMENTOS DO ML -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Elementos fundamentais</h3>
+    <ul>
+        <li><strong>Dados:</strong> matéria-prima do aprendizado</li>
+        <li><strong>Modelo:</strong> representação matemática do problema</li>
+        <li><strong>Treinamento:</strong> processo de ajuste do modelo</li>
+        <li><strong>Predição:</strong> uso do modelo para gerar respostas</li>
+    </ul>
+</div>
+
+<!-- TIPOS DE DADOS -->
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Tipos de dados</h3>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Dados estruturados</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Organizados em tabelas (ex: planilhas, bancos de dados).</p>
+        </div>
+    </div>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Dados não estruturados</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Texto, imagens, áudio, vídeo.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TREINAMENTO -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Processo de treinamento</h3>
+    <ul>
+        <li>Divisão dos dados em treino e teste</li>
+        <li>Aprendizado a partir dos dados de treino</li>
+        <li>Avaliação com dados não vistos</li>
+        <li>Ajuste de parâmetros (tuning)</li>
+    </ul>
+</div>
+
+<!-- OVERFITTING / UNDERFITTING -->
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Problemas comuns</h3>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Overfitting</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Modelo aprende demais os dados de treino e perde generalização.</p>
+        </div>
+    </div>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Underfitting</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Modelo simples demais, não captura padrões relevantes.</p>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Features (Atributos)</h3>
+    <ul>
+        <li>Variáveis usadas como entrada do modelo</li>
+        <li>Qualidade das features impacta diretamente o desempenho</li>
+        <li>Engenharia de atributos é etapa crítica</li>
+    </ul>
+</div>
+
+<!-- LABEL -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Labels (Rótulos)</h3>
+    <ul>
+        <li>Resposta esperada (target)</li>
+        <li>Usado em aprendizado supervisionado</li>
+        <li>Exemplo: "spam" ou "não spam"</li>
+    </ul>
+</div>
+
+<!-- MÉTRICAS -->
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Métricas de avaliação</h3>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Acurácia</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Percentual de acertos do modelo.</p>
+        </div>
+    </div>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Precisão</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Quantos positivos previstos estão corretos.</p>
+        </div>
+    </div>
+
+    <div class="exp-item">
+        <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+            <span class="exp-icon">></span>
+            <span class="exp-title">Recall</span>
+        </div>
+        <div class="exp-content">
+            <p class="highlight">Quantos positivos reais foram encontrados.</p>
+        </div>
+    </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Pipeline de Machine Learning</h3>
+    <ul>
+        <li>Coleta de dados</li>
+        <li>Pré-processamento</li>
+        <li>Treinamento do modelo</li>
+        <li>Avaliação</li>
+        <li>Deploy (produção)</li>
+    </ul>
+</div>
