@@ -1,0 +1,89 @@
+<h1>Métricas de avaliação</h1>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # No caso de um classificador
+    </h3>
+
+    <p>
+      As medidas mais utilizadas são acurácia (taxa geral de acerto) e matriz de
+      confusão. Contudo, para problemas desbalanceados, ou seja, onde há um desiquilíbrio na quantidade de
+      exemplos por classe, recomenda-se medir precisão, revocação e f-measure (f1-score).
+    </p>
+
+    <p>
+      Por exemplo: considere um problema de duas classes (indivíduo tem ou não tem câncer). Pode acontecer da
+      acurácia ser alta, porém em situação de desbalanceamento, o sistema estar classificando muito bem uma
+      classe e outra não. O que pode ser um problema muito grave.
+    </p>
+
+    <p>
+      A matriz de confusão apresentada considera um problema binário, contudo no caso de múltiplas classes
+      (W), podemos usar uma matriz WxW. Você tem na diagonal principal de uma matriz de confusão os acertos,
+      enquanto nas demais posições confusões entre classes (erros).
+    </p>
+
+    <p>
+      Para estimar (VP, VN, FP e FN) em problemas de múltiplas classes podemos considerar uma estratégia um
+      contra todos, na qual cada classe seria em dado momento considerada (+) e as demais como (-).
+    </p>
+</div>
+
+<div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Precisão (precision)</span>
+    </div>
+
+    <div class="exp-content">
+        <p>
+          Tenta responder a seguinte questão “qual a proporção de classificações positivas
+          estão corretas?”. Um modelo que não produz falso positivo (FP) tem precisão igual a 1.
+        </p>
+    </div>
+</div>
+
+<div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">Revocação (recall)</span>
+    </div>
+
+    <div class="exp-content">
+        <p>
+          Tenta responder a seguinte questão: “qual a proporção das amostras positivas foram
+          classificadas corretamente?” Um modelo que não produza falso negativo (FN) tem revocação igual a 1.
+        </p>
+    </div>
+</div>
+
+<div class="exp-item">
+    <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="exp-icon">></span>
+        <span class="exp-title">F-mesure (f1-score)</span>
+    </div>
+
+    <div class="exp-content">
+        <p>
+          Consiste na média harmônica entre precisão e revocação, variando de 0 a 1 (sendo 1
+          perfeito).
+        </p>
+    </div>
+</div>
+
+<div class="img-center">
+    <img src="src/imagens/10.png" alt="Imagem ilustrativa">
+</div>
+
+<div class="img-center">
+    <img src="src/imagens/11.png" alt="Imagem ilustrativa">
+</div>
+
+<div class="img-center">
+    <img src="src/imagens/12.png" alt="Imagem ilustrativa">
+</div>
+
+
+
+
