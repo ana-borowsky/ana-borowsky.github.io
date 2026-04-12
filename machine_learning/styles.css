@@ -421,3 +421,38 @@ ul.comment-list li {
 .exp-item.open .exp-title {
     color: var(--accent);
 }
+
+/* --- FEEDBACK STATES --- */
+.feedback-box {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: var(--radius);
+    display: none;
+    border-left: 5px solid var(--border-strong);
+    background: var(--bg-card);
+    font-family: 'Fira Code', monospace;
+}
+
+/* SUCCESS */
+.feedback-success {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: var(--success);
+}
+
+/* ERROR */
+.feedback-error {
+    background: var(--error-bg);
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.result-card {
+    text-align: center;
+}
+
+.result-score {
+    color: var(--syntax-func);
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
