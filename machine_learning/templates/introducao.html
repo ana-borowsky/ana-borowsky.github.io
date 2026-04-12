@@ -7,8 +7,8 @@
         <span>aula_indroducao.pdf</span>
     </button>
 </div>
-<br>
 
+<br>
 <div class="card">
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
         # Inteligência Artificial (IA)
@@ -19,6 +19,91 @@
         <li>Busca desenvolver soluções inteligentes e autônomas</li>
         <li>Formalizada como área científica em 1956 (Dartmouth)</li>
         <li>Questão central: “Máquinas podem pensar?” (Alan Turing)</li>
+    </ul>
+</div>
+
+<br>
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Aprendizagem de Máquina
+    </h3>
+
+    <p>
+        A Aprendizagem de Máquinas é o ramo da inteligência artificial que tem como base técnicas que permitem
+        que a máquina aprenda a solução para um determinado problema a partir de dados fornecidos como
+        exemplo, tornando esta capaz de identificar padrões e tomar decisões com o mínimo de intervenção
+        humana. Segundo Arthur Samuel (1959), o aprendizado de máquina é o "campo de estudo que dá aos
+        computadores a habilidade de aprender sem serem explicitamente programados".
+    </p>
+
+    <p>
+        Na programação tradicional "Dados + Programa = Saída" enquanto em Aprendizagem de Máquina podemos
+        dizer que "Dados + Saída = Programa".
+    </p>
+</div>
+
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Do que se trata a aprendizagem de máquina(AM)?</h3>
+    <ul>
+      <li>Ramo da Inteligência Artificial</li>
+      <li>Solução de um problema aprendida a partir de dados (amostras ou exemplos).</li>
+      <li>Mínimo de intervenção humana.</li>
+      <li>Uso de técnicas de indução</li>
+      <li>Modelos cognitivos - Dados (commodity do século XXI) transformados em conhecimento.</li>
+    </ul>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Onde encontramos AM?
+    </h3>
+
+    <ul>
+        <li class="highlight">Carros autônomos</li>
+        <li class="highlight">Sistemas de recomendação</li>
+        <li class="highlight">Chatbots, ou robôs de conversação</li>
+        <li class="highlight">Identificação por biometria (face, íris, voz, ...)</li>
+        <li class="highlight">OCRs</li>
+        <li class="highlight">Dentre outras aplicações.</li>
+    </ul>
+</div>
+
+<br>
+<div>
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Quando utilizar Aprendizagem de máquina (AM)?
+    </h3>
+
+    <p>
+        Quando não for possível uma solução determinística para um problema e existir dados suficientes para gerar
+        um modelo cognitivo com boa capacidade de generalização.
+    </p>
+
+    <ul>
+      <li>O problema está bem claro? Representação adequada é crucial para o sucesso de um projeto.</li>
+      <li>O problema não tem uma solução convencional (determinística)? Treinar e avaliar modelos cognitivos NÃO é uma tarefa trivial.</li>
+      <li>Há dados suficientes em quantidade e qualidade? Representatividade das amostras de treinamento é primordial.</li>
+      <li>Há profissionais de AM disponíveis? Experiência no preparo dos dados, seleção da técnica adequada e definição de protocolo experimental robusto.</li>
+      <li>Há hardware adequado para uso das técnicas de aprendizado de máquina? Algumas técnicas demandam processamento paralelo.</li>
+    </ul>
+</div>
+
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Em geral, como são os algoritmos de AM?
+    </h3>
+
+    <p>
+        Algoritmos de aprendizagem de máquina são formados basicamente por 3 componentes principais:
+    </p>
+
+    <ul>
+        <li class="highlight">Representação: como devemos representar o problema?</li>
+        <li class="highlight">Avaliação: como devemos avaliar o modelo ou hipótese criada?</li>
+        <li class="highlight">Otimização: qual estratégia utilizar para obter as hipóteses no espaço de solução do problema?</li>
     </ul>
 </div>
 
@@ -36,27 +121,7 @@
 </div>
 
 <br>
-<div>
-    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Do que se trata a aprendizagem de máquina(AM)?</h3>
-    <ul>
-      <li>Ramo da Inteligência Artificial</li>
-      <li>Solução de um problema aprendida a partir de dados (amostras ou exemplos).</li>
-      <li>Mínimo de intervenção humana.</li>
-      <li>Uso de técnicas de indução</li>
-      <li>Modelos cognitivos - Dados (commodity do século XXI) transformados em conhecimento.</li>
-    </ul>
-</div>
 
-<div class="card">
-    <h3 style="color:var(--syntax-func); margin-bottom:15px"># Quando deve ser utilizada?</h3>
-    <ul>
-      <li>O problema está bem claro? Representação adequada é crucial para o sucesso de um projeto.</li>
-      <li>O problema não tem uma solução convencional (determinística)? Treinar e avaliar modelos cognitivos NÃO é uma tarefa trivial.</li>
-      <li>Há dados suficientes em quantidade e qualidade? Representatividade das amostras de treinamento é primordial.</li>
-      <li>Há profissionais de AM disponíveis? Experiência no preparo dos dados, seleção da técnica adequada e definição de protocolo experimental robusto.</li>
-      <li>Há hardware adequado para uso das técnicas de aprendizado de máquina? Algumas técnicas demandam processamento paralelo.</li>
-    </ul>
-</div>
 <br>
 <div>
   <h3 style="color:var(--syntax-func); margin-bottom:15px"># Quais as abordagens?</h3>
@@ -71,6 +136,13 @@
         <div class="img-center">
             <img src="src/imagens/1.png" alt="Imagem ilustrativa">
         </div>
+        <p>
+          Os dados de treinamento não possuem a saída (resposta ou solução). A principal tarefa
+          aqui é o agrupamento (clustering) que consiste em encontrar grupos de dados (clusters) segundo algum
+          critério de similaridade. Um exemplo seria agrupar clientes de um banco ou seguradora com base na
+          similaridade de suas operações (compras) na tentativa de descobrir grupos de clientes e identificar seus
+          perfis.
+        </p>
     </div>
   </div>
 
@@ -85,7 +157,15 @@
         <div class="img-center">
             <img src="src/imagens/2.png" alt="Imagem ilustrativa">
         </div>
+        <p>
+          Consiste em treinar a máquina a partir de exemplos para os quais conhecemos a saída
+          (resposta ou solução). Tarefas principais: classificação e regressão. Na classificação a saída é categórica
+          (discreta), por exemplo, classificar imagem de objetos em categorias como carro, bicicleta, bola, etc. Já na
+          regressão a saída é um valor contínuo, por exemplo, estimar a idade de uma pessoa ou prever o valor de
+          mercado de um veículo.
+        </p>
     </div>
+
   </div>
 
   <div class="exp-item">
@@ -99,6 +179,12 @@
         <div class="img-center">
             <img src="src/imagens/3.png" alt="Imagem ilustrativa">
         </div>
+        <p>
+          Os dados de treinamento possuem alguns poucos exemplos com as respectivas saídas
+          (respostas ou solução). Há várias situações reais onde obter dados com os rótulos é muito difícil e caro,
+          nestes casos as técnicas semi-supervisionadas representam uma alternativa na busca de solucionar tarefas
+          como classificação e regressão.
+        </p>
     </div>
   </div>
 
@@ -113,6 +199,10 @@
         <div class="img-center">
             <img src="src/imagens/4.png" alt="Imagem ilustrativa">
         </div>
+        <p>
+          Não há uso de uma base com exemplos de treinamento, a máquina aprende a partir de
+          recompensas recebidas por suas ações em determinado ambiente. As técnicas deste tipo são muito utilizadas na robótica e em jogos digitais.
+        </p>
     </div>
   </div>
 </div>
