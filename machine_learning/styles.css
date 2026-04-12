@@ -98,7 +98,7 @@ code, .code-font, .nav-item, .btn-check, .btn-action, .flashcard-front {
 }
 
 .nav-group-title {
-    color: var(--terminal-blue);
+    color: var(--syntax-const);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;

@@ -4,6 +4,7 @@ const DATA = [
         items: [
             { title: "Home", id: "home", template: "templates/home.html" },
             { title: "Introdução", id: "introducao", template: "templates/introducao.html" },
+            { title: "Terminologia", id: "terminologia", template: "templates/terminologia.html" },
             { title: "Conceitos básicos", id: "conceitos-basicos", template: "templates/conceitos_basicos.html" }
         ]
     },
