@@ -5,9 +5,7 @@ const DATA = [
             { title: "Home", id: "home", template: "templates/home.html" },
             { title: "Introdução", id: "introducao", template: "templates/introducao.html" },
             { title: "Conceitos básicos", id: "conceitos-basicos", template: "templates/conceitos_basicos.html" },
-            { title: "Terminologia", id: "terminologia", template: "templates/terminologia.html" },
-            { title: "Métricas de avaliação", id: "metricas-avaliacao", template: "templates/metricas_avaliacao.html" },
-
+            { title: "Terminologia", id: "terminologia", template: "templates/terminologia.html" }
         ]
     },
     {
