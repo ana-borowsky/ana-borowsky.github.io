@@ -27,7 +27,7 @@ const DATA = [
         category: "Flashcards",
         subitems: [
             {
-                title: "Abordagens de machine learning",
+                title: "RA1/Introdução/Abordagens de machine learning",
                 id: "f-ml",
                 cards: [
                     { q: "Não supervisionada", a: "Não requer dados rotulados" },
