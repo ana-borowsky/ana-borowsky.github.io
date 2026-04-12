@@ -456,3 +456,18 @@ ul.comment-list li {
     font-size: 3rem;
     margin-bottom: 10px;
 }
+
+.img-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.img-center img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+}
