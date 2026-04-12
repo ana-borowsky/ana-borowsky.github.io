@@ -409,7 +409,6 @@ ul.comment-list li {
 
 /* ESTADO ABERTO */
 .exp-item.open .exp-content {
-    max-height: 500px; /* suficiente pra conteúdo */
     margin-top: 8px;
 }
 
