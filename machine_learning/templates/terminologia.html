@@ -1,12 +1,13 @@
 <h1>Terminologia</h1>
 <p>Glossário de termos de machine learning</p>
 
-  <div class="exp-item">
-    <p>
-      Há conceitos básicos importantíssimos que devem ser assimilados para que possamos trabalhar de forma
-      adequada. Na seção 2 do artigo Reviewing some Machine Learning Concepts and Method temos a
-      descrição dos principais conceitos que devemos conhecer, alguns dos quais foram traduzidos aqui:
-    </p>
+<p>
+  Há conceitos básicos importantíssimos que devem ser assimilados para que possamos trabalhar de forma
+  adequada. Na seção 2 do artigo Reviewing some Machine Learning Concepts and Method temos a
+  descrição dos principais conceitos que devemos conhecer, alguns dos quais foram traduzidos aqui:
+</p>
+
+<div class="exp-item">
     <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
         <span class="exp-icon">></span>
         <span class="exp-title">Bases de dados (ver Figura 1)</span>
@@ -17,7 +18,7 @@
             <img src="src/imagens/5.png" alt="Imagem ilustrativa">
         </div>
         <p>
-          base contendo instâncias (Ti) a serem utilizadas no processo de
+          Base contendo instâncias (Ti) a serem utilizadas no processo de
           aprendizagem. A base de um determinado problema normalmente é dividida em treinamento e
           teste. A base de treinamento é utilizada na etapa de construção do modelo. Desta, ainda é comum
           separarmos uma parte para validação. Aprende-se com o exemplo de treinamento e ajustam-se
@@ -26,4 +27,173 @@
           final de desempenho dos modelos (hipóteses) criados.
         </p>
     </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Instância</span>
+  </div>
+
+  <div class="exp-content">
+      <div class="img-center">
+            <img src="src/imagens/5.png" alt="Imagem ilustrativa">
+      </div>
+      <p>
+        Um exemplo de treinamento, validação ou teste formado por atributos (features) de
+        entrada (Xi) e atributo alvo (y).
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Atributo (feature)</span>
+  </div>
+
+  <div class="exp-content">
+      <div class="img-center">
+            <img src="src/imagens/5.png" alt="Imagem ilustrativa">
+      </div>
+      <p>
+        Uma instância é composta de atributos (Xi) que podem ser de diferentes tipos
+        (inteiro, real, categórico, ...). Estes representam características que descrevem uma instância.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Função alvo</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        y=f(X), função a ser aprendida e que mapeia o vetor de atributos X ao valor de saída y.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Hipótese</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Uma aproximação de f(X), uma solução candidata (ou modelo).
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Indutor</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Técnica ou algoritmo utilizado no aprendizado.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Espaço de hipóteses</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Conjunto de possíveis aproximações de f(X) que um indutor pode criar.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Classificador</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Um modelo de aprendizado cuja saída é discreta (categórica).
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Regressor</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Um modelo de aprendizado cuja saída é contínua.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Agrupamento (clustering)</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Tarefa não supervisionada que busca agrupar dados por similaridade.
+      </p>
+  </div>
+</div>
+
+<div class="exp-item">
+  <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="exp-icon">></span>
+      <span class="exp-title">Principais opções para avaliação de modelo supervisionado (classificação ou regressão)</span>
+  </div>
+
+  <div class="exp-content">
+      <p>
+        Validação cruzada (ver Figura 2): divide-se a base de dados do problema em N folds (ou pastas) normalmente de maneira estratificada (mantendo a distribuição original da base).
+        Selecionados um fold para teste e treina-se um modelo com os N-1 folds restantes.
+        Repetimos isto N vezes selecionando a cada vez um novo fold para teste. Isto garantirá
+        que todos os exemplos da base de dados sejam usados como teste.
+      </p>
+
+      <div class="img-center">
+            <img src="src/imagens/7.png" alt="Imagem ilustrativa">
+      </div>
+
+      <p>
+        Holdout (percentage split): dividir a base em treinamento (X%) e teste (Y%) de forma
+        estratificada, usualmente algo em torno de 60% para treinamento e 40% para teste (ver
+        Figura 3). Para evitar viés na definição do teste, utiliza-se seleção aleatória de exemplos e
+        ainda replicação que consiste em repetir o processo de divisão das bases N vezes,
+        calculando-se a acurácia com base na média dos experimentos realizados.
+      </p>
+
+      <div class="img-center">
+            <img src="src/imagens/8.png" alt="Imagem ilustrativa">
+      </div>
+
+      <p>
+        Resubstituição: uso da própria base de treinamento para avaliar o modelo criado. Não
+        garante nada com relação à capacidade de generalização do modelo, mas é útil para
+        demonstrar se o aprendizado convergiu (se os dados de treinamento são suficientes para a
+        criação do modelo).
+      </p>
+      <p>
+        Leave-One-Out: deixa-se uma instância da base de dados de fora a qual será usada para
+        teste, treina-se o modelo com o restante. Repete-se o processo N vezes retirando-se uma
+        instância diferente para teste, sendo N a quantidade de instâncias na base.
+      </p>
+  </div>
 </div>
