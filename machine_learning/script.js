@@ -27,10 +27,13 @@ const DATA = [
         category: "Flashcards",
         subitems: [
             {
-                title: "Machine Learning",
+                title: "Abordagens de machine learning",
                 id: "f-ml",
                 cards: [
-                    { q: "Gradiente Descendente?", a: "Algoritmo de otimização." }
+                    { q: "Não supervisionada", a: "Não requer dados rotulados" },
+                    { q: "Supervisionada", a: "Requer dados rotulados" },
+                    { q: "Semi-supervisionada", a: "Alternativa quando não temos dados rotulados em quantidade suficiente" },
+                    { q: "Por reforço", a: "Não precisa de dados de treinamento." }
                 ]
             }
         ]
