@@ -12,11 +12,19 @@
       exemplos por classe, recomenda-se medir precisão, revocação e f-measure (f1-score).
     </p>
 
+    <div class="img-center">
+        <img src="src/imagens/10.png" alt="Imagem ilustrativa">
+    </div>
+
     <p>
       Por exemplo: considere um problema de duas classes (indivíduo tem ou não tem câncer). Pode acontecer da
       acurácia ser alta, porém em situação de desbalanceamento, o sistema estar classificando muito bem uma
       classe e outra não. O que pode ser um problema muito grave.
     </p>
+
+    <div class="img-center">
+        <img src="src/imagens/12.png" alt="Imagem ilustrativa">
+    </div>
 
     <p>
       A matriz de confusão apresentada considera um problema binário, contudo no caso de múltiplas classes
@@ -28,8 +36,13 @@
       Para estimar (VP, VN, FP e FN) em problemas de múltiplas classes podemos considerar uma estratégia um
       contra todos, na qual cada classe seria em dado momento considerada (+) e as demais como (-).
     </p>
+
+    <div class="img-center">
+        <img src="src/imagens/11.png" alt="Imagem ilustrativa">
+    </div>
 </div>
 
+<br>
 <div class="exp-item">
     <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
         <span class="exp-icon">></span>
@@ -71,18 +84,46 @@
         </p>
     </div>
 </div>
+<br>
 
-<div class="img-center">
-    <img src="src/imagens/10.png" alt="Imagem ilustrativa">
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # No caso de um regressor
+    </h3>
+
+    <p>
+      Coeficiente de correlação (r), varia de -1 a 1 (-1: forte correlação negativa; 0: não existe correlação;
+      1: forte correlação positiva).
+    </p>
+
+    <p>
+      Coeficiente de determinação (r2): varia entre 0 e 1, indicando o quanto o modelo consegue explicar
+      os valores observados. quanto maior o r2, mais explicativo é o modelo com relação à amostra.
+    </p>
 </div>
 
-<div class="img-center">
-    <img src="src/imagens/11.png" alt="Imagem ilustrativa">
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # No caso de agrupamento
+    </h3>
+
+    <p>
+      Temos a variância intra e inter-grupos (clusters) e a medida da silhueta (varia
+      entre -1 e 1).
+    </p>
+
+     <ul>
+        <li class="highlight">1: indica ponto interno ao cluster e longe da borda (fronteira) entre grupos (clusters)</li>
+        <li class="highlight">0: indica ponto na fronteira entre grupos ou bem próximo dela. </li>
+        <li class="highlight">-1: indica ponto associado a cluster errado. </li>
+    </ul>
+
+    <div class="img-center">
+      <img src="src/imagens/13.png" alt="Imagem ilustrativa">
+  </div>
 </div>
 
-<div class="img-center">
-    <img src="src/imagens/12.png" alt="Imagem ilustrativa">
-</div>
 
 
 
