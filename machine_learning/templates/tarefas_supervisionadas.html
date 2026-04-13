@@ -126,4 +126,92 @@
     </ul>
 </div>
 
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Avaliação de Classificadores Binários
+    </h3>
 
+    <p>Matriz de confusão (problema binário - duas classes):</p>
+
+    <div class="img-center">
+        <img src="src/imagens/20.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Métricas:
+    </p>
+
+    <ul>
+        <li class="highlight">Taxa de acerto (Acurácia) = (VP+VN) / (VP+VN+FP+FN)</li>
+        <li class="highlight">Precisão (Precision): P = VP / (VP+FP) ⇒ Um modelo que não produz falso positivo(FP) tem precisão igual a 1. (quantos itens selecionados são relevantes)</li>
+        <li class="highlight">Revocação (Recall): R = VP / (VP + FN) ⇒ Um modelo que não produza falso negativo (FN) tem revocação igual a 1. (quantos item relevantes foram selecionados)</li>
+        <li class="highlight">F-measure: 2/(1/P+1/R) => média harmônica entre precisão e revocação</li>
+    </ul>
+
+    <div class="img-center">
+        <img src="src/imagens/21.png" alt="Imagem ilustrativa">
+    </div>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Classificação: Resumo das etapas do processo.
+    </h3>
+    <p>Representação do problema</p>
+    <ul>
+        <li class="highlight">Conhecer muito bem o problema que se pretende modelar.</li>
+        <li class="highlight">Entender o ambiente: estático ou dinâmico? Dados acessíveis?</li>
+        <li class="highlight">Elaborar uma representação apropriada.
+          <ul>
+            <li>Definir os atributos que descrevem o problema (entrada e saída)</li>
+            <li>Selecionar atributos relevantes (filtragem)</li>
+          </ul>
+        </li>
+    </ul>
+
+    <ul>
+      <li class="highlight">Definir as técnicas de AM que serão utilizadas na criação dos modelos.
+        <ul>
+          <li>O que se espera? Alto desempenho apenas? Explicação para os resultados?</li>
+        </ul>
+      </li>
+      <li class="highlight">Definir o protocolo experimental e as métricas de avaliação a serem utilizadas.</li>
+      <li class="highlight">Realizar experimentos para avaliar a capacidade de generalização dos modelos criados.</li>
+      <li class="highlight">Analisar os erros do modelo (matriz de confusão), se necessário voltar na escolha da técnicas de AM ou mesmo na representação do problema.</li>
+      <li class="highlight">Colocar o modelo selecionado em campo (treinar com a maior quantidade de dados possível).</li>
+      <li class="highlight">Acompanhar o desempenho do modelo implantado. Ficar atento para comportamentos indesejáveis que podem ser causados pela presença de viés nos dados de treinamento.</li>
+    </ul>
+
+    <div class="img-center">
+        <img src="src/imagens/21.png" alt="Imagem ilustrativa">
+    </div>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Treinamento e Avaliação de Classificadores e Regressores
+    </h3>
+    <p>Técnicas a serem consideradas:</p>
+    <ul>
+        <li class="highlight">KNN</li>
+        <li class="highlight">Naive Bayes</li>
+        <li class="highlight">Árvores</li>
+        <li class="highlight">SVM</li>
+        <li class="highlight">Redes Neurais Artificiais (MLP - MultiLayer Perceptron)</li>
+    </ul>
+
+    <p>Métodos de Avaliação</p>
+    <ul>
+      <li class="highlight">Holdout</li>
+      <li class="highlight">Validação Cruzada</li>
+      <li class="highlight">Leave-One-Subject-Out (LOSO)</li>
+      <li class="highlight">Resubstuição</li>
+    </ul>
+
+    <p>Métricas</p>
+    <li class="highlight">Classificação: acurácia, precisão, revocação, f-score, matriz de confusão</li>
+    <li class="highlight">Regressão: coeficiente de determinação (r2) e mae (mean absolute error)</li>
+</div>
