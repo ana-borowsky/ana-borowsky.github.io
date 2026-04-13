@@ -1,0 +1,129 @@
+<h1>Tarefas supervisionadas (classificação/ regressão)</h1>
+<p>
+  Demanda dados rotulados.
+</p>
+
+<p>
+  Há diferentes técnicas na AM – diferem na teoria utilizada e modelos gerados.
+</p>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # KNN - K-Nearest Neighbors
+    </h3>
+
+    <div class="img-center">
+        <img src="src/imagens/15.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Principais características:
+    </p>
+
+    <ul>
+        <li class="highlight">Baseado na similaridade entre instâncias</li>
+        <li class="highlight">Demanda uma métrica de similaridade (algoritmo original usa distância Euclidiana) </li>
+        <li class="highlight">Não gera um modelo explícito (não há um algoritmo de treinamento)</li>
+        <li class="highlight">Lento na fase operacional (fase de testes)</li>
+    </ul>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Árvore de decisão
+    </h3>
+
+    <div class="img-center">
+        <img src="src/imagens/16.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Principais características:
+    </p>
+
+    <ul>
+        <li class="highlight">Algoritmo de treinamento constrói a árvore avaliando a relevância de cada atributo no processo de classificação ou regressão.</li>
+        <li class="highlight">Atributo mais importante está na raiz da árvore.</li>
+        <li class="highlight">Nas folhas da árvore temos as classes.</li>
+        <li class="highlight">Cada caminho da raiz até uma folha define uma regra do tipo (IF-THEN).</li>
+        <li class="highlight">Exemplo típico de modelo caixa branca.</li>
+        <li class="highlight">Técnicas de poda são utilizadas para evitar overtraining.</li>
+    </ul>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Classificador Naïve Bayes
+    </h3>
+
+    <div class="img-center">
+        <img src="src/imagens/17.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Principais características:
+    </p>
+
+    <ul>
+        <li class="highlight">Tem como base o Teorema de Bayes</li>
+        <li class="highlight">Usando na geração de classificadores</li>
+        <li class="highlight">Algoritmo de treinamento calcula a probabilidade a priori de cada classe (P(cj)) e a probabilidade condicional de cada atributo de entrada ai dada cada classe cj.</li>
+        <li class="highlight">Naïve = ingênuo, pois assume que os atributos de entrada são independentes.</li>
+        <li class="highlight">Simples e rápido no treinamento e teste.</li>
+    </ul>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # SVM (Support Vector Machine)
+    </h3>
+
+    <div class="img-center">
+        <img src="src/imagens/18.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Principais características:
+    </p>
+
+    <ul>
+        <li class="highlight">Tem como base o Teorema de Bayes</li>
+        <li class="highlight">Classificador binário, problemas de múltiplas classes demandam a combinação de SVMs (estratégias utilizadas: um-contra-todos ou todos-contra-todos).</li>
+        <li class="highlight">Problemas não linearmente separáveis demandam o uso de um Kernel para transformar os dados de treinamento (gera um novo espaço, aumentando a dimensão).</li>
+        <li class="highlight">Parâmetro de relaxamento C e Kernel devem ser ajustados simultaneamente (usa-se o algoritmo de busca: GridSearch())</li>
+    </ul>
+</div>
+
+<br>
+<div class="card">
+    <h3 style="color:var(--syntax-func); margin-bottom:15px">
+        # Redes Neurais Artificiais
+    </h3>
+
+    <div class="img-center">
+        <img src="src/imagens/19.png" alt="Imagem ilustrativa">
+    </div>
+
+    <p>
+        Principais características:
+    </p>
+
+    <ul>
+        <li class="highlight">Necessário definir a topologia da rede:</li>
+        <ul>
+          <li>Camada de entrada = quantidade de atributos de entrada do problema.</li>
+          <li>Camada de saída = quantidade de classes.</li>
+          <li>Camadas ocultas definidas experimentalmente: quantidade de camadas e tamanho de cada uma (quantidade de neurônios).</li>
+          <li>Cada neurônio tem internamente uma função de ativação. Na camada de saída usa-se softmax().</li>
+          <li></li>
+        </ul>
+        <li class="highlight">A rede aprende a partir dos dados via algoritmo que busca minimizar o erro ajustando os pesos nas conexões entre neurônios (Backprogragation).</li>
+        <li class="highlight">Muito suscetível a overtraining (há técnicas para evitar isto).</li>
+    </ul>
+</div>
+
+

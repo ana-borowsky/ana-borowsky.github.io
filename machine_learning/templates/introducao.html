@@ -42,6 +42,7 @@
     </p>
 </div>
 
+<br>
 <div>
     <h3 style="color:var(--syntax-func); margin-bottom:15px"># Do que se trata a aprendizagem de máquina(AM)?</h3>
     <ul>
@@ -53,7 +54,6 @@
     </ul>
 </div>
 
-<br>
 <div class="card">
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
         # Onde encontramos AM?
@@ -72,7 +72,7 @@
 <br>
 <div>
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
-        # Quando utilizar Aprendizagem de máquina (AM)?
+        # Quando utilizar aprendizagem de máquina (AM)?
     </h3>
 
     <p>
@@ -89,8 +89,6 @@
     </ul>
 </div>
 
-
-<br>
 <div class="card">
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
         # Em geral, como são os algoritmos de AM?
@@ -120,9 +118,6 @@
     </ul>
 </div>
 
-<br>
-
-<br>
 <div class="card">
   <h3 style="color:var(--syntax-func); margin-bottom:15px"># Quais as abordagens?</h3>
   <div class="exp-item">
@@ -208,7 +203,6 @@
 </div>
 
 <br>
-
 <div class="card">
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
         # Como avaliar modelos de AM?
@@ -216,29 +210,36 @@
 
     <ul>
         <li>Definir protocolo experimental adequado</li>
+          <ul>
+            <li>Medir a capacidade de generalização do modelo</li>
+            <ul>
+              <li>Definir bases de treinamento, validação e teste.</li>
+            </ul>
+          </ul>
+        <li>Atentar para particularidades do problema</li>
+        <ul>
+          <li>Bases desbalanceadas (classificação) demandam métricas adequadas.</li>
+        </ul>
         <li>Separar dados em treino, validação e teste</li>
         <li>Medir capacidade de generalização</li>
-        <li>Considerar características do problema (ex: dados desbalanceados)</li>
-    </ul>
-
-    <br>
-
-    <h4 style="color:var(--syntax-const)"># Principais métricas</h4>
-
-    <ul class="code-list">
-        <li data-index="1">Classificação → acurácia, precisão, recall, F1-score</li>
-        <li data-index="2">Regressão → erro, correlação, coeficiente de determinação</li>
-        <li data-index="3">Agrupamento → silhueta, dispersão intra/inter grupos</li>
-        <li data-index="4">Associação → suporte, confiança, lift</li>
+        <li>Principais métricas:</li>
+        <ul>
+          <li>Classificação : Taxa de acerto, precisão, revocação, f1_score</li>
+          <li>Regressão : erro, coeficiente de correlação, coeficiente de determinação</li>
+          <li>Agrupamento : dispersão intra/inter grupos, silhueta</li>
+          <li>Associação : suporte, confiança, lift, convicção.</li>
+          <li>Sumarização : precisão e cobertura.</li>
+        </ul>
     </ul>
 </div>
 
 <br>
-
 <div>
     <h3 style="color:var(--syntax-func); margin-bottom:15px">
         # Principais tarefas supervisionadas
     </h3>
+
+    <p>Demanda dados rotulados.</p>
 
     <div class="exp-item">
         <div class="exp-header" onclick="this.parentElement.classList.toggle('open')">
